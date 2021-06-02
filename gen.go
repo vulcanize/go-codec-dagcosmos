@@ -319,7 +319,7 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 		# TxTreeCID is a CID link to the root node of a Tx merkle tree
 		# This CID is composed of the SHA_256 multihash of the root node in the Tx merkle tree and the Tx codec (tbd)
 		# Tx merkle tree is a Merkle tree built from the set of Txs at the given block
-		# Note: The transactions are hashed before being included in the Merkle tree, the leaves of the Merkle tree are the hashes, not the transactions themselves.
+		# Note: The transactions are hashed before being included in the Merkle tree, the leaves of the Merkle tree contain the hashes, not the transactions themselves.
 		type TxTreeCID &MerkleTreeNode
 
 		# CommitTreeCID is a CID link to the root node of a Commit merkle tree
@@ -355,8 +355,8 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 			schema.SpawnStructField("LastBlockID", "BlockID", false, false),
 			schema.SpawnStructField("LastCommitHash", "Link", false, false),     // CommitTreeCID
 			schema.SpawnStructField("DataHash", "Link", false, false),           // TxTreeCID
-			schema.SpawnStructField("ValidatorsHash", "Link", false, false),     // ValidatorsHash
-			schema.SpawnStructField("NextValidatorsHash", "Link", false, false), // ValidatorsHash
+			schema.SpawnStructField("ValidatorsHash", "Link", false, false),     // ValidatorTreeCID
+			schema.SpawnStructField("NextValidatorsHash", "Link", false, false), // ValidatorTreeCID
 			schema.SpawnStructField("ConsensusHash", "Link", false, false),      // HashedParamsCID
 			schema.SpawnStructField("AppHash", "Link", false, false),            // AppStateTreeCID
 			schema.SpawnStructField("LastResultsHash", "Link", false, false),    // LastResultsHash
@@ -688,6 +688,41 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 			schema.SpawnStructField("Data", "Data", false, false),
 			schema.SpawnStructField("Evidence", "EvidenceData", false, false),
 			schema.SpawnStructField("LastCommit", "Commit", false, false),
+		},
+		schema.SpawnStructRepresentationMap(nil),
+	))
+	/*
+		type MerkleTreeNode union {
+		    | MerkleTreeInnerNode "parent"
+		    | MerkleTreeLeafNode "leaf"
+		} representation keyed
+
+		# MerkleTreeRootNode is the top-most parent node in a merkle tree; the root node of the tree.
+		# It can be a leaf node if there is only one value in the tree
+		type MerkleTreeRootNode MerkleTreeNode
+
+		# MerkleTreeInnerNode nodes contain two byte arrays which contain the hashes which reference its two child nodes.
+		type MerkleTreeInnerNode struct {
+		    ChildA &MerkleTreeNode
+		    ChildB &MerkleTreeNode
+		}
+
+		# MerkleTreeLeafNode is a single byte array containing the value stored at that leaf
+		# Often times this "value" will be a hash of content rather than the content itself
+		type MerkleTreeLeafNode struct {
+		    Value Bytes
+		}
+	*/
+	ts.Accumulate(schema.SpawnStruct("MerkleTreeLeafNode",
+		[]schema.StructField{
+			schema.SpawnStructField("Value", "Bytes", false, false),
+		},
+		schema.SpawnStructRepresentationMap(nil),
+	))
+	ts.Accumulate(schema.SpawnStruct("MerkleTreeInnerNode",
+		[]schema.StructField{
+			schema.SpawnStructField("ChildA", "Link", false, false),
+			schema.SpawnStructField("ChildB", "Link", false, false),
 		},
 		schema.SpawnStructRepresentationMap(nil),
 	))

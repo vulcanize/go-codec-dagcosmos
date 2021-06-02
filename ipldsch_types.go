@@ -70,6 +70,10 @@ type typeSlab struct {
 	LightClientAttackEvidence__Repr _LightClientAttackEvidence__ReprPrototype
 	Link                            _Link__Prototype
 	Link__Repr                      _Link__ReprPrototype
+	MerkleTreeInnerNode             _MerkleTreeInnerNode__Prototype
+	MerkleTreeInnerNode__Repr       _MerkleTreeInnerNode__ReprPrototype
+	MerkleTreeLeafNode              _MerkleTreeLeafNode__Prototype
+	MerkleTreeLeafNode__Repr        _MerkleTreeLeafNode__ReprPrototype
 	Part                            _Part__Prototype
 	Part__Repr                      _Part__ReprPrototype
 	PartSet                         _PartSet__Prototype
@@ -305,6 +309,19 @@ type _LightClientAttackEvidence struct {
 // Link matches the IPLD Schema type "Link".  It has link kind.
 type Link = *_Link
 type _Link struct{ x ipld.Link }
+
+// MerkleTreeInnerNode matches the IPLD Schema type "MerkleTreeInnerNode".  It has Struct type-kind, and may be interrogated like map kind.
+type MerkleTreeInnerNode = *_MerkleTreeInnerNode
+type _MerkleTreeInnerNode struct {
+	ChildA _Link
+	ChildB _Link
+}
+
+// MerkleTreeLeafNode matches the IPLD Schema type "MerkleTreeLeafNode".  It has Struct type-kind, and may be interrogated like map kind.
+type MerkleTreeLeafNode = *_MerkleTreeLeafNode
+type _MerkleTreeLeafNode struct {
+	Value _Bytes
+}
 
 // Part matches the IPLD Schema type "Part".  It has Struct type-kind, and may be interrogated like map kind.
 type Part = *_Part

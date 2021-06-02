@@ -18966,6 +18966,1766 @@ var _ ipld.Node = &_Link__Repr{}
 type _Link__ReprPrototype = _Link__Prototype
 type _Link__ReprAssembler = _Link__Assembler
 
+func (n _MerkleTreeInnerNode) FieldChildA() Link {
+	return &n.ChildA
+}
+func (n _MerkleTreeInnerNode) FieldChildB() Link {
+	return &n.ChildB
+}
+
+type _MerkleTreeInnerNode__Maybe struct {
+	m schema.Maybe
+	v MerkleTreeInnerNode
+}
+type MaybeMerkleTreeInnerNode = *_MerkleTreeInnerNode__Maybe
+
+func (m MaybeMerkleTreeInnerNode) IsNull() bool {
+	return m.m == schema.Maybe_Null
+}
+func (m MaybeMerkleTreeInnerNode) IsAbsent() bool {
+	return m.m == schema.Maybe_Absent
+}
+func (m MaybeMerkleTreeInnerNode) Exists() bool {
+	return m.m == schema.Maybe_Value
+}
+func (m MaybeMerkleTreeInnerNode) AsNode() ipld.Node {
+	switch m.m {
+	case schema.Maybe_Absent:
+		return ipld.Absent
+	case schema.Maybe_Null:
+		return ipld.Null
+	case schema.Maybe_Value:
+		return m.v
+	default:
+		panic("unreachable")
+	}
+}
+func (m MaybeMerkleTreeInnerNode) Must() MerkleTreeInnerNode {
+	if !m.Exists() {
+		panic("unbox of a maybe rejected")
+	}
+	return m.v
+}
+
+var (
+	fieldName__MerkleTreeInnerNode_ChildA = _String{"ChildA"}
+	fieldName__MerkleTreeInnerNode_ChildB = _String{"ChildB"}
+)
+var _ ipld.Node = (MerkleTreeInnerNode)(&_MerkleTreeInnerNode{})
+var _ schema.TypedNode = (MerkleTreeInnerNode)(&_MerkleTreeInnerNode{})
+
+func (MerkleTreeInnerNode) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n MerkleTreeInnerNode) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "ChildA":
+		return &n.ChildA, nil
+	case "ChildB":
+		return &n.ChildB, nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n MerkleTreeInnerNode) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (MerkleTreeInnerNode) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeInnerNode"}.LookupByIndex(0)
+}
+func (n MerkleTreeInnerNode) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n MerkleTreeInnerNode) MapIterator() ipld.MapIterator {
+	return &_MerkleTreeInnerNode__MapItr{n, 0}
+}
+
+type _MerkleTreeInnerNode__MapItr struct {
+	n   MerkleTreeInnerNode
+	idx int
+}
+
+func (itr *_MerkleTreeInnerNode__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.idx >= 2 {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.idx {
+	case 0:
+		k = &fieldName__MerkleTreeInnerNode_ChildA
+		v = &itr.n.ChildA
+	case 1:
+		k = &fieldName__MerkleTreeInnerNode_ChildB
+		v = &itr.n.ChildB
+	default:
+		panic("unreachable")
+	}
+	itr.idx++
+	return
+}
+func (itr *_MerkleTreeInnerNode__MapItr) Done() bool {
+	return itr.idx >= 2
+}
+
+func (MerkleTreeInnerNode) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (MerkleTreeInnerNode) Length() int64 {
+	return 2
+}
+func (MerkleTreeInnerNode) IsAbsent() bool {
+	return false
+}
+func (MerkleTreeInnerNode) IsNull() bool {
+	return false
+}
+func (MerkleTreeInnerNode) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeInnerNode"}.AsBool()
+}
+func (MerkleTreeInnerNode) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeInnerNode"}.AsInt()
+}
+func (MerkleTreeInnerNode) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeInnerNode"}.AsFloat()
+}
+func (MerkleTreeInnerNode) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeInnerNode"}.AsString()
+}
+func (MerkleTreeInnerNode) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeInnerNode"}.AsBytes()
+}
+func (MerkleTreeInnerNode) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeInnerNode"}.AsLink()
+}
+func (MerkleTreeInnerNode) Prototype() ipld.NodePrototype {
+	return _MerkleTreeInnerNode__Prototype{}
+}
+
+type _MerkleTreeInnerNode__Prototype struct{}
+
+func (_MerkleTreeInnerNode__Prototype) NewBuilder() ipld.NodeBuilder {
+	var nb _MerkleTreeInnerNode__Builder
+	nb.Reset()
+	return &nb
+}
+
+type _MerkleTreeInnerNode__Builder struct {
+	_MerkleTreeInnerNode__Assembler
+}
+
+func (nb *_MerkleTreeInnerNode__Builder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_MerkleTreeInnerNode__Builder) Reset() {
+	var w _MerkleTreeInnerNode
+	var m schema.Maybe
+	*nb = _MerkleTreeInnerNode__Builder{_MerkleTreeInnerNode__Assembler{w: &w, m: &m}}
+}
+
+type _MerkleTreeInnerNode__Assembler struct {
+	w     *_MerkleTreeInnerNode
+	m     *schema.Maybe
+	state maState
+	s     int
+	f     int
+
+	cm        schema.Maybe
+	ca_ChildA _Link__Assembler
+	ca_ChildB _Link__Assembler
+}
+
+func (na *_MerkleTreeInnerNode__Assembler) reset() {
+	na.state = maState_initial
+	na.s = 0
+	na.ca_ChildA.reset()
+	na.ca_ChildB.reset()
+}
+
+var (
+	fieldBit__MerkleTreeInnerNode_ChildA      = 1 << 0
+	fieldBit__MerkleTreeInnerNode_ChildB      = 1 << 1
+	fieldBits__MerkleTreeInnerNode_sufficient = 0 + 1<<0 + 1<<1
+)
+
+func (na *_MerkleTreeInnerNode__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_MerkleTreeInnerNode{}
+	}
+	return na, nil
+}
+func (_MerkleTreeInnerNode__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode"}.BeginList(0)
+}
+func (na *_MerkleTreeInnerNode__Assembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_MerkleTreeInnerNode__Assembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode"}.AssignBool(false)
+}
+func (_MerkleTreeInnerNode__Assembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode"}.AssignInt(0)
+}
+func (_MerkleTreeInnerNode__Assembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode"}.AssignFloat(0)
+}
+func (_MerkleTreeInnerNode__Assembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode"}.AssignString("")
+}
+func (_MerkleTreeInnerNode__Assembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode"}.AssignBytes(nil)
+}
+func (_MerkleTreeInnerNode__Assembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode"}.AssignLink(nil)
+}
+func (na *_MerkleTreeInnerNode__Assembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_MerkleTreeInnerNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.MerkleTreeInnerNode", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_MerkleTreeInnerNode__Assembler) Prototype() ipld.NodePrototype {
+	return _MerkleTreeInnerNode__Prototype{}
+}
+func (ma *_MerkleTreeInnerNode__Assembler) valueFinishTidy() bool {
+	switch ma.f {
+	case 0:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_ChildA.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 1:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_ChildB.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_MerkleTreeInnerNode__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	switch k {
+	case "ChildA":
+		if ma.s&fieldBit__MerkleTreeInnerNode_ChildA != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildA}
+		}
+		ma.s += fieldBit__MerkleTreeInnerNode_ChildA
+		ma.state = maState_midValue
+		ma.f = 0
+		ma.ca_ChildA.w = &ma.w.ChildA
+		ma.ca_ChildA.m = &ma.cm
+		return &ma.ca_ChildA, nil
+	case "ChildB":
+		if ma.s&fieldBit__MerkleTreeInnerNode_ChildB != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildB}
+		}
+		ma.s += fieldBit__MerkleTreeInnerNode_ChildB
+		ma.state = maState_midValue
+		ma.f = 1
+		ma.ca_ChildB.w = &ma.w.ChildB
+		ma.ca_ChildB.m = &ma.cm
+		return &ma.ca_ChildB, nil
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.MerkleTreeInnerNode", Key: &_String{k}}
+}
+func (ma *_MerkleTreeInnerNode__Assembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_MerkleTreeInnerNode__KeyAssembler)(ma)
+}
+func (ma *_MerkleTreeInnerNode__Assembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.f {
+	case 0:
+		ma.ca_ChildA.w = &ma.w.ChildA
+		ma.ca_ChildA.m = &ma.cm
+		return &ma.ca_ChildA
+	case 1:
+		ma.ca_ChildB.w = &ma.w.ChildB
+		ma.ca_ChildB.m = &ma.cm
+		return &ma.ca_ChildB
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_MerkleTreeInnerNode__Assembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.s&fieldBits__MerkleTreeInnerNode_sufficient != fieldBits__MerkleTreeInnerNode_sufficient {
+		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
+		if ma.s&fieldBit__MerkleTreeInnerNode_ChildA == 0 {
+			err.Missing = append(err.Missing, "ChildA")
+		}
+		if ma.s&fieldBit__MerkleTreeInnerNode_ChildB == 0 {
+			err.Missing = append(err.Missing, "ChildB")
+		}
+		return err
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_MerkleTreeInnerNode__Assembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_MerkleTreeInnerNode__Assembler) ValuePrototype(k string) ipld.NodePrototype {
+	panic("todo structbuilder mapassembler valueprototype")
+}
+
+type _MerkleTreeInnerNode__KeyAssembler _MerkleTreeInnerNode__Assembler
+
+func (_MerkleTreeInnerNode__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.KeyAssembler"}.BeginMap(0)
+}
+func (_MerkleTreeInnerNode__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.KeyAssembler"}.BeginList(0)
+}
+func (na *_MerkleTreeInnerNode__KeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.KeyAssembler"}.AssignNull()
+}
+func (_MerkleTreeInnerNode__KeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.KeyAssembler"}.AssignBool(false)
+}
+func (_MerkleTreeInnerNode__KeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.KeyAssembler"}.AssignInt(0)
+}
+func (_MerkleTreeInnerNode__KeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_MerkleTreeInnerNode__KeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	switch k {
+	case "ChildA":
+		if ka.s&fieldBit__MerkleTreeInnerNode_ChildA != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildA}
+		}
+		ka.s += fieldBit__MerkleTreeInnerNode_ChildA
+		ka.state = maState_expectValue
+		ka.f = 0
+	case "ChildB":
+		if ka.s&fieldBit__MerkleTreeInnerNode_ChildB != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildB}
+		}
+		ka.s += fieldBit__MerkleTreeInnerNode_ChildB
+		ka.state = maState_expectValue
+		ka.f = 1
+	default:
+		return ipld.ErrInvalidKey{TypeName: "dagcosmos.MerkleTreeInnerNode", Key: &_String{k}}
+	}
+	return nil
+}
+func (_MerkleTreeInnerNode__KeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.KeyAssembler"}.AssignBytes(nil)
+}
+func (_MerkleTreeInnerNode__KeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_MerkleTreeInnerNode__KeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_MerkleTreeInnerNode__KeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (MerkleTreeInnerNode) Type() schema.Type {
+	return nil /*TODO:typelit*/
+}
+func (n MerkleTreeInnerNode) Representation() ipld.Node {
+	return (*_MerkleTreeInnerNode__Repr)(n)
+}
+
+type _MerkleTreeInnerNode__Repr _MerkleTreeInnerNode
+
+var (
+	fieldName__MerkleTreeInnerNode_ChildA_serial = _String{"ChildA"}
+	fieldName__MerkleTreeInnerNode_ChildB_serial = _String{"ChildB"}
+)
+var _ ipld.Node = &_MerkleTreeInnerNode__Repr{}
+
+func (_MerkleTreeInnerNode__Repr) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n *_MerkleTreeInnerNode__Repr) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "ChildA":
+		return n.ChildA.Representation(), nil
+	case "ChildB":
+		return n.ChildB.Representation(), nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n *_MerkleTreeInnerNode__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (_MerkleTreeInnerNode__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeInnerNode.Repr"}.LookupByIndex(0)
+}
+func (n _MerkleTreeInnerNode__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n *_MerkleTreeInnerNode__Repr) MapIterator() ipld.MapIterator {
+	return &_MerkleTreeInnerNode__ReprMapItr{n, 0}
+}
+
+type _MerkleTreeInnerNode__ReprMapItr struct {
+	n   *_MerkleTreeInnerNode__Repr
+	idx int
+}
+
+func (itr *_MerkleTreeInnerNode__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.idx >= 2 {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.idx {
+	case 0:
+		k = &fieldName__MerkleTreeInnerNode_ChildA_serial
+		v = itr.n.ChildA.Representation()
+	case 1:
+		k = &fieldName__MerkleTreeInnerNode_ChildB_serial
+		v = itr.n.ChildB.Representation()
+	default:
+		panic("unreachable")
+	}
+	itr.idx++
+	return
+}
+func (itr *_MerkleTreeInnerNode__ReprMapItr) Done() bool {
+	return itr.idx >= 2
+}
+func (_MerkleTreeInnerNode__Repr) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (rn *_MerkleTreeInnerNode__Repr) Length() int64 {
+	l := 2
+	return int64(l)
+}
+func (_MerkleTreeInnerNode__Repr) IsAbsent() bool {
+	return false
+}
+func (_MerkleTreeInnerNode__Repr) IsNull() bool {
+	return false
+}
+func (_MerkleTreeInnerNode__Repr) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeInnerNode.Repr"}.AsBool()
+}
+func (_MerkleTreeInnerNode__Repr) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeInnerNode.Repr"}.AsInt()
+}
+func (_MerkleTreeInnerNode__Repr) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeInnerNode.Repr"}.AsFloat()
+}
+func (_MerkleTreeInnerNode__Repr) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeInnerNode.Repr"}.AsString()
+}
+func (_MerkleTreeInnerNode__Repr) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeInnerNode.Repr"}.AsBytes()
+}
+func (_MerkleTreeInnerNode__Repr) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeInnerNode.Repr"}.AsLink()
+}
+func (_MerkleTreeInnerNode__Repr) Prototype() ipld.NodePrototype {
+	return _MerkleTreeInnerNode__ReprPrototype{}
+}
+
+type _MerkleTreeInnerNode__ReprPrototype struct{}
+
+func (_MerkleTreeInnerNode__ReprPrototype) NewBuilder() ipld.NodeBuilder {
+	var nb _MerkleTreeInnerNode__ReprBuilder
+	nb.Reset()
+	return &nb
+}
+
+type _MerkleTreeInnerNode__ReprBuilder struct {
+	_MerkleTreeInnerNode__ReprAssembler
+}
+
+func (nb *_MerkleTreeInnerNode__ReprBuilder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_MerkleTreeInnerNode__ReprBuilder) Reset() {
+	var w _MerkleTreeInnerNode
+	var m schema.Maybe
+	*nb = _MerkleTreeInnerNode__ReprBuilder{_MerkleTreeInnerNode__ReprAssembler{w: &w, m: &m}}
+}
+
+type _MerkleTreeInnerNode__ReprAssembler struct {
+	w     *_MerkleTreeInnerNode
+	m     *schema.Maybe
+	state maState
+	s     int
+	f     int
+
+	cm        schema.Maybe
+	ca_ChildA _Link__ReprAssembler
+	ca_ChildB _Link__ReprAssembler
+}
+
+func (na *_MerkleTreeInnerNode__ReprAssembler) reset() {
+	na.state = maState_initial
+	na.s = 0
+	na.ca_ChildA.reset()
+	na.ca_ChildB.reset()
+}
+func (na *_MerkleTreeInnerNode__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_MerkleTreeInnerNode{}
+	}
+	return na, nil
+}
+func (_MerkleTreeInnerNode__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode.Repr"}.BeginList(0)
+}
+func (na *_MerkleTreeInnerNode__ReprAssembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode.Repr.Repr"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_MerkleTreeInnerNode__ReprAssembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode.Repr"}.AssignBool(false)
+}
+func (_MerkleTreeInnerNode__ReprAssembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode.Repr"}.AssignInt(0)
+}
+func (_MerkleTreeInnerNode__ReprAssembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode.Repr"}.AssignFloat(0)
+}
+func (_MerkleTreeInnerNode__ReprAssembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode.Repr"}.AssignString("")
+}
+func (_MerkleTreeInnerNode__ReprAssembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode.Repr"}.AssignBytes(nil)
+}
+func (_MerkleTreeInnerNode__ReprAssembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeInnerNode.Repr"}.AssignLink(nil)
+}
+func (na *_MerkleTreeInnerNode__ReprAssembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_MerkleTreeInnerNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.MerkleTreeInnerNode.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_MerkleTreeInnerNode__ReprAssembler) Prototype() ipld.NodePrototype {
+	return _MerkleTreeInnerNode__ReprPrototype{}
+}
+func (ma *_MerkleTreeInnerNode__ReprAssembler) valueFinishTidy() bool {
+	switch ma.f {
+	case 0:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 1:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_MerkleTreeInnerNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	switch k {
+	case "ChildA":
+		if ma.s&fieldBit__MerkleTreeInnerNode_ChildA != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildA_serial}
+		}
+		ma.s += fieldBit__MerkleTreeInnerNode_ChildA
+		ma.state = maState_midValue
+		ma.f = 0
+		ma.ca_ChildA.w = &ma.w.ChildA
+		ma.ca_ChildA.m = &ma.cm
+		return &ma.ca_ChildA, nil
+	case "ChildB":
+		if ma.s&fieldBit__MerkleTreeInnerNode_ChildB != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildB_serial}
+		}
+		ma.s += fieldBit__MerkleTreeInnerNode_ChildB
+		ma.state = maState_midValue
+		ma.f = 1
+		ma.ca_ChildB.w = &ma.w.ChildB
+		ma.ca_ChildB.m = &ma.cm
+		return &ma.ca_ChildB, nil
+	default:
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.MerkleTreeInnerNode.Repr", Key: &_String{k}}
+}
+func (ma *_MerkleTreeInnerNode__ReprAssembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_MerkleTreeInnerNode__ReprKeyAssembler)(ma)
+}
+func (ma *_MerkleTreeInnerNode__ReprAssembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.f {
+	case 0:
+		ma.ca_ChildA.w = &ma.w.ChildA
+		ma.ca_ChildA.m = &ma.cm
+		return &ma.ca_ChildA
+	case 1:
+		ma.ca_ChildB.w = &ma.w.ChildB
+		ma.ca_ChildB.m = &ma.cm
+		return &ma.ca_ChildB
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_MerkleTreeInnerNode__ReprAssembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.s&fieldBits__MerkleTreeInnerNode_sufficient != fieldBits__MerkleTreeInnerNode_sufficient {
+		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
+		if ma.s&fieldBit__MerkleTreeInnerNode_ChildA == 0 {
+			err.Missing = append(err.Missing, "ChildA")
+		}
+		if ma.s&fieldBit__MerkleTreeInnerNode_ChildB == 0 {
+			err.Missing = append(err.Missing, "ChildB")
+		}
+		return err
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_MerkleTreeInnerNode__ReprAssembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_MerkleTreeInnerNode__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
+	panic("todo structbuilder mapassembler repr valueprototype")
+}
+
+type _MerkleTreeInnerNode__ReprKeyAssembler _MerkleTreeInnerNode__ReprAssembler
+
+func (_MerkleTreeInnerNode__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.Repr.KeyAssembler"}.BeginMap(0)
+}
+func (_MerkleTreeInnerNode__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.Repr.KeyAssembler"}.BeginList(0)
+}
+func (na *_MerkleTreeInnerNode__ReprKeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.Repr.KeyAssembler"}.AssignNull()
+}
+func (_MerkleTreeInnerNode__ReprKeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.Repr.KeyAssembler"}.AssignBool(false)
+}
+func (_MerkleTreeInnerNode__ReprKeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.Repr.KeyAssembler"}.AssignInt(0)
+}
+func (_MerkleTreeInnerNode__ReprKeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.Repr.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_MerkleTreeInnerNode__ReprKeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	switch k {
+	case "ChildA":
+		if ka.s&fieldBit__MerkleTreeInnerNode_ChildA != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildA_serial}
+		}
+		ka.s += fieldBit__MerkleTreeInnerNode_ChildA
+		ka.state = maState_expectValue
+		ka.f = 0
+		return nil
+	case "ChildB":
+		if ka.s&fieldBit__MerkleTreeInnerNode_ChildB != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildB_serial}
+		}
+		ka.s += fieldBit__MerkleTreeInnerNode_ChildB
+		ka.state = maState_expectValue
+		ka.f = 1
+		return nil
+	}
+	return ipld.ErrInvalidKey{TypeName: "dagcosmos.MerkleTreeInnerNode.Repr", Key: &_String{k}}
+}
+func (_MerkleTreeInnerNode__ReprKeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.Repr.KeyAssembler"}.AssignBytes(nil)
+}
+func (_MerkleTreeInnerNode__ReprKeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeInnerNode.Repr.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_MerkleTreeInnerNode__ReprKeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_MerkleTreeInnerNode__ReprKeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+
+func (n _MerkleTreeLeafNode) FieldValue() Bytes {
+	return &n.Value
+}
+
+type _MerkleTreeLeafNode__Maybe struct {
+	m schema.Maybe
+	v MerkleTreeLeafNode
+}
+type MaybeMerkleTreeLeafNode = *_MerkleTreeLeafNode__Maybe
+
+func (m MaybeMerkleTreeLeafNode) IsNull() bool {
+	return m.m == schema.Maybe_Null
+}
+func (m MaybeMerkleTreeLeafNode) IsAbsent() bool {
+	return m.m == schema.Maybe_Absent
+}
+func (m MaybeMerkleTreeLeafNode) Exists() bool {
+	return m.m == schema.Maybe_Value
+}
+func (m MaybeMerkleTreeLeafNode) AsNode() ipld.Node {
+	switch m.m {
+	case schema.Maybe_Absent:
+		return ipld.Absent
+	case schema.Maybe_Null:
+		return ipld.Null
+	case schema.Maybe_Value:
+		return m.v
+	default:
+		panic("unreachable")
+	}
+}
+func (m MaybeMerkleTreeLeafNode) Must() MerkleTreeLeafNode {
+	if !m.Exists() {
+		panic("unbox of a maybe rejected")
+	}
+	return m.v
+}
+
+var (
+	fieldName__MerkleTreeLeafNode_Value = _String{"Value"}
+)
+var _ ipld.Node = (MerkleTreeLeafNode)(&_MerkleTreeLeafNode{})
+var _ schema.TypedNode = (MerkleTreeLeafNode)(&_MerkleTreeLeafNode{})
+
+func (MerkleTreeLeafNode) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n MerkleTreeLeafNode) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "Value":
+		return &n.Value, nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n MerkleTreeLeafNode) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (MerkleTreeLeafNode) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeLeafNode"}.LookupByIndex(0)
+}
+func (n MerkleTreeLeafNode) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n MerkleTreeLeafNode) MapIterator() ipld.MapIterator {
+	return &_MerkleTreeLeafNode__MapItr{n, 0}
+}
+
+type _MerkleTreeLeafNode__MapItr struct {
+	n   MerkleTreeLeafNode
+	idx int
+}
+
+func (itr *_MerkleTreeLeafNode__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.idx >= 1 {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.idx {
+	case 0:
+		k = &fieldName__MerkleTreeLeafNode_Value
+		v = &itr.n.Value
+	default:
+		panic("unreachable")
+	}
+	itr.idx++
+	return
+}
+func (itr *_MerkleTreeLeafNode__MapItr) Done() bool {
+	return itr.idx >= 1
+}
+
+func (MerkleTreeLeafNode) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (MerkleTreeLeafNode) Length() int64 {
+	return 1
+}
+func (MerkleTreeLeafNode) IsAbsent() bool {
+	return false
+}
+func (MerkleTreeLeafNode) IsNull() bool {
+	return false
+}
+func (MerkleTreeLeafNode) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeLeafNode"}.AsBool()
+}
+func (MerkleTreeLeafNode) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeLeafNode"}.AsInt()
+}
+func (MerkleTreeLeafNode) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeLeafNode"}.AsFloat()
+}
+func (MerkleTreeLeafNode) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeLeafNode"}.AsString()
+}
+func (MerkleTreeLeafNode) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeLeafNode"}.AsBytes()
+}
+func (MerkleTreeLeafNode) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeLeafNode"}.AsLink()
+}
+func (MerkleTreeLeafNode) Prototype() ipld.NodePrototype {
+	return _MerkleTreeLeafNode__Prototype{}
+}
+
+type _MerkleTreeLeafNode__Prototype struct{}
+
+func (_MerkleTreeLeafNode__Prototype) NewBuilder() ipld.NodeBuilder {
+	var nb _MerkleTreeLeafNode__Builder
+	nb.Reset()
+	return &nb
+}
+
+type _MerkleTreeLeafNode__Builder struct {
+	_MerkleTreeLeafNode__Assembler
+}
+
+func (nb *_MerkleTreeLeafNode__Builder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_MerkleTreeLeafNode__Builder) Reset() {
+	var w _MerkleTreeLeafNode
+	var m schema.Maybe
+	*nb = _MerkleTreeLeafNode__Builder{_MerkleTreeLeafNode__Assembler{w: &w, m: &m}}
+}
+
+type _MerkleTreeLeafNode__Assembler struct {
+	w     *_MerkleTreeLeafNode
+	m     *schema.Maybe
+	state maState
+	s     int
+	f     int
+
+	cm       schema.Maybe
+	ca_Value _Bytes__Assembler
+}
+
+func (na *_MerkleTreeLeafNode__Assembler) reset() {
+	na.state = maState_initial
+	na.s = 0
+	na.ca_Value.reset()
+}
+
+var (
+	fieldBit__MerkleTreeLeafNode_Value       = 1 << 0
+	fieldBits__MerkleTreeLeafNode_sufficient = 0 + 1<<0
+)
+
+func (na *_MerkleTreeLeafNode__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_MerkleTreeLeafNode{}
+	}
+	return na, nil
+}
+func (_MerkleTreeLeafNode__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode"}.BeginList(0)
+}
+func (na *_MerkleTreeLeafNode__Assembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_MerkleTreeLeafNode__Assembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode"}.AssignBool(false)
+}
+func (_MerkleTreeLeafNode__Assembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode"}.AssignInt(0)
+}
+func (_MerkleTreeLeafNode__Assembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode"}.AssignFloat(0)
+}
+func (_MerkleTreeLeafNode__Assembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode"}.AssignString("")
+}
+func (_MerkleTreeLeafNode__Assembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode"}.AssignBytes(nil)
+}
+func (_MerkleTreeLeafNode__Assembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode"}.AssignLink(nil)
+}
+func (na *_MerkleTreeLeafNode__Assembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_MerkleTreeLeafNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.MerkleTreeLeafNode", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_MerkleTreeLeafNode__Assembler) Prototype() ipld.NodePrototype {
+	return _MerkleTreeLeafNode__Prototype{}
+}
+func (ma *_MerkleTreeLeafNode__Assembler) valueFinishTidy() bool {
+	switch ma.f {
+	case 0:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Value.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_MerkleTreeLeafNode__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	switch k {
+	case "Value":
+		if ma.s&fieldBit__MerkleTreeLeafNode_Value != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeLeafNode_Value}
+		}
+		ma.s += fieldBit__MerkleTreeLeafNode_Value
+		ma.state = maState_midValue
+		ma.f = 0
+		ma.ca_Value.w = &ma.w.Value
+		ma.ca_Value.m = &ma.cm
+		return &ma.ca_Value, nil
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.MerkleTreeLeafNode", Key: &_String{k}}
+}
+func (ma *_MerkleTreeLeafNode__Assembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_MerkleTreeLeafNode__KeyAssembler)(ma)
+}
+func (ma *_MerkleTreeLeafNode__Assembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.f {
+	case 0:
+		ma.ca_Value.w = &ma.w.Value
+		ma.ca_Value.m = &ma.cm
+		return &ma.ca_Value
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_MerkleTreeLeafNode__Assembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.s&fieldBits__MerkleTreeLeafNode_sufficient != fieldBits__MerkleTreeLeafNode_sufficient {
+		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
+		if ma.s&fieldBit__MerkleTreeLeafNode_Value == 0 {
+			err.Missing = append(err.Missing, "Value")
+		}
+		return err
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_MerkleTreeLeafNode__Assembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_MerkleTreeLeafNode__Assembler) ValuePrototype(k string) ipld.NodePrototype {
+	panic("todo structbuilder mapassembler valueprototype")
+}
+
+type _MerkleTreeLeafNode__KeyAssembler _MerkleTreeLeafNode__Assembler
+
+func (_MerkleTreeLeafNode__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.KeyAssembler"}.BeginMap(0)
+}
+func (_MerkleTreeLeafNode__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.KeyAssembler"}.BeginList(0)
+}
+func (na *_MerkleTreeLeafNode__KeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.KeyAssembler"}.AssignNull()
+}
+func (_MerkleTreeLeafNode__KeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.KeyAssembler"}.AssignBool(false)
+}
+func (_MerkleTreeLeafNode__KeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.KeyAssembler"}.AssignInt(0)
+}
+func (_MerkleTreeLeafNode__KeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_MerkleTreeLeafNode__KeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	switch k {
+	case "Value":
+		if ka.s&fieldBit__MerkleTreeLeafNode_Value != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeLeafNode_Value}
+		}
+		ka.s += fieldBit__MerkleTreeLeafNode_Value
+		ka.state = maState_expectValue
+		ka.f = 0
+	default:
+		return ipld.ErrInvalidKey{TypeName: "dagcosmos.MerkleTreeLeafNode", Key: &_String{k}}
+	}
+	return nil
+}
+func (_MerkleTreeLeafNode__KeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.KeyAssembler"}.AssignBytes(nil)
+}
+func (_MerkleTreeLeafNode__KeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_MerkleTreeLeafNode__KeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_MerkleTreeLeafNode__KeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (MerkleTreeLeafNode) Type() schema.Type {
+	return nil /*TODO:typelit*/
+}
+func (n MerkleTreeLeafNode) Representation() ipld.Node {
+	return (*_MerkleTreeLeafNode__Repr)(n)
+}
+
+type _MerkleTreeLeafNode__Repr _MerkleTreeLeafNode
+
+var (
+	fieldName__MerkleTreeLeafNode_Value_serial = _String{"Value"}
+)
+var _ ipld.Node = &_MerkleTreeLeafNode__Repr{}
+
+func (_MerkleTreeLeafNode__Repr) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n *_MerkleTreeLeafNode__Repr) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "Value":
+		return n.Value.Representation(), nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n *_MerkleTreeLeafNode__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (_MerkleTreeLeafNode__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeLeafNode.Repr"}.LookupByIndex(0)
+}
+func (n _MerkleTreeLeafNode__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n *_MerkleTreeLeafNode__Repr) MapIterator() ipld.MapIterator {
+	return &_MerkleTreeLeafNode__ReprMapItr{n, 0}
+}
+
+type _MerkleTreeLeafNode__ReprMapItr struct {
+	n   *_MerkleTreeLeafNode__Repr
+	idx int
+}
+
+func (itr *_MerkleTreeLeafNode__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.idx >= 1 {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.idx {
+	case 0:
+		k = &fieldName__MerkleTreeLeafNode_Value_serial
+		v = itr.n.Value.Representation()
+	default:
+		panic("unreachable")
+	}
+	itr.idx++
+	return
+}
+func (itr *_MerkleTreeLeafNode__ReprMapItr) Done() bool {
+	return itr.idx >= 1
+}
+func (_MerkleTreeLeafNode__Repr) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (rn *_MerkleTreeLeafNode__Repr) Length() int64 {
+	l := 1
+	return int64(l)
+}
+func (_MerkleTreeLeafNode__Repr) IsAbsent() bool {
+	return false
+}
+func (_MerkleTreeLeafNode__Repr) IsNull() bool {
+	return false
+}
+func (_MerkleTreeLeafNode__Repr) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeLeafNode.Repr"}.AsBool()
+}
+func (_MerkleTreeLeafNode__Repr) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeLeafNode.Repr"}.AsInt()
+}
+func (_MerkleTreeLeafNode__Repr) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeLeafNode.Repr"}.AsFloat()
+}
+func (_MerkleTreeLeafNode__Repr) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeLeafNode.Repr"}.AsString()
+}
+func (_MerkleTreeLeafNode__Repr) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeLeafNode.Repr"}.AsBytes()
+}
+func (_MerkleTreeLeafNode__Repr) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeLeafNode.Repr"}.AsLink()
+}
+func (_MerkleTreeLeafNode__Repr) Prototype() ipld.NodePrototype {
+	return _MerkleTreeLeafNode__ReprPrototype{}
+}
+
+type _MerkleTreeLeafNode__ReprPrototype struct{}
+
+func (_MerkleTreeLeafNode__ReprPrototype) NewBuilder() ipld.NodeBuilder {
+	var nb _MerkleTreeLeafNode__ReprBuilder
+	nb.Reset()
+	return &nb
+}
+
+type _MerkleTreeLeafNode__ReprBuilder struct {
+	_MerkleTreeLeafNode__ReprAssembler
+}
+
+func (nb *_MerkleTreeLeafNode__ReprBuilder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_MerkleTreeLeafNode__ReprBuilder) Reset() {
+	var w _MerkleTreeLeafNode
+	var m schema.Maybe
+	*nb = _MerkleTreeLeafNode__ReprBuilder{_MerkleTreeLeafNode__ReprAssembler{w: &w, m: &m}}
+}
+
+type _MerkleTreeLeafNode__ReprAssembler struct {
+	w     *_MerkleTreeLeafNode
+	m     *schema.Maybe
+	state maState
+	s     int
+	f     int
+
+	cm       schema.Maybe
+	ca_Value _Bytes__ReprAssembler
+}
+
+func (na *_MerkleTreeLeafNode__ReprAssembler) reset() {
+	na.state = maState_initial
+	na.s = 0
+	na.ca_Value.reset()
+}
+func (na *_MerkleTreeLeafNode__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_MerkleTreeLeafNode{}
+	}
+	return na, nil
+}
+func (_MerkleTreeLeafNode__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode.Repr"}.BeginList(0)
+}
+func (na *_MerkleTreeLeafNode__ReprAssembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode.Repr.Repr"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_MerkleTreeLeafNode__ReprAssembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode.Repr"}.AssignBool(false)
+}
+func (_MerkleTreeLeafNode__ReprAssembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode.Repr"}.AssignInt(0)
+}
+func (_MerkleTreeLeafNode__ReprAssembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode.Repr"}.AssignFloat(0)
+}
+func (_MerkleTreeLeafNode__ReprAssembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode.Repr"}.AssignString("")
+}
+func (_MerkleTreeLeafNode__ReprAssembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode.Repr"}.AssignBytes(nil)
+}
+func (_MerkleTreeLeafNode__ReprAssembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeLeafNode.Repr"}.AssignLink(nil)
+}
+func (na *_MerkleTreeLeafNode__ReprAssembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_MerkleTreeLeafNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.MerkleTreeLeafNode.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_MerkleTreeLeafNode__ReprAssembler) Prototype() ipld.NodePrototype {
+	return _MerkleTreeLeafNode__ReprPrototype{}
+}
+func (ma *_MerkleTreeLeafNode__ReprAssembler) valueFinishTidy() bool {
+	switch ma.f {
+	case 0:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_MerkleTreeLeafNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	switch k {
+	case "Value":
+		if ma.s&fieldBit__MerkleTreeLeafNode_Value != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeLeafNode_Value_serial}
+		}
+		ma.s += fieldBit__MerkleTreeLeafNode_Value
+		ma.state = maState_midValue
+		ma.f = 0
+		ma.ca_Value.w = &ma.w.Value
+		ma.ca_Value.m = &ma.cm
+		return &ma.ca_Value, nil
+	default:
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.MerkleTreeLeafNode.Repr", Key: &_String{k}}
+}
+func (ma *_MerkleTreeLeafNode__ReprAssembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_MerkleTreeLeafNode__ReprKeyAssembler)(ma)
+}
+func (ma *_MerkleTreeLeafNode__ReprAssembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.f {
+	case 0:
+		ma.ca_Value.w = &ma.w.Value
+		ma.ca_Value.m = &ma.cm
+		return &ma.ca_Value
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_MerkleTreeLeafNode__ReprAssembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.s&fieldBits__MerkleTreeLeafNode_sufficient != fieldBits__MerkleTreeLeafNode_sufficient {
+		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
+		if ma.s&fieldBit__MerkleTreeLeafNode_Value == 0 {
+			err.Missing = append(err.Missing, "Value")
+		}
+		return err
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_MerkleTreeLeafNode__ReprAssembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_MerkleTreeLeafNode__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
+	panic("todo structbuilder mapassembler repr valueprototype")
+}
+
+type _MerkleTreeLeafNode__ReprKeyAssembler _MerkleTreeLeafNode__ReprAssembler
+
+func (_MerkleTreeLeafNode__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.Repr.KeyAssembler"}.BeginMap(0)
+}
+func (_MerkleTreeLeafNode__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.Repr.KeyAssembler"}.BeginList(0)
+}
+func (na *_MerkleTreeLeafNode__ReprKeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.Repr.KeyAssembler"}.AssignNull()
+}
+func (_MerkleTreeLeafNode__ReprKeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.Repr.KeyAssembler"}.AssignBool(false)
+}
+func (_MerkleTreeLeafNode__ReprKeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.Repr.KeyAssembler"}.AssignInt(0)
+}
+func (_MerkleTreeLeafNode__ReprKeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.Repr.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_MerkleTreeLeafNode__ReprKeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	switch k {
+	case "Value":
+		if ka.s&fieldBit__MerkleTreeLeafNode_Value != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeLeafNode_Value_serial}
+		}
+		ka.s += fieldBit__MerkleTreeLeafNode_Value
+		ka.state = maState_expectValue
+		ka.f = 0
+		return nil
+	}
+	return ipld.ErrInvalidKey{TypeName: "dagcosmos.MerkleTreeLeafNode.Repr", Key: &_String{k}}
+}
+func (_MerkleTreeLeafNode__ReprKeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.Repr.KeyAssembler"}.AssignBytes(nil)
+}
+func (_MerkleTreeLeafNode__ReprKeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeLeafNode.Repr.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_MerkleTreeLeafNode__ReprKeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_MerkleTreeLeafNode__ReprKeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+
 func (n _Part) FieldIndex() Uint {
 	return &n.Index
 }
