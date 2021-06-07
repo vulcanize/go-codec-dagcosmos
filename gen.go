@@ -26,7 +26,7 @@ func main() {
 	accumulateBasicTypes(ts)
 	accumulateCryptoTypes(ts)
 	accumulateChainTypes(ts)
-	accumulateStateDataStructures(ts)
+	accumulateCosmosDataStructures(ts)
 
 	// verify internal correctness of the types
 	if errs := ts.ValidateGraph(); errs != nil {
@@ -693,26 +693,36 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 	))
 	/*
 		type MerkleTreeNode union {
-		    | MerkleTreeInnerNode "parent"
-		    | MerkleTreeLeafNode "leaf"
+			| MerkleTreeInnerNode "inner"
+			| MerkleTreeLeafNode "leaf"
 		} representation keyed
 
-		# MerkleTreeRootNode is the top-most parent node in a merkle tree; the root node of the tree.
+		# MerkleTreeRootNode is the top-most node in a merkle tree; the root node of the tree.
 		# It can be a leaf node if there is only one value in the tree
 		type MerkleTreeRootNode MerkleTreeNode
 
-		# MerkleTreeInnerNode nodes contain two byte arrays which contain the hashes which reference its two child nodes.
+		# MerkleTreeInnerNode nodes contain two byte arrays which contain the hashes which link its two child nodes.
 		type MerkleTreeInnerNode struct {
-		    ChildA &MerkleTreeNode
-		    ChildB &MerkleTreeNode
+			Left &MerkleTreeNode
+			Right &MerkleTreeNode
 		}
 
 		# MerkleTreeLeafNode is a single byte array containing the value stored at that leaf
 		# Often times this "value" will be a hash of content rather than the content itself
 		type MerkleTreeLeafNode struct {
-		    Value Bytes
+			Value Bytes
 		}
 	*/
+	ts.Accumulate(schema.SpawnUnion("MerkleTreeNode",
+		[]schema.TypeName{
+			"MerkleTreeInnerNode",
+			"MerkleTreeLeafNode",
+		},
+		schema.SpawnUnionRepresentationKeyed(map[string]schema.TypeName{
+			"inner": "MerkleTreeInnerNode",
+			"leaf":  "MerkleTreeLeafNode",
+		}),
+	))
 	ts.Accumulate(schema.SpawnStruct("MerkleTreeLeafNode",
 		[]schema.StructField{
 			schema.SpawnStructField("Value", "Bytes", false, false),
@@ -721,13 +731,124 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 	))
 	ts.Accumulate(schema.SpawnStruct("MerkleTreeInnerNode",
 		[]schema.StructField{
-			schema.SpawnStructField("ChildA", "Link", false, false),
-			schema.SpawnStructField("ChildB", "Link", false, false),
+			schema.SpawnStructField("Left", "Link", false, false),
+			schema.SpawnStructField("Right", "Link", false, false),
 		},
 		schema.SpawnStructRepresentationMap(nil),
 	))
 }
 
-func accumulateStateDataStructures(ts *schema.TypeSystem) {
-	// TODO: write schemas for state
+func accumulateCosmosDataStructures(ts *schema.TypeSystem) {
+	/*
+		type IAVLNode union {
+			| IAVLInnerNode "inner"
+			| IAVLLeafNode "leaf"
+		} representation keyed
+
+		# IAVLRootNode is the top-most node in an IAVL; the root node of the tree.
+		# It can be a leaf node if there is only one value in the tree
+		type IAVLRootNode IAVLNode
+
+		# IAVLInnerNode represents an inner node in an IAVL Tree.
+		type IAVLInnerNode struct {
+			Left      IAVLNodeCID
+			Right     IAVLNodeCID
+			Version   Int
+			Size      Int
+			Height    Int
+		}
+
+		# IAVLLeafNode represents a leaf node in an IAVL Tree.
+		type IAVLLeafNode struct {
+			Key       Bytes
+			Value     Bytes
+			Version   Int
+			Size      Int
+			Height    Int
+		}
+
+		# IAVLNodeCID is a CID link to an IAVLNode
+		# This CID is composed of the SHA_256 multihash of the IAVL node and the IAVL codec (tbd)
+		type IAVLNodeCID &IAVLNode
+	*/
+	ts.Accumulate(schema.SpawnUnion("IAVLNode",
+		[]schema.TypeName{
+			"IAVLInnerNode",
+			"IAVLLeafNode",
+		},
+		schema.SpawnUnionRepresentationKeyed(map[string]schema.TypeName{
+			"inner": "IAVLInnerNode",
+			"leaf":  "IAVLLeafNode",
+		}),
+	))
+	ts.Accumulate(schema.SpawnStruct("IAVLInnerNode",
+		[]schema.StructField{
+			schema.SpawnStructField("Left", "Link", false, false),
+			schema.SpawnStructField("Right", "Link", false, false),
+			schema.SpawnStructField("Version", "Int", false, false),
+			schema.SpawnStructField("Size", "Int", false, false),
+			schema.SpawnStructField("Height", "Int", false, false),
+		},
+		schema.SpawnStructRepresentationMap(nil),
+	))
+	ts.Accumulate(schema.SpawnStruct("IAVLLeafNode",
+		[]schema.StructField{
+			schema.SpawnStructField("Key", "Bytes", false, false),
+			schema.SpawnStructField("Value", "Bytes", false, false),
+			schema.SpawnStructField("Version", "Int", false, false),
+			schema.SpawnStructField("Size", "Int", false, false),
+			schema.SpawnStructField("Height", "Int", false, false),
+		},
+		schema.SpawnStructRepresentationMap(nil),
+	))
+	/*
+		type SMTNode union {
+			| SMTInnerNode "inner"
+			| SMTLeafNode "leaf"
+		} representation keyed
+
+		# SMTRootNode is the top-most node in an SMT; the root node of the tree.
+		# It can be a leaf node if there is only one value in the tree
+		type SMTRootNode SMTNode
+
+		# SMTInnerNode contains two byte arrays which contain the hashes which link its two child nodes.
+		type SMTInnerNode struct {
+			Left SMTNodeCID
+			Right SMTNodeCID
+		}
+
+		# SMTLeafNode contains two byte arrays which contain path and value
+		type SMTLeafNode struct {
+			Path  Hash # this is hash(key)
+			Value Hash # this is the hash(key, value)
+		}
+
+		# SMTNodeCID is a CID link to an SMTNode
+		# This CID is composed of the SHA_256 multihash of the SMT node and the SMT codec (tbd)
+		type SMTNodeCID &SMTNode
+	*/
+	ts.Accumulate(schema.SpawnUnion("SMTNode",
+		[]schema.TypeName{
+			"SMTInnerNode",
+			"SMTLeafNode",
+		},
+		schema.SpawnUnionRepresentationKeyed(map[string]schema.TypeName{
+			"inner": "SMTInnerNode",
+			"leaf":  "SMTLeafNode",
+		}),
+	))
+	ts.Accumulate(schema.SpawnStruct("SMTInnerNode",
+		[]schema.StructField{
+			schema.SpawnStructField("Left", "Link", false, false),
+			schema.SpawnStructField("Right", "Link", false, false),
+		},
+		schema.SpawnStructRepresentationMap(nil),
+	))
+	ts.Accumulate(schema.SpawnStruct("SMTLeafNode",
+		[]schema.StructField{
+			schema.SpawnStructField("Path", "Hash", false, false),
+			schema.SpawnStructField("Value", "Hash", false, false),
+		},
+		schema.SpawnStructRepresentationMap(nil),
+	))
 }

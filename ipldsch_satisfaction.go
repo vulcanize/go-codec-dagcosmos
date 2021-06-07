@@ -16428,6 +16428,3286 @@ var _ ipld.Node = &_HexBytes__Repr{}
 type _HexBytes__ReprPrototype = _HexBytes__Prototype
 type _HexBytes__ReprAssembler = _HexBytes__Assembler
 
+func (n _IAVLInnerNode) FieldLeft() Link {
+	return &n.Left
+}
+func (n _IAVLInnerNode) FieldRight() Link {
+	return &n.Right
+}
+func (n _IAVLInnerNode) FieldVersion() Int {
+	return &n.Version
+}
+func (n _IAVLInnerNode) FieldSize() Int {
+	return &n.Size
+}
+func (n _IAVLInnerNode) FieldHeight() Int {
+	return &n.Height
+}
+
+type _IAVLInnerNode__Maybe struct {
+	m schema.Maybe
+	v IAVLInnerNode
+}
+type MaybeIAVLInnerNode = *_IAVLInnerNode__Maybe
+
+func (m MaybeIAVLInnerNode) IsNull() bool {
+	return m.m == schema.Maybe_Null
+}
+func (m MaybeIAVLInnerNode) IsAbsent() bool {
+	return m.m == schema.Maybe_Absent
+}
+func (m MaybeIAVLInnerNode) Exists() bool {
+	return m.m == schema.Maybe_Value
+}
+func (m MaybeIAVLInnerNode) AsNode() ipld.Node {
+	switch m.m {
+	case schema.Maybe_Absent:
+		return ipld.Absent
+	case schema.Maybe_Null:
+		return ipld.Null
+	case schema.Maybe_Value:
+		return m.v
+	default:
+		panic("unreachable")
+	}
+}
+func (m MaybeIAVLInnerNode) Must() IAVLInnerNode {
+	if !m.Exists() {
+		panic("unbox of a maybe rejected")
+	}
+	return m.v
+}
+
+var (
+	fieldName__IAVLInnerNode_Left    = _String{"Left"}
+	fieldName__IAVLInnerNode_Right   = _String{"Right"}
+	fieldName__IAVLInnerNode_Version = _String{"Version"}
+	fieldName__IAVLInnerNode_Size    = _String{"Size"}
+	fieldName__IAVLInnerNode_Height  = _String{"Height"}
+)
+var _ ipld.Node = (IAVLInnerNode)(&_IAVLInnerNode{})
+var _ schema.TypedNode = (IAVLInnerNode)(&_IAVLInnerNode{})
+
+func (IAVLInnerNode) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n IAVLInnerNode) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "Left":
+		return &n.Left, nil
+	case "Right":
+		return &n.Right, nil
+	case "Version":
+		return &n.Version, nil
+	case "Size":
+		return &n.Size, nil
+	case "Height":
+		return &n.Height, nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n IAVLInnerNode) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (IAVLInnerNode) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.IAVLInnerNode"}.LookupByIndex(0)
+}
+func (n IAVLInnerNode) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n IAVLInnerNode) MapIterator() ipld.MapIterator {
+	return &_IAVLInnerNode__MapItr{n, 0}
+}
+
+type _IAVLInnerNode__MapItr struct {
+	n   IAVLInnerNode
+	idx int
+}
+
+func (itr *_IAVLInnerNode__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.idx >= 5 {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.idx {
+	case 0:
+		k = &fieldName__IAVLInnerNode_Left
+		v = &itr.n.Left
+	case 1:
+		k = &fieldName__IAVLInnerNode_Right
+		v = &itr.n.Right
+	case 2:
+		k = &fieldName__IAVLInnerNode_Version
+		v = &itr.n.Version
+	case 3:
+		k = &fieldName__IAVLInnerNode_Size
+		v = &itr.n.Size
+	case 4:
+		k = &fieldName__IAVLInnerNode_Height
+		v = &itr.n.Height
+	default:
+		panic("unreachable")
+	}
+	itr.idx++
+	return
+}
+func (itr *_IAVLInnerNode__MapItr) Done() bool {
+	return itr.idx >= 5
+}
+
+func (IAVLInnerNode) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (IAVLInnerNode) Length() int64 {
+	return 5
+}
+func (IAVLInnerNode) IsAbsent() bool {
+	return false
+}
+func (IAVLInnerNode) IsNull() bool {
+	return false
+}
+func (IAVLInnerNode) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.IAVLInnerNode"}.AsBool()
+}
+func (IAVLInnerNode) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.IAVLInnerNode"}.AsInt()
+}
+func (IAVLInnerNode) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.IAVLInnerNode"}.AsFloat()
+}
+func (IAVLInnerNode) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.IAVLInnerNode"}.AsString()
+}
+func (IAVLInnerNode) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.IAVLInnerNode"}.AsBytes()
+}
+func (IAVLInnerNode) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.IAVLInnerNode"}.AsLink()
+}
+func (IAVLInnerNode) Prototype() ipld.NodePrototype {
+	return _IAVLInnerNode__Prototype{}
+}
+
+type _IAVLInnerNode__Prototype struct{}
+
+func (_IAVLInnerNode__Prototype) NewBuilder() ipld.NodeBuilder {
+	var nb _IAVLInnerNode__Builder
+	nb.Reset()
+	return &nb
+}
+
+type _IAVLInnerNode__Builder struct {
+	_IAVLInnerNode__Assembler
+}
+
+func (nb *_IAVLInnerNode__Builder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_IAVLInnerNode__Builder) Reset() {
+	var w _IAVLInnerNode
+	var m schema.Maybe
+	*nb = _IAVLInnerNode__Builder{_IAVLInnerNode__Assembler{w: &w, m: &m}}
+}
+
+type _IAVLInnerNode__Assembler struct {
+	w     *_IAVLInnerNode
+	m     *schema.Maybe
+	state maState
+	s     int
+	f     int
+
+	cm         schema.Maybe
+	ca_Left    _Link__Assembler
+	ca_Right   _Link__Assembler
+	ca_Version _Int__Assembler
+	ca_Size    _Int__Assembler
+	ca_Height  _Int__Assembler
+}
+
+func (na *_IAVLInnerNode__Assembler) reset() {
+	na.state = maState_initial
+	na.s = 0
+	na.ca_Left.reset()
+	na.ca_Right.reset()
+	na.ca_Version.reset()
+	na.ca_Size.reset()
+	na.ca_Height.reset()
+}
+
+var (
+	fieldBit__IAVLInnerNode_Left        = 1 << 0
+	fieldBit__IAVLInnerNode_Right       = 1 << 1
+	fieldBit__IAVLInnerNode_Version     = 1 << 2
+	fieldBit__IAVLInnerNode_Size        = 1 << 3
+	fieldBit__IAVLInnerNode_Height      = 1 << 4
+	fieldBits__IAVLInnerNode_sufficient = 0 + 1<<0 + 1<<1 + 1<<2 + 1<<3 + 1<<4
+)
+
+func (na *_IAVLInnerNode__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_IAVLInnerNode{}
+	}
+	return na, nil
+}
+func (_IAVLInnerNode__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.IAVLInnerNode"}.BeginList(0)
+}
+func (na *_IAVLInnerNode__Assembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.IAVLInnerNode"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_IAVLInnerNode__Assembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLInnerNode"}.AssignBool(false)
+}
+func (_IAVLInnerNode__Assembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLInnerNode"}.AssignInt(0)
+}
+func (_IAVLInnerNode__Assembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLInnerNode"}.AssignFloat(0)
+}
+func (_IAVLInnerNode__Assembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLInnerNode"}.AssignString("")
+}
+func (_IAVLInnerNode__Assembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLInnerNode"}.AssignBytes(nil)
+}
+func (_IAVLInnerNode__Assembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLInnerNode"}.AssignLink(nil)
+}
+func (na *_IAVLInnerNode__Assembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_IAVLInnerNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.IAVLInnerNode", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_IAVLInnerNode__Assembler) Prototype() ipld.NodePrototype {
+	return _IAVLInnerNode__Prototype{}
+}
+func (ma *_IAVLInnerNode__Assembler) valueFinishTidy() bool {
+	switch ma.f {
+	case 0:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Left.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 1:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Right.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 2:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Version.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 3:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Size.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 4:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Height.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_IAVLInnerNode__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	switch k {
+	case "Left":
+		if ma.s&fieldBit__IAVLInnerNode_Left != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Left}
+		}
+		ma.s += fieldBit__IAVLInnerNode_Left
+		ma.state = maState_midValue
+		ma.f = 0
+		ma.ca_Left.w = &ma.w.Left
+		ma.ca_Left.m = &ma.cm
+		return &ma.ca_Left, nil
+	case "Right":
+		if ma.s&fieldBit__IAVLInnerNode_Right != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Right}
+		}
+		ma.s += fieldBit__IAVLInnerNode_Right
+		ma.state = maState_midValue
+		ma.f = 1
+		ma.ca_Right.w = &ma.w.Right
+		ma.ca_Right.m = &ma.cm
+		return &ma.ca_Right, nil
+	case "Version":
+		if ma.s&fieldBit__IAVLInnerNode_Version != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Version}
+		}
+		ma.s += fieldBit__IAVLInnerNode_Version
+		ma.state = maState_midValue
+		ma.f = 2
+		ma.ca_Version.w = &ma.w.Version
+		ma.ca_Version.m = &ma.cm
+		return &ma.ca_Version, nil
+	case "Size":
+		if ma.s&fieldBit__IAVLInnerNode_Size != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Size}
+		}
+		ma.s += fieldBit__IAVLInnerNode_Size
+		ma.state = maState_midValue
+		ma.f = 3
+		ma.ca_Size.w = &ma.w.Size
+		ma.ca_Size.m = &ma.cm
+		return &ma.ca_Size, nil
+	case "Height":
+		if ma.s&fieldBit__IAVLInnerNode_Height != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Height}
+		}
+		ma.s += fieldBit__IAVLInnerNode_Height
+		ma.state = maState_midValue
+		ma.f = 4
+		ma.ca_Height.w = &ma.w.Height
+		ma.ca_Height.m = &ma.cm
+		return &ma.ca_Height, nil
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.IAVLInnerNode", Key: &_String{k}}
+}
+func (ma *_IAVLInnerNode__Assembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_IAVLInnerNode__KeyAssembler)(ma)
+}
+func (ma *_IAVLInnerNode__Assembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.f {
+	case 0:
+		ma.ca_Left.w = &ma.w.Left
+		ma.ca_Left.m = &ma.cm
+		return &ma.ca_Left
+	case 1:
+		ma.ca_Right.w = &ma.w.Right
+		ma.ca_Right.m = &ma.cm
+		return &ma.ca_Right
+	case 2:
+		ma.ca_Version.w = &ma.w.Version
+		ma.ca_Version.m = &ma.cm
+		return &ma.ca_Version
+	case 3:
+		ma.ca_Size.w = &ma.w.Size
+		ma.ca_Size.m = &ma.cm
+		return &ma.ca_Size
+	case 4:
+		ma.ca_Height.w = &ma.w.Height
+		ma.ca_Height.m = &ma.cm
+		return &ma.ca_Height
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_IAVLInnerNode__Assembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.s&fieldBits__IAVLInnerNode_sufficient != fieldBits__IAVLInnerNode_sufficient {
+		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
+		if ma.s&fieldBit__IAVLInnerNode_Left == 0 {
+			err.Missing = append(err.Missing, "Left")
+		}
+		if ma.s&fieldBit__IAVLInnerNode_Right == 0 {
+			err.Missing = append(err.Missing, "Right")
+		}
+		if ma.s&fieldBit__IAVLInnerNode_Version == 0 {
+			err.Missing = append(err.Missing, "Version")
+		}
+		if ma.s&fieldBit__IAVLInnerNode_Size == 0 {
+			err.Missing = append(err.Missing, "Size")
+		}
+		if ma.s&fieldBit__IAVLInnerNode_Height == 0 {
+			err.Missing = append(err.Missing, "Height")
+		}
+		return err
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_IAVLInnerNode__Assembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_IAVLInnerNode__Assembler) ValuePrototype(k string) ipld.NodePrototype {
+	panic("todo structbuilder mapassembler valueprototype")
+}
+
+type _IAVLInnerNode__KeyAssembler _IAVLInnerNode__Assembler
+
+func (_IAVLInnerNode__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.KeyAssembler"}.BeginMap(0)
+}
+func (_IAVLInnerNode__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.KeyAssembler"}.BeginList(0)
+}
+func (na *_IAVLInnerNode__KeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.KeyAssembler"}.AssignNull()
+}
+func (_IAVLInnerNode__KeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.KeyAssembler"}.AssignBool(false)
+}
+func (_IAVLInnerNode__KeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.KeyAssembler"}.AssignInt(0)
+}
+func (_IAVLInnerNode__KeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_IAVLInnerNode__KeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	switch k {
+	case "Left":
+		if ka.s&fieldBit__IAVLInnerNode_Left != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Left}
+		}
+		ka.s += fieldBit__IAVLInnerNode_Left
+		ka.state = maState_expectValue
+		ka.f = 0
+	case "Right":
+		if ka.s&fieldBit__IAVLInnerNode_Right != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Right}
+		}
+		ka.s += fieldBit__IAVLInnerNode_Right
+		ka.state = maState_expectValue
+		ka.f = 1
+	case "Version":
+		if ka.s&fieldBit__IAVLInnerNode_Version != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Version}
+		}
+		ka.s += fieldBit__IAVLInnerNode_Version
+		ka.state = maState_expectValue
+		ka.f = 2
+	case "Size":
+		if ka.s&fieldBit__IAVLInnerNode_Size != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Size}
+		}
+		ka.s += fieldBit__IAVLInnerNode_Size
+		ka.state = maState_expectValue
+		ka.f = 3
+	case "Height":
+		if ka.s&fieldBit__IAVLInnerNode_Height != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Height}
+		}
+		ka.s += fieldBit__IAVLInnerNode_Height
+		ka.state = maState_expectValue
+		ka.f = 4
+	default:
+		return ipld.ErrInvalidKey{TypeName: "dagcosmos.IAVLInnerNode", Key: &_String{k}}
+	}
+	return nil
+}
+func (_IAVLInnerNode__KeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.KeyAssembler"}.AssignBytes(nil)
+}
+func (_IAVLInnerNode__KeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_IAVLInnerNode__KeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_IAVLInnerNode__KeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (IAVLInnerNode) Type() schema.Type {
+	return nil /*TODO:typelit*/
+}
+func (n IAVLInnerNode) Representation() ipld.Node {
+	return (*_IAVLInnerNode__Repr)(n)
+}
+
+type _IAVLInnerNode__Repr _IAVLInnerNode
+
+var (
+	fieldName__IAVLInnerNode_Left_serial    = _String{"Left"}
+	fieldName__IAVLInnerNode_Right_serial   = _String{"Right"}
+	fieldName__IAVLInnerNode_Version_serial = _String{"Version"}
+	fieldName__IAVLInnerNode_Size_serial    = _String{"Size"}
+	fieldName__IAVLInnerNode_Height_serial  = _String{"Height"}
+)
+var _ ipld.Node = &_IAVLInnerNode__Repr{}
+
+func (_IAVLInnerNode__Repr) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n *_IAVLInnerNode__Repr) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "Left":
+		return n.Left.Representation(), nil
+	case "Right":
+		return n.Right.Representation(), nil
+	case "Version":
+		return n.Version.Representation(), nil
+	case "Size":
+		return n.Size.Representation(), nil
+	case "Height":
+		return n.Height.Representation(), nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n *_IAVLInnerNode__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (_IAVLInnerNode__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.IAVLInnerNode.Repr"}.LookupByIndex(0)
+}
+func (n _IAVLInnerNode__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n *_IAVLInnerNode__Repr) MapIterator() ipld.MapIterator {
+	return &_IAVLInnerNode__ReprMapItr{n, 0}
+}
+
+type _IAVLInnerNode__ReprMapItr struct {
+	n   *_IAVLInnerNode__Repr
+	idx int
+}
+
+func (itr *_IAVLInnerNode__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.idx >= 5 {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.idx {
+	case 0:
+		k = &fieldName__IAVLInnerNode_Left_serial
+		v = itr.n.Left.Representation()
+	case 1:
+		k = &fieldName__IAVLInnerNode_Right_serial
+		v = itr.n.Right.Representation()
+	case 2:
+		k = &fieldName__IAVLInnerNode_Version_serial
+		v = itr.n.Version.Representation()
+	case 3:
+		k = &fieldName__IAVLInnerNode_Size_serial
+		v = itr.n.Size.Representation()
+	case 4:
+		k = &fieldName__IAVLInnerNode_Height_serial
+		v = itr.n.Height.Representation()
+	default:
+		panic("unreachable")
+	}
+	itr.idx++
+	return
+}
+func (itr *_IAVLInnerNode__ReprMapItr) Done() bool {
+	return itr.idx >= 5
+}
+func (_IAVLInnerNode__Repr) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (rn *_IAVLInnerNode__Repr) Length() int64 {
+	l := 5
+	return int64(l)
+}
+func (_IAVLInnerNode__Repr) IsAbsent() bool {
+	return false
+}
+func (_IAVLInnerNode__Repr) IsNull() bool {
+	return false
+}
+func (_IAVLInnerNode__Repr) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.IAVLInnerNode.Repr"}.AsBool()
+}
+func (_IAVLInnerNode__Repr) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.IAVLInnerNode.Repr"}.AsInt()
+}
+func (_IAVLInnerNode__Repr) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.IAVLInnerNode.Repr"}.AsFloat()
+}
+func (_IAVLInnerNode__Repr) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.IAVLInnerNode.Repr"}.AsString()
+}
+func (_IAVLInnerNode__Repr) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.IAVLInnerNode.Repr"}.AsBytes()
+}
+func (_IAVLInnerNode__Repr) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.IAVLInnerNode.Repr"}.AsLink()
+}
+func (_IAVLInnerNode__Repr) Prototype() ipld.NodePrototype {
+	return _IAVLInnerNode__ReprPrototype{}
+}
+
+type _IAVLInnerNode__ReprPrototype struct{}
+
+func (_IAVLInnerNode__ReprPrototype) NewBuilder() ipld.NodeBuilder {
+	var nb _IAVLInnerNode__ReprBuilder
+	nb.Reset()
+	return &nb
+}
+
+type _IAVLInnerNode__ReprBuilder struct {
+	_IAVLInnerNode__ReprAssembler
+}
+
+func (nb *_IAVLInnerNode__ReprBuilder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_IAVLInnerNode__ReprBuilder) Reset() {
+	var w _IAVLInnerNode
+	var m schema.Maybe
+	*nb = _IAVLInnerNode__ReprBuilder{_IAVLInnerNode__ReprAssembler{w: &w, m: &m}}
+}
+
+type _IAVLInnerNode__ReprAssembler struct {
+	w     *_IAVLInnerNode
+	m     *schema.Maybe
+	state maState
+	s     int
+	f     int
+
+	cm         schema.Maybe
+	ca_Left    _Link__ReprAssembler
+	ca_Right   _Link__ReprAssembler
+	ca_Version _Int__ReprAssembler
+	ca_Size    _Int__ReprAssembler
+	ca_Height  _Int__ReprAssembler
+}
+
+func (na *_IAVLInnerNode__ReprAssembler) reset() {
+	na.state = maState_initial
+	na.s = 0
+	na.ca_Left.reset()
+	na.ca_Right.reset()
+	na.ca_Version.reset()
+	na.ca_Size.reset()
+	na.ca_Height.reset()
+}
+func (na *_IAVLInnerNode__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_IAVLInnerNode{}
+	}
+	return na, nil
+}
+func (_IAVLInnerNode__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.IAVLInnerNode.Repr"}.BeginList(0)
+}
+func (na *_IAVLInnerNode__ReprAssembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.IAVLInnerNode.Repr.Repr"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_IAVLInnerNode__ReprAssembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLInnerNode.Repr"}.AssignBool(false)
+}
+func (_IAVLInnerNode__ReprAssembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLInnerNode.Repr"}.AssignInt(0)
+}
+func (_IAVLInnerNode__ReprAssembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLInnerNode.Repr"}.AssignFloat(0)
+}
+func (_IAVLInnerNode__ReprAssembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLInnerNode.Repr"}.AssignString("")
+}
+func (_IAVLInnerNode__ReprAssembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLInnerNode.Repr"}.AssignBytes(nil)
+}
+func (_IAVLInnerNode__ReprAssembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLInnerNode.Repr"}.AssignLink(nil)
+}
+func (na *_IAVLInnerNode__ReprAssembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_IAVLInnerNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.IAVLInnerNode.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_IAVLInnerNode__ReprAssembler) Prototype() ipld.NodePrototype {
+	return _IAVLInnerNode__ReprPrototype{}
+}
+func (ma *_IAVLInnerNode__ReprAssembler) valueFinishTidy() bool {
+	switch ma.f {
+	case 0:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 1:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 2:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 3:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 4:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_IAVLInnerNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	switch k {
+	case "Left":
+		if ma.s&fieldBit__IAVLInnerNode_Left != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Left_serial}
+		}
+		ma.s += fieldBit__IAVLInnerNode_Left
+		ma.state = maState_midValue
+		ma.f = 0
+		ma.ca_Left.w = &ma.w.Left
+		ma.ca_Left.m = &ma.cm
+		return &ma.ca_Left, nil
+	case "Right":
+		if ma.s&fieldBit__IAVLInnerNode_Right != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Right_serial}
+		}
+		ma.s += fieldBit__IAVLInnerNode_Right
+		ma.state = maState_midValue
+		ma.f = 1
+		ma.ca_Right.w = &ma.w.Right
+		ma.ca_Right.m = &ma.cm
+		return &ma.ca_Right, nil
+	case "Version":
+		if ma.s&fieldBit__IAVLInnerNode_Version != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Version_serial}
+		}
+		ma.s += fieldBit__IAVLInnerNode_Version
+		ma.state = maState_midValue
+		ma.f = 2
+		ma.ca_Version.w = &ma.w.Version
+		ma.ca_Version.m = &ma.cm
+		return &ma.ca_Version, nil
+	case "Size":
+		if ma.s&fieldBit__IAVLInnerNode_Size != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Size_serial}
+		}
+		ma.s += fieldBit__IAVLInnerNode_Size
+		ma.state = maState_midValue
+		ma.f = 3
+		ma.ca_Size.w = &ma.w.Size
+		ma.ca_Size.m = &ma.cm
+		return &ma.ca_Size, nil
+	case "Height":
+		if ma.s&fieldBit__IAVLInnerNode_Height != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Height_serial}
+		}
+		ma.s += fieldBit__IAVLInnerNode_Height
+		ma.state = maState_midValue
+		ma.f = 4
+		ma.ca_Height.w = &ma.w.Height
+		ma.ca_Height.m = &ma.cm
+		return &ma.ca_Height, nil
+	default:
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.IAVLInnerNode.Repr", Key: &_String{k}}
+}
+func (ma *_IAVLInnerNode__ReprAssembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_IAVLInnerNode__ReprKeyAssembler)(ma)
+}
+func (ma *_IAVLInnerNode__ReprAssembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.f {
+	case 0:
+		ma.ca_Left.w = &ma.w.Left
+		ma.ca_Left.m = &ma.cm
+		return &ma.ca_Left
+	case 1:
+		ma.ca_Right.w = &ma.w.Right
+		ma.ca_Right.m = &ma.cm
+		return &ma.ca_Right
+	case 2:
+		ma.ca_Version.w = &ma.w.Version
+		ma.ca_Version.m = &ma.cm
+		return &ma.ca_Version
+	case 3:
+		ma.ca_Size.w = &ma.w.Size
+		ma.ca_Size.m = &ma.cm
+		return &ma.ca_Size
+	case 4:
+		ma.ca_Height.w = &ma.w.Height
+		ma.ca_Height.m = &ma.cm
+		return &ma.ca_Height
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_IAVLInnerNode__ReprAssembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.s&fieldBits__IAVLInnerNode_sufficient != fieldBits__IAVLInnerNode_sufficient {
+		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
+		if ma.s&fieldBit__IAVLInnerNode_Left == 0 {
+			err.Missing = append(err.Missing, "Left")
+		}
+		if ma.s&fieldBit__IAVLInnerNode_Right == 0 {
+			err.Missing = append(err.Missing, "Right")
+		}
+		if ma.s&fieldBit__IAVLInnerNode_Version == 0 {
+			err.Missing = append(err.Missing, "Version")
+		}
+		if ma.s&fieldBit__IAVLInnerNode_Size == 0 {
+			err.Missing = append(err.Missing, "Size")
+		}
+		if ma.s&fieldBit__IAVLInnerNode_Height == 0 {
+			err.Missing = append(err.Missing, "Height")
+		}
+		return err
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_IAVLInnerNode__ReprAssembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_IAVLInnerNode__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
+	panic("todo structbuilder mapassembler repr valueprototype")
+}
+
+type _IAVLInnerNode__ReprKeyAssembler _IAVLInnerNode__ReprAssembler
+
+func (_IAVLInnerNode__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.Repr.KeyAssembler"}.BeginMap(0)
+}
+func (_IAVLInnerNode__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.Repr.KeyAssembler"}.BeginList(0)
+}
+func (na *_IAVLInnerNode__ReprKeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.Repr.KeyAssembler"}.AssignNull()
+}
+func (_IAVLInnerNode__ReprKeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.Repr.KeyAssembler"}.AssignBool(false)
+}
+func (_IAVLInnerNode__ReprKeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.Repr.KeyAssembler"}.AssignInt(0)
+}
+func (_IAVLInnerNode__ReprKeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.Repr.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_IAVLInnerNode__ReprKeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	switch k {
+	case "Left":
+		if ka.s&fieldBit__IAVLInnerNode_Left != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Left_serial}
+		}
+		ka.s += fieldBit__IAVLInnerNode_Left
+		ka.state = maState_expectValue
+		ka.f = 0
+		return nil
+	case "Right":
+		if ka.s&fieldBit__IAVLInnerNode_Right != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Right_serial}
+		}
+		ka.s += fieldBit__IAVLInnerNode_Right
+		ka.state = maState_expectValue
+		ka.f = 1
+		return nil
+	case "Version":
+		if ka.s&fieldBit__IAVLInnerNode_Version != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Version_serial}
+		}
+		ka.s += fieldBit__IAVLInnerNode_Version
+		ka.state = maState_expectValue
+		ka.f = 2
+		return nil
+	case "Size":
+		if ka.s&fieldBit__IAVLInnerNode_Size != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Size_serial}
+		}
+		ka.s += fieldBit__IAVLInnerNode_Size
+		ka.state = maState_expectValue
+		ka.f = 3
+		return nil
+	case "Height":
+		if ka.s&fieldBit__IAVLInnerNode_Height != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLInnerNode_Height_serial}
+		}
+		ka.s += fieldBit__IAVLInnerNode_Height
+		ka.state = maState_expectValue
+		ka.f = 4
+		return nil
+	}
+	return ipld.ErrInvalidKey{TypeName: "dagcosmos.IAVLInnerNode.Repr", Key: &_String{k}}
+}
+func (_IAVLInnerNode__ReprKeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.Repr.KeyAssembler"}.AssignBytes(nil)
+}
+func (_IAVLInnerNode__ReprKeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLInnerNode.Repr.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_IAVLInnerNode__ReprKeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_IAVLInnerNode__ReprKeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+
+func (n _IAVLLeafNode) FieldKey() Bytes {
+	return &n.Key
+}
+func (n _IAVLLeafNode) FieldValue() Bytes {
+	return &n.Value
+}
+func (n _IAVLLeafNode) FieldVersion() Int {
+	return &n.Version
+}
+func (n _IAVLLeafNode) FieldSize() Int {
+	return &n.Size
+}
+func (n _IAVLLeafNode) FieldHeight() Int {
+	return &n.Height
+}
+
+type _IAVLLeafNode__Maybe struct {
+	m schema.Maybe
+	v IAVLLeafNode
+}
+type MaybeIAVLLeafNode = *_IAVLLeafNode__Maybe
+
+func (m MaybeIAVLLeafNode) IsNull() bool {
+	return m.m == schema.Maybe_Null
+}
+func (m MaybeIAVLLeafNode) IsAbsent() bool {
+	return m.m == schema.Maybe_Absent
+}
+func (m MaybeIAVLLeafNode) Exists() bool {
+	return m.m == schema.Maybe_Value
+}
+func (m MaybeIAVLLeafNode) AsNode() ipld.Node {
+	switch m.m {
+	case schema.Maybe_Absent:
+		return ipld.Absent
+	case schema.Maybe_Null:
+		return ipld.Null
+	case schema.Maybe_Value:
+		return m.v
+	default:
+		panic("unreachable")
+	}
+}
+func (m MaybeIAVLLeafNode) Must() IAVLLeafNode {
+	if !m.Exists() {
+		panic("unbox of a maybe rejected")
+	}
+	return m.v
+}
+
+var (
+	fieldName__IAVLLeafNode_Key     = _String{"Key"}
+	fieldName__IAVLLeafNode_Value   = _String{"Value"}
+	fieldName__IAVLLeafNode_Version = _String{"Version"}
+	fieldName__IAVLLeafNode_Size    = _String{"Size"}
+	fieldName__IAVLLeafNode_Height  = _String{"Height"}
+)
+var _ ipld.Node = (IAVLLeafNode)(&_IAVLLeafNode{})
+var _ schema.TypedNode = (IAVLLeafNode)(&_IAVLLeafNode{})
+
+func (IAVLLeafNode) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n IAVLLeafNode) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "Key":
+		return &n.Key, nil
+	case "Value":
+		return &n.Value, nil
+	case "Version":
+		return &n.Version, nil
+	case "Size":
+		return &n.Size, nil
+	case "Height":
+		return &n.Height, nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n IAVLLeafNode) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (IAVLLeafNode) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.IAVLLeafNode"}.LookupByIndex(0)
+}
+func (n IAVLLeafNode) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n IAVLLeafNode) MapIterator() ipld.MapIterator {
+	return &_IAVLLeafNode__MapItr{n, 0}
+}
+
+type _IAVLLeafNode__MapItr struct {
+	n   IAVLLeafNode
+	idx int
+}
+
+func (itr *_IAVLLeafNode__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.idx >= 5 {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.idx {
+	case 0:
+		k = &fieldName__IAVLLeafNode_Key
+		v = &itr.n.Key
+	case 1:
+		k = &fieldName__IAVLLeafNode_Value
+		v = &itr.n.Value
+	case 2:
+		k = &fieldName__IAVLLeafNode_Version
+		v = &itr.n.Version
+	case 3:
+		k = &fieldName__IAVLLeafNode_Size
+		v = &itr.n.Size
+	case 4:
+		k = &fieldName__IAVLLeafNode_Height
+		v = &itr.n.Height
+	default:
+		panic("unreachable")
+	}
+	itr.idx++
+	return
+}
+func (itr *_IAVLLeafNode__MapItr) Done() bool {
+	return itr.idx >= 5
+}
+
+func (IAVLLeafNode) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (IAVLLeafNode) Length() int64 {
+	return 5
+}
+func (IAVLLeafNode) IsAbsent() bool {
+	return false
+}
+func (IAVLLeafNode) IsNull() bool {
+	return false
+}
+func (IAVLLeafNode) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.IAVLLeafNode"}.AsBool()
+}
+func (IAVLLeafNode) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.IAVLLeafNode"}.AsInt()
+}
+func (IAVLLeafNode) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.IAVLLeafNode"}.AsFloat()
+}
+func (IAVLLeafNode) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.IAVLLeafNode"}.AsString()
+}
+func (IAVLLeafNode) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.IAVLLeafNode"}.AsBytes()
+}
+func (IAVLLeafNode) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.IAVLLeafNode"}.AsLink()
+}
+func (IAVLLeafNode) Prototype() ipld.NodePrototype {
+	return _IAVLLeafNode__Prototype{}
+}
+
+type _IAVLLeafNode__Prototype struct{}
+
+func (_IAVLLeafNode__Prototype) NewBuilder() ipld.NodeBuilder {
+	var nb _IAVLLeafNode__Builder
+	nb.Reset()
+	return &nb
+}
+
+type _IAVLLeafNode__Builder struct {
+	_IAVLLeafNode__Assembler
+}
+
+func (nb *_IAVLLeafNode__Builder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_IAVLLeafNode__Builder) Reset() {
+	var w _IAVLLeafNode
+	var m schema.Maybe
+	*nb = _IAVLLeafNode__Builder{_IAVLLeafNode__Assembler{w: &w, m: &m}}
+}
+
+type _IAVLLeafNode__Assembler struct {
+	w     *_IAVLLeafNode
+	m     *schema.Maybe
+	state maState
+	s     int
+	f     int
+
+	cm         schema.Maybe
+	ca_Key     _Bytes__Assembler
+	ca_Value   _Bytes__Assembler
+	ca_Version _Int__Assembler
+	ca_Size    _Int__Assembler
+	ca_Height  _Int__Assembler
+}
+
+func (na *_IAVLLeafNode__Assembler) reset() {
+	na.state = maState_initial
+	na.s = 0
+	na.ca_Key.reset()
+	na.ca_Value.reset()
+	na.ca_Version.reset()
+	na.ca_Size.reset()
+	na.ca_Height.reset()
+}
+
+var (
+	fieldBit__IAVLLeafNode_Key         = 1 << 0
+	fieldBit__IAVLLeafNode_Value       = 1 << 1
+	fieldBit__IAVLLeafNode_Version     = 1 << 2
+	fieldBit__IAVLLeafNode_Size        = 1 << 3
+	fieldBit__IAVLLeafNode_Height      = 1 << 4
+	fieldBits__IAVLLeafNode_sufficient = 0 + 1<<0 + 1<<1 + 1<<2 + 1<<3 + 1<<4
+)
+
+func (na *_IAVLLeafNode__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_IAVLLeafNode{}
+	}
+	return na, nil
+}
+func (_IAVLLeafNode__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.IAVLLeafNode"}.BeginList(0)
+}
+func (na *_IAVLLeafNode__Assembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.IAVLLeafNode"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_IAVLLeafNode__Assembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLLeafNode"}.AssignBool(false)
+}
+func (_IAVLLeafNode__Assembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLLeafNode"}.AssignInt(0)
+}
+func (_IAVLLeafNode__Assembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLLeafNode"}.AssignFloat(0)
+}
+func (_IAVLLeafNode__Assembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLLeafNode"}.AssignString("")
+}
+func (_IAVLLeafNode__Assembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLLeafNode"}.AssignBytes(nil)
+}
+func (_IAVLLeafNode__Assembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLLeafNode"}.AssignLink(nil)
+}
+func (na *_IAVLLeafNode__Assembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_IAVLLeafNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.IAVLLeafNode", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_IAVLLeafNode__Assembler) Prototype() ipld.NodePrototype {
+	return _IAVLLeafNode__Prototype{}
+}
+func (ma *_IAVLLeafNode__Assembler) valueFinishTidy() bool {
+	switch ma.f {
+	case 0:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Key.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 1:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Value.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 2:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Version.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 3:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Size.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 4:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Height.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_IAVLLeafNode__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	switch k {
+	case "Key":
+		if ma.s&fieldBit__IAVLLeafNode_Key != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Key}
+		}
+		ma.s += fieldBit__IAVLLeafNode_Key
+		ma.state = maState_midValue
+		ma.f = 0
+		ma.ca_Key.w = &ma.w.Key
+		ma.ca_Key.m = &ma.cm
+		return &ma.ca_Key, nil
+	case "Value":
+		if ma.s&fieldBit__IAVLLeafNode_Value != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Value}
+		}
+		ma.s += fieldBit__IAVLLeafNode_Value
+		ma.state = maState_midValue
+		ma.f = 1
+		ma.ca_Value.w = &ma.w.Value
+		ma.ca_Value.m = &ma.cm
+		return &ma.ca_Value, nil
+	case "Version":
+		if ma.s&fieldBit__IAVLLeafNode_Version != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Version}
+		}
+		ma.s += fieldBit__IAVLLeafNode_Version
+		ma.state = maState_midValue
+		ma.f = 2
+		ma.ca_Version.w = &ma.w.Version
+		ma.ca_Version.m = &ma.cm
+		return &ma.ca_Version, nil
+	case "Size":
+		if ma.s&fieldBit__IAVLLeafNode_Size != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Size}
+		}
+		ma.s += fieldBit__IAVLLeafNode_Size
+		ma.state = maState_midValue
+		ma.f = 3
+		ma.ca_Size.w = &ma.w.Size
+		ma.ca_Size.m = &ma.cm
+		return &ma.ca_Size, nil
+	case "Height":
+		if ma.s&fieldBit__IAVLLeafNode_Height != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Height}
+		}
+		ma.s += fieldBit__IAVLLeafNode_Height
+		ma.state = maState_midValue
+		ma.f = 4
+		ma.ca_Height.w = &ma.w.Height
+		ma.ca_Height.m = &ma.cm
+		return &ma.ca_Height, nil
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.IAVLLeafNode", Key: &_String{k}}
+}
+func (ma *_IAVLLeafNode__Assembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_IAVLLeafNode__KeyAssembler)(ma)
+}
+func (ma *_IAVLLeafNode__Assembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.f {
+	case 0:
+		ma.ca_Key.w = &ma.w.Key
+		ma.ca_Key.m = &ma.cm
+		return &ma.ca_Key
+	case 1:
+		ma.ca_Value.w = &ma.w.Value
+		ma.ca_Value.m = &ma.cm
+		return &ma.ca_Value
+	case 2:
+		ma.ca_Version.w = &ma.w.Version
+		ma.ca_Version.m = &ma.cm
+		return &ma.ca_Version
+	case 3:
+		ma.ca_Size.w = &ma.w.Size
+		ma.ca_Size.m = &ma.cm
+		return &ma.ca_Size
+	case 4:
+		ma.ca_Height.w = &ma.w.Height
+		ma.ca_Height.m = &ma.cm
+		return &ma.ca_Height
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_IAVLLeafNode__Assembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.s&fieldBits__IAVLLeafNode_sufficient != fieldBits__IAVLLeafNode_sufficient {
+		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
+		if ma.s&fieldBit__IAVLLeafNode_Key == 0 {
+			err.Missing = append(err.Missing, "Key")
+		}
+		if ma.s&fieldBit__IAVLLeafNode_Value == 0 {
+			err.Missing = append(err.Missing, "Value")
+		}
+		if ma.s&fieldBit__IAVLLeafNode_Version == 0 {
+			err.Missing = append(err.Missing, "Version")
+		}
+		if ma.s&fieldBit__IAVLLeafNode_Size == 0 {
+			err.Missing = append(err.Missing, "Size")
+		}
+		if ma.s&fieldBit__IAVLLeafNode_Height == 0 {
+			err.Missing = append(err.Missing, "Height")
+		}
+		return err
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_IAVLLeafNode__Assembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_IAVLLeafNode__Assembler) ValuePrototype(k string) ipld.NodePrototype {
+	panic("todo structbuilder mapassembler valueprototype")
+}
+
+type _IAVLLeafNode__KeyAssembler _IAVLLeafNode__Assembler
+
+func (_IAVLLeafNode__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.KeyAssembler"}.BeginMap(0)
+}
+func (_IAVLLeafNode__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.KeyAssembler"}.BeginList(0)
+}
+func (na *_IAVLLeafNode__KeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.KeyAssembler"}.AssignNull()
+}
+func (_IAVLLeafNode__KeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.KeyAssembler"}.AssignBool(false)
+}
+func (_IAVLLeafNode__KeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.KeyAssembler"}.AssignInt(0)
+}
+func (_IAVLLeafNode__KeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_IAVLLeafNode__KeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	switch k {
+	case "Key":
+		if ka.s&fieldBit__IAVLLeafNode_Key != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Key}
+		}
+		ka.s += fieldBit__IAVLLeafNode_Key
+		ka.state = maState_expectValue
+		ka.f = 0
+	case "Value":
+		if ka.s&fieldBit__IAVLLeafNode_Value != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Value}
+		}
+		ka.s += fieldBit__IAVLLeafNode_Value
+		ka.state = maState_expectValue
+		ka.f = 1
+	case "Version":
+		if ka.s&fieldBit__IAVLLeafNode_Version != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Version}
+		}
+		ka.s += fieldBit__IAVLLeafNode_Version
+		ka.state = maState_expectValue
+		ka.f = 2
+	case "Size":
+		if ka.s&fieldBit__IAVLLeafNode_Size != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Size}
+		}
+		ka.s += fieldBit__IAVLLeafNode_Size
+		ka.state = maState_expectValue
+		ka.f = 3
+	case "Height":
+		if ka.s&fieldBit__IAVLLeafNode_Height != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Height}
+		}
+		ka.s += fieldBit__IAVLLeafNode_Height
+		ka.state = maState_expectValue
+		ka.f = 4
+	default:
+		return ipld.ErrInvalidKey{TypeName: "dagcosmos.IAVLLeafNode", Key: &_String{k}}
+	}
+	return nil
+}
+func (_IAVLLeafNode__KeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.KeyAssembler"}.AssignBytes(nil)
+}
+func (_IAVLLeafNode__KeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_IAVLLeafNode__KeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_IAVLLeafNode__KeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (IAVLLeafNode) Type() schema.Type {
+	return nil /*TODO:typelit*/
+}
+func (n IAVLLeafNode) Representation() ipld.Node {
+	return (*_IAVLLeafNode__Repr)(n)
+}
+
+type _IAVLLeafNode__Repr _IAVLLeafNode
+
+var (
+	fieldName__IAVLLeafNode_Key_serial     = _String{"Key"}
+	fieldName__IAVLLeafNode_Value_serial   = _String{"Value"}
+	fieldName__IAVLLeafNode_Version_serial = _String{"Version"}
+	fieldName__IAVLLeafNode_Size_serial    = _String{"Size"}
+	fieldName__IAVLLeafNode_Height_serial  = _String{"Height"}
+)
+var _ ipld.Node = &_IAVLLeafNode__Repr{}
+
+func (_IAVLLeafNode__Repr) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n *_IAVLLeafNode__Repr) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "Key":
+		return n.Key.Representation(), nil
+	case "Value":
+		return n.Value.Representation(), nil
+	case "Version":
+		return n.Version.Representation(), nil
+	case "Size":
+		return n.Size.Representation(), nil
+	case "Height":
+		return n.Height.Representation(), nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n *_IAVLLeafNode__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (_IAVLLeafNode__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.IAVLLeafNode.Repr"}.LookupByIndex(0)
+}
+func (n _IAVLLeafNode__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n *_IAVLLeafNode__Repr) MapIterator() ipld.MapIterator {
+	return &_IAVLLeafNode__ReprMapItr{n, 0}
+}
+
+type _IAVLLeafNode__ReprMapItr struct {
+	n   *_IAVLLeafNode__Repr
+	idx int
+}
+
+func (itr *_IAVLLeafNode__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.idx >= 5 {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.idx {
+	case 0:
+		k = &fieldName__IAVLLeafNode_Key_serial
+		v = itr.n.Key.Representation()
+	case 1:
+		k = &fieldName__IAVLLeafNode_Value_serial
+		v = itr.n.Value.Representation()
+	case 2:
+		k = &fieldName__IAVLLeafNode_Version_serial
+		v = itr.n.Version.Representation()
+	case 3:
+		k = &fieldName__IAVLLeafNode_Size_serial
+		v = itr.n.Size.Representation()
+	case 4:
+		k = &fieldName__IAVLLeafNode_Height_serial
+		v = itr.n.Height.Representation()
+	default:
+		panic("unreachable")
+	}
+	itr.idx++
+	return
+}
+func (itr *_IAVLLeafNode__ReprMapItr) Done() bool {
+	return itr.idx >= 5
+}
+func (_IAVLLeafNode__Repr) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (rn *_IAVLLeafNode__Repr) Length() int64 {
+	l := 5
+	return int64(l)
+}
+func (_IAVLLeafNode__Repr) IsAbsent() bool {
+	return false
+}
+func (_IAVLLeafNode__Repr) IsNull() bool {
+	return false
+}
+func (_IAVLLeafNode__Repr) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.IAVLLeafNode.Repr"}.AsBool()
+}
+func (_IAVLLeafNode__Repr) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.IAVLLeafNode.Repr"}.AsInt()
+}
+func (_IAVLLeafNode__Repr) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.IAVLLeafNode.Repr"}.AsFloat()
+}
+func (_IAVLLeafNode__Repr) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.IAVLLeafNode.Repr"}.AsString()
+}
+func (_IAVLLeafNode__Repr) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.IAVLLeafNode.Repr"}.AsBytes()
+}
+func (_IAVLLeafNode__Repr) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.IAVLLeafNode.Repr"}.AsLink()
+}
+func (_IAVLLeafNode__Repr) Prototype() ipld.NodePrototype {
+	return _IAVLLeafNode__ReprPrototype{}
+}
+
+type _IAVLLeafNode__ReprPrototype struct{}
+
+func (_IAVLLeafNode__ReprPrototype) NewBuilder() ipld.NodeBuilder {
+	var nb _IAVLLeafNode__ReprBuilder
+	nb.Reset()
+	return &nb
+}
+
+type _IAVLLeafNode__ReprBuilder struct {
+	_IAVLLeafNode__ReprAssembler
+}
+
+func (nb *_IAVLLeafNode__ReprBuilder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_IAVLLeafNode__ReprBuilder) Reset() {
+	var w _IAVLLeafNode
+	var m schema.Maybe
+	*nb = _IAVLLeafNode__ReprBuilder{_IAVLLeafNode__ReprAssembler{w: &w, m: &m}}
+}
+
+type _IAVLLeafNode__ReprAssembler struct {
+	w     *_IAVLLeafNode
+	m     *schema.Maybe
+	state maState
+	s     int
+	f     int
+
+	cm         schema.Maybe
+	ca_Key     _Bytes__ReprAssembler
+	ca_Value   _Bytes__ReprAssembler
+	ca_Version _Int__ReprAssembler
+	ca_Size    _Int__ReprAssembler
+	ca_Height  _Int__ReprAssembler
+}
+
+func (na *_IAVLLeafNode__ReprAssembler) reset() {
+	na.state = maState_initial
+	na.s = 0
+	na.ca_Key.reset()
+	na.ca_Value.reset()
+	na.ca_Version.reset()
+	na.ca_Size.reset()
+	na.ca_Height.reset()
+}
+func (na *_IAVLLeafNode__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_IAVLLeafNode{}
+	}
+	return na, nil
+}
+func (_IAVLLeafNode__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.IAVLLeafNode.Repr"}.BeginList(0)
+}
+func (na *_IAVLLeafNode__ReprAssembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.IAVLLeafNode.Repr.Repr"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_IAVLLeafNode__ReprAssembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLLeafNode.Repr"}.AssignBool(false)
+}
+func (_IAVLLeafNode__ReprAssembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLLeafNode.Repr"}.AssignInt(0)
+}
+func (_IAVLLeafNode__ReprAssembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLLeafNode.Repr"}.AssignFloat(0)
+}
+func (_IAVLLeafNode__ReprAssembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLLeafNode.Repr"}.AssignString("")
+}
+func (_IAVLLeafNode__ReprAssembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLLeafNode.Repr"}.AssignBytes(nil)
+}
+func (_IAVLLeafNode__ReprAssembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLLeafNode.Repr"}.AssignLink(nil)
+}
+func (na *_IAVLLeafNode__ReprAssembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_IAVLLeafNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.IAVLLeafNode.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_IAVLLeafNode__ReprAssembler) Prototype() ipld.NodePrototype {
+	return _IAVLLeafNode__ReprPrototype{}
+}
+func (ma *_IAVLLeafNode__ReprAssembler) valueFinishTidy() bool {
+	switch ma.f {
+	case 0:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 1:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 2:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 3:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 4:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_IAVLLeafNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	switch k {
+	case "Key":
+		if ma.s&fieldBit__IAVLLeafNode_Key != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Key_serial}
+		}
+		ma.s += fieldBit__IAVLLeafNode_Key
+		ma.state = maState_midValue
+		ma.f = 0
+		ma.ca_Key.w = &ma.w.Key
+		ma.ca_Key.m = &ma.cm
+		return &ma.ca_Key, nil
+	case "Value":
+		if ma.s&fieldBit__IAVLLeafNode_Value != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Value_serial}
+		}
+		ma.s += fieldBit__IAVLLeafNode_Value
+		ma.state = maState_midValue
+		ma.f = 1
+		ma.ca_Value.w = &ma.w.Value
+		ma.ca_Value.m = &ma.cm
+		return &ma.ca_Value, nil
+	case "Version":
+		if ma.s&fieldBit__IAVLLeafNode_Version != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Version_serial}
+		}
+		ma.s += fieldBit__IAVLLeafNode_Version
+		ma.state = maState_midValue
+		ma.f = 2
+		ma.ca_Version.w = &ma.w.Version
+		ma.ca_Version.m = &ma.cm
+		return &ma.ca_Version, nil
+	case "Size":
+		if ma.s&fieldBit__IAVLLeafNode_Size != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Size_serial}
+		}
+		ma.s += fieldBit__IAVLLeafNode_Size
+		ma.state = maState_midValue
+		ma.f = 3
+		ma.ca_Size.w = &ma.w.Size
+		ma.ca_Size.m = &ma.cm
+		return &ma.ca_Size, nil
+	case "Height":
+		if ma.s&fieldBit__IAVLLeafNode_Height != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Height_serial}
+		}
+		ma.s += fieldBit__IAVLLeafNode_Height
+		ma.state = maState_midValue
+		ma.f = 4
+		ma.ca_Height.w = &ma.w.Height
+		ma.ca_Height.m = &ma.cm
+		return &ma.ca_Height, nil
+	default:
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.IAVLLeafNode.Repr", Key: &_String{k}}
+}
+func (ma *_IAVLLeafNode__ReprAssembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_IAVLLeafNode__ReprKeyAssembler)(ma)
+}
+func (ma *_IAVLLeafNode__ReprAssembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.f {
+	case 0:
+		ma.ca_Key.w = &ma.w.Key
+		ma.ca_Key.m = &ma.cm
+		return &ma.ca_Key
+	case 1:
+		ma.ca_Value.w = &ma.w.Value
+		ma.ca_Value.m = &ma.cm
+		return &ma.ca_Value
+	case 2:
+		ma.ca_Version.w = &ma.w.Version
+		ma.ca_Version.m = &ma.cm
+		return &ma.ca_Version
+	case 3:
+		ma.ca_Size.w = &ma.w.Size
+		ma.ca_Size.m = &ma.cm
+		return &ma.ca_Size
+	case 4:
+		ma.ca_Height.w = &ma.w.Height
+		ma.ca_Height.m = &ma.cm
+		return &ma.ca_Height
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_IAVLLeafNode__ReprAssembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.s&fieldBits__IAVLLeafNode_sufficient != fieldBits__IAVLLeafNode_sufficient {
+		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
+		if ma.s&fieldBit__IAVLLeafNode_Key == 0 {
+			err.Missing = append(err.Missing, "Key")
+		}
+		if ma.s&fieldBit__IAVLLeafNode_Value == 0 {
+			err.Missing = append(err.Missing, "Value")
+		}
+		if ma.s&fieldBit__IAVLLeafNode_Version == 0 {
+			err.Missing = append(err.Missing, "Version")
+		}
+		if ma.s&fieldBit__IAVLLeafNode_Size == 0 {
+			err.Missing = append(err.Missing, "Size")
+		}
+		if ma.s&fieldBit__IAVLLeafNode_Height == 0 {
+			err.Missing = append(err.Missing, "Height")
+		}
+		return err
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_IAVLLeafNode__ReprAssembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_IAVLLeafNode__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
+	panic("todo structbuilder mapassembler repr valueprototype")
+}
+
+type _IAVLLeafNode__ReprKeyAssembler _IAVLLeafNode__ReprAssembler
+
+func (_IAVLLeafNode__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.Repr.KeyAssembler"}.BeginMap(0)
+}
+func (_IAVLLeafNode__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.Repr.KeyAssembler"}.BeginList(0)
+}
+func (na *_IAVLLeafNode__ReprKeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.Repr.KeyAssembler"}.AssignNull()
+}
+func (_IAVLLeafNode__ReprKeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.Repr.KeyAssembler"}.AssignBool(false)
+}
+func (_IAVLLeafNode__ReprKeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.Repr.KeyAssembler"}.AssignInt(0)
+}
+func (_IAVLLeafNode__ReprKeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.Repr.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_IAVLLeafNode__ReprKeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	switch k {
+	case "Key":
+		if ka.s&fieldBit__IAVLLeafNode_Key != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Key_serial}
+		}
+		ka.s += fieldBit__IAVLLeafNode_Key
+		ka.state = maState_expectValue
+		ka.f = 0
+		return nil
+	case "Value":
+		if ka.s&fieldBit__IAVLLeafNode_Value != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Value_serial}
+		}
+		ka.s += fieldBit__IAVLLeafNode_Value
+		ka.state = maState_expectValue
+		ka.f = 1
+		return nil
+	case "Version":
+		if ka.s&fieldBit__IAVLLeafNode_Version != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Version_serial}
+		}
+		ka.s += fieldBit__IAVLLeafNode_Version
+		ka.state = maState_expectValue
+		ka.f = 2
+		return nil
+	case "Size":
+		if ka.s&fieldBit__IAVLLeafNode_Size != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Size_serial}
+		}
+		ka.s += fieldBit__IAVLLeafNode_Size
+		ka.state = maState_expectValue
+		ka.f = 3
+		return nil
+	case "Height":
+		if ka.s&fieldBit__IAVLLeafNode_Height != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__IAVLLeafNode_Height_serial}
+		}
+		ka.s += fieldBit__IAVLLeafNode_Height
+		ka.state = maState_expectValue
+		ka.f = 4
+		return nil
+	}
+	return ipld.ErrInvalidKey{TypeName: "dagcosmos.IAVLLeafNode.Repr", Key: &_String{k}}
+}
+func (_IAVLLeafNode__ReprKeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.Repr.KeyAssembler"}.AssignBytes(nil)
+}
+func (_IAVLLeafNode__ReprKeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLLeafNode.Repr.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_IAVLLeafNode__ReprKeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_IAVLLeafNode__ReprKeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+
+func (n _IAVLNode) AsInterface() _IAVLNode__iface {
+	switch n.tag {
+	case 1:
+		return &n.x1
+	case 2:
+		return &n.x2
+	default:
+		panic("invalid union state; how did you create this object?")
+	}
+}
+
+type _IAVLNode__Maybe struct {
+	m schema.Maybe
+	v IAVLNode
+}
+type MaybeIAVLNode = *_IAVLNode__Maybe
+
+func (m MaybeIAVLNode) IsNull() bool {
+	return m.m == schema.Maybe_Null
+}
+func (m MaybeIAVLNode) IsAbsent() bool {
+	return m.m == schema.Maybe_Absent
+}
+func (m MaybeIAVLNode) Exists() bool {
+	return m.m == schema.Maybe_Value
+}
+func (m MaybeIAVLNode) AsNode() ipld.Node {
+	switch m.m {
+	case schema.Maybe_Absent:
+		return ipld.Absent
+	case schema.Maybe_Null:
+		return ipld.Null
+	case schema.Maybe_Value:
+		return m.v
+	default:
+		panic("unreachable")
+	}
+}
+func (m MaybeIAVLNode) Must() IAVLNode {
+	if !m.Exists() {
+		panic("unbox of a maybe rejected")
+	}
+	return m.v
+}
+
+var (
+	memberName__IAVLNode_IAVLInnerNode = _String{"IAVLInnerNode"}
+	memberName__IAVLNode_IAVLLeafNode  = _String{"IAVLLeafNode"}
+)
+var _ ipld.Node = (IAVLNode)(&_IAVLNode{})
+var _ schema.TypedNode = (IAVLNode)(&_IAVLNode{})
+
+func (IAVLNode) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n IAVLNode) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "IAVLInnerNode":
+		if n.tag != 1 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return &n.x1, nil
+	case "IAVLLeafNode":
+		if n.tag != 2 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return &n.x2, nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n IAVLNode) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (IAVLNode) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.IAVLNode"}.LookupByIndex(0)
+}
+func (n IAVLNode) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n IAVLNode) MapIterator() ipld.MapIterator {
+	return &_IAVLNode__MapItr{n, false}
+}
+
+type _IAVLNode__MapItr struct {
+	n    IAVLNode
+	done bool
+}
+
+func (itr *_IAVLNode__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.done {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.n.tag {
+	case 1:
+		k, v = &memberName__IAVLNode_IAVLInnerNode, &itr.n.x1
+	case 2:
+		k, v = &memberName__IAVLNode_IAVLLeafNode, &itr.n.x2
+	default:
+		panic("unreachable")
+	}
+	itr.done = true
+	return
+}
+func (itr *_IAVLNode__MapItr) Done() bool {
+	return itr.done
+}
+
+func (IAVLNode) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (IAVLNode) Length() int64 {
+	return 1
+}
+func (IAVLNode) IsAbsent() bool {
+	return false
+}
+func (IAVLNode) IsNull() bool {
+	return false
+}
+func (IAVLNode) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.IAVLNode"}.AsBool()
+}
+func (IAVLNode) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.IAVLNode"}.AsInt()
+}
+func (IAVLNode) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.IAVLNode"}.AsFloat()
+}
+func (IAVLNode) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.IAVLNode"}.AsString()
+}
+func (IAVLNode) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.IAVLNode"}.AsBytes()
+}
+func (IAVLNode) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.IAVLNode"}.AsLink()
+}
+func (IAVLNode) Prototype() ipld.NodePrototype {
+	return _IAVLNode__Prototype{}
+}
+
+type _IAVLNode__Prototype struct{}
+
+func (_IAVLNode__Prototype) NewBuilder() ipld.NodeBuilder {
+	var nb _IAVLNode__Builder
+	nb.Reset()
+	return &nb
+}
+
+type _IAVLNode__Builder struct {
+	_IAVLNode__Assembler
+}
+
+func (nb *_IAVLNode__Builder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_IAVLNode__Builder) Reset() {
+	var w _IAVLNode
+	var m schema.Maybe
+	*nb = _IAVLNode__Builder{_IAVLNode__Assembler{w: &w, m: &m}}
+}
+
+type _IAVLNode__Assembler struct {
+	w     *_IAVLNode
+	m     *schema.Maybe
+	state maState
+
+	cm  schema.Maybe
+	ca1 _IAVLInnerNode__Assembler
+
+	ca2 _IAVLLeafNode__Assembler
+	ca  uint
+}
+
+func (na *_IAVLNode__Assembler) reset() {
+	na.state = maState_initial
+	switch na.ca {
+	case 0:
+		return
+	case 1:
+		na.ca1.reset()
+
+	case 2:
+		na.ca2.reset()
+	default:
+		panic("unreachable")
+	}
+	na.ca = 0
+	na.cm = schema.Maybe_Absent
+}
+func (na *_IAVLNode__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_IAVLNode{}
+	}
+	return na, nil
+}
+func (_IAVLNode__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.IAVLNode"}.BeginList(0)
+}
+func (na *_IAVLNode__Assembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.IAVLNode"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_IAVLNode__Assembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLNode"}.AssignBool(false)
+}
+func (_IAVLNode__Assembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLNode"}.AssignInt(0)
+}
+func (_IAVLNode__Assembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLNode"}.AssignFloat(0)
+}
+func (_IAVLNode__Assembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLNode"}.AssignString("")
+}
+func (_IAVLNode__Assembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLNode"}.AssignBytes(nil)
+}
+func (_IAVLNode__Assembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLNode"}.AssignLink(nil)
+}
+func (na *_IAVLNode__Assembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_IAVLNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.IAVLNode", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_IAVLNode__Assembler) Prototype() ipld.NodePrototype {
+	return _IAVLNode__Prototype{}
+}
+func (ma *_IAVLNode__Assembler) valueFinishTidy() bool {
+	switch ma.cm {
+	case schema.Maybe_Value:
+		ma.state = maState_initial
+		return true
+	default:
+		return false
+	}
+}
+func (ma *_IAVLNode__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly.
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	if ma.ca != 0 {
+		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.IAVLNode", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "IAVLInnerNode":
+		ma.state = maState_midValue
+		ma.ca = 1
+		ma.w.tag = 1
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1, nil
+	case "IAVLLeafNode":
+		ma.state = maState_midValue
+		ma.ca = 2
+		ma.w.tag = 2
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2, nil
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.IAVLNode", Key: &_String{k}}
+}
+func (ma *_IAVLNode__Assembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly... or rather, the keyassembler will be.
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_IAVLNode__KeyAssembler)(ma)
+}
+func (ma *_IAVLNode__Assembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.ca {
+	case 0:
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1
+	case 1:
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_IAVLNode__Assembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.ca == 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.IAVLNode", Detail: "a union must have exactly one entry (not none)!"}
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_IAVLNode__Assembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_IAVLNode__Assembler) ValuePrototype(k string) ipld.NodePrototype {
+	switch k {
+	case "IAVLInnerNode":
+		return _IAVLInnerNode__Prototype{}
+	case "IAVLLeafNode":
+		return _IAVLLeafNode__Prototype{}
+	default:
+		return nil
+	}
+}
+
+type _IAVLNode__KeyAssembler _IAVLNode__Assembler
+
+func (_IAVLNode__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.KeyAssembler"}.BeginMap(0)
+}
+func (_IAVLNode__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.KeyAssembler"}.BeginList(0)
+}
+func (na *_IAVLNode__KeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.KeyAssembler"}.AssignNull()
+}
+func (_IAVLNode__KeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.KeyAssembler"}.AssignBool(false)
+}
+func (_IAVLNode__KeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.KeyAssembler"}.AssignInt(0)
+}
+func (_IAVLNode__KeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_IAVLNode__KeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	if ka.ca != 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.IAVLNode", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "IAVLInnerNode":
+		ka.ca = 1
+		ka.w.tag = 1
+		ka.state = maState_expectValue
+		return nil
+	case "IAVLLeafNode":
+		ka.ca = 2
+		ka.w.tag = 2
+		ka.state = maState_expectValue
+		return nil
+	}
+	return ipld.ErrInvalidKey{TypeName: "dagcosmos.IAVLNode", Key: &_String{k}} // TODO: error quality: ErrInvalidUnionDiscriminant ?
+}
+func (_IAVLNode__KeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.KeyAssembler"}.AssignBytes(nil)
+}
+func (_IAVLNode__KeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_IAVLNode__KeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_IAVLNode__KeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (IAVLNode) Type() schema.Type {
+	return nil /*TODO:typelit*/
+}
+func (n IAVLNode) Representation() ipld.Node {
+	return (*_IAVLNode__Repr)(n)
+}
+
+type _IAVLNode__Repr _IAVLNode
+
+var (
+	memberName__IAVLNode_IAVLInnerNode_serial = _String{"inner"}
+	memberName__IAVLNode_IAVLLeafNode_serial  = _String{"leaf"}
+)
+var _ ipld.Node = &_IAVLNode__Repr{}
+
+func (_IAVLNode__Repr) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n *_IAVLNode__Repr) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "inner":
+		if n.tag != 1 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return n.x1.Representation(), nil
+	case "leaf":
+		if n.tag != 2 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return n.x2.Representation(), nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n *_IAVLNode__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (_IAVLNode__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.IAVLNode.Repr"}.LookupByIndex(0)
+}
+func (n _IAVLNode__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n *_IAVLNode__Repr) MapIterator() ipld.MapIterator {
+	return &_IAVLNode__ReprMapItr{n, false}
+}
+
+type _IAVLNode__ReprMapItr struct {
+	n    *_IAVLNode__Repr
+	done bool
+}
+
+func (itr *_IAVLNode__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.done {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.n.tag {
+	case 1:
+		k, v = &memberName__IAVLNode_IAVLInnerNode_serial, itr.n.x1.Representation()
+	case 2:
+		k, v = &memberName__IAVLNode_IAVLLeafNode_serial, itr.n.x2.Representation()
+	default:
+		panic("unreachable")
+	}
+	itr.done = true
+	return
+}
+func (itr *_IAVLNode__ReprMapItr) Done() bool {
+	return itr.done
+}
+
+func (_IAVLNode__Repr) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (_IAVLNode__Repr) Length() int64 {
+	return 1
+}
+func (_IAVLNode__Repr) IsAbsent() bool {
+	return false
+}
+func (_IAVLNode__Repr) IsNull() bool {
+	return false
+}
+func (_IAVLNode__Repr) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.IAVLNode.Repr"}.AsBool()
+}
+func (_IAVLNode__Repr) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.IAVLNode.Repr"}.AsInt()
+}
+func (_IAVLNode__Repr) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.IAVLNode.Repr"}.AsFloat()
+}
+func (_IAVLNode__Repr) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.IAVLNode.Repr"}.AsString()
+}
+func (_IAVLNode__Repr) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.IAVLNode.Repr"}.AsBytes()
+}
+func (_IAVLNode__Repr) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.IAVLNode.Repr"}.AsLink()
+}
+func (_IAVLNode__Repr) Prototype() ipld.NodePrototype {
+	return _IAVLNode__ReprPrototype{}
+}
+
+type _IAVLNode__ReprPrototype struct{}
+
+func (_IAVLNode__ReprPrototype) NewBuilder() ipld.NodeBuilder {
+	var nb _IAVLNode__ReprBuilder
+	nb.Reset()
+	return &nb
+}
+
+type _IAVLNode__ReprBuilder struct {
+	_IAVLNode__ReprAssembler
+}
+
+func (nb *_IAVLNode__ReprBuilder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_IAVLNode__ReprBuilder) Reset() {
+	var w _IAVLNode
+	var m schema.Maybe
+	*nb = _IAVLNode__ReprBuilder{_IAVLNode__ReprAssembler{w: &w, m: &m}}
+}
+
+type _IAVLNode__ReprAssembler struct {
+	w     *_IAVLNode
+	m     *schema.Maybe
+	state maState
+
+	cm  schema.Maybe
+	ca1 _IAVLInnerNode__ReprAssembler
+
+	ca2 _IAVLLeafNode__ReprAssembler
+	ca  uint
+}
+
+func (na *_IAVLNode__ReprAssembler) reset() {
+	na.state = maState_initial
+	switch na.ca {
+	case 0:
+		return
+	case 1:
+		na.ca1.reset()
+
+	case 2:
+		na.ca2.reset()
+	default:
+		panic("unreachable")
+	}
+	na.ca = 0
+	na.cm = schema.Maybe_Absent
+}
+func (na *_IAVLNode__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_IAVLNode{}
+	}
+	return na, nil
+}
+func (_IAVLNode__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.IAVLNode.Repr"}.BeginList(0)
+}
+func (na *_IAVLNode__ReprAssembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.IAVLNode.Repr.Repr"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_IAVLNode__ReprAssembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLNode.Repr"}.AssignBool(false)
+}
+func (_IAVLNode__ReprAssembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLNode.Repr"}.AssignInt(0)
+}
+func (_IAVLNode__ReprAssembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLNode.Repr"}.AssignFloat(0)
+}
+func (_IAVLNode__ReprAssembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLNode.Repr"}.AssignString("")
+}
+func (_IAVLNode__ReprAssembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLNode.Repr"}.AssignBytes(nil)
+}
+func (_IAVLNode__ReprAssembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.IAVLNode.Repr"}.AssignLink(nil)
+}
+func (na *_IAVLNode__ReprAssembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_IAVLNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.IAVLNode.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_IAVLNode__ReprAssembler) Prototype() ipld.NodePrototype {
+	return _IAVLNode__ReprPrototype{}
+}
+func (ma *_IAVLNode__ReprAssembler) valueFinishTidy() bool {
+	switch ma.cm {
+	case schema.Maybe_Value:
+		ma.state = maState_initial
+		return true
+	default:
+		return false
+	}
+}
+func (ma *_IAVLNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly.
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	if ma.ca != 0 {
+		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.IAVLNode.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "inner":
+		ma.state = maState_midValue
+		ma.ca = 1
+		ma.w.tag = 1
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1, nil
+	case "leaf":
+		ma.state = maState_midValue
+		ma.ca = 2
+		ma.w.tag = 2
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2, nil
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.IAVLNode.Repr", Key: &_String{k}}
+}
+func (ma *_IAVLNode__ReprAssembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly... or rather, the keyassembler will be.
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_IAVLNode__ReprKeyAssembler)(ma)
+}
+func (ma *_IAVLNode__ReprAssembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.ca {
+	case 0:
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1
+	case 1:
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_IAVLNode__ReprAssembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.ca == 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.IAVLNode.Repr", Detail: "a union must have exactly one entry (not none)!"}
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_IAVLNode__ReprAssembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_IAVLNode__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
+	switch k {
+	case "IAVLInnerNode":
+		return _IAVLInnerNode__ReprPrototype{}
+	case "IAVLLeafNode":
+		return _IAVLLeafNode__ReprPrototype{}
+	default:
+		return nil
+	}
+}
+
+type _IAVLNode__ReprKeyAssembler _IAVLNode__ReprAssembler
+
+func (_IAVLNode__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.Repr.KeyAssembler"}.BeginMap(0)
+}
+func (_IAVLNode__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.Repr.KeyAssembler"}.BeginList(0)
+}
+func (na *_IAVLNode__ReprKeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.Repr.KeyAssembler"}.AssignNull()
+}
+func (_IAVLNode__ReprKeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.Repr.KeyAssembler"}.AssignBool(false)
+}
+func (_IAVLNode__ReprKeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.Repr.KeyAssembler"}.AssignInt(0)
+}
+func (_IAVLNode__ReprKeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.Repr.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_IAVLNode__ReprKeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	if ka.ca != 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.IAVLNode.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "inner":
+		ka.ca = 1
+		ka.w.tag = 1
+		ka.state = maState_expectValue
+		return nil
+	case "leaf":
+		ka.ca = 2
+		ka.w.tag = 2
+		ka.state = maState_expectValue
+		return nil
+	}
+	return ipld.ErrInvalidKey{TypeName: "dagcosmos.IAVLNode.Repr", Key: &_String{k}} // TODO: error quality: ErrInvalidUnionDiscriminant ?
+}
+func (_IAVLNode__ReprKeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.Repr.KeyAssembler"}.AssignBytes(nil)
+}
+func (_IAVLNode__ReprKeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.IAVLNode.Repr.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_IAVLNode__ReprKeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_IAVLNode__ReprKeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+
 func (n Int) Int() int64 {
 	return n.x
 }
@@ -18966,11 +22246,11 @@ var _ ipld.Node = &_Link__Repr{}
 type _Link__ReprPrototype = _Link__Prototype
 type _Link__ReprAssembler = _Link__Assembler
 
-func (n _MerkleTreeInnerNode) FieldChildA() Link {
-	return &n.ChildA
+func (n _MerkleTreeInnerNode) FieldLeft() Link {
+	return &n.Left
 }
-func (n _MerkleTreeInnerNode) FieldChildB() Link {
-	return &n.ChildB
+func (n _MerkleTreeInnerNode) FieldRight() Link {
+	return &n.Right
 }
 
 type _MerkleTreeInnerNode__Maybe struct {
@@ -19008,8 +22288,8 @@ func (m MaybeMerkleTreeInnerNode) Must() MerkleTreeInnerNode {
 }
 
 var (
-	fieldName__MerkleTreeInnerNode_ChildA = _String{"ChildA"}
-	fieldName__MerkleTreeInnerNode_ChildB = _String{"ChildB"}
+	fieldName__MerkleTreeInnerNode_Left  = _String{"Left"}
+	fieldName__MerkleTreeInnerNode_Right = _String{"Right"}
 )
 var _ ipld.Node = (MerkleTreeInnerNode)(&_MerkleTreeInnerNode{})
 var _ schema.TypedNode = (MerkleTreeInnerNode)(&_MerkleTreeInnerNode{})
@@ -19019,10 +22299,10 @@ func (MerkleTreeInnerNode) Kind() ipld.Kind {
 }
 func (n MerkleTreeInnerNode) LookupByString(key string) (ipld.Node, error) {
 	switch key {
-	case "ChildA":
-		return &n.ChildA, nil
-	case "ChildB":
-		return &n.ChildB, nil
+	case "Left":
+		return &n.Left, nil
+	case "Right":
+		return &n.Right, nil
 	default:
 		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
 	}
@@ -19055,11 +22335,11 @@ func (itr *_MerkleTreeInnerNode__MapItr) Next() (k ipld.Node, v ipld.Node, _ err
 	}
 	switch itr.idx {
 	case 0:
-		k = &fieldName__MerkleTreeInnerNode_ChildA
-		v = &itr.n.ChildA
+		k = &fieldName__MerkleTreeInnerNode_Left
+		v = &itr.n.Left
 	case 1:
-		k = &fieldName__MerkleTreeInnerNode_ChildB
-		v = &itr.n.ChildB
+		k = &fieldName__MerkleTreeInnerNode_Right
+		v = &itr.n.Right
 	default:
 		panic("unreachable")
 	}
@@ -19135,21 +22415,21 @@ type _MerkleTreeInnerNode__Assembler struct {
 	s     int
 	f     int
 
-	cm        schema.Maybe
-	ca_ChildA _Link__Assembler
-	ca_ChildB _Link__Assembler
+	cm       schema.Maybe
+	ca_Left  _Link__Assembler
+	ca_Right _Link__Assembler
 }
 
 func (na *_MerkleTreeInnerNode__Assembler) reset() {
 	na.state = maState_initial
 	na.s = 0
-	na.ca_ChildA.reset()
-	na.ca_ChildB.reset()
+	na.ca_Left.reset()
+	na.ca_Right.reset()
 }
 
 var (
-	fieldBit__MerkleTreeInnerNode_ChildA      = 1 << 0
-	fieldBit__MerkleTreeInnerNode_ChildB      = 1 << 1
+	fieldBit__MerkleTreeInnerNode_Left        = 1 << 0
+	fieldBit__MerkleTreeInnerNode_Right       = 1 << 1
 	fieldBits__MerkleTreeInnerNode_sufficient = 0 + 1<<0 + 1<<1
 )
 
@@ -19247,7 +22527,7 @@ func (ma *_MerkleTreeInnerNode__Assembler) valueFinishTidy() bool {
 	case 0:
 		switch ma.cm {
 		case schema.Maybe_Value:
-			ma.ca_ChildA.w = nil
+			ma.ca_Left.w = nil
 			ma.cm = schema.Maybe_Absent
 			ma.state = maState_initial
 			return true
@@ -19257,7 +22537,7 @@ func (ma *_MerkleTreeInnerNode__Assembler) valueFinishTidy() bool {
 	case 1:
 		switch ma.cm {
 		case schema.Maybe_Value:
-			ma.ca_ChildB.w = nil
+			ma.ca_Right.w = nil
 			ma.cm = schema.Maybe_Absent
 			ma.state = maState_initial
 			return true
@@ -19284,26 +22564,26 @@ func (ma *_MerkleTreeInnerNode__Assembler) AssembleEntry(k string) (ipld.NodeAss
 		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
 	}
 	switch k {
-	case "ChildA":
-		if ma.s&fieldBit__MerkleTreeInnerNode_ChildA != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildA}
+	case "Left":
+		if ma.s&fieldBit__MerkleTreeInnerNode_Left != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_Left}
 		}
-		ma.s += fieldBit__MerkleTreeInnerNode_ChildA
+		ma.s += fieldBit__MerkleTreeInnerNode_Left
 		ma.state = maState_midValue
 		ma.f = 0
-		ma.ca_ChildA.w = &ma.w.ChildA
-		ma.ca_ChildA.m = &ma.cm
-		return &ma.ca_ChildA, nil
-	case "ChildB":
-		if ma.s&fieldBit__MerkleTreeInnerNode_ChildB != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildB}
+		ma.ca_Left.w = &ma.w.Left
+		ma.ca_Left.m = &ma.cm
+		return &ma.ca_Left, nil
+	case "Right":
+		if ma.s&fieldBit__MerkleTreeInnerNode_Right != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_Right}
 		}
-		ma.s += fieldBit__MerkleTreeInnerNode_ChildB
+		ma.s += fieldBit__MerkleTreeInnerNode_Right
 		ma.state = maState_midValue
 		ma.f = 1
-		ma.ca_ChildB.w = &ma.w.ChildB
-		ma.ca_ChildB.m = &ma.cm
-		return &ma.ca_ChildB, nil
+		ma.ca_Right.w = &ma.w.Right
+		ma.ca_Right.m = &ma.cm
+		return &ma.ca_Right, nil
 	}
 	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.MerkleTreeInnerNode", Key: &_String{k}}
 }
@@ -19341,13 +22621,13 @@ func (ma *_MerkleTreeInnerNode__Assembler) AssembleValue() ipld.NodeAssembler {
 	ma.state = maState_midValue
 	switch ma.f {
 	case 0:
-		ma.ca_ChildA.w = &ma.w.ChildA
-		ma.ca_ChildA.m = &ma.cm
-		return &ma.ca_ChildA
+		ma.ca_Left.w = &ma.w.Left
+		ma.ca_Left.m = &ma.cm
+		return &ma.ca_Left
 	case 1:
-		ma.ca_ChildB.w = &ma.w.ChildB
-		ma.ca_ChildB.m = &ma.cm
-		return &ma.ca_ChildB
+		ma.ca_Right.w = &ma.w.Right
+		ma.ca_Right.m = &ma.cm
+		return &ma.ca_Right
 	default:
 		panic("unreachable")
 	}
@@ -19369,11 +22649,11 @@ func (ma *_MerkleTreeInnerNode__Assembler) Finish() error {
 	}
 	if ma.s&fieldBits__MerkleTreeInnerNode_sufficient != fieldBits__MerkleTreeInnerNode_sufficient {
 		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__MerkleTreeInnerNode_ChildA == 0 {
-			err.Missing = append(err.Missing, "ChildA")
+		if ma.s&fieldBit__MerkleTreeInnerNode_Left == 0 {
+			err.Missing = append(err.Missing, "Left")
 		}
-		if ma.s&fieldBit__MerkleTreeInnerNode_ChildB == 0 {
-			err.Missing = append(err.Missing, "ChildB")
+		if ma.s&fieldBit__MerkleTreeInnerNode_Right == 0 {
+			err.Missing = append(err.Missing, "Right")
 		}
 		return err
 	}
@@ -19413,18 +22693,18 @@ func (ka *_MerkleTreeInnerNode__KeyAssembler) AssignString(k string) error {
 		panic("misuse: KeyAssembler held beyond its valid lifetime")
 	}
 	switch k {
-	case "ChildA":
-		if ka.s&fieldBit__MerkleTreeInnerNode_ChildA != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildA}
+	case "Left":
+		if ka.s&fieldBit__MerkleTreeInnerNode_Left != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_Left}
 		}
-		ka.s += fieldBit__MerkleTreeInnerNode_ChildA
+		ka.s += fieldBit__MerkleTreeInnerNode_Left
 		ka.state = maState_expectValue
 		ka.f = 0
-	case "ChildB":
-		if ka.s&fieldBit__MerkleTreeInnerNode_ChildB != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildB}
+	case "Right":
+		if ka.s&fieldBit__MerkleTreeInnerNode_Right != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_Right}
 		}
-		ka.s += fieldBit__MerkleTreeInnerNode_ChildB
+		ka.s += fieldBit__MerkleTreeInnerNode_Right
 		ka.state = maState_expectValue
 		ka.f = 1
 	default:
@@ -19458,8 +22738,8 @@ func (n MerkleTreeInnerNode) Representation() ipld.Node {
 type _MerkleTreeInnerNode__Repr _MerkleTreeInnerNode
 
 var (
-	fieldName__MerkleTreeInnerNode_ChildA_serial = _String{"ChildA"}
-	fieldName__MerkleTreeInnerNode_ChildB_serial = _String{"ChildB"}
+	fieldName__MerkleTreeInnerNode_Left_serial  = _String{"Left"}
+	fieldName__MerkleTreeInnerNode_Right_serial = _String{"Right"}
 )
 var _ ipld.Node = &_MerkleTreeInnerNode__Repr{}
 
@@ -19468,10 +22748,10 @@ func (_MerkleTreeInnerNode__Repr) Kind() ipld.Kind {
 }
 func (n *_MerkleTreeInnerNode__Repr) LookupByString(key string) (ipld.Node, error) {
 	switch key {
-	case "ChildA":
-		return n.ChildA.Representation(), nil
-	case "ChildB":
-		return n.ChildB.Representation(), nil
+	case "Left":
+		return n.Left.Representation(), nil
+	case "Right":
+		return n.Right.Representation(), nil
 	default:
 		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
 	}
@@ -19504,11 +22784,11 @@ func (itr *_MerkleTreeInnerNode__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _
 	}
 	switch itr.idx {
 	case 0:
-		k = &fieldName__MerkleTreeInnerNode_ChildA_serial
-		v = itr.n.ChildA.Representation()
+		k = &fieldName__MerkleTreeInnerNode_Left_serial
+		v = itr.n.Left.Representation()
 	case 1:
-		k = &fieldName__MerkleTreeInnerNode_ChildB_serial
-		v = itr.n.ChildB.Representation()
+		k = &fieldName__MerkleTreeInnerNode_Right_serial
+		v = itr.n.Right.Representation()
 	default:
 		panic("unreachable")
 	}
@@ -19584,16 +22864,16 @@ type _MerkleTreeInnerNode__ReprAssembler struct {
 	s     int
 	f     int
 
-	cm        schema.Maybe
-	ca_ChildA _Link__ReprAssembler
-	ca_ChildB _Link__ReprAssembler
+	cm       schema.Maybe
+	ca_Left  _Link__ReprAssembler
+	ca_Right _Link__ReprAssembler
 }
 
 func (na *_MerkleTreeInnerNode__ReprAssembler) reset() {
 	na.state = maState_initial
 	na.s = 0
-	na.ca_ChildA.reset()
-	na.ca_ChildB.reset()
+	na.ca_Left.reset()
+	na.ca_Right.reset()
 }
 func (na *_MerkleTreeInnerNode__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
 	switch *na.m {
@@ -19724,26 +23004,26 @@ func (ma *_MerkleTreeInnerNode__ReprAssembler) AssembleEntry(k string) (ipld.Nod
 		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
 	}
 	switch k {
-	case "ChildA":
-		if ma.s&fieldBit__MerkleTreeInnerNode_ChildA != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildA_serial}
+	case "Left":
+		if ma.s&fieldBit__MerkleTreeInnerNode_Left != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_Left_serial}
 		}
-		ma.s += fieldBit__MerkleTreeInnerNode_ChildA
+		ma.s += fieldBit__MerkleTreeInnerNode_Left
 		ma.state = maState_midValue
 		ma.f = 0
-		ma.ca_ChildA.w = &ma.w.ChildA
-		ma.ca_ChildA.m = &ma.cm
-		return &ma.ca_ChildA, nil
-	case "ChildB":
-		if ma.s&fieldBit__MerkleTreeInnerNode_ChildB != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildB_serial}
+		ma.ca_Left.w = &ma.w.Left
+		ma.ca_Left.m = &ma.cm
+		return &ma.ca_Left, nil
+	case "Right":
+		if ma.s&fieldBit__MerkleTreeInnerNode_Right != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_Right_serial}
 		}
-		ma.s += fieldBit__MerkleTreeInnerNode_ChildB
+		ma.s += fieldBit__MerkleTreeInnerNode_Right
 		ma.state = maState_midValue
 		ma.f = 1
-		ma.ca_ChildB.w = &ma.w.ChildB
-		ma.ca_ChildB.m = &ma.cm
-		return &ma.ca_ChildB, nil
+		ma.ca_Right.w = &ma.w.Right
+		ma.ca_Right.m = &ma.cm
+		return &ma.ca_Right, nil
 	default:
 	}
 	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.MerkleTreeInnerNode.Repr", Key: &_String{k}}
@@ -19782,13 +23062,13 @@ func (ma *_MerkleTreeInnerNode__ReprAssembler) AssembleValue() ipld.NodeAssemble
 	ma.state = maState_midValue
 	switch ma.f {
 	case 0:
-		ma.ca_ChildA.w = &ma.w.ChildA
-		ma.ca_ChildA.m = &ma.cm
-		return &ma.ca_ChildA
+		ma.ca_Left.w = &ma.w.Left
+		ma.ca_Left.m = &ma.cm
+		return &ma.ca_Left
 	case 1:
-		ma.ca_ChildB.w = &ma.w.ChildB
-		ma.ca_ChildB.m = &ma.cm
-		return &ma.ca_ChildB
+		ma.ca_Right.w = &ma.w.Right
+		ma.ca_Right.m = &ma.cm
+		return &ma.ca_Right
 	default:
 		panic("unreachable")
 	}
@@ -19810,11 +23090,11 @@ func (ma *_MerkleTreeInnerNode__ReprAssembler) Finish() error {
 	}
 	if ma.s&fieldBits__MerkleTreeInnerNode_sufficient != fieldBits__MerkleTreeInnerNode_sufficient {
 		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__MerkleTreeInnerNode_ChildA == 0 {
-			err.Missing = append(err.Missing, "ChildA")
+		if ma.s&fieldBit__MerkleTreeInnerNode_Left == 0 {
+			err.Missing = append(err.Missing, "Left")
 		}
-		if ma.s&fieldBit__MerkleTreeInnerNode_ChildB == 0 {
-			err.Missing = append(err.Missing, "ChildB")
+		if ma.s&fieldBit__MerkleTreeInnerNode_Right == 0 {
+			err.Missing = append(err.Missing, "Right")
 		}
 		return err
 	}
@@ -19854,19 +23134,19 @@ func (ka *_MerkleTreeInnerNode__ReprKeyAssembler) AssignString(k string) error {
 		panic("misuse: KeyAssembler held beyond its valid lifetime")
 	}
 	switch k {
-	case "ChildA":
-		if ka.s&fieldBit__MerkleTreeInnerNode_ChildA != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildA_serial}
+	case "Left":
+		if ka.s&fieldBit__MerkleTreeInnerNode_Left != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_Left_serial}
 		}
-		ka.s += fieldBit__MerkleTreeInnerNode_ChildA
+		ka.s += fieldBit__MerkleTreeInnerNode_Left
 		ka.state = maState_expectValue
 		ka.f = 0
 		return nil
-	case "ChildB":
-		if ka.s&fieldBit__MerkleTreeInnerNode_ChildB != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_ChildB_serial}
+	case "Right":
+		if ka.s&fieldBit__MerkleTreeInnerNode_Right != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__MerkleTreeInnerNode_Right_serial}
 		}
-		ka.s += fieldBit__MerkleTreeInnerNode_ChildB
+		ka.s += fieldBit__MerkleTreeInnerNode_Right
 		ka.state = maState_expectValue
 		ka.f = 1
 		return nil
@@ -20723,6 +24003,910 @@ func (ka *_MerkleTreeLeafNode__ReprKeyAssembler) AssignNode(v ipld.Node) error {
 	}
 }
 func (_MerkleTreeLeafNode__ReprKeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+
+func (n _MerkleTreeNode) AsInterface() _MerkleTreeNode__iface {
+	switch n.tag {
+	case 1:
+		return &n.x1
+	case 2:
+		return &n.x2
+	default:
+		panic("invalid union state; how did you create this object?")
+	}
+}
+
+type _MerkleTreeNode__Maybe struct {
+	m schema.Maybe
+	v MerkleTreeNode
+}
+type MaybeMerkleTreeNode = *_MerkleTreeNode__Maybe
+
+func (m MaybeMerkleTreeNode) IsNull() bool {
+	return m.m == schema.Maybe_Null
+}
+func (m MaybeMerkleTreeNode) IsAbsent() bool {
+	return m.m == schema.Maybe_Absent
+}
+func (m MaybeMerkleTreeNode) Exists() bool {
+	return m.m == schema.Maybe_Value
+}
+func (m MaybeMerkleTreeNode) AsNode() ipld.Node {
+	switch m.m {
+	case schema.Maybe_Absent:
+		return ipld.Absent
+	case schema.Maybe_Null:
+		return ipld.Null
+	case schema.Maybe_Value:
+		return m.v
+	default:
+		panic("unreachable")
+	}
+}
+func (m MaybeMerkleTreeNode) Must() MerkleTreeNode {
+	if !m.Exists() {
+		panic("unbox of a maybe rejected")
+	}
+	return m.v
+}
+
+var (
+	memberName__MerkleTreeNode_MerkleTreeInnerNode = _String{"MerkleTreeInnerNode"}
+	memberName__MerkleTreeNode_MerkleTreeLeafNode  = _String{"MerkleTreeLeafNode"}
+)
+var _ ipld.Node = (MerkleTreeNode)(&_MerkleTreeNode{})
+var _ schema.TypedNode = (MerkleTreeNode)(&_MerkleTreeNode{})
+
+func (MerkleTreeNode) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n MerkleTreeNode) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "MerkleTreeInnerNode":
+		if n.tag != 1 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return &n.x1, nil
+	case "MerkleTreeLeafNode":
+		if n.tag != 2 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return &n.x2, nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n MerkleTreeNode) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (MerkleTreeNode) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeNode"}.LookupByIndex(0)
+}
+func (n MerkleTreeNode) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n MerkleTreeNode) MapIterator() ipld.MapIterator {
+	return &_MerkleTreeNode__MapItr{n, false}
+}
+
+type _MerkleTreeNode__MapItr struct {
+	n    MerkleTreeNode
+	done bool
+}
+
+func (itr *_MerkleTreeNode__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.done {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.n.tag {
+	case 1:
+		k, v = &memberName__MerkleTreeNode_MerkleTreeInnerNode, &itr.n.x1
+	case 2:
+		k, v = &memberName__MerkleTreeNode_MerkleTreeLeafNode, &itr.n.x2
+	default:
+		panic("unreachable")
+	}
+	itr.done = true
+	return
+}
+func (itr *_MerkleTreeNode__MapItr) Done() bool {
+	return itr.done
+}
+
+func (MerkleTreeNode) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (MerkleTreeNode) Length() int64 {
+	return 1
+}
+func (MerkleTreeNode) IsAbsent() bool {
+	return false
+}
+func (MerkleTreeNode) IsNull() bool {
+	return false
+}
+func (MerkleTreeNode) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeNode"}.AsBool()
+}
+func (MerkleTreeNode) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeNode"}.AsInt()
+}
+func (MerkleTreeNode) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeNode"}.AsFloat()
+}
+func (MerkleTreeNode) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeNode"}.AsString()
+}
+func (MerkleTreeNode) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeNode"}.AsBytes()
+}
+func (MerkleTreeNode) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeNode"}.AsLink()
+}
+func (MerkleTreeNode) Prototype() ipld.NodePrototype {
+	return _MerkleTreeNode__Prototype{}
+}
+
+type _MerkleTreeNode__Prototype struct{}
+
+func (_MerkleTreeNode__Prototype) NewBuilder() ipld.NodeBuilder {
+	var nb _MerkleTreeNode__Builder
+	nb.Reset()
+	return &nb
+}
+
+type _MerkleTreeNode__Builder struct {
+	_MerkleTreeNode__Assembler
+}
+
+func (nb *_MerkleTreeNode__Builder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_MerkleTreeNode__Builder) Reset() {
+	var w _MerkleTreeNode
+	var m schema.Maybe
+	*nb = _MerkleTreeNode__Builder{_MerkleTreeNode__Assembler{w: &w, m: &m}}
+}
+
+type _MerkleTreeNode__Assembler struct {
+	w     *_MerkleTreeNode
+	m     *schema.Maybe
+	state maState
+
+	cm  schema.Maybe
+	ca1 _MerkleTreeInnerNode__Assembler
+
+	ca2 _MerkleTreeLeafNode__Assembler
+	ca  uint
+}
+
+func (na *_MerkleTreeNode__Assembler) reset() {
+	na.state = maState_initial
+	switch na.ca {
+	case 0:
+		return
+	case 1:
+		na.ca1.reset()
+
+	case 2:
+		na.ca2.reset()
+	default:
+		panic("unreachable")
+	}
+	na.ca = 0
+	na.cm = schema.Maybe_Absent
+}
+func (na *_MerkleTreeNode__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_MerkleTreeNode{}
+	}
+	return na, nil
+}
+func (_MerkleTreeNode__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeNode"}.BeginList(0)
+}
+func (na *_MerkleTreeNode__Assembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.MerkleTreeNode"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_MerkleTreeNode__Assembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeNode"}.AssignBool(false)
+}
+func (_MerkleTreeNode__Assembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeNode"}.AssignInt(0)
+}
+func (_MerkleTreeNode__Assembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeNode"}.AssignFloat(0)
+}
+func (_MerkleTreeNode__Assembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeNode"}.AssignString("")
+}
+func (_MerkleTreeNode__Assembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeNode"}.AssignBytes(nil)
+}
+func (_MerkleTreeNode__Assembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeNode"}.AssignLink(nil)
+}
+func (na *_MerkleTreeNode__Assembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_MerkleTreeNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.MerkleTreeNode", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_MerkleTreeNode__Assembler) Prototype() ipld.NodePrototype {
+	return _MerkleTreeNode__Prototype{}
+}
+func (ma *_MerkleTreeNode__Assembler) valueFinishTidy() bool {
+	switch ma.cm {
+	case schema.Maybe_Value:
+		ma.state = maState_initial
+		return true
+	default:
+		return false
+	}
+}
+func (ma *_MerkleTreeNode__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly.
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	if ma.ca != 0 {
+		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.MerkleTreeNode", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "MerkleTreeInnerNode":
+		ma.state = maState_midValue
+		ma.ca = 1
+		ma.w.tag = 1
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1, nil
+	case "MerkleTreeLeafNode":
+		ma.state = maState_midValue
+		ma.ca = 2
+		ma.w.tag = 2
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2, nil
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.MerkleTreeNode", Key: &_String{k}}
+}
+func (ma *_MerkleTreeNode__Assembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly... or rather, the keyassembler will be.
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_MerkleTreeNode__KeyAssembler)(ma)
+}
+func (ma *_MerkleTreeNode__Assembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.ca {
+	case 0:
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1
+	case 1:
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_MerkleTreeNode__Assembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.ca == 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.MerkleTreeNode", Detail: "a union must have exactly one entry (not none)!"}
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_MerkleTreeNode__Assembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_MerkleTreeNode__Assembler) ValuePrototype(k string) ipld.NodePrototype {
+	switch k {
+	case "MerkleTreeInnerNode":
+		return _MerkleTreeInnerNode__Prototype{}
+	case "MerkleTreeLeafNode":
+		return _MerkleTreeLeafNode__Prototype{}
+	default:
+		return nil
+	}
+}
+
+type _MerkleTreeNode__KeyAssembler _MerkleTreeNode__Assembler
+
+func (_MerkleTreeNode__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.KeyAssembler"}.BeginMap(0)
+}
+func (_MerkleTreeNode__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.KeyAssembler"}.BeginList(0)
+}
+func (na *_MerkleTreeNode__KeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.KeyAssembler"}.AssignNull()
+}
+func (_MerkleTreeNode__KeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.KeyAssembler"}.AssignBool(false)
+}
+func (_MerkleTreeNode__KeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.KeyAssembler"}.AssignInt(0)
+}
+func (_MerkleTreeNode__KeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_MerkleTreeNode__KeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	if ka.ca != 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.MerkleTreeNode", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "MerkleTreeInnerNode":
+		ka.ca = 1
+		ka.w.tag = 1
+		ka.state = maState_expectValue
+		return nil
+	case "MerkleTreeLeafNode":
+		ka.ca = 2
+		ka.w.tag = 2
+		ka.state = maState_expectValue
+		return nil
+	}
+	return ipld.ErrInvalidKey{TypeName: "dagcosmos.MerkleTreeNode", Key: &_String{k}} // TODO: error quality: ErrInvalidUnionDiscriminant ?
+}
+func (_MerkleTreeNode__KeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.KeyAssembler"}.AssignBytes(nil)
+}
+func (_MerkleTreeNode__KeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_MerkleTreeNode__KeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_MerkleTreeNode__KeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (MerkleTreeNode) Type() schema.Type {
+	return nil /*TODO:typelit*/
+}
+func (n MerkleTreeNode) Representation() ipld.Node {
+	return (*_MerkleTreeNode__Repr)(n)
+}
+
+type _MerkleTreeNode__Repr _MerkleTreeNode
+
+var (
+	memberName__MerkleTreeNode_MerkleTreeInnerNode_serial = _String{"inner"}
+	memberName__MerkleTreeNode_MerkleTreeLeafNode_serial  = _String{"leaf"}
+)
+var _ ipld.Node = &_MerkleTreeNode__Repr{}
+
+func (_MerkleTreeNode__Repr) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n *_MerkleTreeNode__Repr) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "inner":
+		if n.tag != 1 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return n.x1.Representation(), nil
+	case "leaf":
+		if n.tag != 2 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return n.x2.Representation(), nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n *_MerkleTreeNode__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (_MerkleTreeNode__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeNode.Repr"}.LookupByIndex(0)
+}
+func (n _MerkleTreeNode__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n *_MerkleTreeNode__Repr) MapIterator() ipld.MapIterator {
+	return &_MerkleTreeNode__ReprMapItr{n, false}
+}
+
+type _MerkleTreeNode__ReprMapItr struct {
+	n    *_MerkleTreeNode__Repr
+	done bool
+}
+
+func (itr *_MerkleTreeNode__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.done {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.n.tag {
+	case 1:
+		k, v = &memberName__MerkleTreeNode_MerkleTreeInnerNode_serial, itr.n.x1.Representation()
+	case 2:
+		k, v = &memberName__MerkleTreeNode_MerkleTreeLeafNode_serial, itr.n.x2.Representation()
+	default:
+		panic("unreachable")
+	}
+	itr.done = true
+	return
+}
+func (itr *_MerkleTreeNode__ReprMapItr) Done() bool {
+	return itr.done
+}
+
+func (_MerkleTreeNode__Repr) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (_MerkleTreeNode__Repr) Length() int64 {
+	return 1
+}
+func (_MerkleTreeNode__Repr) IsAbsent() bool {
+	return false
+}
+func (_MerkleTreeNode__Repr) IsNull() bool {
+	return false
+}
+func (_MerkleTreeNode__Repr) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeNode.Repr"}.AsBool()
+}
+func (_MerkleTreeNode__Repr) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeNode.Repr"}.AsInt()
+}
+func (_MerkleTreeNode__Repr) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeNode.Repr"}.AsFloat()
+}
+func (_MerkleTreeNode__Repr) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeNode.Repr"}.AsString()
+}
+func (_MerkleTreeNode__Repr) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeNode.Repr"}.AsBytes()
+}
+func (_MerkleTreeNode__Repr) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.MerkleTreeNode.Repr"}.AsLink()
+}
+func (_MerkleTreeNode__Repr) Prototype() ipld.NodePrototype {
+	return _MerkleTreeNode__ReprPrototype{}
+}
+
+type _MerkleTreeNode__ReprPrototype struct{}
+
+func (_MerkleTreeNode__ReprPrototype) NewBuilder() ipld.NodeBuilder {
+	var nb _MerkleTreeNode__ReprBuilder
+	nb.Reset()
+	return &nb
+}
+
+type _MerkleTreeNode__ReprBuilder struct {
+	_MerkleTreeNode__ReprAssembler
+}
+
+func (nb *_MerkleTreeNode__ReprBuilder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_MerkleTreeNode__ReprBuilder) Reset() {
+	var w _MerkleTreeNode
+	var m schema.Maybe
+	*nb = _MerkleTreeNode__ReprBuilder{_MerkleTreeNode__ReprAssembler{w: &w, m: &m}}
+}
+
+type _MerkleTreeNode__ReprAssembler struct {
+	w     *_MerkleTreeNode
+	m     *schema.Maybe
+	state maState
+
+	cm  schema.Maybe
+	ca1 _MerkleTreeInnerNode__ReprAssembler
+
+	ca2 _MerkleTreeLeafNode__ReprAssembler
+	ca  uint
+}
+
+func (na *_MerkleTreeNode__ReprAssembler) reset() {
+	na.state = maState_initial
+	switch na.ca {
+	case 0:
+		return
+	case 1:
+		na.ca1.reset()
+
+	case 2:
+		na.ca2.reset()
+	default:
+		panic("unreachable")
+	}
+	na.ca = 0
+	na.cm = schema.Maybe_Absent
+}
+func (na *_MerkleTreeNode__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_MerkleTreeNode{}
+	}
+	return na, nil
+}
+func (_MerkleTreeNode__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeNode.Repr"}.BeginList(0)
+}
+func (na *_MerkleTreeNode__ReprAssembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.MerkleTreeNode.Repr.Repr"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_MerkleTreeNode__ReprAssembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeNode.Repr"}.AssignBool(false)
+}
+func (_MerkleTreeNode__ReprAssembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeNode.Repr"}.AssignInt(0)
+}
+func (_MerkleTreeNode__ReprAssembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeNode.Repr"}.AssignFloat(0)
+}
+func (_MerkleTreeNode__ReprAssembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeNode.Repr"}.AssignString("")
+}
+func (_MerkleTreeNode__ReprAssembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeNode.Repr"}.AssignBytes(nil)
+}
+func (_MerkleTreeNode__ReprAssembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.MerkleTreeNode.Repr"}.AssignLink(nil)
+}
+func (na *_MerkleTreeNode__ReprAssembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_MerkleTreeNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.MerkleTreeNode.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_MerkleTreeNode__ReprAssembler) Prototype() ipld.NodePrototype {
+	return _MerkleTreeNode__ReprPrototype{}
+}
+func (ma *_MerkleTreeNode__ReprAssembler) valueFinishTidy() bool {
+	switch ma.cm {
+	case schema.Maybe_Value:
+		ma.state = maState_initial
+		return true
+	default:
+		return false
+	}
+}
+func (ma *_MerkleTreeNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly.
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	if ma.ca != 0 {
+		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.MerkleTreeNode.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "inner":
+		ma.state = maState_midValue
+		ma.ca = 1
+		ma.w.tag = 1
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1, nil
+	case "leaf":
+		ma.state = maState_midValue
+		ma.ca = 2
+		ma.w.tag = 2
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2, nil
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.MerkleTreeNode.Repr", Key: &_String{k}}
+}
+func (ma *_MerkleTreeNode__ReprAssembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly... or rather, the keyassembler will be.
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_MerkleTreeNode__ReprKeyAssembler)(ma)
+}
+func (ma *_MerkleTreeNode__ReprAssembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.ca {
+	case 0:
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1
+	case 1:
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_MerkleTreeNode__ReprAssembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.ca == 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.MerkleTreeNode.Repr", Detail: "a union must have exactly one entry (not none)!"}
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_MerkleTreeNode__ReprAssembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_MerkleTreeNode__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
+	switch k {
+	case "MerkleTreeInnerNode":
+		return _MerkleTreeInnerNode__ReprPrototype{}
+	case "MerkleTreeLeafNode":
+		return _MerkleTreeLeafNode__ReprPrototype{}
+	default:
+		return nil
+	}
+}
+
+type _MerkleTreeNode__ReprKeyAssembler _MerkleTreeNode__ReprAssembler
+
+func (_MerkleTreeNode__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.Repr.KeyAssembler"}.BeginMap(0)
+}
+func (_MerkleTreeNode__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.Repr.KeyAssembler"}.BeginList(0)
+}
+func (na *_MerkleTreeNode__ReprKeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.Repr.KeyAssembler"}.AssignNull()
+}
+func (_MerkleTreeNode__ReprKeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.Repr.KeyAssembler"}.AssignBool(false)
+}
+func (_MerkleTreeNode__ReprKeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.Repr.KeyAssembler"}.AssignInt(0)
+}
+func (_MerkleTreeNode__ReprKeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.Repr.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_MerkleTreeNode__ReprKeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	if ka.ca != 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.MerkleTreeNode.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "inner":
+		ka.ca = 1
+		ka.w.tag = 1
+		ka.state = maState_expectValue
+		return nil
+	case "leaf":
+		ka.ca = 2
+		ka.w.tag = 2
+		ka.state = maState_expectValue
+		return nil
+	}
+	return ipld.ErrInvalidKey{TypeName: "dagcosmos.MerkleTreeNode.Repr", Key: &_String{k}} // TODO: error quality: ErrInvalidUnionDiscriminant ?
+}
+func (_MerkleTreeNode__ReprKeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.Repr.KeyAssembler"}.AssignBytes(nil)
+}
+func (_MerkleTreeNode__ReprKeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.MerkleTreeNode.Repr.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_MerkleTreeNode__ReprKeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_MerkleTreeNode__ReprKeyAssembler) Prototype() ipld.NodePrototype {
 	return _String__Prototype{}
 }
 
@@ -26764,6 +30948,2758 @@ func (la *_PubKeyTypes__ReprAssembler) Finish() error {
 }
 func (la *_PubKeyTypes__ReprAssembler) ValuePrototype(_ int64) ipld.NodePrototype {
 	return _String__ReprPrototype{}
+}
+
+func (n _SMTInnerNode) FieldLeft() Link {
+	return &n.Left
+}
+func (n _SMTInnerNode) FieldRight() Link {
+	return &n.Right
+}
+
+type _SMTInnerNode__Maybe struct {
+	m schema.Maybe
+	v SMTInnerNode
+}
+type MaybeSMTInnerNode = *_SMTInnerNode__Maybe
+
+func (m MaybeSMTInnerNode) IsNull() bool {
+	return m.m == schema.Maybe_Null
+}
+func (m MaybeSMTInnerNode) IsAbsent() bool {
+	return m.m == schema.Maybe_Absent
+}
+func (m MaybeSMTInnerNode) Exists() bool {
+	return m.m == schema.Maybe_Value
+}
+func (m MaybeSMTInnerNode) AsNode() ipld.Node {
+	switch m.m {
+	case schema.Maybe_Absent:
+		return ipld.Absent
+	case schema.Maybe_Null:
+		return ipld.Null
+	case schema.Maybe_Value:
+		return m.v
+	default:
+		panic("unreachable")
+	}
+}
+func (m MaybeSMTInnerNode) Must() SMTInnerNode {
+	if !m.Exists() {
+		panic("unbox of a maybe rejected")
+	}
+	return m.v
+}
+
+var (
+	fieldName__SMTInnerNode_Left  = _String{"Left"}
+	fieldName__SMTInnerNode_Right = _String{"Right"}
+)
+var _ ipld.Node = (SMTInnerNode)(&_SMTInnerNode{})
+var _ schema.TypedNode = (SMTInnerNode)(&_SMTInnerNode{})
+
+func (SMTInnerNode) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n SMTInnerNode) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "Left":
+		return &n.Left, nil
+	case "Right":
+		return &n.Right, nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n SMTInnerNode) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (SMTInnerNode) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.SMTInnerNode"}.LookupByIndex(0)
+}
+func (n SMTInnerNode) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n SMTInnerNode) MapIterator() ipld.MapIterator {
+	return &_SMTInnerNode__MapItr{n, 0}
+}
+
+type _SMTInnerNode__MapItr struct {
+	n   SMTInnerNode
+	idx int
+}
+
+func (itr *_SMTInnerNode__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.idx >= 2 {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.idx {
+	case 0:
+		k = &fieldName__SMTInnerNode_Left
+		v = &itr.n.Left
+	case 1:
+		k = &fieldName__SMTInnerNode_Right
+		v = &itr.n.Right
+	default:
+		panic("unreachable")
+	}
+	itr.idx++
+	return
+}
+func (itr *_SMTInnerNode__MapItr) Done() bool {
+	return itr.idx >= 2
+}
+
+func (SMTInnerNode) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (SMTInnerNode) Length() int64 {
+	return 2
+}
+func (SMTInnerNode) IsAbsent() bool {
+	return false
+}
+func (SMTInnerNode) IsNull() bool {
+	return false
+}
+func (SMTInnerNode) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.SMTInnerNode"}.AsBool()
+}
+func (SMTInnerNode) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.SMTInnerNode"}.AsInt()
+}
+func (SMTInnerNode) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.SMTInnerNode"}.AsFloat()
+}
+func (SMTInnerNode) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.SMTInnerNode"}.AsString()
+}
+func (SMTInnerNode) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.SMTInnerNode"}.AsBytes()
+}
+func (SMTInnerNode) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.SMTInnerNode"}.AsLink()
+}
+func (SMTInnerNode) Prototype() ipld.NodePrototype {
+	return _SMTInnerNode__Prototype{}
+}
+
+type _SMTInnerNode__Prototype struct{}
+
+func (_SMTInnerNode__Prototype) NewBuilder() ipld.NodeBuilder {
+	var nb _SMTInnerNode__Builder
+	nb.Reset()
+	return &nb
+}
+
+type _SMTInnerNode__Builder struct {
+	_SMTInnerNode__Assembler
+}
+
+func (nb *_SMTInnerNode__Builder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_SMTInnerNode__Builder) Reset() {
+	var w _SMTInnerNode
+	var m schema.Maybe
+	*nb = _SMTInnerNode__Builder{_SMTInnerNode__Assembler{w: &w, m: &m}}
+}
+
+type _SMTInnerNode__Assembler struct {
+	w     *_SMTInnerNode
+	m     *schema.Maybe
+	state maState
+	s     int
+	f     int
+
+	cm       schema.Maybe
+	ca_Left  _Link__Assembler
+	ca_Right _Link__Assembler
+}
+
+func (na *_SMTInnerNode__Assembler) reset() {
+	na.state = maState_initial
+	na.s = 0
+	na.ca_Left.reset()
+	na.ca_Right.reset()
+}
+
+var (
+	fieldBit__SMTInnerNode_Left        = 1 << 0
+	fieldBit__SMTInnerNode_Right       = 1 << 1
+	fieldBits__SMTInnerNode_sufficient = 0 + 1<<0 + 1<<1
+)
+
+func (na *_SMTInnerNode__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_SMTInnerNode{}
+	}
+	return na, nil
+}
+func (_SMTInnerNode__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.SMTInnerNode"}.BeginList(0)
+}
+func (na *_SMTInnerNode__Assembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.SMTInnerNode"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_SMTInnerNode__Assembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.SMTInnerNode"}.AssignBool(false)
+}
+func (_SMTInnerNode__Assembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.SMTInnerNode"}.AssignInt(0)
+}
+func (_SMTInnerNode__Assembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.SMTInnerNode"}.AssignFloat(0)
+}
+func (_SMTInnerNode__Assembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.SMTInnerNode"}.AssignString("")
+}
+func (_SMTInnerNode__Assembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.SMTInnerNode"}.AssignBytes(nil)
+}
+func (_SMTInnerNode__Assembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.SMTInnerNode"}.AssignLink(nil)
+}
+func (na *_SMTInnerNode__Assembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_SMTInnerNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.SMTInnerNode", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_SMTInnerNode__Assembler) Prototype() ipld.NodePrototype {
+	return _SMTInnerNode__Prototype{}
+}
+func (ma *_SMTInnerNode__Assembler) valueFinishTidy() bool {
+	switch ma.f {
+	case 0:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Left.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 1:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Right.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_SMTInnerNode__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	switch k {
+	case "Left":
+		if ma.s&fieldBit__SMTInnerNode_Left != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__SMTInnerNode_Left}
+		}
+		ma.s += fieldBit__SMTInnerNode_Left
+		ma.state = maState_midValue
+		ma.f = 0
+		ma.ca_Left.w = &ma.w.Left
+		ma.ca_Left.m = &ma.cm
+		return &ma.ca_Left, nil
+	case "Right":
+		if ma.s&fieldBit__SMTInnerNode_Right != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__SMTInnerNode_Right}
+		}
+		ma.s += fieldBit__SMTInnerNode_Right
+		ma.state = maState_midValue
+		ma.f = 1
+		ma.ca_Right.w = &ma.w.Right
+		ma.ca_Right.m = &ma.cm
+		return &ma.ca_Right, nil
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.SMTInnerNode", Key: &_String{k}}
+}
+func (ma *_SMTInnerNode__Assembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_SMTInnerNode__KeyAssembler)(ma)
+}
+func (ma *_SMTInnerNode__Assembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.f {
+	case 0:
+		ma.ca_Left.w = &ma.w.Left
+		ma.ca_Left.m = &ma.cm
+		return &ma.ca_Left
+	case 1:
+		ma.ca_Right.w = &ma.w.Right
+		ma.ca_Right.m = &ma.cm
+		return &ma.ca_Right
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_SMTInnerNode__Assembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.s&fieldBits__SMTInnerNode_sufficient != fieldBits__SMTInnerNode_sufficient {
+		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
+		if ma.s&fieldBit__SMTInnerNode_Left == 0 {
+			err.Missing = append(err.Missing, "Left")
+		}
+		if ma.s&fieldBit__SMTInnerNode_Right == 0 {
+			err.Missing = append(err.Missing, "Right")
+		}
+		return err
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_SMTInnerNode__Assembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_SMTInnerNode__Assembler) ValuePrototype(k string) ipld.NodePrototype {
+	panic("todo structbuilder mapassembler valueprototype")
+}
+
+type _SMTInnerNode__KeyAssembler _SMTInnerNode__Assembler
+
+func (_SMTInnerNode__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.KeyAssembler"}.BeginMap(0)
+}
+func (_SMTInnerNode__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.KeyAssembler"}.BeginList(0)
+}
+func (na *_SMTInnerNode__KeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.KeyAssembler"}.AssignNull()
+}
+func (_SMTInnerNode__KeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.KeyAssembler"}.AssignBool(false)
+}
+func (_SMTInnerNode__KeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.KeyAssembler"}.AssignInt(0)
+}
+func (_SMTInnerNode__KeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_SMTInnerNode__KeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	switch k {
+	case "Left":
+		if ka.s&fieldBit__SMTInnerNode_Left != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__SMTInnerNode_Left}
+		}
+		ka.s += fieldBit__SMTInnerNode_Left
+		ka.state = maState_expectValue
+		ka.f = 0
+	case "Right":
+		if ka.s&fieldBit__SMTInnerNode_Right != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__SMTInnerNode_Right}
+		}
+		ka.s += fieldBit__SMTInnerNode_Right
+		ka.state = maState_expectValue
+		ka.f = 1
+	default:
+		return ipld.ErrInvalidKey{TypeName: "dagcosmos.SMTInnerNode", Key: &_String{k}}
+	}
+	return nil
+}
+func (_SMTInnerNode__KeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.KeyAssembler"}.AssignBytes(nil)
+}
+func (_SMTInnerNode__KeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_SMTInnerNode__KeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_SMTInnerNode__KeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (SMTInnerNode) Type() schema.Type {
+	return nil /*TODO:typelit*/
+}
+func (n SMTInnerNode) Representation() ipld.Node {
+	return (*_SMTInnerNode__Repr)(n)
+}
+
+type _SMTInnerNode__Repr _SMTInnerNode
+
+var (
+	fieldName__SMTInnerNode_Left_serial  = _String{"Left"}
+	fieldName__SMTInnerNode_Right_serial = _String{"Right"}
+)
+var _ ipld.Node = &_SMTInnerNode__Repr{}
+
+func (_SMTInnerNode__Repr) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n *_SMTInnerNode__Repr) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "Left":
+		return n.Left.Representation(), nil
+	case "Right":
+		return n.Right.Representation(), nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n *_SMTInnerNode__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (_SMTInnerNode__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.SMTInnerNode.Repr"}.LookupByIndex(0)
+}
+func (n _SMTInnerNode__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n *_SMTInnerNode__Repr) MapIterator() ipld.MapIterator {
+	return &_SMTInnerNode__ReprMapItr{n, 0}
+}
+
+type _SMTInnerNode__ReprMapItr struct {
+	n   *_SMTInnerNode__Repr
+	idx int
+}
+
+func (itr *_SMTInnerNode__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.idx >= 2 {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.idx {
+	case 0:
+		k = &fieldName__SMTInnerNode_Left_serial
+		v = itr.n.Left.Representation()
+	case 1:
+		k = &fieldName__SMTInnerNode_Right_serial
+		v = itr.n.Right.Representation()
+	default:
+		panic("unreachable")
+	}
+	itr.idx++
+	return
+}
+func (itr *_SMTInnerNode__ReprMapItr) Done() bool {
+	return itr.idx >= 2
+}
+func (_SMTInnerNode__Repr) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (rn *_SMTInnerNode__Repr) Length() int64 {
+	l := 2
+	return int64(l)
+}
+func (_SMTInnerNode__Repr) IsAbsent() bool {
+	return false
+}
+func (_SMTInnerNode__Repr) IsNull() bool {
+	return false
+}
+func (_SMTInnerNode__Repr) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.SMTInnerNode.Repr"}.AsBool()
+}
+func (_SMTInnerNode__Repr) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.SMTInnerNode.Repr"}.AsInt()
+}
+func (_SMTInnerNode__Repr) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.SMTInnerNode.Repr"}.AsFloat()
+}
+func (_SMTInnerNode__Repr) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.SMTInnerNode.Repr"}.AsString()
+}
+func (_SMTInnerNode__Repr) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.SMTInnerNode.Repr"}.AsBytes()
+}
+func (_SMTInnerNode__Repr) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.SMTInnerNode.Repr"}.AsLink()
+}
+func (_SMTInnerNode__Repr) Prototype() ipld.NodePrototype {
+	return _SMTInnerNode__ReprPrototype{}
+}
+
+type _SMTInnerNode__ReprPrototype struct{}
+
+func (_SMTInnerNode__ReprPrototype) NewBuilder() ipld.NodeBuilder {
+	var nb _SMTInnerNode__ReprBuilder
+	nb.Reset()
+	return &nb
+}
+
+type _SMTInnerNode__ReprBuilder struct {
+	_SMTInnerNode__ReprAssembler
+}
+
+func (nb *_SMTInnerNode__ReprBuilder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_SMTInnerNode__ReprBuilder) Reset() {
+	var w _SMTInnerNode
+	var m schema.Maybe
+	*nb = _SMTInnerNode__ReprBuilder{_SMTInnerNode__ReprAssembler{w: &w, m: &m}}
+}
+
+type _SMTInnerNode__ReprAssembler struct {
+	w     *_SMTInnerNode
+	m     *schema.Maybe
+	state maState
+	s     int
+	f     int
+
+	cm       schema.Maybe
+	ca_Left  _Link__ReprAssembler
+	ca_Right _Link__ReprAssembler
+}
+
+func (na *_SMTInnerNode__ReprAssembler) reset() {
+	na.state = maState_initial
+	na.s = 0
+	na.ca_Left.reset()
+	na.ca_Right.reset()
+}
+func (na *_SMTInnerNode__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_SMTInnerNode{}
+	}
+	return na, nil
+}
+func (_SMTInnerNode__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.SMTInnerNode.Repr"}.BeginList(0)
+}
+func (na *_SMTInnerNode__ReprAssembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.SMTInnerNode.Repr.Repr"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_SMTInnerNode__ReprAssembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.SMTInnerNode.Repr"}.AssignBool(false)
+}
+func (_SMTInnerNode__ReprAssembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.SMTInnerNode.Repr"}.AssignInt(0)
+}
+func (_SMTInnerNode__ReprAssembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.SMTInnerNode.Repr"}.AssignFloat(0)
+}
+func (_SMTInnerNode__ReprAssembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.SMTInnerNode.Repr"}.AssignString("")
+}
+func (_SMTInnerNode__ReprAssembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.SMTInnerNode.Repr"}.AssignBytes(nil)
+}
+func (_SMTInnerNode__ReprAssembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.SMTInnerNode.Repr"}.AssignLink(nil)
+}
+func (na *_SMTInnerNode__ReprAssembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_SMTInnerNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.SMTInnerNode.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_SMTInnerNode__ReprAssembler) Prototype() ipld.NodePrototype {
+	return _SMTInnerNode__ReprPrototype{}
+}
+func (ma *_SMTInnerNode__ReprAssembler) valueFinishTidy() bool {
+	switch ma.f {
+	case 0:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 1:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_SMTInnerNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	switch k {
+	case "Left":
+		if ma.s&fieldBit__SMTInnerNode_Left != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__SMTInnerNode_Left_serial}
+		}
+		ma.s += fieldBit__SMTInnerNode_Left
+		ma.state = maState_midValue
+		ma.f = 0
+		ma.ca_Left.w = &ma.w.Left
+		ma.ca_Left.m = &ma.cm
+		return &ma.ca_Left, nil
+	case "Right":
+		if ma.s&fieldBit__SMTInnerNode_Right != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__SMTInnerNode_Right_serial}
+		}
+		ma.s += fieldBit__SMTInnerNode_Right
+		ma.state = maState_midValue
+		ma.f = 1
+		ma.ca_Right.w = &ma.w.Right
+		ma.ca_Right.m = &ma.cm
+		return &ma.ca_Right, nil
+	default:
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.SMTInnerNode.Repr", Key: &_String{k}}
+}
+func (ma *_SMTInnerNode__ReprAssembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_SMTInnerNode__ReprKeyAssembler)(ma)
+}
+func (ma *_SMTInnerNode__ReprAssembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.f {
+	case 0:
+		ma.ca_Left.w = &ma.w.Left
+		ma.ca_Left.m = &ma.cm
+		return &ma.ca_Left
+	case 1:
+		ma.ca_Right.w = &ma.w.Right
+		ma.ca_Right.m = &ma.cm
+		return &ma.ca_Right
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_SMTInnerNode__ReprAssembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.s&fieldBits__SMTInnerNode_sufficient != fieldBits__SMTInnerNode_sufficient {
+		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
+		if ma.s&fieldBit__SMTInnerNode_Left == 0 {
+			err.Missing = append(err.Missing, "Left")
+		}
+		if ma.s&fieldBit__SMTInnerNode_Right == 0 {
+			err.Missing = append(err.Missing, "Right")
+		}
+		return err
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_SMTInnerNode__ReprAssembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_SMTInnerNode__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
+	panic("todo structbuilder mapassembler repr valueprototype")
+}
+
+type _SMTInnerNode__ReprKeyAssembler _SMTInnerNode__ReprAssembler
+
+func (_SMTInnerNode__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.Repr.KeyAssembler"}.BeginMap(0)
+}
+func (_SMTInnerNode__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.Repr.KeyAssembler"}.BeginList(0)
+}
+func (na *_SMTInnerNode__ReprKeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.Repr.KeyAssembler"}.AssignNull()
+}
+func (_SMTInnerNode__ReprKeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.Repr.KeyAssembler"}.AssignBool(false)
+}
+func (_SMTInnerNode__ReprKeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.Repr.KeyAssembler"}.AssignInt(0)
+}
+func (_SMTInnerNode__ReprKeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.Repr.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_SMTInnerNode__ReprKeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	switch k {
+	case "Left":
+		if ka.s&fieldBit__SMTInnerNode_Left != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__SMTInnerNode_Left_serial}
+		}
+		ka.s += fieldBit__SMTInnerNode_Left
+		ka.state = maState_expectValue
+		ka.f = 0
+		return nil
+	case "Right":
+		if ka.s&fieldBit__SMTInnerNode_Right != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__SMTInnerNode_Right_serial}
+		}
+		ka.s += fieldBit__SMTInnerNode_Right
+		ka.state = maState_expectValue
+		ka.f = 1
+		return nil
+	}
+	return ipld.ErrInvalidKey{TypeName: "dagcosmos.SMTInnerNode.Repr", Key: &_String{k}}
+}
+func (_SMTInnerNode__ReprKeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.Repr.KeyAssembler"}.AssignBytes(nil)
+}
+func (_SMTInnerNode__ReprKeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.SMTInnerNode.Repr.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_SMTInnerNode__ReprKeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_SMTInnerNode__ReprKeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+
+func (n _SMTLeafNode) FieldPath() Hash {
+	return &n.Path
+}
+func (n _SMTLeafNode) FieldValue() Hash {
+	return &n.Value
+}
+
+type _SMTLeafNode__Maybe struct {
+	m schema.Maybe
+	v SMTLeafNode
+}
+type MaybeSMTLeafNode = *_SMTLeafNode__Maybe
+
+func (m MaybeSMTLeafNode) IsNull() bool {
+	return m.m == schema.Maybe_Null
+}
+func (m MaybeSMTLeafNode) IsAbsent() bool {
+	return m.m == schema.Maybe_Absent
+}
+func (m MaybeSMTLeafNode) Exists() bool {
+	return m.m == schema.Maybe_Value
+}
+func (m MaybeSMTLeafNode) AsNode() ipld.Node {
+	switch m.m {
+	case schema.Maybe_Absent:
+		return ipld.Absent
+	case schema.Maybe_Null:
+		return ipld.Null
+	case schema.Maybe_Value:
+		return m.v
+	default:
+		panic("unreachable")
+	}
+}
+func (m MaybeSMTLeafNode) Must() SMTLeafNode {
+	if !m.Exists() {
+		panic("unbox of a maybe rejected")
+	}
+	return m.v
+}
+
+var (
+	fieldName__SMTLeafNode_Path  = _String{"Path"}
+	fieldName__SMTLeafNode_Value = _String{"Value"}
+)
+var _ ipld.Node = (SMTLeafNode)(&_SMTLeafNode{})
+var _ schema.TypedNode = (SMTLeafNode)(&_SMTLeafNode{})
+
+func (SMTLeafNode) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n SMTLeafNode) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "Path":
+		return &n.Path, nil
+	case "Value":
+		return &n.Value, nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n SMTLeafNode) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (SMTLeafNode) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.SMTLeafNode"}.LookupByIndex(0)
+}
+func (n SMTLeafNode) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n SMTLeafNode) MapIterator() ipld.MapIterator {
+	return &_SMTLeafNode__MapItr{n, 0}
+}
+
+type _SMTLeafNode__MapItr struct {
+	n   SMTLeafNode
+	idx int
+}
+
+func (itr *_SMTLeafNode__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.idx >= 2 {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.idx {
+	case 0:
+		k = &fieldName__SMTLeafNode_Path
+		v = &itr.n.Path
+	case 1:
+		k = &fieldName__SMTLeafNode_Value
+		v = &itr.n.Value
+	default:
+		panic("unreachable")
+	}
+	itr.idx++
+	return
+}
+func (itr *_SMTLeafNode__MapItr) Done() bool {
+	return itr.idx >= 2
+}
+
+func (SMTLeafNode) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (SMTLeafNode) Length() int64 {
+	return 2
+}
+func (SMTLeafNode) IsAbsent() bool {
+	return false
+}
+func (SMTLeafNode) IsNull() bool {
+	return false
+}
+func (SMTLeafNode) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.SMTLeafNode"}.AsBool()
+}
+func (SMTLeafNode) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.SMTLeafNode"}.AsInt()
+}
+func (SMTLeafNode) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.SMTLeafNode"}.AsFloat()
+}
+func (SMTLeafNode) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.SMTLeafNode"}.AsString()
+}
+func (SMTLeafNode) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.SMTLeafNode"}.AsBytes()
+}
+func (SMTLeafNode) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.SMTLeafNode"}.AsLink()
+}
+func (SMTLeafNode) Prototype() ipld.NodePrototype {
+	return _SMTLeafNode__Prototype{}
+}
+
+type _SMTLeafNode__Prototype struct{}
+
+func (_SMTLeafNode__Prototype) NewBuilder() ipld.NodeBuilder {
+	var nb _SMTLeafNode__Builder
+	nb.Reset()
+	return &nb
+}
+
+type _SMTLeafNode__Builder struct {
+	_SMTLeafNode__Assembler
+}
+
+func (nb *_SMTLeafNode__Builder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_SMTLeafNode__Builder) Reset() {
+	var w _SMTLeafNode
+	var m schema.Maybe
+	*nb = _SMTLeafNode__Builder{_SMTLeafNode__Assembler{w: &w, m: &m}}
+}
+
+type _SMTLeafNode__Assembler struct {
+	w     *_SMTLeafNode
+	m     *schema.Maybe
+	state maState
+	s     int
+	f     int
+
+	cm       schema.Maybe
+	ca_Path  _Hash__Assembler
+	ca_Value _Hash__Assembler
+}
+
+func (na *_SMTLeafNode__Assembler) reset() {
+	na.state = maState_initial
+	na.s = 0
+	na.ca_Path.reset()
+	na.ca_Value.reset()
+}
+
+var (
+	fieldBit__SMTLeafNode_Path        = 1 << 0
+	fieldBit__SMTLeafNode_Value       = 1 << 1
+	fieldBits__SMTLeafNode_sufficient = 0 + 1<<0 + 1<<1
+)
+
+func (na *_SMTLeafNode__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_SMTLeafNode{}
+	}
+	return na, nil
+}
+func (_SMTLeafNode__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.SMTLeafNode"}.BeginList(0)
+}
+func (na *_SMTLeafNode__Assembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.SMTLeafNode"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_SMTLeafNode__Assembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.SMTLeafNode"}.AssignBool(false)
+}
+func (_SMTLeafNode__Assembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.SMTLeafNode"}.AssignInt(0)
+}
+func (_SMTLeafNode__Assembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.SMTLeafNode"}.AssignFloat(0)
+}
+func (_SMTLeafNode__Assembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.SMTLeafNode"}.AssignString("")
+}
+func (_SMTLeafNode__Assembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.SMTLeafNode"}.AssignBytes(nil)
+}
+func (_SMTLeafNode__Assembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.SMTLeafNode"}.AssignLink(nil)
+}
+func (na *_SMTLeafNode__Assembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_SMTLeafNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.SMTLeafNode", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_SMTLeafNode__Assembler) Prototype() ipld.NodePrototype {
+	return _SMTLeafNode__Prototype{}
+}
+func (ma *_SMTLeafNode__Assembler) valueFinishTidy() bool {
+	switch ma.f {
+	case 0:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Path.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 1:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Value.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_SMTLeafNode__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	switch k {
+	case "Path":
+		if ma.s&fieldBit__SMTLeafNode_Path != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__SMTLeafNode_Path}
+		}
+		ma.s += fieldBit__SMTLeafNode_Path
+		ma.state = maState_midValue
+		ma.f = 0
+		ma.ca_Path.w = &ma.w.Path
+		ma.ca_Path.m = &ma.cm
+		return &ma.ca_Path, nil
+	case "Value":
+		if ma.s&fieldBit__SMTLeafNode_Value != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__SMTLeafNode_Value}
+		}
+		ma.s += fieldBit__SMTLeafNode_Value
+		ma.state = maState_midValue
+		ma.f = 1
+		ma.ca_Value.w = &ma.w.Value
+		ma.ca_Value.m = &ma.cm
+		return &ma.ca_Value, nil
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.SMTLeafNode", Key: &_String{k}}
+}
+func (ma *_SMTLeafNode__Assembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_SMTLeafNode__KeyAssembler)(ma)
+}
+func (ma *_SMTLeafNode__Assembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.f {
+	case 0:
+		ma.ca_Path.w = &ma.w.Path
+		ma.ca_Path.m = &ma.cm
+		return &ma.ca_Path
+	case 1:
+		ma.ca_Value.w = &ma.w.Value
+		ma.ca_Value.m = &ma.cm
+		return &ma.ca_Value
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_SMTLeafNode__Assembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.s&fieldBits__SMTLeafNode_sufficient != fieldBits__SMTLeafNode_sufficient {
+		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
+		if ma.s&fieldBit__SMTLeafNode_Path == 0 {
+			err.Missing = append(err.Missing, "Path")
+		}
+		if ma.s&fieldBit__SMTLeafNode_Value == 0 {
+			err.Missing = append(err.Missing, "Value")
+		}
+		return err
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_SMTLeafNode__Assembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_SMTLeafNode__Assembler) ValuePrototype(k string) ipld.NodePrototype {
+	panic("todo structbuilder mapassembler valueprototype")
+}
+
+type _SMTLeafNode__KeyAssembler _SMTLeafNode__Assembler
+
+func (_SMTLeafNode__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.KeyAssembler"}.BeginMap(0)
+}
+func (_SMTLeafNode__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.KeyAssembler"}.BeginList(0)
+}
+func (na *_SMTLeafNode__KeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.KeyAssembler"}.AssignNull()
+}
+func (_SMTLeafNode__KeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.KeyAssembler"}.AssignBool(false)
+}
+func (_SMTLeafNode__KeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.KeyAssembler"}.AssignInt(0)
+}
+func (_SMTLeafNode__KeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_SMTLeafNode__KeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	switch k {
+	case "Path":
+		if ka.s&fieldBit__SMTLeafNode_Path != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__SMTLeafNode_Path}
+		}
+		ka.s += fieldBit__SMTLeafNode_Path
+		ka.state = maState_expectValue
+		ka.f = 0
+	case "Value":
+		if ka.s&fieldBit__SMTLeafNode_Value != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__SMTLeafNode_Value}
+		}
+		ka.s += fieldBit__SMTLeafNode_Value
+		ka.state = maState_expectValue
+		ka.f = 1
+	default:
+		return ipld.ErrInvalidKey{TypeName: "dagcosmos.SMTLeafNode", Key: &_String{k}}
+	}
+	return nil
+}
+func (_SMTLeafNode__KeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.KeyAssembler"}.AssignBytes(nil)
+}
+func (_SMTLeafNode__KeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_SMTLeafNode__KeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_SMTLeafNode__KeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (SMTLeafNode) Type() schema.Type {
+	return nil /*TODO:typelit*/
+}
+func (n SMTLeafNode) Representation() ipld.Node {
+	return (*_SMTLeafNode__Repr)(n)
+}
+
+type _SMTLeafNode__Repr _SMTLeafNode
+
+var (
+	fieldName__SMTLeafNode_Path_serial  = _String{"Path"}
+	fieldName__SMTLeafNode_Value_serial = _String{"Value"}
+)
+var _ ipld.Node = &_SMTLeafNode__Repr{}
+
+func (_SMTLeafNode__Repr) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n *_SMTLeafNode__Repr) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "Path":
+		return n.Path.Representation(), nil
+	case "Value":
+		return n.Value.Representation(), nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n *_SMTLeafNode__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (_SMTLeafNode__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.SMTLeafNode.Repr"}.LookupByIndex(0)
+}
+func (n _SMTLeafNode__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n *_SMTLeafNode__Repr) MapIterator() ipld.MapIterator {
+	return &_SMTLeafNode__ReprMapItr{n, 0}
+}
+
+type _SMTLeafNode__ReprMapItr struct {
+	n   *_SMTLeafNode__Repr
+	idx int
+}
+
+func (itr *_SMTLeafNode__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.idx >= 2 {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.idx {
+	case 0:
+		k = &fieldName__SMTLeafNode_Path_serial
+		v = itr.n.Path.Representation()
+	case 1:
+		k = &fieldName__SMTLeafNode_Value_serial
+		v = itr.n.Value.Representation()
+	default:
+		panic("unreachable")
+	}
+	itr.idx++
+	return
+}
+func (itr *_SMTLeafNode__ReprMapItr) Done() bool {
+	return itr.idx >= 2
+}
+func (_SMTLeafNode__Repr) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (rn *_SMTLeafNode__Repr) Length() int64 {
+	l := 2
+	return int64(l)
+}
+func (_SMTLeafNode__Repr) IsAbsent() bool {
+	return false
+}
+func (_SMTLeafNode__Repr) IsNull() bool {
+	return false
+}
+func (_SMTLeafNode__Repr) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.SMTLeafNode.Repr"}.AsBool()
+}
+func (_SMTLeafNode__Repr) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.SMTLeafNode.Repr"}.AsInt()
+}
+func (_SMTLeafNode__Repr) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.SMTLeafNode.Repr"}.AsFloat()
+}
+func (_SMTLeafNode__Repr) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.SMTLeafNode.Repr"}.AsString()
+}
+func (_SMTLeafNode__Repr) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.SMTLeafNode.Repr"}.AsBytes()
+}
+func (_SMTLeafNode__Repr) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.SMTLeafNode.Repr"}.AsLink()
+}
+func (_SMTLeafNode__Repr) Prototype() ipld.NodePrototype {
+	return _SMTLeafNode__ReprPrototype{}
+}
+
+type _SMTLeafNode__ReprPrototype struct{}
+
+func (_SMTLeafNode__ReprPrototype) NewBuilder() ipld.NodeBuilder {
+	var nb _SMTLeafNode__ReprBuilder
+	nb.Reset()
+	return &nb
+}
+
+type _SMTLeafNode__ReprBuilder struct {
+	_SMTLeafNode__ReprAssembler
+}
+
+func (nb *_SMTLeafNode__ReprBuilder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_SMTLeafNode__ReprBuilder) Reset() {
+	var w _SMTLeafNode
+	var m schema.Maybe
+	*nb = _SMTLeafNode__ReprBuilder{_SMTLeafNode__ReprAssembler{w: &w, m: &m}}
+}
+
+type _SMTLeafNode__ReprAssembler struct {
+	w     *_SMTLeafNode
+	m     *schema.Maybe
+	state maState
+	s     int
+	f     int
+
+	cm       schema.Maybe
+	ca_Path  _Hash__ReprAssembler
+	ca_Value _Hash__ReprAssembler
+}
+
+func (na *_SMTLeafNode__ReprAssembler) reset() {
+	na.state = maState_initial
+	na.s = 0
+	na.ca_Path.reset()
+	na.ca_Value.reset()
+}
+func (na *_SMTLeafNode__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_SMTLeafNode{}
+	}
+	return na, nil
+}
+func (_SMTLeafNode__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.SMTLeafNode.Repr"}.BeginList(0)
+}
+func (na *_SMTLeafNode__ReprAssembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.SMTLeafNode.Repr.Repr"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_SMTLeafNode__ReprAssembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.SMTLeafNode.Repr"}.AssignBool(false)
+}
+func (_SMTLeafNode__ReprAssembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.SMTLeafNode.Repr"}.AssignInt(0)
+}
+func (_SMTLeafNode__ReprAssembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.SMTLeafNode.Repr"}.AssignFloat(0)
+}
+func (_SMTLeafNode__ReprAssembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.SMTLeafNode.Repr"}.AssignString("")
+}
+func (_SMTLeafNode__ReprAssembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.SMTLeafNode.Repr"}.AssignBytes(nil)
+}
+func (_SMTLeafNode__ReprAssembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.SMTLeafNode.Repr"}.AssignLink(nil)
+}
+func (na *_SMTLeafNode__ReprAssembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_SMTLeafNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.SMTLeafNode.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_SMTLeafNode__ReprAssembler) Prototype() ipld.NodePrototype {
+	return _SMTLeafNode__ReprPrototype{}
+}
+func (ma *_SMTLeafNode__ReprAssembler) valueFinishTidy() bool {
+	switch ma.f {
+	case 0:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 1:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_SMTLeafNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	switch k {
+	case "Path":
+		if ma.s&fieldBit__SMTLeafNode_Path != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__SMTLeafNode_Path_serial}
+		}
+		ma.s += fieldBit__SMTLeafNode_Path
+		ma.state = maState_midValue
+		ma.f = 0
+		ma.ca_Path.w = &ma.w.Path
+		ma.ca_Path.m = &ma.cm
+		return &ma.ca_Path, nil
+	case "Value":
+		if ma.s&fieldBit__SMTLeafNode_Value != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__SMTLeafNode_Value_serial}
+		}
+		ma.s += fieldBit__SMTLeafNode_Value
+		ma.state = maState_midValue
+		ma.f = 1
+		ma.ca_Value.w = &ma.w.Value
+		ma.ca_Value.m = &ma.cm
+		return &ma.ca_Value, nil
+	default:
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.SMTLeafNode.Repr", Key: &_String{k}}
+}
+func (ma *_SMTLeafNode__ReprAssembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_SMTLeafNode__ReprKeyAssembler)(ma)
+}
+func (ma *_SMTLeafNode__ReprAssembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.f {
+	case 0:
+		ma.ca_Path.w = &ma.w.Path
+		ma.ca_Path.m = &ma.cm
+		return &ma.ca_Path
+	case 1:
+		ma.ca_Value.w = &ma.w.Value
+		ma.ca_Value.m = &ma.cm
+		return &ma.ca_Value
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_SMTLeafNode__ReprAssembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.s&fieldBits__SMTLeafNode_sufficient != fieldBits__SMTLeafNode_sufficient {
+		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
+		if ma.s&fieldBit__SMTLeafNode_Path == 0 {
+			err.Missing = append(err.Missing, "Path")
+		}
+		if ma.s&fieldBit__SMTLeafNode_Value == 0 {
+			err.Missing = append(err.Missing, "Value")
+		}
+		return err
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_SMTLeafNode__ReprAssembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_SMTLeafNode__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
+	panic("todo structbuilder mapassembler repr valueprototype")
+}
+
+type _SMTLeafNode__ReprKeyAssembler _SMTLeafNode__ReprAssembler
+
+func (_SMTLeafNode__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.Repr.KeyAssembler"}.BeginMap(0)
+}
+func (_SMTLeafNode__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.Repr.KeyAssembler"}.BeginList(0)
+}
+func (na *_SMTLeafNode__ReprKeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.Repr.KeyAssembler"}.AssignNull()
+}
+func (_SMTLeafNode__ReprKeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.Repr.KeyAssembler"}.AssignBool(false)
+}
+func (_SMTLeafNode__ReprKeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.Repr.KeyAssembler"}.AssignInt(0)
+}
+func (_SMTLeafNode__ReprKeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.Repr.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_SMTLeafNode__ReprKeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	switch k {
+	case "Path":
+		if ka.s&fieldBit__SMTLeafNode_Path != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__SMTLeafNode_Path_serial}
+		}
+		ka.s += fieldBit__SMTLeafNode_Path
+		ka.state = maState_expectValue
+		ka.f = 0
+		return nil
+	case "Value":
+		if ka.s&fieldBit__SMTLeafNode_Value != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__SMTLeafNode_Value_serial}
+		}
+		ka.s += fieldBit__SMTLeafNode_Value
+		ka.state = maState_expectValue
+		ka.f = 1
+		return nil
+	}
+	return ipld.ErrInvalidKey{TypeName: "dagcosmos.SMTLeafNode.Repr", Key: &_String{k}}
+}
+func (_SMTLeafNode__ReprKeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.Repr.KeyAssembler"}.AssignBytes(nil)
+}
+func (_SMTLeafNode__ReprKeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.SMTLeafNode.Repr.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_SMTLeafNode__ReprKeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_SMTLeafNode__ReprKeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+
+func (n _SMTNode) AsInterface() _SMTNode__iface {
+	switch n.tag {
+	case 1:
+		return &n.x1
+	case 2:
+		return &n.x2
+	default:
+		panic("invalid union state; how did you create this object?")
+	}
+}
+
+type _SMTNode__Maybe struct {
+	m schema.Maybe
+	v SMTNode
+}
+type MaybeSMTNode = *_SMTNode__Maybe
+
+func (m MaybeSMTNode) IsNull() bool {
+	return m.m == schema.Maybe_Null
+}
+func (m MaybeSMTNode) IsAbsent() bool {
+	return m.m == schema.Maybe_Absent
+}
+func (m MaybeSMTNode) Exists() bool {
+	return m.m == schema.Maybe_Value
+}
+func (m MaybeSMTNode) AsNode() ipld.Node {
+	switch m.m {
+	case schema.Maybe_Absent:
+		return ipld.Absent
+	case schema.Maybe_Null:
+		return ipld.Null
+	case schema.Maybe_Value:
+		return m.v
+	default:
+		panic("unreachable")
+	}
+}
+func (m MaybeSMTNode) Must() SMTNode {
+	if !m.Exists() {
+		panic("unbox of a maybe rejected")
+	}
+	return m.v
+}
+
+var (
+	memberName__SMTNode_SMTInnerNode = _String{"SMTInnerNode"}
+	memberName__SMTNode_SMTLeafNode  = _String{"SMTLeafNode"}
+)
+var _ ipld.Node = (SMTNode)(&_SMTNode{})
+var _ schema.TypedNode = (SMTNode)(&_SMTNode{})
+
+func (SMTNode) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n SMTNode) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "SMTInnerNode":
+		if n.tag != 1 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return &n.x1, nil
+	case "SMTLeafNode":
+		if n.tag != 2 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return &n.x2, nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n SMTNode) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (SMTNode) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.SMTNode"}.LookupByIndex(0)
+}
+func (n SMTNode) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n SMTNode) MapIterator() ipld.MapIterator {
+	return &_SMTNode__MapItr{n, false}
+}
+
+type _SMTNode__MapItr struct {
+	n    SMTNode
+	done bool
+}
+
+func (itr *_SMTNode__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.done {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.n.tag {
+	case 1:
+		k, v = &memberName__SMTNode_SMTInnerNode, &itr.n.x1
+	case 2:
+		k, v = &memberName__SMTNode_SMTLeafNode, &itr.n.x2
+	default:
+		panic("unreachable")
+	}
+	itr.done = true
+	return
+}
+func (itr *_SMTNode__MapItr) Done() bool {
+	return itr.done
+}
+
+func (SMTNode) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (SMTNode) Length() int64 {
+	return 1
+}
+func (SMTNode) IsAbsent() bool {
+	return false
+}
+func (SMTNode) IsNull() bool {
+	return false
+}
+func (SMTNode) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.SMTNode"}.AsBool()
+}
+func (SMTNode) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.SMTNode"}.AsInt()
+}
+func (SMTNode) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.SMTNode"}.AsFloat()
+}
+func (SMTNode) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.SMTNode"}.AsString()
+}
+func (SMTNode) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.SMTNode"}.AsBytes()
+}
+func (SMTNode) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.SMTNode"}.AsLink()
+}
+func (SMTNode) Prototype() ipld.NodePrototype {
+	return _SMTNode__Prototype{}
+}
+
+type _SMTNode__Prototype struct{}
+
+func (_SMTNode__Prototype) NewBuilder() ipld.NodeBuilder {
+	var nb _SMTNode__Builder
+	nb.Reset()
+	return &nb
+}
+
+type _SMTNode__Builder struct {
+	_SMTNode__Assembler
+}
+
+func (nb *_SMTNode__Builder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_SMTNode__Builder) Reset() {
+	var w _SMTNode
+	var m schema.Maybe
+	*nb = _SMTNode__Builder{_SMTNode__Assembler{w: &w, m: &m}}
+}
+
+type _SMTNode__Assembler struct {
+	w     *_SMTNode
+	m     *schema.Maybe
+	state maState
+
+	cm  schema.Maybe
+	ca1 _SMTInnerNode__Assembler
+
+	ca2 _SMTLeafNode__Assembler
+	ca  uint
+}
+
+func (na *_SMTNode__Assembler) reset() {
+	na.state = maState_initial
+	switch na.ca {
+	case 0:
+		return
+	case 1:
+		na.ca1.reset()
+
+	case 2:
+		na.ca2.reset()
+	default:
+		panic("unreachable")
+	}
+	na.ca = 0
+	na.cm = schema.Maybe_Absent
+}
+func (na *_SMTNode__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_SMTNode{}
+	}
+	return na, nil
+}
+func (_SMTNode__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.SMTNode"}.BeginList(0)
+}
+func (na *_SMTNode__Assembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.SMTNode"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_SMTNode__Assembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.SMTNode"}.AssignBool(false)
+}
+func (_SMTNode__Assembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.SMTNode"}.AssignInt(0)
+}
+func (_SMTNode__Assembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.SMTNode"}.AssignFloat(0)
+}
+func (_SMTNode__Assembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.SMTNode"}.AssignString("")
+}
+func (_SMTNode__Assembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.SMTNode"}.AssignBytes(nil)
+}
+func (_SMTNode__Assembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.SMTNode"}.AssignLink(nil)
+}
+func (na *_SMTNode__Assembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_SMTNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.SMTNode", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_SMTNode__Assembler) Prototype() ipld.NodePrototype {
+	return _SMTNode__Prototype{}
+}
+func (ma *_SMTNode__Assembler) valueFinishTidy() bool {
+	switch ma.cm {
+	case schema.Maybe_Value:
+		ma.state = maState_initial
+		return true
+	default:
+		return false
+	}
+}
+func (ma *_SMTNode__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly.
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	if ma.ca != 0 {
+		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.SMTNode", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "SMTInnerNode":
+		ma.state = maState_midValue
+		ma.ca = 1
+		ma.w.tag = 1
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1, nil
+	case "SMTLeafNode":
+		ma.state = maState_midValue
+		ma.ca = 2
+		ma.w.tag = 2
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2, nil
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.SMTNode", Key: &_String{k}}
+}
+func (ma *_SMTNode__Assembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly... or rather, the keyassembler will be.
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_SMTNode__KeyAssembler)(ma)
+}
+func (ma *_SMTNode__Assembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.ca {
+	case 0:
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1
+	case 1:
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_SMTNode__Assembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.ca == 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.SMTNode", Detail: "a union must have exactly one entry (not none)!"}
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_SMTNode__Assembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_SMTNode__Assembler) ValuePrototype(k string) ipld.NodePrototype {
+	switch k {
+	case "SMTInnerNode":
+		return _SMTInnerNode__Prototype{}
+	case "SMTLeafNode":
+		return _SMTLeafNode__Prototype{}
+	default:
+		return nil
+	}
+}
+
+type _SMTNode__KeyAssembler _SMTNode__Assembler
+
+func (_SMTNode__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.KeyAssembler"}.BeginMap(0)
+}
+func (_SMTNode__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.KeyAssembler"}.BeginList(0)
+}
+func (na *_SMTNode__KeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.KeyAssembler"}.AssignNull()
+}
+func (_SMTNode__KeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.KeyAssembler"}.AssignBool(false)
+}
+func (_SMTNode__KeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.KeyAssembler"}.AssignInt(0)
+}
+func (_SMTNode__KeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_SMTNode__KeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	if ka.ca != 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.SMTNode", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "SMTInnerNode":
+		ka.ca = 1
+		ka.w.tag = 1
+		ka.state = maState_expectValue
+		return nil
+	case "SMTLeafNode":
+		ka.ca = 2
+		ka.w.tag = 2
+		ka.state = maState_expectValue
+		return nil
+	}
+	return ipld.ErrInvalidKey{TypeName: "dagcosmos.SMTNode", Key: &_String{k}} // TODO: error quality: ErrInvalidUnionDiscriminant ?
+}
+func (_SMTNode__KeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.KeyAssembler"}.AssignBytes(nil)
+}
+func (_SMTNode__KeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_SMTNode__KeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_SMTNode__KeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (SMTNode) Type() schema.Type {
+	return nil /*TODO:typelit*/
+}
+func (n SMTNode) Representation() ipld.Node {
+	return (*_SMTNode__Repr)(n)
+}
+
+type _SMTNode__Repr _SMTNode
+
+var (
+	memberName__SMTNode_SMTInnerNode_serial = _String{"inner"}
+	memberName__SMTNode_SMTLeafNode_serial  = _String{"leaf"}
+)
+var _ ipld.Node = &_SMTNode__Repr{}
+
+func (_SMTNode__Repr) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n *_SMTNode__Repr) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "inner":
+		if n.tag != 1 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return n.x1.Representation(), nil
+	case "leaf":
+		if n.tag != 2 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return n.x2.Representation(), nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n *_SMTNode__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (_SMTNode__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.SMTNode.Repr"}.LookupByIndex(0)
+}
+func (n _SMTNode__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n *_SMTNode__Repr) MapIterator() ipld.MapIterator {
+	return &_SMTNode__ReprMapItr{n, false}
+}
+
+type _SMTNode__ReprMapItr struct {
+	n    *_SMTNode__Repr
+	done bool
+}
+
+func (itr *_SMTNode__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.done {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.n.tag {
+	case 1:
+		k, v = &memberName__SMTNode_SMTInnerNode_serial, itr.n.x1.Representation()
+	case 2:
+		k, v = &memberName__SMTNode_SMTLeafNode_serial, itr.n.x2.Representation()
+	default:
+		panic("unreachable")
+	}
+	itr.done = true
+	return
+}
+func (itr *_SMTNode__ReprMapItr) Done() bool {
+	return itr.done
+}
+
+func (_SMTNode__Repr) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (_SMTNode__Repr) Length() int64 {
+	return 1
+}
+func (_SMTNode__Repr) IsAbsent() bool {
+	return false
+}
+func (_SMTNode__Repr) IsNull() bool {
+	return false
+}
+func (_SMTNode__Repr) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.SMTNode.Repr"}.AsBool()
+}
+func (_SMTNode__Repr) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.SMTNode.Repr"}.AsInt()
+}
+func (_SMTNode__Repr) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.SMTNode.Repr"}.AsFloat()
+}
+func (_SMTNode__Repr) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.SMTNode.Repr"}.AsString()
+}
+func (_SMTNode__Repr) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.SMTNode.Repr"}.AsBytes()
+}
+func (_SMTNode__Repr) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.SMTNode.Repr"}.AsLink()
+}
+func (_SMTNode__Repr) Prototype() ipld.NodePrototype {
+	return _SMTNode__ReprPrototype{}
+}
+
+type _SMTNode__ReprPrototype struct{}
+
+func (_SMTNode__ReprPrototype) NewBuilder() ipld.NodeBuilder {
+	var nb _SMTNode__ReprBuilder
+	nb.Reset()
+	return &nb
+}
+
+type _SMTNode__ReprBuilder struct {
+	_SMTNode__ReprAssembler
+}
+
+func (nb *_SMTNode__ReprBuilder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_SMTNode__ReprBuilder) Reset() {
+	var w _SMTNode
+	var m schema.Maybe
+	*nb = _SMTNode__ReprBuilder{_SMTNode__ReprAssembler{w: &w, m: &m}}
+}
+
+type _SMTNode__ReprAssembler struct {
+	w     *_SMTNode
+	m     *schema.Maybe
+	state maState
+
+	cm  schema.Maybe
+	ca1 _SMTInnerNode__ReprAssembler
+
+	ca2 _SMTLeafNode__ReprAssembler
+	ca  uint
+}
+
+func (na *_SMTNode__ReprAssembler) reset() {
+	na.state = maState_initial
+	switch na.ca {
+	case 0:
+		return
+	case 1:
+		na.ca1.reset()
+
+	case 2:
+		na.ca2.reset()
+	default:
+		panic("unreachable")
+	}
+	na.ca = 0
+	na.cm = schema.Maybe_Absent
+}
+func (na *_SMTNode__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_SMTNode{}
+	}
+	return na, nil
+}
+func (_SMTNode__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.SMTNode.Repr"}.BeginList(0)
+}
+func (na *_SMTNode__ReprAssembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.SMTNode.Repr.Repr"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_SMTNode__ReprAssembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.SMTNode.Repr"}.AssignBool(false)
+}
+func (_SMTNode__ReprAssembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.SMTNode.Repr"}.AssignInt(0)
+}
+func (_SMTNode__ReprAssembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.SMTNode.Repr"}.AssignFloat(0)
+}
+func (_SMTNode__ReprAssembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.SMTNode.Repr"}.AssignString("")
+}
+func (_SMTNode__ReprAssembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.SMTNode.Repr"}.AssignBytes(nil)
+}
+func (_SMTNode__ReprAssembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.SMTNode.Repr"}.AssignLink(nil)
+}
+func (na *_SMTNode__ReprAssembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_SMTNode); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.SMTNode.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_SMTNode__ReprAssembler) Prototype() ipld.NodePrototype {
+	return _SMTNode__ReprPrototype{}
+}
+func (ma *_SMTNode__ReprAssembler) valueFinishTidy() bool {
+	switch ma.cm {
+	case schema.Maybe_Value:
+		ma.state = maState_initial
+		return true
+	default:
+		return false
+	}
+}
+func (ma *_SMTNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly.
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	if ma.ca != 0 {
+		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.SMTNode.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "inner":
+		ma.state = maState_midValue
+		ma.ca = 1
+		ma.w.tag = 1
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1, nil
+	case "leaf":
+		ma.state = maState_midValue
+		ma.ca = 2
+		ma.w.tag = 2
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2, nil
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.SMTNode.Repr", Key: &_String{k}}
+}
+func (ma *_SMTNode__ReprAssembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly... or rather, the keyassembler will be.
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_SMTNode__ReprKeyAssembler)(ma)
+}
+func (ma *_SMTNode__ReprAssembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.ca {
+	case 0:
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1
+	case 1:
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_SMTNode__ReprAssembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.ca == 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.SMTNode.Repr", Detail: "a union must have exactly one entry (not none)!"}
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_SMTNode__ReprAssembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_SMTNode__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
+	switch k {
+	case "SMTInnerNode":
+		return _SMTInnerNode__ReprPrototype{}
+	case "SMTLeafNode":
+		return _SMTLeafNode__ReprPrototype{}
+	default:
+		return nil
+	}
+}
+
+type _SMTNode__ReprKeyAssembler _SMTNode__ReprAssembler
+
+func (_SMTNode__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.Repr.KeyAssembler"}.BeginMap(0)
+}
+func (_SMTNode__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.Repr.KeyAssembler"}.BeginList(0)
+}
+func (na *_SMTNode__ReprKeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.Repr.KeyAssembler"}.AssignNull()
+}
+func (_SMTNode__ReprKeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.Repr.KeyAssembler"}.AssignBool(false)
+}
+func (_SMTNode__ReprKeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.Repr.KeyAssembler"}.AssignInt(0)
+}
+func (_SMTNode__ReprKeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.Repr.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_SMTNode__ReprKeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	if ka.ca != 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.SMTNode.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "inner":
+		ka.ca = 1
+		ka.w.tag = 1
+		ka.state = maState_expectValue
+		return nil
+	case "leaf":
+		ka.ca = 2
+		ka.w.tag = 2
+		ka.state = maState_expectValue
+		return nil
+	}
+	return ipld.ErrInvalidKey{TypeName: "dagcosmos.SMTNode.Repr", Key: &_String{k}} // TODO: error quality: ErrInvalidUnionDiscriminant ?
+}
+func (_SMTNode__ReprKeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.Repr.KeyAssembler"}.AssignBytes(nil)
+}
+func (_SMTNode__ReprKeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.SMTNode.Repr.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_SMTNode__ReprKeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_SMTNode__ReprKeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
 }
 
 func (n Signature) Bytes() []byte {
