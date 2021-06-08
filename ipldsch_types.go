@@ -62,6 +62,12 @@ type typeSlab struct {
 	Header__Repr                    _Header__ReprPrototype
 	HexBytes                        _HexBytes__Prototype
 	HexBytes__Repr                  _HexBytes__ReprPrototype
+	IAVLInnerNode                   _IAVLInnerNode__Prototype
+	IAVLInnerNode__Repr             _IAVLInnerNode__ReprPrototype
+	IAVLLeafNode                    _IAVLLeafNode__Prototype
+	IAVLLeafNode__Repr              _IAVLLeafNode__ReprPrototype
+	IAVLNode                        _IAVLNode__Prototype
+	IAVLNode__Repr                  _IAVLNode__ReprPrototype
 	Int                             _Int__Prototype
 	Int__Repr                       _Int__ReprPrototype
 	LightBlock                      _LightBlock__Prototype
@@ -74,6 +80,8 @@ type typeSlab struct {
 	MerkleTreeInnerNode__Repr       _MerkleTreeInnerNode__ReprPrototype
 	MerkleTreeLeafNode              _MerkleTreeLeafNode__Prototype
 	MerkleTreeLeafNode__Repr        _MerkleTreeLeafNode__ReprPrototype
+	MerkleTreeNode                  _MerkleTreeNode__Prototype
+	MerkleTreeNode__Repr            _MerkleTreeNode__ReprPrototype
 	Part                            _Part__Prototype
 	Part__Repr                      _Part__ReprPrototype
 	PartSet                         _PartSet__Prototype
@@ -90,6 +98,12 @@ type typeSlab struct {
 	PubKey__Repr                    _PubKey__ReprPrototype
 	PubKeyTypes                     _PubKeyTypes__Prototype
 	PubKeyTypes__Repr               _PubKeyTypes__ReprPrototype
+	SMTInnerNode                    _SMTInnerNode__Prototype
+	SMTInnerNode__Repr              _SMTInnerNode__ReprPrototype
+	SMTLeafNode                     _SMTLeafNode__Prototype
+	SMTLeafNode__Repr               _SMTLeafNode__ReprPrototype
+	SMTNode                         _SMTNode__Prototype
+	SMTNode__Repr                   _SMTNode__ReprPrototype
 	Signature                       _Signature__Prototype
 	Signature__Repr                 _Signature__ReprPrototype
 	Signatures                      _Signatures__Prototype
@@ -285,6 +299,41 @@ type _Header struct {
 type HexBytes = *_HexBytes
 type _HexBytes struct{ x []byte }
 
+// IAVLInnerNode matches the IPLD Schema type "IAVLInnerNode".  It has Struct type-kind, and may be interrogated like map kind.
+type IAVLInnerNode = *_IAVLInnerNode
+type _IAVLInnerNode struct {
+	Left    _Link
+	Right   _Link
+	Version _Int
+	Size    _Int
+	Height  _Int
+}
+
+// IAVLLeafNode matches the IPLD Schema type "IAVLLeafNode".  It has Struct type-kind, and may be interrogated like map kind.
+type IAVLLeafNode = *_IAVLLeafNode
+type _IAVLLeafNode struct {
+	Key     _Bytes
+	Value   _Bytes
+	Version _Int
+	Size    _Int
+	Height  _Int
+}
+
+// IAVLNode matches the IPLD Schema type "IAVLNode".
+// IAVLNode has Union typekind, which means its data model behaviors are that of a map kind.
+type IAVLNode = *_IAVLNode
+type _IAVLNode struct {
+	tag uint
+	x1  _IAVLInnerNode
+	x2  _IAVLLeafNode
+}
+type _IAVLNode__iface interface {
+	_IAVLNode__member()
+}
+
+func (_IAVLInnerNode) _IAVLNode__member() {}
+func (_IAVLLeafNode) _IAVLNode__member()  {}
+
 // Int matches the IPLD Schema type "Int".  It has int kind.
 type Int = *_Int
 type _Int struct{ x int64 }
@@ -313,8 +362,8 @@ type _Link struct{ x ipld.Link }
 // MerkleTreeInnerNode matches the IPLD Schema type "MerkleTreeInnerNode".  It has Struct type-kind, and may be interrogated like map kind.
 type MerkleTreeInnerNode = *_MerkleTreeInnerNode
 type _MerkleTreeInnerNode struct {
-	ChildA _Link
-	ChildB _Link
+	Left  _Link
+	Right _Link
 }
 
 // MerkleTreeLeafNode matches the IPLD Schema type "MerkleTreeLeafNode".  It has Struct type-kind, and may be interrogated like map kind.
@@ -322,6 +371,21 @@ type MerkleTreeLeafNode = *_MerkleTreeLeafNode
 type _MerkleTreeLeafNode struct {
 	Value _Bytes
 }
+
+// MerkleTreeNode matches the IPLD Schema type "MerkleTreeNode".
+// MerkleTreeNode has Union typekind, which means its data model behaviors are that of a map kind.
+type MerkleTreeNode = *_MerkleTreeNode
+type _MerkleTreeNode struct {
+	tag uint
+	x1  _MerkleTreeInnerNode
+	x2  _MerkleTreeLeafNode
+}
+type _MerkleTreeNode__iface interface {
+	_MerkleTreeNode__member()
+}
+
+func (_MerkleTreeInnerNode) _MerkleTreeNode__member() {}
+func (_MerkleTreeLeafNode) _MerkleTreeNode__member()  {}
 
 // Part matches the IPLD Schema type "Part".  It has Struct type-kind, and may be interrogated like map kind.
 type Part = *_Part
@@ -378,6 +442,35 @@ type PubKeyTypes = *_PubKeyTypes
 type _PubKeyTypes struct {
 	x []_String
 }
+
+// SMTInnerNode matches the IPLD Schema type "SMTInnerNode".  It has Struct type-kind, and may be interrogated like map kind.
+type SMTInnerNode = *_SMTInnerNode
+type _SMTInnerNode struct {
+	Left  _Link
+	Right _Link
+}
+
+// SMTLeafNode matches the IPLD Schema type "SMTLeafNode".  It has Struct type-kind, and may be interrogated like map kind.
+type SMTLeafNode = *_SMTLeafNode
+type _SMTLeafNode struct {
+	Path  _Hash
+	Value _Hash
+}
+
+// SMTNode matches the IPLD Schema type "SMTNode".
+// SMTNode has Union typekind, which means its data model behaviors are that of a map kind.
+type SMTNode = *_SMTNode
+type _SMTNode struct {
+	tag uint
+	x1  _SMTInnerNode
+	x2  _SMTLeafNode
+}
+type _SMTNode__iface interface {
+	_SMTNode__member()
+}
+
+func (_SMTInnerNode) _SMTNode__member() {}
+func (_SMTLeafNode) _SMTNode__member()  {}
 
 // Signature matches the IPLD Schema type "Signature".  It has bytes kind.
 type Signature = *_Signature
