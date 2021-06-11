@@ -30,16 +30,12 @@ type typeSlab struct {
 	BlockID__Repr                   _BlockID__ReprPrototype
 	BlockIDFlag                     _BlockIDFlag__Prototype
 	BlockIDFlag__Repr               _BlockIDFlag__ReprPrototype
-	BlockParams                     _BlockParams__Prototype
-	BlockParams__Repr               _BlockParams__ReprPrototype
 	Bytes                           _Bytes__Prototype
 	Bytes__Repr                     _Bytes__ReprPrototype
 	Commit                          _Commit__Prototype
 	Commit__Repr                    _Commit__ReprPrototype
 	CommitSig                       _CommitSig__Prototype
 	CommitSig__Repr                 _CommitSig__ReprPrototype
-	ConsensusParams                 _ConsensusParams__Prototype
-	ConsensusParams__Repr           _ConsensusParams__ReprPrototype
 	Data                            _Data__Prototype
 	Data__Repr                      _Data__ReprPrototype
 	DuplicateVoteEvidence           _DuplicateVoteEvidence__Prototype
@@ -52,8 +48,6 @@ type typeSlab struct {
 	EvidenceData__Repr              _EvidenceData__ReprPrototype
 	EvidenceList                    _EvidenceList__Prototype
 	EvidenceList__Repr              _EvidenceList__ReprPrototype
-	EvidenceParams                  _EvidenceParams__Prototype
-	EvidenceParams__Repr            _EvidenceParams__ReprPrototype
 	Hash                            _Hash__Prototype
 	Hash__Repr                      _Hash__ReprPrototype
 	HashedParams                    _HashedParams__Prototype
@@ -96,8 +90,8 @@ type typeSlab struct {
 	Proposal__Repr                  _Proposal__ReprPrototype
 	PubKey                          _PubKey__Prototype
 	PubKey__Repr                    _PubKey__ReprPrototype
-	PubKeyTypes                     _PubKeyTypes__Prototype
-	PubKeyTypes__Repr               _PubKeyTypes__ReprPrototype
+	ResponseDeliverTx               _ResponseDeliverTx__Prototype
+	ResponseDeliverTx__Repr         _ResponseDeliverTx__ReprPrototype
 	SMTInnerNode                    _SMTInnerNode__Prototype
 	SMTInnerNode__Repr              _SMTInnerNode__ReprPrototype
 	SMTLeafNode                     _SMTLeafNode__Prototype
@@ -126,16 +120,14 @@ type typeSlab struct {
 	Uint__Repr                      _Uint__ReprPrototype
 	Validator                       _Validator__Prototype
 	Validator__Repr                 _Validator__ReprPrototype
-	ValidatorParams                 _ValidatorParams__Prototype
-	ValidatorParams__Repr           _ValidatorParams__ReprPrototype
 	ValidatorSet                    _ValidatorSet__Prototype
 	ValidatorSet__Repr              _ValidatorSet__ReprPrototype
 	Validators                      _Validators__Prototype
 	Validators__Repr                _Validators__ReprPrototype
+	Value                           _Value__Prototype
+	Value__Repr                     _Value__ReprPrototype
 	Version                         _Version__Prototype
 	Version__Repr                   _Version__ReprPrototype
-	VersionParams                   _VersionParams__Prototype
-	VersionParams__Repr             _VersionParams__ReprPrototype
 	Vote                            _Vote__Prototype
 	Vote__Repr                      _Vote__ReprPrototype
 }
@@ -172,13 +164,6 @@ type _BlockID struct {
 type BlockIDFlag = *_BlockIDFlag
 type _BlockIDFlag struct{ x int64 }
 
-// BlockParams matches the IPLD Schema type "BlockParams".  It has Struct type-kind, and may be interrogated like map kind.
-type BlockParams = *_BlockParams
-type _BlockParams struct {
-	MaxBytes _Int
-	MaxGas   _Int
-}
-
 // Bytes matches the IPLD Schema type "Bytes".  It has bytes kind.
 type Bytes = *_Bytes
 type _Bytes struct{ x []byte }
@@ -199,15 +184,6 @@ type _CommitSig struct {
 	ValidatorAddress _Address
 	Timestamp        _Time
 	Signature        _Signature
-}
-
-// ConsensusParams matches the IPLD Schema type "ConsensusParams".  It has Struct type-kind, and may be interrogated like map kind.
-type ConsensusParams = *_ConsensusParams
-type _ConsensusParams struct {
-	Block     _BlockParams
-	Evidence  _EvidenceParams
-	Validator _ValidatorParams
-	Version   _VersionParams
 }
 
 // Data matches the IPLD Schema type "Data".  It has Struct type-kind, and may be interrogated like map kind.
@@ -255,14 +231,6 @@ type _EvidenceData struct {
 type EvidenceList = *_EvidenceList
 type _EvidenceList struct {
 	x []_Evidence
-}
-
-// EvidenceParams matches the IPLD Schema type "EvidenceParams".  It has Struct type-kind, and may be interrogated like map kind.
-type EvidenceParams = *_EvidenceParams
-type _EvidenceParams struct {
-	MaxAgeNumBlocks _Int
-	MaxAgeDuration  _Duration
-	MaxBytes        _Int
 }
 
 // Hash matches the IPLD Schema type "Hash".  It has bytes kind.
@@ -369,7 +337,7 @@ type _MerkleTreeInnerNode struct {
 // MerkleTreeLeafNode matches the IPLD Schema type "MerkleTreeLeafNode".  It has Struct type-kind, and may be interrogated like map kind.
 type MerkleTreeLeafNode = *_MerkleTreeLeafNode
 type _MerkleTreeLeafNode struct {
-	Value _Bytes
+	Value _Value
 }
 
 // MerkleTreeNode matches the IPLD Schema type "MerkleTreeNode".
@@ -437,10 +405,13 @@ type _Proposal struct {
 type PubKey = *_PubKey
 type _PubKey struct{ x []byte }
 
-// PubKeyTypes matches the IPLD Schema type "PubKeyTypes".  It has list kind.
-type PubKeyTypes = *_PubKeyTypes
-type _PubKeyTypes struct {
-	x []_String
+// ResponseDeliverTx matches the IPLD Schema type "ResponseDeliverTx".  It has Struct type-kind, and may be interrogated like map kind.
+type ResponseDeliverTx = *_ResponseDeliverTx
+type _ResponseDeliverTx struct {
+	Code      _Uint
+	Data      _Bytes
+	GasWanted _Int
+	GasUsed   _Int
 }
 
 // SMTInnerNode matches the IPLD Schema type "SMTInnerNode".  It has Struct type-kind, and may be interrogated like map kind.
@@ -536,12 +507,6 @@ type _Validator struct {
 	ProsperPriority _Int
 }
 
-// ValidatorParams matches the IPLD Schema type "ValidatorParams".  It has Struct type-kind, and may be interrogated like map kind.
-type ValidatorParams = *_ValidatorParams
-type _ValidatorParams struct {
-	PubKeyTypes _PubKeyTypes
-}
-
 // ValidatorSet matches the IPLD Schema type "ValidatorSet".  It has Struct type-kind, and may be interrogated like map kind.
 type ValidatorSet = *_ValidatorSet
 type _ValidatorSet struct {
@@ -555,17 +520,26 @@ type _Validators struct {
 	x []_Validator
 }
 
+// Value matches the IPLD Schema type "Value".
+// Value has Union typekind, which means its data model behaviors are that of a map kind.
+type Value = *_Value
+type _Value struct {
+	tag uint
+	x1  _Link
+	x2  _Bytes
+}
+type _Value__iface interface {
+	_Value__member()
+}
+
+func (_Link) _Value__member()  {}
+func (_Bytes) _Value__member() {}
+
 // Version matches the IPLD Schema type "Version".  It has Struct type-kind, and may be interrogated like map kind.
 type Version = *_Version
 type _Version struct {
 	Block _Uint
 	App   _Uint
-}
-
-// VersionParams matches the IPLD Schema type "VersionParams".  It has Struct type-kind, and may be interrogated like map kind.
-type VersionParams = *_VersionParams
-type _VersionParams struct {
-	AppVersion _Uint
 }
 
 // Vote matches the IPLD Schema type "Vote".  It has Struct type-kind, and may be interrogated like map kind.
