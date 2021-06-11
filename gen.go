@@ -652,8 +652,13 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 	))
 	ts.Accumulate(schema.SpawnUnion("Value",
 		[]schema.TypeName{
+			"SimpleValidator",
+			"Evidence",
 			"Link",
+			"Part",
+			"ResponseDeliverTx",
 			"Bytes",
+			"CommitSig",
 		},
 		schema.SpawnUnionRepresentationKeyed(map[string]schema.TypeName{
 			"validator": "SimpleValidator",

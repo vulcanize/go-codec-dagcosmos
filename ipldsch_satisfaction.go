@@ -21460,7 +21460,7 @@ func (_MerkleTreeNode__Repr) Kind() ipld.Kind {
 }
 func (n *_MerkleTreeNode__Repr) LookupByString(key string) (ipld.Node, error) {
 	switch key {
-	case "inner":
+	case "root":
 		if n.tag != 1 {
 			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
 		}
@@ -21718,7 +21718,7 @@ func (ma *_MerkleTreeNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAsse
 		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.MerkleTreeNode.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
 	}
 	switch k {
-	case "inner":
+	case "root":
 		ma.state = maState_midValue
 		ma.ca = 1
 		ma.w.tag = 1
@@ -39245,6 +39245,16 @@ func (n _Value) AsInterface() _Value__iface {
 		return &n.x1
 	case 2:
 		return &n.x2
+	case 3:
+		return &n.x3
+	case 4:
+		return &n.x4
+	case 5:
+		return &n.x5
+	case 6:
+		return &n.x6
+	case 7:
+		return &n.x7
 	default:
 		panic("invalid union state; how did you create this object?")
 	}
@@ -39285,8 +39295,13 @@ func (m MaybeValue) Must() Value {
 }
 
 var (
-	memberName__Value_Link  = _String{"Link"}
-	memberName__Value_Bytes = _String{"Bytes"}
+	memberName__Value_SimpleValidator   = _String{"SimpleValidator"}
+	memberName__Value_Evidence          = _String{"Evidence"}
+	memberName__Value_Link              = _String{"Link"}
+	memberName__Value_Part              = _String{"Part"}
+	memberName__Value_ResponseDeliverTx = _String{"ResponseDeliverTx"}
+	memberName__Value_Bytes             = _String{"Bytes"}
+	memberName__Value_CommitSig         = _String{"CommitSig"}
 )
 var _ ipld.Node = (Value)(&_Value{})
 var _ schema.TypedNode = (Value)(&_Value{})
@@ -39296,16 +39311,41 @@ func (Value) Kind() ipld.Kind {
 }
 func (n Value) LookupByString(key string) (ipld.Node, error) {
 	switch key {
-	case "Link":
+	case "SimpleValidator":
 		if n.tag != 1 {
 			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
 		}
 		return &n.x1, nil
-	case "Bytes":
+	case "Evidence":
 		if n.tag != 2 {
 			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
 		}
 		return &n.x2, nil
+	case "Link":
+		if n.tag != 3 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return &n.x3, nil
+	case "Part":
+		if n.tag != 4 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return &n.x4, nil
+	case "ResponseDeliverTx":
+		if n.tag != 5 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return &n.x5, nil
+	case "Bytes":
+		if n.tag != 6 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return &n.x6, nil
+	case "CommitSig":
+		if n.tag != 7 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return &n.x7, nil
 	default:
 		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
 	}
@@ -39338,9 +39378,19 @@ func (itr *_Value__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
 	}
 	switch itr.n.tag {
 	case 1:
-		k, v = &memberName__Value_Link, &itr.n.x1
+		k, v = &memberName__Value_SimpleValidator, &itr.n.x1
 	case 2:
-		k, v = &memberName__Value_Bytes, &itr.n.x2
+		k, v = &memberName__Value_Evidence, &itr.n.x2
+	case 3:
+		k, v = &memberName__Value_Link, &itr.n.x3
+	case 4:
+		k, v = &memberName__Value_Part, &itr.n.x4
+	case 5:
+		k, v = &memberName__Value_ResponseDeliverTx, &itr.n.x5
+	case 6:
+		k, v = &memberName__Value_Bytes, &itr.n.x6
+	case 7:
+		k, v = &memberName__Value_CommitSig, &itr.n.x7
 	default:
 		panic("unreachable")
 	}
@@ -39415,9 +39465,19 @@ type _Value__Assembler struct {
 	state maState
 
 	cm  schema.Maybe
-	ca1 _Link__Assembler
+	ca1 _SimpleValidator__Assembler
 
-	ca2 _Bytes__Assembler
+	ca2 _Evidence__Assembler
+
+	ca3 _Link__Assembler
+
+	ca4 _Part__Assembler
+
+	ca5 _ResponseDeliverTx__Assembler
+
+	ca6 _Bytes__Assembler
+
+	ca7 _CommitSig__Assembler
 	ca  uint
 }
 
@@ -39431,6 +39491,21 @@ func (na *_Value__Assembler) reset() {
 
 	case 2:
 		na.ca2.reset()
+
+	case 3:
+		na.ca3.reset()
+
+	case 4:
+		na.ca4.reset()
+
+	case 5:
+		na.ca5.reset()
+
+	case 6:
+		na.ca6.reset()
+
+	case 7:
+		na.ca7.reset()
 	default:
 		panic("unreachable")
 	}
@@ -39554,20 +39629,55 @@ func (ma *_Value__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error)
 		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.Value", Detail: "cannot add another entry -- a union can only contain one thing!"}
 	}
 	switch k {
-	case "Link":
+	case "SimpleValidator":
 		ma.state = maState_midValue
 		ma.ca = 1
 		ma.w.tag = 1
 		ma.ca1.w = &ma.w.x1
 		ma.ca1.m = &ma.cm
 		return &ma.ca1, nil
-	case "Bytes":
+	case "Evidence":
 		ma.state = maState_midValue
 		ma.ca = 2
 		ma.w.tag = 2
 		ma.ca2.w = &ma.w.x2
 		ma.ca2.m = &ma.cm
 		return &ma.ca2, nil
+	case "Link":
+		ma.state = maState_midValue
+		ma.ca = 3
+		ma.w.tag = 3
+		ma.ca3.w = &ma.w.x3
+		ma.ca3.m = &ma.cm
+		return &ma.ca3, nil
+	case "Part":
+		ma.state = maState_midValue
+		ma.ca = 4
+		ma.w.tag = 4
+		ma.ca4.w = &ma.w.x4
+		ma.ca4.m = &ma.cm
+		return &ma.ca4, nil
+	case "ResponseDeliverTx":
+		ma.state = maState_midValue
+		ma.ca = 5
+		ma.w.tag = 5
+		ma.ca5.w = &ma.w.x5
+		ma.ca5.m = &ma.cm
+		return &ma.ca5, nil
+	case "Bytes":
+		ma.state = maState_midValue
+		ma.ca = 6
+		ma.w.tag = 6
+		ma.ca6.w = &ma.w.x6
+		ma.ca6.m = &ma.cm
+		return &ma.ca6, nil
+	case "CommitSig":
+		ma.state = maState_midValue
+		ma.ca = 7
+		ma.w.tag = 7
+		ma.ca7.w = &ma.w.x7
+		ma.ca7.m = &ma.cm
+		return &ma.ca7, nil
 	}
 	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.Value", Key: &_String{k}}
 }
@@ -39612,6 +39722,26 @@ func (ma *_Value__Assembler) AssembleValue() ipld.NodeAssembler {
 		ma.ca2.w = &ma.w.x2
 		ma.ca2.m = &ma.cm
 		return &ma.ca2
+	case 2:
+		ma.ca3.w = &ma.w.x3
+		ma.ca3.m = &ma.cm
+		return &ma.ca3
+	case 3:
+		ma.ca4.w = &ma.w.x4
+		ma.ca4.m = &ma.cm
+		return &ma.ca4
+	case 4:
+		ma.ca5.w = &ma.w.x5
+		ma.ca5.m = &ma.cm
+		return &ma.ca5
+	case 5:
+		ma.ca6.w = &ma.w.x6
+		ma.ca6.m = &ma.cm
+		return &ma.ca6
+	case 6:
+		ma.ca7.w = &ma.w.x7
+		ma.ca7.m = &ma.cm
+		return &ma.ca7
 	default:
 		panic("unreachable")
 	}
@@ -39643,10 +39773,20 @@ func (ma *_Value__Assembler) KeyPrototype() ipld.NodePrototype {
 }
 func (ma *_Value__Assembler) ValuePrototype(k string) ipld.NodePrototype {
 	switch k {
+	case "SimpleValidator":
+		return _SimpleValidator__Prototype{}
+	case "Evidence":
+		return _Evidence__Prototype{}
 	case "Link":
 		return _Link__Prototype{}
+	case "Part":
+		return _Part__Prototype{}
+	case "ResponseDeliverTx":
+		return _ResponseDeliverTx__Prototype{}
 	case "Bytes":
 		return _Bytes__Prototype{}
+	case "CommitSig":
+		return _CommitSig__Prototype{}
 	default:
 		return nil
 	}
@@ -39680,14 +39820,39 @@ func (ka *_Value__KeyAssembler) AssignString(k string) error {
 		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.Value", Detail: "cannot add another entry -- a union can only contain one thing!"}
 	}
 	switch k {
-	case "Link":
+	case "SimpleValidator":
 		ka.ca = 1
 		ka.w.tag = 1
 		ka.state = maState_expectValue
 		return nil
-	case "Bytes":
+	case "Evidence":
 		ka.ca = 2
 		ka.w.tag = 2
+		ka.state = maState_expectValue
+		return nil
+	case "Link":
+		ka.ca = 3
+		ka.w.tag = 3
+		ka.state = maState_expectValue
+		return nil
+	case "Part":
+		ka.ca = 4
+		ka.w.tag = 4
+		ka.state = maState_expectValue
+		return nil
+	case "ResponseDeliverTx":
+		ka.ca = 5
+		ka.w.tag = 5
+		ka.state = maState_expectValue
+		return nil
+	case "Bytes":
+		ka.ca = 6
+		ka.w.tag = 6
+		ka.state = maState_expectValue
+		return nil
+	case "CommitSig":
+		ka.ca = 7
+		ka.w.tag = 7
 		ka.state = maState_expectValue
 		return nil
 	}
@@ -39719,8 +39884,13 @@ func (n Value) Representation() ipld.Node {
 type _Value__Repr _Value
 
 var (
-	memberName__Value_Link_serial  = _String{"tx"}
-	memberName__Value_Bytes_serial = _String{"header"}
+	memberName__Value_SimpleValidator_serial   = _String{"validator"}
+	memberName__Value_Evidence_serial          = _String{"evidence"}
+	memberName__Value_Link_serial              = _String{"tx"}
+	memberName__Value_Part_serial              = _String{"part"}
+	memberName__Value_ResponseDeliverTx_serial = _String{"result"}
+	memberName__Value_Bytes_serial             = _String{"header"}
+	memberName__Value_CommitSig_serial         = _String{"commit"}
 )
 var _ ipld.Node = &_Value__Repr{}
 
@@ -39729,16 +39899,41 @@ func (_Value__Repr) Kind() ipld.Kind {
 }
 func (n *_Value__Repr) LookupByString(key string) (ipld.Node, error) {
 	switch key {
-	case "tx":
+	case "validator":
 		if n.tag != 1 {
 			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
 		}
 		return n.x1.Representation(), nil
-	case "header":
+	case "evidence":
 		if n.tag != 2 {
 			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
 		}
 		return n.x2.Representation(), nil
+	case "tx":
+		if n.tag != 3 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return n.x3.Representation(), nil
+	case "part":
+		if n.tag != 4 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return n.x4.Representation(), nil
+	case "result":
+		if n.tag != 5 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return n.x5.Representation(), nil
+	case "header":
+		if n.tag != 6 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return n.x6.Representation(), nil
+	case "commit":
+		if n.tag != 7 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return n.x7.Representation(), nil
 	default:
 		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
 	}
@@ -39771,9 +39966,19 @@ func (itr *_Value__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
 	}
 	switch itr.n.tag {
 	case 1:
-		k, v = &memberName__Value_Link_serial, itr.n.x1.Representation()
+		k, v = &memberName__Value_SimpleValidator_serial, itr.n.x1.Representation()
 	case 2:
-		k, v = &memberName__Value_Bytes_serial, itr.n.x2.Representation()
+		k, v = &memberName__Value_Evidence_serial, itr.n.x2.Representation()
+	case 3:
+		k, v = &memberName__Value_Link_serial, itr.n.x3.Representation()
+	case 4:
+		k, v = &memberName__Value_Part_serial, itr.n.x4.Representation()
+	case 5:
+		k, v = &memberName__Value_ResponseDeliverTx_serial, itr.n.x5.Representation()
+	case 6:
+		k, v = &memberName__Value_Bytes_serial, itr.n.x6.Representation()
+	case 7:
+		k, v = &memberName__Value_CommitSig_serial, itr.n.x7.Representation()
 	default:
 		panic("unreachable")
 	}
@@ -39848,9 +40053,19 @@ type _Value__ReprAssembler struct {
 	state maState
 
 	cm  schema.Maybe
-	ca1 _Link__ReprAssembler
+	ca1 _SimpleValidator__ReprAssembler
 
-	ca2 _Bytes__ReprAssembler
+	ca2 _Evidence__ReprAssembler
+
+	ca3 _Link__ReprAssembler
+
+	ca4 _Part__ReprAssembler
+
+	ca5 _ResponseDeliverTx__ReprAssembler
+
+	ca6 _Bytes__ReprAssembler
+
+	ca7 _CommitSig__ReprAssembler
 	ca  uint
 }
 
@@ -39864,6 +40079,21 @@ func (na *_Value__ReprAssembler) reset() {
 
 	case 2:
 		na.ca2.reset()
+
+	case 3:
+		na.ca3.reset()
+
+	case 4:
+		na.ca4.reset()
+
+	case 5:
+		na.ca5.reset()
+
+	case 6:
+		na.ca6.reset()
+
+	case 7:
+		na.ca7.reset()
 	default:
 		panic("unreachable")
 	}
@@ -39987,20 +40217,55 @@ func (ma *_Value__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, er
 		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.Value.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
 	}
 	switch k {
-	case "tx":
+	case "validator":
 		ma.state = maState_midValue
 		ma.ca = 1
 		ma.w.tag = 1
 		ma.ca1.w = &ma.w.x1
 		ma.ca1.m = &ma.cm
 		return &ma.ca1, nil
-	case "header":
+	case "evidence":
 		ma.state = maState_midValue
 		ma.ca = 2
 		ma.w.tag = 2
 		ma.ca2.w = &ma.w.x2
 		ma.ca2.m = &ma.cm
 		return &ma.ca2, nil
+	case "tx":
+		ma.state = maState_midValue
+		ma.ca = 3
+		ma.w.tag = 3
+		ma.ca3.w = &ma.w.x3
+		ma.ca3.m = &ma.cm
+		return &ma.ca3, nil
+	case "part":
+		ma.state = maState_midValue
+		ma.ca = 4
+		ma.w.tag = 4
+		ma.ca4.w = &ma.w.x4
+		ma.ca4.m = &ma.cm
+		return &ma.ca4, nil
+	case "result":
+		ma.state = maState_midValue
+		ma.ca = 5
+		ma.w.tag = 5
+		ma.ca5.w = &ma.w.x5
+		ma.ca5.m = &ma.cm
+		return &ma.ca5, nil
+	case "header":
+		ma.state = maState_midValue
+		ma.ca = 6
+		ma.w.tag = 6
+		ma.ca6.w = &ma.w.x6
+		ma.ca6.m = &ma.cm
+		return &ma.ca6, nil
+	case "commit":
+		ma.state = maState_midValue
+		ma.ca = 7
+		ma.w.tag = 7
+		ma.ca7.w = &ma.w.x7
+		ma.ca7.m = &ma.cm
+		return &ma.ca7, nil
 	}
 	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.Value.Repr", Key: &_String{k}}
 }
@@ -40045,6 +40310,26 @@ func (ma *_Value__ReprAssembler) AssembleValue() ipld.NodeAssembler {
 		ma.ca2.w = &ma.w.x2
 		ma.ca2.m = &ma.cm
 		return &ma.ca2
+	case 2:
+		ma.ca3.w = &ma.w.x3
+		ma.ca3.m = &ma.cm
+		return &ma.ca3
+	case 3:
+		ma.ca4.w = &ma.w.x4
+		ma.ca4.m = &ma.cm
+		return &ma.ca4
+	case 4:
+		ma.ca5.w = &ma.w.x5
+		ma.ca5.m = &ma.cm
+		return &ma.ca5
+	case 5:
+		ma.ca6.w = &ma.w.x6
+		ma.ca6.m = &ma.cm
+		return &ma.ca6
+	case 6:
+		ma.ca7.w = &ma.w.x7
+		ma.ca7.m = &ma.cm
+		return &ma.ca7
 	default:
 		panic("unreachable")
 	}
@@ -40076,10 +40361,20 @@ func (ma *_Value__ReprAssembler) KeyPrototype() ipld.NodePrototype {
 }
 func (ma *_Value__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
 	switch k {
+	case "SimpleValidator":
+		return _SimpleValidator__ReprPrototype{}
+	case "Evidence":
+		return _Evidence__ReprPrototype{}
 	case "Link":
 		return _Link__ReprPrototype{}
+	case "Part":
+		return _Part__ReprPrototype{}
+	case "ResponseDeliverTx":
+		return _ResponseDeliverTx__ReprPrototype{}
 	case "Bytes":
 		return _Bytes__ReprPrototype{}
+	case "CommitSig":
+		return _CommitSig__ReprPrototype{}
 	default:
 		return nil
 	}
@@ -40113,14 +40408,39 @@ func (ka *_Value__ReprKeyAssembler) AssignString(k string) error {
 		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.Value.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
 	}
 	switch k {
-	case "tx":
+	case "validator":
 		ka.ca = 1
 		ka.w.tag = 1
 		ka.state = maState_expectValue
 		return nil
-	case "header":
+	case "evidence":
 		ka.ca = 2
 		ka.w.tag = 2
+		ka.state = maState_expectValue
+		return nil
+	case "tx":
+		ka.ca = 3
+		ka.w.tag = 3
+		ka.state = maState_expectValue
+		return nil
+	case "part":
+		ka.ca = 4
+		ka.w.tag = 4
+		ka.state = maState_expectValue
+		return nil
+	case "result":
+		ka.ca = 5
+		ka.w.tag = 5
+		ka.state = maState_expectValue
+		return nil
+	case "header":
+		ka.ca = 6
+		ka.w.tag = 6
+		ka.state = maState_expectValue
+		return nil
+	case "commit":
+		ka.ca = 7
+		ka.w.tag = 7
 		ka.state = maState_expectValue
 		return nil
 	}
