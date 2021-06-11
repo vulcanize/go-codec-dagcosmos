@@ -611,13 +611,13 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 
 		# Value union type used to handle the different values stored in leaf nodes in the different merkle trees
 		type Value union {
-			| &SimpleValidator "validator"
-			| &Evidence "evidence"
-			| &Tx "tx"
-			| &Part "part"
-			| &ResponseDeliverTx "result"
-			| Bytes "header"
-			| &CommitSig "commit"
+		    | SimpleValidator "validator"
+		    | Evidence "evidence"
+		    | TxCID "tx"
+		    | Part "part"
+		    | ResponseDeliverTx "result"
+		    | Bytes "header"
+		    | CommitSig "commit"
 		} representation keyed
 
 		# MerkleTreeLeafNode is a single byte array containing the value stored at that leaf
@@ -656,13 +656,13 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 			"Bytes",
 		},
 		schema.SpawnUnionRepresentationKeyed(map[string]schema.TypeName{
-			"validator": "Link",
-			"evidence":  "Link",
+			"validator": "SimpleValidator",
+			"evidence":  "Evidence",
 			"tx":        "Link",
-			"part":      "Link",
-			"result":    "Link",
+			"part":      "Part",
+			"result":    "ResponseDeliverTx",
 			"header":    "Bytes",
-			"commit":    "Link",
+			"commit":    "CommitSig",
 		}),
 	))
 	/*

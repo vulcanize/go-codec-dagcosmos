@@ -21460,7 +21460,7 @@ func (_MerkleTreeNode__Repr) Kind() ipld.Kind {
 }
 func (n *_MerkleTreeNode__Repr) LookupByString(key string) (ipld.Node, error) {
 	switch key {
-	case "root":
+	case "inner":
 		if n.tag != 1 {
 			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
 		}
@@ -21718,7 +21718,7 @@ func (ma *_MerkleTreeNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAsse
 		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.MerkleTreeNode.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
 	}
 	switch k {
-	case "root":
+	case "inner":
 		ma.state = maState_midValue
 		ma.ca = 1
 		ma.w.tag = 1
@@ -39719,7 +39719,7 @@ func (n Value) Representation() ipld.Node {
 type _Value__Repr _Value
 
 var (
-	memberName__Value_Link_serial  = _String{"validator"}
+	memberName__Value_Link_serial  = _String{"tx"}
 	memberName__Value_Bytes_serial = _String{"header"}
 )
 var _ ipld.Node = &_Value__Repr{}
@@ -39729,7 +39729,7 @@ func (_Value__Repr) Kind() ipld.Kind {
 }
 func (n *_Value__Repr) LookupByString(key string) (ipld.Node, error) {
 	switch key {
-	case "part":
+	case "tx":
 		if n.tag != 1 {
 			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
 		}
@@ -39987,7 +39987,7 @@ func (ma *_Value__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, er
 		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.Value.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
 	}
 	switch k {
-	case "commit":
+	case "tx":
 		ma.state = maState_midValue
 		ma.ca = 1
 		ma.w.tag = 1
@@ -40113,7 +40113,7 @@ func (ka *_Value__ReprKeyAssembler) AssignString(k string) error {
 		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.Value.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
 	}
 	switch k {
-	case "result":
+	case "tx":
 		ka.ca = 1
 		ka.w.tag = 1
 		ka.state = maState_expectValue
