@@ -525,15 +525,25 @@ type _Validators struct {
 type Value = *_Value
 type _Value struct {
 	tag uint
-	x1  _Link
-	x2  _Bytes
+	x1  _SimpleValidator
+	x2  _Evidence
+	x3  _Link
+	x4  _Part
+	x5  _ResponseDeliverTx
+	x6  _Bytes
+	x7  _CommitSig
 }
 type _Value__iface interface {
 	_Value__member()
 }
 
-func (_Link) _Value__member()  {}
-func (_Bytes) _Value__member() {}
+func (_SimpleValidator) _Value__member()   {}
+func (_Evidence) _Value__member()          {}
+func (_Link) _Value__member()              {}
+func (_Part) _Value__member()              {}
+func (_ResponseDeliverTx) _Value__member() {}
+func (_Bytes) _Value__member()             {}
+func (_CommitSig) _Value__member()         {}
 
 // Version matches the IPLD Schema type "Version".  It has Struct type-kind, and may be interrogated like map kind.
 type Version = *_Version
