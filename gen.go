@@ -95,90 +95,6 @@ func accumulateBasicTypes(ts *schema.TypeSystem) {
 		},
 		schema.SpawnStructRepresentationMap(nil),
 	))
-	/*	Params
-		# ConsensusParams contains consensus critical parameters that determine the validity of blocks.
-		type ConsensusParams struct {
-			Block     BlockParams
-			Evidence  EvidenceParams
-			Validator ValidatorParams
-			Version   VersionParams
-		}
-
-		# BlockParams contains limits on the block size and time between consecutive blocks
-		type BlockParams struct {
-			# Note: must be greater than 0
-			MaxBytes Int
-			# Note: must be greater or equal to -1
-			MaxGas Int
-		}
-
-		# EvidenceParams determine how we handle evidence of malfeasance.
-		type EvidenceParams struct {
-			# Max age of evidence, in blocks.
-			#
-			# The basic formula for calculating this is: MaxAgeDuration / {average block
-			# time}.
-			MaxAgeNumBlocks Int
-			# Max age of evidence, in time.
-			#
-			# It should correspond with an app's "unbonding period" or other similar
-			# mechanism for handling [Nothing-At-Stake
-			# attacks](https:#github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
-			MaxAgeDuration time.Duration `protobuf:"bytes,2,opt,name=max_age_duration,json=maxAgeDuration,proto3,stdduration" json:"max_age_duration"`
-			# This sets the maximum size of total evidence in bytes that can be committed in a single block.
-			# and should fall comfortably under the max block bytes.
-			# Default is 1048576 or 1MB
-			MaxBytes Int
-		}
-
-		# ValidatorParams restrict the public key types validators can use.
-		# NOTE: uses ABCI pubkey naming, not Amino names.
-		type ValidatorParams struct {
-			PubKeyTypes [String]
-		}
-
-		# VersionParams contains the ABCI application version.
-		type VersionParams struct {
-			AppVersion Uint
-		}
-	*/
-	ts.Accumulate(schema.SpawnStruct("BlockParams",
-		[]schema.StructField{
-			schema.SpawnStructField("MaxBytes", "Int", false, false),
-			schema.SpawnStructField("MaxGas", "Int", false, false),
-		},
-		schema.SpawnStructRepresentationMap(nil),
-	))
-	ts.Accumulate(schema.SpawnStruct("EvidenceParams",
-		[]schema.StructField{
-			schema.SpawnStructField("MaxAgeNumBlocks", "Int", false, false),
-			schema.SpawnStructField("MaxAgeDuration", "Duration", false, false),
-			schema.SpawnStructField("MaxBytes", "Int", false, false),
-		},
-		schema.SpawnStructRepresentationMap(nil),
-	))
-	ts.Accumulate(schema.SpawnList("PubKeyTypes", "String", false))
-	ts.Accumulate(schema.SpawnStruct("ValidatorParams",
-		[]schema.StructField{
-			schema.SpawnStructField("PubKeyTypes", "PubKeyTypes", false, false),
-		},
-		schema.SpawnStructRepresentationMap(nil),
-	))
-	ts.Accumulate(schema.SpawnStruct("VersionParams",
-		[]schema.StructField{
-			schema.SpawnStructField("AppVersion", "Uint", false, false),
-		},
-		schema.SpawnStructRepresentationMap(nil),
-	))
-	ts.Accumulate(schema.SpawnStruct("ConsensusParams",
-		[]schema.StructField{
-			schema.SpawnStructField("Block", "BlockParams", false, false),
-			schema.SpawnStructField("Evidence", "EvidenceParams", false, false),
-			schema.SpawnStructField("Validator", "ValidatorParams", false, false),
-			schema.SpawnStructField("Version", "VersionParams", false, false),
-		},
-		schema.SpawnStructRepresentationMap(nil),
-	))
 }
 
 func accumulateCryptoTypes(ts *schema.TypeSystem) {
@@ -391,6 +307,7 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 		} representation int
 
 		# CommitSig is a part of the Vote included in a Commit.
+		# These are the leaf values in the merkle tree referenced by LastCommitHash
 		type CommitSig struct {
 			BlockIDFlag      BlockIDFlag
 			ValidatorAddress Address
@@ -454,22 +371,6 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 			| PrecommitType ("2")
 			| ProposalType ("32")
 		} representation int
-
-		# Proposal defines a block proposal for the consensus.
-		# It refers to the block by BlockID field.
-		# It must be signed by the correct proposer for the given Height/Round
-		# to be considered valid. It may depend on votes from a previous round,
-		# a so-called Proof-of-Lock (POL) round, as noted in the POLRound.
-		# If POLRound >= 0, then BlockID corresponds to the block that is locked in POLRound.
-		type Proposal struct {
-			Type      SignedMsgType
-			Height    Int
-			Round     Int # there can not be greater than 2_147_483_647 rounds
-			POLRound  Int # -1 if null.
-			BlockID   BlockID
-			Timestamp Time
-			Signature Signature
-		}
 	*/
 	// make this an enum after schema gen support is added
 	ts.Accumulate(schema.SpawnInt("SignedMsgType"))
@@ -510,7 +411,7 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 			ProposerPriority Int # this should be removed since it isn't included in the content hash?
 		}
 
-		# This is what is actually hashed...
+		# This is what is actually included in the merkle tree
 		type SimpleValidator struct {
 			PubKey      PubKey
 			VotingPower Int
@@ -693,6 +594,7 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 	))
 	/*
 		type MerkleTreeNode union {
+			| MerkleTreeRootNode "root"
 			| MerkleTreeInnerNode "inner"
 			| MerkleTreeLeafNode "leaf"
 		} representation keyed
@@ -707,10 +609,21 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 			Right &MerkleTreeNode
 		}
 
+		# Value union type used to handle the different values stored in leaf nodes in the different merkle trees
+		type Value union {
+			| &SimpleValidator "validator"
+			| &Evidence "evidence"
+			| &Tx "tx"
+			| &Part "part"
+			| &ResponseDeliverTx "result"
+			| Bytes "header"
+			| &CommitSig "commit"
+		} representation keyed
+
 		# MerkleTreeLeafNode is a single byte array containing the value stored at that leaf
 		# Often times this "value" will be a hash of content rather than the content itself
 		type MerkleTreeLeafNode struct {
-			Value Bytes
+			Value Value
 		}
 	*/
 	ts.Accumulate(schema.SpawnUnion("MerkleTreeNode",
@@ -719,13 +632,14 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 			"MerkleTreeLeafNode",
 		},
 		schema.SpawnUnionRepresentationKeyed(map[string]schema.TypeName{
+			"root":  "MerkleTreeInnerNode",
 			"inner": "MerkleTreeInnerNode",
 			"leaf":  "MerkleTreeLeafNode",
 		}),
 	))
 	ts.Accumulate(schema.SpawnStruct("MerkleTreeLeafNode",
 		[]schema.StructField{
-			schema.SpawnStructField("Value", "Bytes", false, false),
+			schema.SpawnStructField("Value", "Value", false, false),
 		},
 		schema.SpawnStructRepresentationMap(nil),
 	))
@@ -733,6 +647,40 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 		[]schema.StructField{
 			schema.SpawnStructField("Left", "Link", false, false),
 			schema.SpawnStructField("Right", "Link", false, false),
+		},
+		schema.SpawnStructRepresentationMap(nil),
+	))
+	ts.Accumulate(schema.SpawnUnion("Value",
+		[]schema.TypeName{
+			"Link",
+			"Bytes",
+		},
+		schema.SpawnUnionRepresentationKeyed(map[string]schema.TypeName{
+			"validator": "Link",
+			"evidence":  "Link",
+			"tx":        "Link",
+			"part":      "Link",
+			"result":    "Link",
+			"header":    "Bytes",
+			"commit":    "Link",
+		}),
+	))
+	/*
+		// ResponseDeliverTx is an ABCI response to DeliverTx requests
+		// this includes the consensus fields only, this is included in the merkle tree referenced by LastResulHash in the Header
+		type ResponseDeliverTx struct {
+			Code      Uint
+			Data      Bytes
+			GasWanted Int
+			GasUsed   Int
+		}
+	*/
+	ts.Accumulate(schema.SpawnStruct("ResponseDeliverTx",
+		[]schema.StructField{
+			schema.SpawnStructField("Code", "Uint", false, false),
+			schema.SpawnStructField("Data", "Bytes", false, false),
+			schema.SpawnStructField("GasWanted", "Int", false, false),
+			schema.SpawnStructField("GasUsed", "Int", false, false),
 		},
 		schema.SpawnStructRepresentationMap(nil),
 	))
@@ -805,11 +753,16 @@ func accumulateCosmosDataStructures(ts *schema.TypeSystem) {
 		type SMTNode union {
 			| SMTInnerNode "inner"
 			| SMTLeafNode "leaf"
+			| SMTEmptyNode "empty"
 		} representation keyed
 
 		# SMTRootNode is the top-most node in an SMT; the root node of the tree.
 		# It can be a leaf node if there is only one value in the tree
 		type SMTRootNode SMTNode
+
+		# SMTEmptyNode represents an empty node in the sparse tree
+		type
+
 
 		# SMTInnerNode contains two byte arrays which contain the hashes which link its two child nodes.
 		type SMTInnerNode struct {

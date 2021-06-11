@@ -3065,930 +3065,6 @@ var _ ipld.Node = &_BlockIDFlag__Repr{}
 type _BlockIDFlag__ReprPrototype = _BlockIDFlag__Prototype
 type _BlockIDFlag__ReprAssembler = _BlockIDFlag__Assembler
 
-func (n _BlockParams) FieldMaxBytes() Int {
-	return &n.MaxBytes
-}
-func (n _BlockParams) FieldMaxGas() Int {
-	return &n.MaxGas
-}
-
-type _BlockParams__Maybe struct {
-	m schema.Maybe
-	v BlockParams
-}
-type MaybeBlockParams = *_BlockParams__Maybe
-
-func (m MaybeBlockParams) IsNull() bool {
-	return m.m == schema.Maybe_Null
-}
-func (m MaybeBlockParams) IsAbsent() bool {
-	return m.m == schema.Maybe_Absent
-}
-func (m MaybeBlockParams) Exists() bool {
-	return m.m == schema.Maybe_Value
-}
-func (m MaybeBlockParams) AsNode() ipld.Node {
-	switch m.m {
-	case schema.Maybe_Absent:
-		return ipld.Absent
-	case schema.Maybe_Null:
-		return ipld.Null
-	case schema.Maybe_Value:
-		return m.v
-	default:
-		panic("unreachable")
-	}
-}
-func (m MaybeBlockParams) Must() BlockParams {
-	if !m.Exists() {
-		panic("unbox of a maybe rejected")
-	}
-	return m.v
-}
-
-var (
-	fieldName__BlockParams_MaxBytes = _String{"MaxBytes"}
-	fieldName__BlockParams_MaxGas   = _String{"MaxGas"}
-)
-var _ ipld.Node = (BlockParams)(&_BlockParams{})
-var _ schema.TypedNode = (BlockParams)(&_BlockParams{})
-
-func (BlockParams) Kind() ipld.Kind {
-	return ipld.Kind_Map
-}
-func (n BlockParams) LookupByString(key string) (ipld.Node, error) {
-	switch key {
-	case "MaxBytes":
-		return &n.MaxBytes, nil
-	case "MaxGas":
-		return &n.MaxGas, nil
-	default:
-		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
-	}
-}
-func (n BlockParams) LookupByNode(key ipld.Node) (ipld.Node, error) {
-	ks, err := key.AsString()
-	if err != nil {
-		return nil, err
-	}
-	return n.LookupByString(ks)
-}
-func (BlockParams) LookupByIndex(idx int64) (ipld.Node, error) {
-	return mixins.Map{"dagcosmos.BlockParams"}.LookupByIndex(0)
-}
-func (n BlockParams) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
-	return n.LookupByString(seg.String())
-}
-func (n BlockParams) MapIterator() ipld.MapIterator {
-	return &_BlockParams__MapItr{n, 0}
-}
-
-type _BlockParams__MapItr struct {
-	n   BlockParams
-	idx int
-}
-
-func (itr *_BlockParams__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
-	if itr.idx >= 2 {
-		return nil, nil, ipld.ErrIteratorOverread{}
-	}
-	switch itr.idx {
-	case 0:
-		k = &fieldName__BlockParams_MaxBytes
-		v = &itr.n.MaxBytes
-	case 1:
-		k = &fieldName__BlockParams_MaxGas
-		v = &itr.n.MaxGas
-	default:
-		panic("unreachable")
-	}
-	itr.idx++
-	return
-}
-func (itr *_BlockParams__MapItr) Done() bool {
-	return itr.idx >= 2
-}
-
-func (BlockParams) ListIterator() ipld.ListIterator {
-	return nil
-}
-func (BlockParams) Length() int64 {
-	return 2
-}
-func (BlockParams) IsAbsent() bool {
-	return false
-}
-func (BlockParams) IsNull() bool {
-	return false
-}
-func (BlockParams) AsBool() (bool, error) {
-	return mixins.Map{"dagcosmos.BlockParams"}.AsBool()
-}
-func (BlockParams) AsInt() (int64, error) {
-	return mixins.Map{"dagcosmos.BlockParams"}.AsInt()
-}
-func (BlockParams) AsFloat() (float64, error) {
-	return mixins.Map{"dagcosmos.BlockParams"}.AsFloat()
-}
-func (BlockParams) AsString() (string, error) {
-	return mixins.Map{"dagcosmos.BlockParams"}.AsString()
-}
-func (BlockParams) AsBytes() ([]byte, error) {
-	return mixins.Map{"dagcosmos.BlockParams"}.AsBytes()
-}
-func (BlockParams) AsLink() (ipld.Link, error) {
-	return mixins.Map{"dagcosmos.BlockParams"}.AsLink()
-}
-func (BlockParams) Prototype() ipld.NodePrototype {
-	return _BlockParams__Prototype{}
-}
-
-type _BlockParams__Prototype struct{}
-
-func (_BlockParams__Prototype) NewBuilder() ipld.NodeBuilder {
-	var nb _BlockParams__Builder
-	nb.Reset()
-	return &nb
-}
-
-type _BlockParams__Builder struct {
-	_BlockParams__Assembler
-}
-
-func (nb *_BlockParams__Builder) Build() ipld.Node {
-	if *nb.m != schema.Maybe_Value {
-		panic("invalid state: cannot call Build on an assembler that's not finished")
-	}
-	return nb.w
-}
-func (nb *_BlockParams__Builder) Reset() {
-	var w _BlockParams
-	var m schema.Maybe
-	*nb = _BlockParams__Builder{_BlockParams__Assembler{w: &w, m: &m}}
-}
-
-type _BlockParams__Assembler struct {
-	w     *_BlockParams
-	m     *schema.Maybe
-	state maState
-	s     int
-	f     int
-
-	cm          schema.Maybe
-	ca_MaxBytes _Int__Assembler
-	ca_MaxGas   _Int__Assembler
-}
-
-func (na *_BlockParams__Assembler) reset() {
-	na.state = maState_initial
-	na.s = 0
-	na.ca_MaxBytes.reset()
-	na.ca_MaxGas.reset()
-}
-
-var (
-	fieldBit__BlockParams_MaxBytes    = 1 << 0
-	fieldBit__BlockParams_MaxGas      = 1 << 1
-	fieldBits__BlockParams_sufficient = 0 + 1<<0 + 1<<1
-)
-
-func (na *_BlockParams__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
-	switch *na.m {
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
-	}
-	*na.m = midvalue
-	if na.w == nil {
-		na.w = &_BlockParams{}
-	}
-	return na, nil
-}
-func (_BlockParams__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.MapAssembler{"dagcosmos.BlockParams"}.BeginList(0)
-}
-func (na *_BlockParams__Assembler) AssignNull() error {
-	switch *na.m {
-	case allowNull:
-		*na.m = schema.Maybe_Null
-		return nil
-	case schema.Maybe_Absent:
-		return mixins.MapAssembler{"dagcosmos.BlockParams"}.AssignNull()
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-	}
-	panic("unreachable")
-}
-func (_BlockParams__Assembler) AssignBool(bool) error {
-	return mixins.MapAssembler{"dagcosmos.BlockParams"}.AssignBool(false)
-}
-func (_BlockParams__Assembler) AssignInt(int64) error {
-	return mixins.MapAssembler{"dagcosmos.BlockParams"}.AssignInt(0)
-}
-func (_BlockParams__Assembler) AssignFloat(float64) error {
-	return mixins.MapAssembler{"dagcosmos.BlockParams"}.AssignFloat(0)
-}
-func (_BlockParams__Assembler) AssignString(string) error {
-	return mixins.MapAssembler{"dagcosmos.BlockParams"}.AssignString("")
-}
-func (_BlockParams__Assembler) AssignBytes([]byte) error {
-	return mixins.MapAssembler{"dagcosmos.BlockParams"}.AssignBytes(nil)
-}
-func (_BlockParams__Assembler) AssignLink(ipld.Link) error {
-	return mixins.MapAssembler{"dagcosmos.BlockParams"}.AssignLink(nil)
-}
-func (na *_BlockParams__Assembler) AssignNode(v ipld.Node) error {
-	if v.IsNull() {
-		return na.AssignNull()
-	}
-	if v2, ok := v.(*_BlockParams); ok {
-		switch *na.m {
-		case schema.Maybe_Value, schema.Maybe_Null:
-			panic("invalid state: cannot assign into assembler that's already finished")
-		case midvalue:
-			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-		}
-		if na.w == nil {
-			na.w = v2
-			*na.m = schema.Maybe_Value
-			return nil
-		}
-		*na.w = *v2
-		*na.m = schema.Maybe_Value
-		return nil
-	}
-	if v.Kind() != ipld.Kind_Map {
-		return ipld.ErrWrongKind{TypeName: "dagcosmos.BlockParams", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
-	}
-	itr := v.MapIterator()
-	for !itr.Done() {
-		k, v, err := itr.Next()
-		if err != nil {
-			return err
-		}
-		if err := na.AssembleKey().AssignNode(k); err != nil {
-			return err
-		}
-		if err := na.AssembleValue().AssignNode(v); err != nil {
-			return err
-		}
-	}
-	return na.Finish()
-}
-func (_BlockParams__Assembler) Prototype() ipld.NodePrototype {
-	return _BlockParams__Prototype{}
-}
-func (ma *_BlockParams__Assembler) valueFinishTidy() bool {
-	switch ma.f {
-	case 0:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.ca_MaxBytes.w = nil
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	case 1:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.ca_MaxGas.w = nil
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_BlockParams__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
-	}
-	switch k {
-	case "MaxBytes":
-		if ma.s&fieldBit__BlockParams_MaxBytes != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__BlockParams_MaxBytes}
-		}
-		ma.s += fieldBit__BlockParams_MaxBytes
-		ma.state = maState_midValue
-		ma.f = 0
-		ma.ca_MaxBytes.w = &ma.w.MaxBytes
-		ma.ca_MaxBytes.m = &ma.cm
-		return &ma.ca_MaxBytes, nil
-	case "MaxGas":
-		if ma.s&fieldBit__BlockParams_MaxGas != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__BlockParams_MaxGas}
-		}
-		ma.s += fieldBit__BlockParams_MaxGas
-		ma.state = maState_midValue
-		ma.f = 1
-		ma.ca_MaxGas.w = &ma.w.MaxGas
-		ma.ca_MaxGas.m = &ma.cm
-		return &ma.ca_MaxGas, nil
-	}
-	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.BlockParams", Key: &_String{k}}
-}
-func (ma *_BlockParams__Assembler) AssembleKey() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midKey
-	return (*_BlockParams__KeyAssembler)(ma)
-}
-func (ma *_BlockParams__Assembler) AssembleValue() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		panic("invalid state: AssembleValue cannot be called when no key is primed")
-	case maState_midKey:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		// carry on
-	case maState_midValue:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
-	case maState_finished:
-		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midValue
-	switch ma.f {
-	case 0:
-		ma.ca_MaxBytes.w = &ma.w.MaxBytes
-		ma.ca_MaxBytes.m = &ma.cm
-		return &ma.ca_MaxBytes
-	case 1:
-		ma.ca_MaxGas.w = &ma.w.MaxGas
-		ma.ca_MaxGas.m = &ma.cm
-		return &ma.ca_MaxGas
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_BlockParams__Assembler) Finish() error {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		panic("invalid state: Finish cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: Finish cannot be called on an assembler that's already finished")
-	}
-	if ma.s&fieldBits__BlockParams_sufficient != fieldBits__BlockParams_sufficient {
-		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__BlockParams_MaxBytes == 0 {
-			err.Missing = append(err.Missing, "MaxBytes")
-		}
-		if ma.s&fieldBit__BlockParams_MaxGas == 0 {
-			err.Missing = append(err.Missing, "MaxGas")
-		}
-		return err
-	}
-	ma.state = maState_finished
-	*ma.m = schema.Maybe_Value
-	return nil
-}
-func (ma *_BlockParams__Assembler) KeyPrototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-func (ma *_BlockParams__Assembler) ValuePrototype(k string) ipld.NodePrototype {
-	panic("todo structbuilder mapassembler valueprototype")
-}
-
-type _BlockParams__KeyAssembler _BlockParams__Assembler
-
-func (_BlockParams__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.KeyAssembler"}.BeginMap(0)
-}
-func (_BlockParams__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.KeyAssembler"}.BeginList(0)
-}
-func (na *_BlockParams__KeyAssembler) AssignNull() error {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.KeyAssembler"}.AssignNull()
-}
-func (_BlockParams__KeyAssembler) AssignBool(bool) error {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.KeyAssembler"}.AssignBool(false)
-}
-func (_BlockParams__KeyAssembler) AssignInt(int64) error {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.KeyAssembler"}.AssignInt(0)
-}
-func (_BlockParams__KeyAssembler) AssignFloat(float64) error {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.KeyAssembler"}.AssignFloat(0)
-}
-func (ka *_BlockParams__KeyAssembler) AssignString(k string) error {
-	if ka.state != maState_midKey {
-		panic("misuse: KeyAssembler held beyond its valid lifetime")
-	}
-	switch k {
-	case "MaxBytes":
-		if ka.s&fieldBit__BlockParams_MaxBytes != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__BlockParams_MaxBytes}
-		}
-		ka.s += fieldBit__BlockParams_MaxBytes
-		ka.state = maState_expectValue
-		ka.f = 0
-	case "MaxGas":
-		if ka.s&fieldBit__BlockParams_MaxGas != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__BlockParams_MaxGas}
-		}
-		ka.s += fieldBit__BlockParams_MaxGas
-		ka.state = maState_expectValue
-		ka.f = 1
-	default:
-		return ipld.ErrInvalidKey{TypeName: "dagcosmos.BlockParams", Key: &_String{k}}
-	}
-	return nil
-}
-func (_BlockParams__KeyAssembler) AssignBytes([]byte) error {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.KeyAssembler"}.AssignBytes(nil)
-}
-func (_BlockParams__KeyAssembler) AssignLink(ipld.Link) error {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.KeyAssembler"}.AssignLink(nil)
-}
-func (ka *_BlockParams__KeyAssembler) AssignNode(v ipld.Node) error {
-	if v2, err := v.AsString(); err != nil {
-		return err
-	} else {
-		return ka.AssignString(v2)
-	}
-}
-func (_BlockParams__KeyAssembler) Prototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-func (BlockParams) Type() schema.Type {
-	return nil /*TODO:typelit*/
-}
-func (n BlockParams) Representation() ipld.Node {
-	return (*_BlockParams__Repr)(n)
-}
-
-type _BlockParams__Repr _BlockParams
-
-var (
-	fieldName__BlockParams_MaxBytes_serial = _String{"MaxBytes"}
-	fieldName__BlockParams_MaxGas_serial   = _String{"MaxGas"}
-)
-var _ ipld.Node = &_BlockParams__Repr{}
-
-func (_BlockParams__Repr) Kind() ipld.Kind {
-	return ipld.Kind_Map
-}
-func (n *_BlockParams__Repr) LookupByString(key string) (ipld.Node, error) {
-	switch key {
-	case "MaxBytes":
-		return n.MaxBytes.Representation(), nil
-	case "MaxGas":
-		return n.MaxGas.Representation(), nil
-	default:
-		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
-	}
-}
-func (n *_BlockParams__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
-	ks, err := key.AsString()
-	if err != nil {
-		return nil, err
-	}
-	return n.LookupByString(ks)
-}
-func (_BlockParams__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
-	return mixins.Map{"dagcosmos.BlockParams.Repr"}.LookupByIndex(0)
-}
-func (n _BlockParams__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
-	return n.LookupByString(seg.String())
-}
-func (n *_BlockParams__Repr) MapIterator() ipld.MapIterator {
-	return &_BlockParams__ReprMapItr{n, 0}
-}
-
-type _BlockParams__ReprMapItr struct {
-	n   *_BlockParams__Repr
-	idx int
-}
-
-func (itr *_BlockParams__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
-	if itr.idx >= 2 {
-		return nil, nil, ipld.ErrIteratorOverread{}
-	}
-	switch itr.idx {
-	case 0:
-		k = &fieldName__BlockParams_MaxBytes_serial
-		v = itr.n.MaxBytes.Representation()
-	case 1:
-		k = &fieldName__BlockParams_MaxGas_serial
-		v = itr.n.MaxGas.Representation()
-	default:
-		panic("unreachable")
-	}
-	itr.idx++
-	return
-}
-func (itr *_BlockParams__ReprMapItr) Done() bool {
-	return itr.idx >= 2
-}
-func (_BlockParams__Repr) ListIterator() ipld.ListIterator {
-	return nil
-}
-func (rn *_BlockParams__Repr) Length() int64 {
-	l := 2
-	return int64(l)
-}
-func (_BlockParams__Repr) IsAbsent() bool {
-	return false
-}
-func (_BlockParams__Repr) IsNull() bool {
-	return false
-}
-func (_BlockParams__Repr) AsBool() (bool, error) {
-	return mixins.Map{"dagcosmos.BlockParams.Repr"}.AsBool()
-}
-func (_BlockParams__Repr) AsInt() (int64, error) {
-	return mixins.Map{"dagcosmos.BlockParams.Repr"}.AsInt()
-}
-func (_BlockParams__Repr) AsFloat() (float64, error) {
-	return mixins.Map{"dagcosmos.BlockParams.Repr"}.AsFloat()
-}
-func (_BlockParams__Repr) AsString() (string, error) {
-	return mixins.Map{"dagcosmos.BlockParams.Repr"}.AsString()
-}
-func (_BlockParams__Repr) AsBytes() ([]byte, error) {
-	return mixins.Map{"dagcosmos.BlockParams.Repr"}.AsBytes()
-}
-func (_BlockParams__Repr) AsLink() (ipld.Link, error) {
-	return mixins.Map{"dagcosmos.BlockParams.Repr"}.AsLink()
-}
-func (_BlockParams__Repr) Prototype() ipld.NodePrototype {
-	return _BlockParams__ReprPrototype{}
-}
-
-type _BlockParams__ReprPrototype struct{}
-
-func (_BlockParams__ReprPrototype) NewBuilder() ipld.NodeBuilder {
-	var nb _BlockParams__ReprBuilder
-	nb.Reset()
-	return &nb
-}
-
-type _BlockParams__ReprBuilder struct {
-	_BlockParams__ReprAssembler
-}
-
-func (nb *_BlockParams__ReprBuilder) Build() ipld.Node {
-	if *nb.m != schema.Maybe_Value {
-		panic("invalid state: cannot call Build on an assembler that's not finished")
-	}
-	return nb.w
-}
-func (nb *_BlockParams__ReprBuilder) Reset() {
-	var w _BlockParams
-	var m schema.Maybe
-	*nb = _BlockParams__ReprBuilder{_BlockParams__ReprAssembler{w: &w, m: &m}}
-}
-
-type _BlockParams__ReprAssembler struct {
-	w     *_BlockParams
-	m     *schema.Maybe
-	state maState
-	s     int
-	f     int
-
-	cm          schema.Maybe
-	ca_MaxBytes _Int__ReprAssembler
-	ca_MaxGas   _Int__ReprAssembler
-}
-
-func (na *_BlockParams__ReprAssembler) reset() {
-	na.state = maState_initial
-	na.s = 0
-	na.ca_MaxBytes.reset()
-	na.ca_MaxGas.reset()
-}
-func (na *_BlockParams__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
-	switch *na.m {
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
-	}
-	*na.m = midvalue
-	if na.w == nil {
-		na.w = &_BlockParams{}
-	}
-	return na, nil
-}
-func (_BlockParams__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.MapAssembler{"dagcosmos.BlockParams.Repr"}.BeginList(0)
-}
-func (na *_BlockParams__ReprAssembler) AssignNull() error {
-	switch *na.m {
-	case allowNull:
-		*na.m = schema.Maybe_Null
-		return nil
-	case schema.Maybe_Absent:
-		return mixins.MapAssembler{"dagcosmos.BlockParams.Repr.Repr"}.AssignNull()
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-	}
-	panic("unreachable")
-}
-func (_BlockParams__ReprAssembler) AssignBool(bool) error {
-	return mixins.MapAssembler{"dagcosmos.BlockParams.Repr"}.AssignBool(false)
-}
-func (_BlockParams__ReprAssembler) AssignInt(int64) error {
-	return mixins.MapAssembler{"dagcosmos.BlockParams.Repr"}.AssignInt(0)
-}
-func (_BlockParams__ReprAssembler) AssignFloat(float64) error {
-	return mixins.MapAssembler{"dagcosmos.BlockParams.Repr"}.AssignFloat(0)
-}
-func (_BlockParams__ReprAssembler) AssignString(string) error {
-	return mixins.MapAssembler{"dagcosmos.BlockParams.Repr"}.AssignString("")
-}
-func (_BlockParams__ReprAssembler) AssignBytes([]byte) error {
-	return mixins.MapAssembler{"dagcosmos.BlockParams.Repr"}.AssignBytes(nil)
-}
-func (_BlockParams__ReprAssembler) AssignLink(ipld.Link) error {
-	return mixins.MapAssembler{"dagcosmos.BlockParams.Repr"}.AssignLink(nil)
-}
-func (na *_BlockParams__ReprAssembler) AssignNode(v ipld.Node) error {
-	if v.IsNull() {
-		return na.AssignNull()
-	}
-	if v2, ok := v.(*_BlockParams); ok {
-		switch *na.m {
-		case schema.Maybe_Value, schema.Maybe_Null:
-			panic("invalid state: cannot assign into assembler that's already finished")
-		case midvalue:
-			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-		}
-		if na.w == nil {
-			na.w = v2
-			*na.m = schema.Maybe_Value
-			return nil
-		}
-		*na.w = *v2
-		*na.m = schema.Maybe_Value
-		return nil
-	}
-	if v.Kind() != ipld.Kind_Map {
-		return ipld.ErrWrongKind{TypeName: "dagcosmos.BlockParams.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
-	}
-	itr := v.MapIterator()
-	for !itr.Done() {
-		k, v, err := itr.Next()
-		if err != nil {
-			return err
-		}
-		if err := na.AssembleKey().AssignNode(k); err != nil {
-			return err
-		}
-		if err := na.AssembleValue().AssignNode(v); err != nil {
-			return err
-		}
-	}
-	return na.Finish()
-}
-func (_BlockParams__ReprAssembler) Prototype() ipld.NodePrototype {
-	return _BlockParams__ReprPrototype{}
-}
-func (ma *_BlockParams__ReprAssembler) valueFinishTidy() bool {
-	switch ma.f {
-	case 0:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	case 1:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_BlockParams__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
-	}
-	switch k {
-	case "MaxBytes":
-		if ma.s&fieldBit__BlockParams_MaxBytes != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__BlockParams_MaxBytes_serial}
-		}
-		ma.s += fieldBit__BlockParams_MaxBytes
-		ma.state = maState_midValue
-		ma.f = 0
-		ma.ca_MaxBytes.w = &ma.w.MaxBytes
-		ma.ca_MaxBytes.m = &ma.cm
-		return &ma.ca_MaxBytes, nil
-	case "MaxGas":
-		if ma.s&fieldBit__BlockParams_MaxGas != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__BlockParams_MaxGas_serial}
-		}
-		ma.s += fieldBit__BlockParams_MaxGas
-		ma.state = maState_midValue
-		ma.f = 1
-		ma.ca_MaxGas.w = &ma.w.MaxGas
-		ma.ca_MaxGas.m = &ma.cm
-		return &ma.ca_MaxGas, nil
-	default:
-	}
-	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.BlockParams.Repr", Key: &_String{k}}
-}
-func (ma *_BlockParams__ReprAssembler) AssembleKey() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midKey
-	return (*_BlockParams__ReprKeyAssembler)(ma)
-}
-func (ma *_BlockParams__ReprAssembler) AssembleValue() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		panic("invalid state: AssembleValue cannot be called when no key is primed")
-	case maState_midKey:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		// carry on
-	case maState_midValue:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
-	case maState_finished:
-		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midValue
-	switch ma.f {
-	case 0:
-		ma.ca_MaxBytes.w = &ma.w.MaxBytes
-		ma.ca_MaxBytes.m = &ma.cm
-		return &ma.ca_MaxBytes
-	case 1:
-		ma.ca_MaxGas.w = &ma.w.MaxGas
-		ma.ca_MaxGas.m = &ma.cm
-		return &ma.ca_MaxGas
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_BlockParams__ReprAssembler) Finish() error {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		panic("invalid state: Finish cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: Finish cannot be called on an assembler that's already finished")
-	}
-	if ma.s&fieldBits__BlockParams_sufficient != fieldBits__BlockParams_sufficient {
-		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__BlockParams_MaxBytes == 0 {
-			err.Missing = append(err.Missing, "MaxBytes")
-		}
-		if ma.s&fieldBit__BlockParams_MaxGas == 0 {
-			err.Missing = append(err.Missing, "MaxGas")
-		}
-		return err
-	}
-	ma.state = maState_finished
-	*ma.m = schema.Maybe_Value
-	return nil
-}
-func (ma *_BlockParams__ReprAssembler) KeyPrototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-func (ma *_BlockParams__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
-	panic("todo structbuilder mapassembler repr valueprototype")
-}
-
-type _BlockParams__ReprKeyAssembler _BlockParams__ReprAssembler
-
-func (_BlockParams__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.Repr.KeyAssembler"}.BeginMap(0)
-}
-func (_BlockParams__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.Repr.KeyAssembler"}.BeginList(0)
-}
-func (na *_BlockParams__ReprKeyAssembler) AssignNull() error {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.Repr.KeyAssembler"}.AssignNull()
-}
-func (_BlockParams__ReprKeyAssembler) AssignBool(bool) error {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.Repr.KeyAssembler"}.AssignBool(false)
-}
-func (_BlockParams__ReprKeyAssembler) AssignInt(int64) error {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.Repr.KeyAssembler"}.AssignInt(0)
-}
-func (_BlockParams__ReprKeyAssembler) AssignFloat(float64) error {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.Repr.KeyAssembler"}.AssignFloat(0)
-}
-func (ka *_BlockParams__ReprKeyAssembler) AssignString(k string) error {
-	if ka.state != maState_midKey {
-		panic("misuse: KeyAssembler held beyond its valid lifetime")
-	}
-	switch k {
-	case "MaxBytes":
-		if ka.s&fieldBit__BlockParams_MaxBytes != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__BlockParams_MaxBytes_serial}
-		}
-		ka.s += fieldBit__BlockParams_MaxBytes
-		ka.state = maState_expectValue
-		ka.f = 0
-		return nil
-	case "MaxGas":
-		if ka.s&fieldBit__BlockParams_MaxGas != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__BlockParams_MaxGas_serial}
-		}
-		ka.s += fieldBit__BlockParams_MaxGas
-		ka.state = maState_expectValue
-		ka.f = 1
-		return nil
-	}
-	return ipld.ErrInvalidKey{TypeName: "dagcosmos.BlockParams.Repr", Key: &_String{k}}
-}
-func (_BlockParams__ReprKeyAssembler) AssignBytes([]byte) error {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.Repr.KeyAssembler"}.AssignBytes(nil)
-}
-func (_BlockParams__ReprKeyAssembler) AssignLink(ipld.Link) error {
-	return mixins.StringAssembler{"dagcosmos.BlockParams.Repr.KeyAssembler"}.AssignLink(nil)
-}
-func (ka *_BlockParams__ReprKeyAssembler) AssignNode(v ipld.Node) error {
-	if v2, err := v.AsString(); err != nil {
-		return err
-	} else {
-		return ka.AssignString(v2)
-	}
-}
-func (_BlockParams__ReprKeyAssembler) Prototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-
 func (n Bytes) Bytes() []byte {
 	return n.x
 }
@@ -6399,1106 +5475,6 @@ func (ka *_CommitSig__ReprKeyAssembler) AssignNode(v ipld.Node) error {
 	}
 }
 func (_CommitSig__ReprKeyAssembler) Prototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-
-func (n _ConsensusParams) FieldBlock() BlockParams {
-	return &n.Block
-}
-func (n _ConsensusParams) FieldEvidence() EvidenceParams {
-	return &n.Evidence
-}
-func (n _ConsensusParams) FieldValidator() ValidatorParams {
-	return &n.Validator
-}
-func (n _ConsensusParams) FieldVersion() VersionParams {
-	return &n.Version
-}
-
-type _ConsensusParams__Maybe struct {
-	m schema.Maybe
-	v ConsensusParams
-}
-type MaybeConsensusParams = *_ConsensusParams__Maybe
-
-func (m MaybeConsensusParams) IsNull() bool {
-	return m.m == schema.Maybe_Null
-}
-func (m MaybeConsensusParams) IsAbsent() bool {
-	return m.m == schema.Maybe_Absent
-}
-func (m MaybeConsensusParams) Exists() bool {
-	return m.m == schema.Maybe_Value
-}
-func (m MaybeConsensusParams) AsNode() ipld.Node {
-	switch m.m {
-	case schema.Maybe_Absent:
-		return ipld.Absent
-	case schema.Maybe_Null:
-		return ipld.Null
-	case schema.Maybe_Value:
-		return m.v
-	default:
-		panic("unreachable")
-	}
-}
-func (m MaybeConsensusParams) Must() ConsensusParams {
-	if !m.Exists() {
-		panic("unbox of a maybe rejected")
-	}
-	return m.v
-}
-
-var (
-	fieldName__ConsensusParams_Block     = _String{"Block"}
-	fieldName__ConsensusParams_Evidence  = _String{"Evidence"}
-	fieldName__ConsensusParams_Validator = _String{"Validator"}
-	fieldName__ConsensusParams_Version   = _String{"Version"}
-)
-var _ ipld.Node = (ConsensusParams)(&_ConsensusParams{})
-var _ schema.TypedNode = (ConsensusParams)(&_ConsensusParams{})
-
-func (ConsensusParams) Kind() ipld.Kind {
-	return ipld.Kind_Map
-}
-func (n ConsensusParams) LookupByString(key string) (ipld.Node, error) {
-	switch key {
-	case "Block":
-		return &n.Block, nil
-	case "Evidence":
-		return &n.Evidence, nil
-	case "Validator":
-		return &n.Validator, nil
-	case "Version":
-		return &n.Version, nil
-	default:
-		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
-	}
-}
-func (n ConsensusParams) LookupByNode(key ipld.Node) (ipld.Node, error) {
-	ks, err := key.AsString()
-	if err != nil {
-		return nil, err
-	}
-	return n.LookupByString(ks)
-}
-func (ConsensusParams) LookupByIndex(idx int64) (ipld.Node, error) {
-	return mixins.Map{"dagcosmos.ConsensusParams"}.LookupByIndex(0)
-}
-func (n ConsensusParams) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
-	return n.LookupByString(seg.String())
-}
-func (n ConsensusParams) MapIterator() ipld.MapIterator {
-	return &_ConsensusParams__MapItr{n, 0}
-}
-
-type _ConsensusParams__MapItr struct {
-	n   ConsensusParams
-	idx int
-}
-
-func (itr *_ConsensusParams__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
-	if itr.idx >= 4 {
-		return nil, nil, ipld.ErrIteratorOverread{}
-	}
-	switch itr.idx {
-	case 0:
-		k = &fieldName__ConsensusParams_Block
-		v = &itr.n.Block
-	case 1:
-		k = &fieldName__ConsensusParams_Evidence
-		v = &itr.n.Evidence
-	case 2:
-		k = &fieldName__ConsensusParams_Validator
-		v = &itr.n.Validator
-	case 3:
-		k = &fieldName__ConsensusParams_Version
-		v = &itr.n.Version
-	default:
-		panic("unreachable")
-	}
-	itr.idx++
-	return
-}
-func (itr *_ConsensusParams__MapItr) Done() bool {
-	return itr.idx >= 4
-}
-
-func (ConsensusParams) ListIterator() ipld.ListIterator {
-	return nil
-}
-func (ConsensusParams) Length() int64 {
-	return 4
-}
-func (ConsensusParams) IsAbsent() bool {
-	return false
-}
-func (ConsensusParams) IsNull() bool {
-	return false
-}
-func (ConsensusParams) AsBool() (bool, error) {
-	return mixins.Map{"dagcosmos.ConsensusParams"}.AsBool()
-}
-func (ConsensusParams) AsInt() (int64, error) {
-	return mixins.Map{"dagcosmos.ConsensusParams"}.AsInt()
-}
-func (ConsensusParams) AsFloat() (float64, error) {
-	return mixins.Map{"dagcosmos.ConsensusParams"}.AsFloat()
-}
-func (ConsensusParams) AsString() (string, error) {
-	return mixins.Map{"dagcosmos.ConsensusParams"}.AsString()
-}
-func (ConsensusParams) AsBytes() ([]byte, error) {
-	return mixins.Map{"dagcosmos.ConsensusParams"}.AsBytes()
-}
-func (ConsensusParams) AsLink() (ipld.Link, error) {
-	return mixins.Map{"dagcosmos.ConsensusParams"}.AsLink()
-}
-func (ConsensusParams) Prototype() ipld.NodePrototype {
-	return _ConsensusParams__Prototype{}
-}
-
-type _ConsensusParams__Prototype struct{}
-
-func (_ConsensusParams__Prototype) NewBuilder() ipld.NodeBuilder {
-	var nb _ConsensusParams__Builder
-	nb.Reset()
-	return &nb
-}
-
-type _ConsensusParams__Builder struct {
-	_ConsensusParams__Assembler
-}
-
-func (nb *_ConsensusParams__Builder) Build() ipld.Node {
-	if *nb.m != schema.Maybe_Value {
-		panic("invalid state: cannot call Build on an assembler that's not finished")
-	}
-	return nb.w
-}
-func (nb *_ConsensusParams__Builder) Reset() {
-	var w _ConsensusParams
-	var m schema.Maybe
-	*nb = _ConsensusParams__Builder{_ConsensusParams__Assembler{w: &w, m: &m}}
-}
-
-type _ConsensusParams__Assembler struct {
-	w     *_ConsensusParams
-	m     *schema.Maybe
-	state maState
-	s     int
-	f     int
-
-	cm           schema.Maybe
-	ca_Block     _BlockParams__Assembler
-	ca_Evidence  _EvidenceParams__Assembler
-	ca_Validator _ValidatorParams__Assembler
-	ca_Version   _VersionParams__Assembler
-}
-
-func (na *_ConsensusParams__Assembler) reset() {
-	na.state = maState_initial
-	na.s = 0
-	na.ca_Block.reset()
-	na.ca_Evidence.reset()
-	na.ca_Validator.reset()
-	na.ca_Version.reset()
-}
-
-var (
-	fieldBit__ConsensusParams_Block       = 1 << 0
-	fieldBit__ConsensusParams_Evidence    = 1 << 1
-	fieldBit__ConsensusParams_Validator   = 1 << 2
-	fieldBit__ConsensusParams_Version     = 1 << 3
-	fieldBits__ConsensusParams_sufficient = 0 + 1<<0 + 1<<1 + 1<<2 + 1<<3
-)
-
-func (na *_ConsensusParams__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
-	switch *na.m {
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
-	}
-	*na.m = midvalue
-	if na.w == nil {
-		na.w = &_ConsensusParams{}
-	}
-	return na, nil
-}
-func (_ConsensusParams__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.MapAssembler{"dagcosmos.ConsensusParams"}.BeginList(0)
-}
-func (na *_ConsensusParams__Assembler) AssignNull() error {
-	switch *na.m {
-	case allowNull:
-		*na.m = schema.Maybe_Null
-		return nil
-	case schema.Maybe_Absent:
-		return mixins.MapAssembler{"dagcosmos.ConsensusParams"}.AssignNull()
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-	}
-	panic("unreachable")
-}
-func (_ConsensusParams__Assembler) AssignBool(bool) error {
-	return mixins.MapAssembler{"dagcosmos.ConsensusParams"}.AssignBool(false)
-}
-func (_ConsensusParams__Assembler) AssignInt(int64) error {
-	return mixins.MapAssembler{"dagcosmos.ConsensusParams"}.AssignInt(0)
-}
-func (_ConsensusParams__Assembler) AssignFloat(float64) error {
-	return mixins.MapAssembler{"dagcosmos.ConsensusParams"}.AssignFloat(0)
-}
-func (_ConsensusParams__Assembler) AssignString(string) error {
-	return mixins.MapAssembler{"dagcosmos.ConsensusParams"}.AssignString("")
-}
-func (_ConsensusParams__Assembler) AssignBytes([]byte) error {
-	return mixins.MapAssembler{"dagcosmos.ConsensusParams"}.AssignBytes(nil)
-}
-func (_ConsensusParams__Assembler) AssignLink(ipld.Link) error {
-	return mixins.MapAssembler{"dagcosmos.ConsensusParams"}.AssignLink(nil)
-}
-func (na *_ConsensusParams__Assembler) AssignNode(v ipld.Node) error {
-	if v.IsNull() {
-		return na.AssignNull()
-	}
-	if v2, ok := v.(*_ConsensusParams); ok {
-		switch *na.m {
-		case schema.Maybe_Value, schema.Maybe_Null:
-			panic("invalid state: cannot assign into assembler that's already finished")
-		case midvalue:
-			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-		}
-		if na.w == nil {
-			na.w = v2
-			*na.m = schema.Maybe_Value
-			return nil
-		}
-		*na.w = *v2
-		*na.m = schema.Maybe_Value
-		return nil
-	}
-	if v.Kind() != ipld.Kind_Map {
-		return ipld.ErrWrongKind{TypeName: "dagcosmos.ConsensusParams", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
-	}
-	itr := v.MapIterator()
-	for !itr.Done() {
-		k, v, err := itr.Next()
-		if err != nil {
-			return err
-		}
-		if err := na.AssembleKey().AssignNode(k); err != nil {
-			return err
-		}
-		if err := na.AssembleValue().AssignNode(v); err != nil {
-			return err
-		}
-	}
-	return na.Finish()
-}
-func (_ConsensusParams__Assembler) Prototype() ipld.NodePrototype {
-	return _ConsensusParams__Prototype{}
-}
-func (ma *_ConsensusParams__Assembler) valueFinishTidy() bool {
-	switch ma.f {
-	case 0:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.ca_Block.w = nil
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	case 1:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.ca_Evidence.w = nil
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	case 2:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.ca_Validator.w = nil
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	case 3:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.ca_Version.w = nil
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_ConsensusParams__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
-	}
-	switch k {
-	case "Block":
-		if ma.s&fieldBit__ConsensusParams_Block != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Block}
-		}
-		ma.s += fieldBit__ConsensusParams_Block
-		ma.state = maState_midValue
-		ma.f = 0
-		ma.ca_Block.w = &ma.w.Block
-		ma.ca_Block.m = &ma.cm
-		return &ma.ca_Block, nil
-	case "Evidence":
-		if ma.s&fieldBit__ConsensusParams_Evidence != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Evidence}
-		}
-		ma.s += fieldBit__ConsensusParams_Evidence
-		ma.state = maState_midValue
-		ma.f = 1
-		ma.ca_Evidence.w = &ma.w.Evidence
-		ma.ca_Evidence.m = &ma.cm
-		return &ma.ca_Evidence, nil
-	case "Validator":
-		if ma.s&fieldBit__ConsensusParams_Validator != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Validator}
-		}
-		ma.s += fieldBit__ConsensusParams_Validator
-		ma.state = maState_midValue
-		ma.f = 2
-		ma.ca_Validator.w = &ma.w.Validator
-		ma.ca_Validator.m = &ma.cm
-		return &ma.ca_Validator, nil
-	case "Version":
-		if ma.s&fieldBit__ConsensusParams_Version != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Version}
-		}
-		ma.s += fieldBit__ConsensusParams_Version
-		ma.state = maState_midValue
-		ma.f = 3
-		ma.ca_Version.w = &ma.w.Version
-		ma.ca_Version.m = &ma.cm
-		return &ma.ca_Version, nil
-	}
-	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.ConsensusParams", Key: &_String{k}}
-}
-func (ma *_ConsensusParams__Assembler) AssembleKey() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midKey
-	return (*_ConsensusParams__KeyAssembler)(ma)
-}
-func (ma *_ConsensusParams__Assembler) AssembleValue() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		panic("invalid state: AssembleValue cannot be called when no key is primed")
-	case maState_midKey:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		// carry on
-	case maState_midValue:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
-	case maState_finished:
-		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midValue
-	switch ma.f {
-	case 0:
-		ma.ca_Block.w = &ma.w.Block
-		ma.ca_Block.m = &ma.cm
-		return &ma.ca_Block
-	case 1:
-		ma.ca_Evidence.w = &ma.w.Evidence
-		ma.ca_Evidence.m = &ma.cm
-		return &ma.ca_Evidence
-	case 2:
-		ma.ca_Validator.w = &ma.w.Validator
-		ma.ca_Validator.m = &ma.cm
-		return &ma.ca_Validator
-	case 3:
-		ma.ca_Version.w = &ma.w.Version
-		ma.ca_Version.m = &ma.cm
-		return &ma.ca_Version
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_ConsensusParams__Assembler) Finish() error {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		panic("invalid state: Finish cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: Finish cannot be called on an assembler that's already finished")
-	}
-	if ma.s&fieldBits__ConsensusParams_sufficient != fieldBits__ConsensusParams_sufficient {
-		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__ConsensusParams_Block == 0 {
-			err.Missing = append(err.Missing, "Block")
-		}
-		if ma.s&fieldBit__ConsensusParams_Evidence == 0 {
-			err.Missing = append(err.Missing, "Evidence")
-		}
-		if ma.s&fieldBit__ConsensusParams_Validator == 0 {
-			err.Missing = append(err.Missing, "Validator")
-		}
-		if ma.s&fieldBit__ConsensusParams_Version == 0 {
-			err.Missing = append(err.Missing, "Version")
-		}
-		return err
-	}
-	ma.state = maState_finished
-	*ma.m = schema.Maybe_Value
-	return nil
-}
-func (ma *_ConsensusParams__Assembler) KeyPrototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-func (ma *_ConsensusParams__Assembler) ValuePrototype(k string) ipld.NodePrototype {
-	panic("todo structbuilder mapassembler valueprototype")
-}
-
-type _ConsensusParams__KeyAssembler _ConsensusParams__Assembler
-
-func (_ConsensusParams__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.KeyAssembler"}.BeginMap(0)
-}
-func (_ConsensusParams__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.KeyAssembler"}.BeginList(0)
-}
-func (na *_ConsensusParams__KeyAssembler) AssignNull() error {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.KeyAssembler"}.AssignNull()
-}
-func (_ConsensusParams__KeyAssembler) AssignBool(bool) error {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.KeyAssembler"}.AssignBool(false)
-}
-func (_ConsensusParams__KeyAssembler) AssignInt(int64) error {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.KeyAssembler"}.AssignInt(0)
-}
-func (_ConsensusParams__KeyAssembler) AssignFloat(float64) error {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.KeyAssembler"}.AssignFloat(0)
-}
-func (ka *_ConsensusParams__KeyAssembler) AssignString(k string) error {
-	if ka.state != maState_midKey {
-		panic("misuse: KeyAssembler held beyond its valid lifetime")
-	}
-	switch k {
-	case "Block":
-		if ka.s&fieldBit__ConsensusParams_Block != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Block}
-		}
-		ka.s += fieldBit__ConsensusParams_Block
-		ka.state = maState_expectValue
-		ka.f = 0
-	case "Evidence":
-		if ka.s&fieldBit__ConsensusParams_Evidence != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Evidence}
-		}
-		ka.s += fieldBit__ConsensusParams_Evidence
-		ka.state = maState_expectValue
-		ka.f = 1
-	case "Validator":
-		if ka.s&fieldBit__ConsensusParams_Validator != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Validator}
-		}
-		ka.s += fieldBit__ConsensusParams_Validator
-		ka.state = maState_expectValue
-		ka.f = 2
-	case "Version":
-		if ka.s&fieldBit__ConsensusParams_Version != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Version}
-		}
-		ka.s += fieldBit__ConsensusParams_Version
-		ka.state = maState_expectValue
-		ka.f = 3
-	default:
-		return ipld.ErrInvalidKey{TypeName: "dagcosmos.ConsensusParams", Key: &_String{k}}
-	}
-	return nil
-}
-func (_ConsensusParams__KeyAssembler) AssignBytes([]byte) error {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.KeyAssembler"}.AssignBytes(nil)
-}
-func (_ConsensusParams__KeyAssembler) AssignLink(ipld.Link) error {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.KeyAssembler"}.AssignLink(nil)
-}
-func (ka *_ConsensusParams__KeyAssembler) AssignNode(v ipld.Node) error {
-	if v2, err := v.AsString(); err != nil {
-		return err
-	} else {
-		return ka.AssignString(v2)
-	}
-}
-func (_ConsensusParams__KeyAssembler) Prototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-func (ConsensusParams) Type() schema.Type {
-	return nil /*TODO:typelit*/
-}
-func (n ConsensusParams) Representation() ipld.Node {
-	return (*_ConsensusParams__Repr)(n)
-}
-
-type _ConsensusParams__Repr _ConsensusParams
-
-var (
-	fieldName__ConsensusParams_Block_serial     = _String{"Block"}
-	fieldName__ConsensusParams_Evidence_serial  = _String{"Evidence"}
-	fieldName__ConsensusParams_Validator_serial = _String{"Validator"}
-	fieldName__ConsensusParams_Version_serial   = _String{"Version"}
-)
-var _ ipld.Node = &_ConsensusParams__Repr{}
-
-func (_ConsensusParams__Repr) Kind() ipld.Kind {
-	return ipld.Kind_Map
-}
-func (n *_ConsensusParams__Repr) LookupByString(key string) (ipld.Node, error) {
-	switch key {
-	case "Block":
-		return n.Block.Representation(), nil
-	case "Evidence":
-		return n.Evidence.Representation(), nil
-	case "Validator":
-		return n.Validator.Representation(), nil
-	case "Version":
-		return n.Version.Representation(), nil
-	default:
-		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
-	}
-}
-func (n *_ConsensusParams__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
-	ks, err := key.AsString()
-	if err != nil {
-		return nil, err
-	}
-	return n.LookupByString(ks)
-}
-func (_ConsensusParams__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
-	return mixins.Map{"dagcosmos.ConsensusParams.Repr"}.LookupByIndex(0)
-}
-func (n _ConsensusParams__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
-	return n.LookupByString(seg.String())
-}
-func (n *_ConsensusParams__Repr) MapIterator() ipld.MapIterator {
-	return &_ConsensusParams__ReprMapItr{n, 0}
-}
-
-type _ConsensusParams__ReprMapItr struct {
-	n   *_ConsensusParams__Repr
-	idx int
-}
-
-func (itr *_ConsensusParams__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
-	if itr.idx >= 4 {
-		return nil, nil, ipld.ErrIteratorOverread{}
-	}
-	switch itr.idx {
-	case 0:
-		k = &fieldName__ConsensusParams_Block_serial
-		v = itr.n.Block.Representation()
-	case 1:
-		k = &fieldName__ConsensusParams_Evidence_serial
-		v = itr.n.Evidence.Representation()
-	case 2:
-		k = &fieldName__ConsensusParams_Validator_serial
-		v = itr.n.Validator.Representation()
-	case 3:
-		k = &fieldName__ConsensusParams_Version_serial
-		v = itr.n.Version.Representation()
-	default:
-		panic("unreachable")
-	}
-	itr.idx++
-	return
-}
-func (itr *_ConsensusParams__ReprMapItr) Done() bool {
-	return itr.idx >= 4
-}
-func (_ConsensusParams__Repr) ListIterator() ipld.ListIterator {
-	return nil
-}
-func (rn *_ConsensusParams__Repr) Length() int64 {
-	l := 4
-	return int64(l)
-}
-func (_ConsensusParams__Repr) IsAbsent() bool {
-	return false
-}
-func (_ConsensusParams__Repr) IsNull() bool {
-	return false
-}
-func (_ConsensusParams__Repr) AsBool() (bool, error) {
-	return mixins.Map{"dagcosmos.ConsensusParams.Repr"}.AsBool()
-}
-func (_ConsensusParams__Repr) AsInt() (int64, error) {
-	return mixins.Map{"dagcosmos.ConsensusParams.Repr"}.AsInt()
-}
-func (_ConsensusParams__Repr) AsFloat() (float64, error) {
-	return mixins.Map{"dagcosmos.ConsensusParams.Repr"}.AsFloat()
-}
-func (_ConsensusParams__Repr) AsString() (string, error) {
-	return mixins.Map{"dagcosmos.ConsensusParams.Repr"}.AsString()
-}
-func (_ConsensusParams__Repr) AsBytes() ([]byte, error) {
-	return mixins.Map{"dagcosmos.ConsensusParams.Repr"}.AsBytes()
-}
-func (_ConsensusParams__Repr) AsLink() (ipld.Link, error) {
-	return mixins.Map{"dagcosmos.ConsensusParams.Repr"}.AsLink()
-}
-func (_ConsensusParams__Repr) Prototype() ipld.NodePrototype {
-	return _ConsensusParams__ReprPrototype{}
-}
-
-type _ConsensusParams__ReprPrototype struct{}
-
-func (_ConsensusParams__ReprPrototype) NewBuilder() ipld.NodeBuilder {
-	var nb _ConsensusParams__ReprBuilder
-	nb.Reset()
-	return &nb
-}
-
-type _ConsensusParams__ReprBuilder struct {
-	_ConsensusParams__ReprAssembler
-}
-
-func (nb *_ConsensusParams__ReprBuilder) Build() ipld.Node {
-	if *nb.m != schema.Maybe_Value {
-		panic("invalid state: cannot call Build on an assembler that's not finished")
-	}
-	return nb.w
-}
-func (nb *_ConsensusParams__ReprBuilder) Reset() {
-	var w _ConsensusParams
-	var m schema.Maybe
-	*nb = _ConsensusParams__ReprBuilder{_ConsensusParams__ReprAssembler{w: &w, m: &m}}
-}
-
-type _ConsensusParams__ReprAssembler struct {
-	w     *_ConsensusParams
-	m     *schema.Maybe
-	state maState
-	s     int
-	f     int
-
-	cm           schema.Maybe
-	ca_Block     _BlockParams__ReprAssembler
-	ca_Evidence  _EvidenceParams__ReprAssembler
-	ca_Validator _ValidatorParams__ReprAssembler
-	ca_Version   _VersionParams__ReprAssembler
-}
-
-func (na *_ConsensusParams__ReprAssembler) reset() {
-	na.state = maState_initial
-	na.s = 0
-	na.ca_Block.reset()
-	na.ca_Evidence.reset()
-	na.ca_Validator.reset()
-	na.ca_Version.reset()
-}
-func (na *_ConsensusParams__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
-	switch *na.m {
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
-	}
-	*na.m = midvalue
-	if na.w == nil {
-		na.w = &_ConsensusParams{}
-	}
-	return na, nil
-}
-func (_ConsensusParams__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.MapAssembler{"dagcosmos.ConsensusParams.Repr"}.BeginList(0)
-}
-func (na *_ConsensusParams__ReprAssembler) AssignNull() error {
-	switch *na.m {
-	case allowNull:
-		*na.m = schema.Maybe_Null
-		return nil
-	case schema.Maybe_Absent:
-		return mixins.MapAssembler{"dagcosmos.ConsensusParams.Repr.Repr"}.AssignNull()
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-	}
-	panic("unreachable")
-}
-func (_ConsensusParams__ReprAssembler) AssignBool(bool) error {
-	return mixins.MapAssembler{"dagcosmos.ConsensusParams.Repr"}.AssignBool(false)
-}
-func (_ConsensusParams__ReprAssembler) AssignInt(int64) error {
-	return mixins.MapAssembler{"dagcosmos.ConsensusParams.Repr"}.AssignInt(0)
-}
-func (_ConsensusParams__ReprAssembler) AssignFloat(float64) error {
-	return mixins.MapAssembler{"dagcosmos.ConsensusParams.Repr"}.AssignFloat(0)
-}
-func (_ConsensusParams__ReprAssembler) AssignString(string) error {
-	return mixins.MapAssembler{"dagcosmos.ConsensusParams.Repr"}.AssignString("")
-}
-func (_ConsensusParams__ReprAssembler) AssignBytes([]byte) error {
-	return mixins.MapAssembler{"dagcosmos.ConsensusParams.Repr"}.AssignBytes(nil)
-}
-func (_ConsensusParams__ReprAssembler) AssignLink(ipld.Link) error {
-	return mixins.MapAssembler{"dagcosmos.ConsensusParams.Repr"}.AssignLink(nil)
-}
-func (na *_ConsensusParams__ReprAssembler) AssignNode(v ipld.Node) error {
-	if v.IsNull() {
-		return na.AssignNull()
-	}
-	if v2, ok := v.(*_ConsensusParams); ok {
-		switch *na.m {
-		case schema.Maybe_Value, schema.Maybe_Null:
-			panic("invalid state: cannot assign into assembler that's already finished")
-		case midvalue:
-			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-		}
-		if na.w == nil {
-			na.w = v2
-			*na.m = schema.Maybe_Value
-			return nil
-		}
-		*na.w = *v2
-		*na.m = schema.Maybe_Value
-		return nil
-	}
-	if v.Kind() != ipld.Kind_Map {
-		return ipld.ErrWrongKind{TypeName: "dagcosmos.ConsensusParams.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
-	}
-	itr := v.MapIterator()
-	for !itr.Done() {
-		k, v, err := itr.Next()
-		if err != nil {
-			return err
-		}
-		if err := na.AssembleKey().AssignNode(k); err != nil {
-			return err
-		}
-		if err := na.AssembleValue().AssignNode(v); err != nil {
-			return err
-		}
-	}
-	return na.Finish()
-}
-func (_ConsensusParams__ReprAssembler) Prototype() ipld.NodePrototype {
-	return _ConsensusParams__ReprPrototype{}
-}
-func (ma *_ConsensusParams__ReprAssembler) valueFinishTidy() bool {
-	switch ma.f {
-	case 0:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	case 1:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	case 2:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	case 3:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_ConsensusParams__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
-	}
-	switch k {
-	case "Block":
-		if ma.s&fieldBit__ConsensusParams_Block != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Block_serial}
-		}
-		ma.s += fieldBit__ConsensusParams_Block
-		ma.state = maState_midValue
-		ma.f = 0
-		ma.ca_Block.w = &ma.w.Block
-		ma.ca_Block.m = &ma.cm
-		return &ma.ca_Block, nil
-	case "Evidence":
-		if ma.s&fieldBit__ConsensusParams_Evidence != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Evidence_serial}
-		}
-		ma.s += fieldBit__ConsensusParams_Evidence
-		ma.state = maState_midValue
-		ma.f = 1
-		ma.ca_Evidence.w = &ma.w.Evidence
-		ma.ca_Evidence.m = &ma.cm
-		return &ma.ca_Evidence, nil
-	case "Validator":
-		if ma.s&fieldBit__ConsensusParams_Validator != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Validator_serial}
-		}
-		ma.s += fieldBit__ConsensusParams_Validator
-		ma.state = maState_midValue
-		ma.f = 2
-		ma.ca_Validator.w = &ma.w.Validator
-		ma.ca_Validator.m = &ma.cm
-		return &ma.ca_Validator, nil
-	case "Version":
-		if ma.s&fieldBit__ConsensusParams_Version != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Version_serial}
-		}
-		ma.s += fieldBit__ConsensusParams_Version
-		ma.state = maState_midValue
-		ma.f = 3
-		ma.ca_Version.w = &ma.w.Version
-		ma.ca_Version.m = &ma.cm
-		return &ma.ca_Version, nil
-	default:
-	}
-	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.ConsensusParams.Repr", Key: &_String{k}}
-}
-func (ma *_ConsensusParams__ReprAssembler) AssembleKey() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midKey
-	return (*_ConsensusParams__ReprKeyAssembler)(ma)
-}
-func (ma *_ConsensusParams__ReprAssembler) AssembleValue() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		panic("invalid state: AssembleValue cannot be called when no key is primed")
-	case maState_midKey:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		// carry on
-	case maState_midValue:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
-	case maState_finished:
-		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midValue
-	switch ma.f {
-	case 0:
-		ma.ca_Block.w = &ma.w.Block
-		ma.ca_Block.m = &ma.cm
-		return &ma.ca_Block
-	case 1:
-		ma.ca_Evidence.w = &ma.w.Evidence
-		ma.ca_Evidence.m = &ma.cm
-		return &ma.ca_Evidence
-	case 2:
-		ma.ca_Validator.w = &ma.w.Validator
-		ma.ca_Validator.m = &ma.cm
-		return &ma.ca_Validator
-	case 3:
-		ma.ca_Version.w = &ma.w.Version
-		ma.ca_Version.m = &ma.cm
-		return &ma.ca_Version
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_ConsensusParams__ReprAssembler) Finish() error {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		panic("invalid state: Finish cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: Finish cannot be called on an assembler that's already finished")
-	}
-	if ma.s&fieldBits__ConsensusParams_sufficient != fieldBits__ConsensusParams_sufficient {
-		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__ConsensusParams_Block == 0 {
-			err.Missing = append(err.Missing, "Block")
-		}
-		if ma.s&fieldBit__ConsensusParams_Evidence == 0 {
-			err.Missing = append(err.Missing, "Evidence")
-		}
-		if ma.s&fieldBit__ConsensusParams_Validator == 0 {
-			err.Missing = append(err.Missing, "Validator")
-		}
-		if ma.s&fieldBit__ConsensusParams_Version == 0 {
-			err.Missing = append(err.Missing, "Version")
-		}
-		return err
-	}
-	ma.state = maState_finished
-	*ma.m = schema.Maybe_Value
-	return nil
-}
-func (ma *_ConsensusParams__ReprAssembler) KeyPrototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-func (ma *_ConsensusParams__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
-	panic("todo structbuilder mapassembler repr valueprototype")
-}
-
-type _ConsensusParams__ReprKeyAssembler _ConsensusParams__ReprAssembler
-
-func (_ConsensusParams__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.Repr.KeyAssembler"}.BeginMap(0)
-}
-func (_ConsensusParams__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.Repr.KeyAssembler"}.BeginList(0)
-}
-func (na *_ConsensusParams__ReprKeyAssembler) AssignNull() error {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.Repr.KeyAssembler"}.AssignNull()
-}
-func (_ConsensusParams__ReprKeyAssembler) AssignBool(bool) error {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.Repr.KeyAssembler"}.AssignBool(false)
-}
-func (_ConsensusParams__ReprKeyAssembler) AssignInt(int64) error {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.Repr.KeyAssembler"}.AssignInt(0)
-}
-func (_ConsensusParams__ReprKeyAssembler) AssignFloat(float64) error {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.Repr.KeyAssembler"}.AssignFloat(0)
-}
-func (ka *_ConsensusParams__ReprKeyAssembler) AssignString(k string) error {
-	if ka.state != maState_midKey {
-		panic("misuse: KeyAssembler held beyond its valid lifetime")
-	}
-	switch k {
-	case "Block":
-		if ka.s&fieldBit__ConsensusParams_Block != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Block_serial}
-		}
-		ka.s += fieldBit__ConsensusParams_Block
-		ka.state = maState_expectValue
-		ka.f = 0
-		return nil
-	case "Evidence":
-		if ka.s&fieldBit__ConsensusParams_Evidence != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Evidence_serial}
-		}
-		ka.s += fieldBit__ConsensusParams_Evidence
-		ka.state = maState_expectValue
-		ka.f = 1
-		return nil
-	case "Validator":
-		if ka.s&fieldBit__ConsensusParams_Validator != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Validator_serial}
-		}
-		ka.s += fieldBit__ConsensusParams_Validator
-		ka.state = maState_expectValue
-		ka.f = 2
-		return nil
-	case "Version":
-		if ka.s&fieldBit__ConsensusParams_Version != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__ConsensusParams_Version_serial}
-		}
-		ka.s += fieldBit__ConsensusParams_Version
-		ka.state = maState_expectValue
-		ka.f = 3
-		return nil
-	}
-	return ipld.ErrInvalidKey{TypeName: "dagcosmos.ConsensusParams.Repr", Key: &_String{k}}
-}
-func (_ConsensusParams__ReprKeyAssembler) AssignBytes([]byte) error {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.Repr.KeyAssembler"}.AssignBytes(nil)
-}
-func (_ConsensusParams__ReprKeyAssembler) AssignLink(ipld.Link) error {
-	return mixins.StringAssembler{"dagcosmos.ConsensusParams.Repr.KeyAssembler"}.AssignLink(nil)
-}
-func (ka *_ConsensusParams__ReprKeyAssembler) AssignNode(v ipld.Node) error {
-	if v2, err := v.AsString(); err != nil {
-		return err
-	} else {
-		return ka.AssignString(v2)
-	}
-}
-func (_ConsensusParams__ReprKeyAssembler) Prototype() ipld.NodePrototype {
 	return _String__Prototype{}
 }
 
@@ -12084,1018 +10060,6 @@ func (la *_EvidenceList__ReprAssembler) Finish() error {
 }
 func (la *_EvidenceList__ReprAssembler) ValuePrototype(_ int64) ipld.NodePrototype {
 	return _Evidence__ReprPrototype{}
-}
-
-func (n _EvidenceParams) FieldMaxAgeNumBlocks() Int {
-	return &n.MaxAgeNumBlocks
-}
-func (n _EvidenceParams) FieldMaxAgeDuration() Duration {
-	return &n.MaxAgeDuration
-}
-func (n _EvidenceParams) FieldMaxBytes() Int {
-	return &n.MaxBytes
-}
-
-type _EvidenceParams__Maybe struct {
-	m schema.Maybe
-	v EvidenceParams
-}
-type MaybeEvidenceParams = *_EvidenceParams__Maybe
-
-func (m MaybeEvidenceParams) IsNull() bool {
-	return m.m == schema.Maybe_Null
-}
-func (m MaybeEvidenceParams) IsAbsent() bool {
-	return m.m == schema.Maybe_Absent
-}
-func (m MaybeEvidenceParams) Exists() bool {
-	return m.m == schema.Maybe_Value
-}
-func (m MaybeEvidenceParams) AsNode() ipld.Node {
-	switch m.m {
-	case schema.Maybe_Absent:
-		return ipld.Absent
-	case schema.Maybe_Null:
-		return ipld.Null
-	case schema.Maybe_Value:
-		return m.v
-	default:
-		panic("unreachable")
-	}
-}
-func (m MaybeEvidenceParams) Must() EvidenceParams {
-	if !m.Exists() {
-		panic("unbox of a maybe rejected")
-	}
-	return m.v
-}
-
-var (
-	fieldName__EvidenceParams_MaxAgeNumBlocks = _String{"MaxAgeNumBlocks"}
-	fieldName__EvidenceParams_MaxAgeDuration  = _String{"MaxAgeDuration"}
-	fieldName__EvidenceParams_MaxBytes        = _String{"MaxBytes"}
-)
-var _ ipld.Node = (EvidenceParams)(&_EvidenceParams{})
-var _ schema.TypedNode = (EvidenceParams)(&_EvidenceParams{})
-
-func (EvidenceParams) Kind() ipld.Kind {
-	return ipld.Kind_Map
-}
-func (n EvidenceParams) LookupByString(key string) (ipld.Node, error) {
-	switch key {
-	case "MaxAgeNumBlocks":
-		return &n.MaxAgeNumBlocks, nil
-	case "MaxAgeDuration":
-		return &n.MaxAgeDuration, nil
-	case "MaxBytes":
-		return &n.MaxBytes, nil
-	default:
-		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
-	}
-}
-func (n EvidenceParams) LookupByNode(key ipld.Node) (ipld.Node, error) {
-	ks, err := key.AsString()
-	if err != nil {
-		return nil, err
-	}
-	return n.LookupByString(ks)
-}
-func (EvidenceParams) LookupByIndex(idx int64) (ipld.Node, error) {
-	return mixins.Map{"dagcosmos.EvidenceParams"}.LookupByIndex(0)
-}
-func (n EvidenceParams) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
-	return n.LookupByString(seg.String())
-}
-func (n EvidenceParams) MapIterator() ipld.MapIterator {
-	return &_EvidenceParams__MapItr{n, 0}
-}
-
-type _EvidenceParams__MapItr struct {
-	n   EvidenceParams
-	idx int
-}
-
-func (itr *_EvidenceParams__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
-	if itr.idx >= 3 {
-		return nil, nil, ipld.ErrIteratorOverread{}
-	}
-	switch itr.idx {
-	case 0:
-		k = &fieldName__EvidenceParams_MaxAgeNumBlocks
-		v = &itr.n.MaxAgeNumBlocks
-	case 1:
-		k = &fieldName__EvidenceParams_MaxAgeDuration
-		v = &itr.n.MaxAgeDuration
-	case 2:
-		k = &fieldName__EvidenceParams_MaxBytes
-		v = &itr.n.MaxBytes
-	default:
-		panic("unreachable")
-	}
-	itr.idx++
-	return
-}
-func (itr *_EvidenceParams__MapItr) Done() bool {
-	return itr.idx >= 3
-}
-
-func (EvidenceParams) ListIterator() ipld.ListIterator {
-	return nil
-}
-func (EvidenceParams) Length() int64 {
-	return 3
-}
-func (EvidenceParams) IsAbsent() bool {
-	return false
-}
-func (EvidenceParams) IsNull() bool {
-	return false
-}
-func (EvidenceParams) AsBool() (bool, error) {
-	return mixins.Map{"dagcosmos.EvidenceParams"}.AsBool()
-}
-func (EvidenceParams) AsInt() (int64, error) {
-	return mixins.Map{"dagcosmos.EvidenceParams"}.AsInt()
-}
-func (EvidenceParams) AsFloat() (float64, error) {
-	return mixins.Map{"dagcosmos.EvidenceParams"}.AsFloat()
-}
-func (EvidenceParams) AsString() (string, error) {
-	return mixins.Map{"dagcosmos.EvidenceParams"}.AsString()
-}
-func (EvidenceParams) AsBytes() ([]byte, error) {
-	return mixins.Map{"dagcosmos.EvidenceParams"}.AsBytes()
-}
-func (EvidenceParams) AsLink() (ipld.Link, error) {
-	return mixins.Map{"dagcosmos.EvidenceParams"}.AsLink()
-}
-func (EvidenceParams) Prototype() ipld.NodePrototype {
-	return _EvidenceParams__Prototype{}
-}
-
-type _EvidenceParams__Prototype struct{}
-
-func (_EvidenceParams__Prototype) NewBuilder() ipld.NodeBuilder {
-	var nb _EvidenceParams__Builder
-	nb.Reset()
-	return &nb
-}
-
-type _EvidenceParams__Builder struct {
-	_EvidenceParams__Assembler
-}
-
-func (nb *_EvidenceParams__Builder) Build() ipld.Node {
-	if *nb.m != schema.Maybe_Value {
-		panic("invalid state: cannot call Build on an assembler that's not finished")
-	}
-	return nb.w
-}
-func (nb *_EvidenceParams__Builder) Reset() {
-	var w _EvidenceParams
-	var m schema.Maybe
-	*nb = _EvidenceParams__Builder{_EvidenceParams__Assembler{w: &w, m: &m}}
-}
-
-type _EvidenceParams__Assembler struct {
-	w     *_EvidenceParams
-	m     *schema.Maybe
-	state maState
-	s     int
-	f     int
-
-	cm                 schema.Maybe
-	ca_MaxAgeNumBlocks _Int__Assembler
-	ca_MaxAgeDuration  _Duration__Assembler
-	ca_MaxBytes        _Int__Assembler
-}
-
-func (na *_EvidenceParams__Assembler) reset() {
-	na.state = maState_initial
-	na.s = 0
-	na.ca_MaxAgeNumBlocks.reset()
-	na.ca_MaxAgeDuration.reset()
-	na.ca_MaxBytes.reset()
-}
-
-var (
-	fieldBit__EvidenceParams_MaxAgeNumBlocks = 1 << 0
-	fieldBit__EvidenceParams_MaxAgeDuration  = 1 << 1
-	fieldBit__EvidenceParams_MaxBytes        = 1 << 2
-	fieldBits__EvidenceParams_sufficient     = 0 + 1<<0 + 1<<1 + 1<<2
-)
-
-func (na *_EvidenceParams__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
-	switch *na.m {
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
-	}
-	*na.m = midvalue
-	if na.w == nil {
-		na.w = &_EvidenceParams{}
-	}
-	return na, nil
-}
-func (_EvidenceParams__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.MapAssembler{"dagcosmos.EvidenceParams"}.BeginList(0)
-}
-func (na *_EvidenceParams__Assembler) AssignNull() error {
-	switch *na.m {
-	case allowNull:
-		*na.m = schema.Maybe_Null
-		return nil
-	case schema.Maybe_Absent:
-		return mixins.MapAssembler{"dagcosmos.EvidenceParams"}.AssignNull()
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-	}
-	panic("unreachable")
-}
-func (_EvidenceParams__Assembler) AssignBool(bool) error {
-	return mixins.MapAssembler{"dagcosmos.EvidenceParams"}.AssignBool(false)
-}
-func (_EvidenceParams__Assembler) AssignInt(int64) error {
-	return mixins.MapAssembler{"dagcosmos.EvidenceParams"}.AssignInt(0)
-}
-func (_EvidenceParams__Assembler) AssignFloat(float64) error {
-	return mixins.MapAssembler{"dagcosmos.EvidenceParams"}.AssignFloat(0)
-}
-func (_EvidenceParams__Assembler) AssignString(string) error {
-	return mixins.MapAssembler{"dagcosmos.EvidenceParams"}.AssignString("")
-}
-func (_EvidenceParams__Assembler) AssignBytes([]byte) error {
-	return mixins.MapAssembler{"dagcosmos.EvidenceParams"}.AssignBytes(nil)
-}
-func (_EvidenceParams__Assembler) AssignLink(ipld.Link) error {
-	return mixins.MapAssembler{"dagcosmos.EvidenceParams"}.AssignLink(nil)
-}
-func (na *_EvidenceParams__Assembler) AssignNode(v ipld.Node) error {
-	if v.IsNull() {
-		return na.AssignNull()
-	}
-	if v2, ok := v.(*_EvidenceParams); ok {
-		switch *na.m {
-		case schema.Maybe_Value, schema.Maybe_Null:
-			panic("invalid state: cannot assign into assembler that's already finished")
-		case midvalue:
-			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-		}
-		if na.w == nil {
-			na.w = v2
-			*na.m = schema.Maybe_Value
-			return nil
-		}
-		*na.w = *v2
-		*na.m = schema.Maybe_Value
-		return nil
-	}
-	if v.Kind() != ipld.Kind_Map {
-		return ipld.ErrWrongKind{TypeName: "dagcosmos.EvidenceParams", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
-	}
-	itr := v.MapIterator()
-	for !itr.Done() {
-		k, v, err := itr.Next()
-		if err != nil {
-			return err
-		}
-		if err := na.AssembleKey().AssignNode(k); err != nil {
-			return err
-		}
-		if err := na.AssembleValue().AssignNode(v); err != nil {
-			return err
-		}
-	}
-	return na.Finish()
-}
-func (_EvidenceParams__Assembler) Prototype() ipld.NodePrototype {
-	return _EvidenceParams__Prototype{}
-}
-func (ma *_EvidenceParams__Assembler) valueFinishTidy() bool {
-	switch ma.f {
-	case 0:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.ca_MaxAgeNumBlocks.w = nil
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	case 1:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.ca_MaxAgeDuration.w = nil
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	case 2:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.ca_MaxBytes.w = nil
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_EvidenceParams__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
-	}
-	switch k {
-	case "MaxAgeNumBlocks":
-		if ma.s&fieldBit__EvidenceParams_MaxAgeNumBlocks != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__EvidenceParams_MaxAgeNumBlocks}
-		}
-		ma.s += fieldBit__EvidenceParams_MaxAgeNumBlocks
-		ma.state = maState_midValue
-		ma.f = 0
-		ma.ca_MaxAgeNumBlocks.w = &ma.w.MaxAgeNumBlocks
-		ma.ca_MaxAgeNumBlocks.m = &ma.cm
-		return &ma.ca_MaxAgeNumBlocks, nil
-	case "MaxAgeDuration":
-		if ma.s&fieldBit__EvidenceParams_MaxAgeDuration != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__EvidenceParams_MaxAgeDuration}
-		}
-		ma.s += fieldBit__EvidenceParams_MaxAgeDuration
-		ma.state = maState_midValue
-		ma.f = 1
-		ma.ca_MaxAgeDuration.w = &ma.w.MaxAgeDuration
-		ma.ca_MaxAgeDuration.m = &ma.cm
-		return &ma.ca_MaxAgeDuration, nil
-	case "MaxBytes":
-		if ma.s&fieldBit__EvidenceParams_MaxBytes != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__EvidenceParams_MaxBytes}
-		}
-		ma.s += fieldBit__EvidenceParams_MaxBytes
-		ma.state = maState_midValue
-		ma.f = 2
-		ma.ca_MaxBytes.w = &ma.w.MaxBytes
-		ma.ca_MaxBytes.m = &ma.cm
-		return &ma.ca_MaxBytes, nil
-	}
-	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.EvidenceParams", Key: &_String{k}}
-}
-func (ma *_EvidenceParams__Assembler) AssembleKey() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midKey
-	return (*_EvidenceParams__KeyAssembler)(ma)
-}
-func (ma *_EvidenceParams__Assembler) AssembleValue() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		panic("invalid state: AssembleValue cannot be called when no key is primed")
-	case maState_midKey:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		// carry on
-	case maState_midValue:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
-	case maState_finished:
-		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midValue
-	switch ma.f {
-	case 0:
-		ma.ca_MaxAgeNumBlocks.w = &ma.w.MaxAgeNumBlocks
-		ma.ca_MaxAgeNumBlocks.m = &ma.cm
-		return &ma.ca_MaxAgeNumBlocks
-	case 1:
-		ma.ca_MaxAgeDuration.w = &ma.w.MaxAgeDuration
-		ma.ca_MaxAgeDuration.m = &ma.cm
-		return &ma.ca_MaxAgeDuration
-	case 2:
-		ma.ca_MaxBytes.w = &ma.w.MaxBytes
-		ma.ca_MaxBytes.m = &ma.cm
-		return &ma.ca_MaxBytes
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_EvidenceParams__Assembler) Finish() error {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		panic("invalid state: Finish cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: Finish cannot be called on an assembler that's already finished")
-	}
-	if ma.s&fieldBits__EvidenceParams_sufficient != fieldBits__EvidenceParams_sufficient {
-		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__EvidenceParams_MaxAgeNumBlocks == 0 {
-			err.Missing = append(err.Missing, "MaxAgeNumBlocks")
-		}
-		if ma.s&fieldBit__EvidenceParams_MaxAgeDuration == 0 {
-			err.Missing = append(err.Missing, "MaxAgeDuration")
-		}
-		if ma.s&fieldBit__EvidenceParams_MaxBytes == 0 {
-			err.Missing = append(err.Missing, "MaxBytes")
-		}
-		return err
-	}
-	ma.state = maState_finished
-	*ma.m = schema.Maybe_Value
-	return nil
-}
-func (ma *_EvidenceParams__Assembler) KeyPrototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-func (ma *_EvidenceParams__Assembler) ValuePrototype(k string) ipld.NodePrototype {
-	panic("todo structbuilder mapassembler valueprototype")
-}
-
-type _EvidenceParams__KeyAssembler _EvidenceParams__Assembler
-
-func (_EvidenceParams__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.KeyAssembler"}.BeginMap(0)
-}
-func (_EvidenceParams__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.KeyAssembler"}.BeginList(0)
-}
-func (na *_EvidenceParams__KeyAssembler) AssignNull() error {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.KeyAssembler"}.AssignNull()
-}
-func (_EvidenceParams__KeyAssembler) AssignBool(bool) error {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.KeyAssembler"}.AssignBool(false)
-}
-func (_EvidenceParams__KeyAssembler) AssignInt(int64) error {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.KeyAssembler"}.AssignInt(0)
-}
-func (_EvidenceParams__KeyAssembler) AssignFloat(float64) error {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.KeyAssembler"}.AssignFloat(0)
-}
-func (ka *_EvidenceParams__KeyAssembler) AssignString(k string) error {
-	if ka.state != maState_midKey {
-		panic("misuse: KeyAssembler held beyond its valid lifetime")
-	}
-	switch k {
-	case "MaxAgeNumBlocks":
-		if ka.s&fieldBit__EvidenceParams_MaxAgeNumBlocks != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__EvidenceParams_MaxAgeNumBlocks}
-		}
-		ka.s += fieldBit__EvidenceParams_MaxAgeNumBlocks
-		ka.state = maState_expectValue
-		ka.f = 0
-	case "MaxAgeDuration":
-		if ka.s&fieldBit__EvidenceParams_MaxAgeDuration != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__EvidenceParams_MaxAgeDuration}
-		}
-		ka.s += fieldBit__EvidenceParams_MaxAgeDuration
-		ka.state = maState_expectValue
-		ka.f = 1
-	case "MaxBytes":
-		if ka.s&fieldBit__EvidenceParams_MaxBytes != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__EvidenceParams_MaxBytes}
-		}
-		ka.s += fieldBit__EvidenceParams_MaxBytes
-		ka.state = maState_expectValue
-		ka.f = 2
-	default:
-		return ipld.ErrInvalidKey{TypeName: "dagcosmos.EvidenceParams", Key: &_String{k}}
-	}
-	return nil
-}
-func (_EvidenceParams__KeyAssembler) AssignBytes([]byte) error {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.KeyAssembler"}.AssignBytes(nil)
-}
-func (_EvidenceParams__KeyAssembler) AssignLink(ipld.Link) error {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.KeyAssembler"}.AssignLink(nil)
-}
-func (ka *_EvidenceParams__KeyAssembler) AssignNode(v ipld.Node) error {
-	if v2, err := v.AsString(); err != nil {
-		return err
-	} else {
-		return ka.AssignString(v2)
-	}
-}
-func (_EvidenceParams__KeyAssembler) Prototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-func (EvidenceParams) Type() schema.Type {
-	return nil /*TODO:typelit*/
-}
-func (n EvidenceParams) Representation() ipld.Node {
-	return (*_EvidenceParams__Repr)(n)
-}
-
-type _EvidenceParams__Repr _EvidenceParams
-
-var (
-	fieldName__EvidenceParams_MaxAgeNumBlocks_serial = _String{"MaxAgeNumBlocks"}
-	fieldName__EvidenceParams_MaxAgeDuration_serial  = _String{"MaxAgeDuration"}
-	fieldName__EvidenceParams_MaxBytes_serial        = _String{"MaxBytes"}
-)
-var _ ipld.Node = &_EvidenceParams__Repr{}
-
-func (_EvidenceParams__Repr) Kind() ipld.Kind {
-	return ipld.Kind_Map
-}
-func (n *_EvidenceParams__Repr) LookupByString(key string) (ipld.Node, error) {
-	switch key {
-	case "MaxAgeNumBlocks":
-		return n.MaxAgeNumBlocks.Representation(), nil
-	case "MaxAgeDuration":
-		return n.MaxAgeDuration.Representation(), nil
-	case "MaxBytes":
-		return n.MaxBytes.Representation(), nil
-	default:
-		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
-	}
-}
-func (n *_EvidenceParams__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
-	ks, err := key.AsString()
-	if err != nil {
-		return nil, err
-	}
-	return n.LookupByString(ks)
-}
-func (_EvidenceParams__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
-	return mixins.Map{"dagcosmos.EvidenceParams.Repr"}.LookupByIndex(0)
-}
-func (n _EvidenceParams__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
-	return n.LookupByString(seg.String())
-}
-func (n *_EvidenceParams__Repr) MapIterator() ipld.MapIterator {
-	return &_EvidenceParams__ReprMapItr{n, 0}
-}
-
-type _EvidenceParams__ReprMapItr struct {
-	n   *_EvidenceParams__Repr
-	idx int
-}
-
-func (itr *_EvidenceParams__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
-	if itr.idx >= 3 {
-		return nil, nil, ipld.ErrIteratorOverread{}
-	}
-	switch itr.idx {
-	case 0:
-		k = &fieldName__EvidenceParams_MaxAgeNumBlocks_serial
-		v = itr.n.MaxAgeNumBlocks.Representation()
-	case 1:
-		k = &fieldName__EvidenceParams_MaxAgeDuration_serial
-		v = itr.n.MaxAgeDuration.Representation()
-	case 2:
-		k = &fieldName__EvidenceParams_MaxBytes_serial
-		v = itr.n.MaxBytes.Representation()
-	default:
-		panic("unreachable")
-	}
-	itr.idx++
-	return
-}
-func (itr *_EvidenceParams__ReprMapItr) Done() bool {
-	return itr.idx >= 3
-}
-func (_EvidenceParams__Repr) ListIterator() ipld.ListIterator {
-	return nil
-}
-func (rn *_EvidenceParams__Repr) Length() int64 {
-	l := 3
-	return int64(l)
-}
-func (_EvidenceParams__Repr) IsAbsent() bool {
-	return false
-}
-func (_EvidenceParams__Repr) IsNull() bool {
-	return false
-}
-func (_EvidenceParams__Repr) AsBool() (bool, error) {
-	return mixins.Map{"dagcosmos.EvidenceParams.Repr"}.AsBool()
-}
-func (_EvidenceParams__Repr) AsInt() (int64, error) {
-	return mixins.Map{"dagcosmos.EvidenceParams.Repr"}.AsInt()
-}
-func (_EvidenceParams__Repr) AsFloat() (float64, error) {
-	return mixins.Map{"dagcosmos.EvidenceParams.Repr"}.AsFloat()
-}
-func (_EvidenceParams__Repr) AsString() (string, error) {
-	return mixins.Map{"dagcosmos.EvidenceParams.Repr"}.AsString()
-}
-func (_EvidenceParams__Repr) AsBytes() ([]byte, error) {
-	return mixins.Map{"dagcosmos.EvidenceParams.Repr"}.AsBytes()
-}
-func (_EvidenceParams__Repr) AsLink() (ipld.Link, error) {
-	return mixins.Map{"dagcosmos.EvidenceParams.Repr"}.AsLink()
-}
-func (_EvidenceParams__Repr) Prototype() ipld.NodePrototype {
-	return _EvidenceParams__ReprPrototype{}
-}
-
-type _EvidenceParams__ReprPrototype struct{}
-
-func (_EvidenceParams__ReprPrototype) NewBuilder() ipld.NodeBuilder {
-	var nb _EvidenceParams__ReprBuilder
-	nb.Reset()
-	return &nb
-}
-
-type _EvidenceParams__ReprBuilder struct {
-	_EvidenceParams__ReprAssembler
-}
-
-func (nb *_EvidenceParams__ReprBuilder) Build() ipld.Node {
-	if *nb.m != schema.Maybe_Value {
-		panic("invalid state: cannot call Build on an assembler that's not finished")
-	}
-	return nb.w
-}
-func (nb *_EvidenceParams__ReprBuilder) Reset() {
-	var w _EvidenceParams
-	var m schema.Maybe
-	*nb = _EvidenceParams__ReprBuilder{_EvidenceParams__ReprAssembler{w: &w, m: &m}}
-}
-
-type _EvidenceParams__ReprAssembler struct {
-	w     *_EvidenceParams
-	m     *schema.Maybe
-	state maState
-	s     int
-	f     int
-
-	cm                 schema.Maybe
-	ca_MaxAgeNumBlocks _Int__ReprAssembler
-	ca_MaxAgeDuration  _Duration__ReprAssembler
-	ca_MaxBytes        _Int__ReprAssembler
-}
-
-func (na *_EvidenceParams__ReprAssembler) reset() {
-	na.state = maState_initial
-	na.s = 0
-	na.ca_MaxAgeNumBlocks.reset()
-	na.ca_MaxAgeDuration.reset()
-	na.ca_MaxBytes.reset()
-}
-func (na *_EvidenceParams__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
-	switch *na.m {
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
-	}
-	*na.m = midvalue
-	if na.w == nil {
-		na.w = &_EvidenceParams{}
-	}
-	return na, nil
-}
-func (_EvidenceParams__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.MapAssembler{"dagcosmos.EvidenceParams.Repr"}.BeginList(0)
-}
-func (na *_EvidenceParams__ReprAssembler) AssignNull() error {
-	switch *na.m {
-	case allowNull:
-		*na.m = schema.Maybe_Null
-		return nil
-	case schema.Maybe_Absent:
-		return mixins.MapAssembler{"dagcosmos.EvidenceParams.Repr.Repr"}.AssignNull()
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-	}
-	panic("unreachable")
-}
-func (_EvidenceParams__ReprAssembler) AssignBool(bool) error {
-	return mixins.MapAssembler{"dagcosmos.EvidenceParams.Repr"}.AssignBool(false)
-}
-func (_EvidenceParams__ReprAssembler) AssignInt(int64) error {
-	return mixins.MapAssembler{"dagcosmos.EvidenceParams.Repr"}.AssignInt(0)
-}
-func (_EvidenceParams__ReprAssembler) AssignFloat(float64) error {
-	return mixins.MapAssembler{"dagcosmos.EvidenceParams.Repr"}.AssignFloat(0)
-}
-func (_EvidenceParams__ReprAssembler) AssignString(string) error {
-	return mixins.MapAssembler{"dagcosmos.EvidenceParams.Repr"}.AssignString("")
-}
-func (_EvidenceParams__ReprAssembler) AssignBytes([]byte) error {
-	return mixins.MapAssembler{"dagcosmos.EvidenceParams.Repr"}.AssignBytes(nil)
-}
-func (_EvidenceParams__ReprAssembler) AssignLink(ipld.Link) error {
-	return mixins.MapAssembler{"dagcosmos.EvidenceParams.Repr"}.AssignLink(nil)
-}
-func (na *_EvidenceParams__ReprAssembler) AssignNode(v ipld.Node) error {
-	if v.IsNull() {
-		return na.AssignNull()
-	}
-	if v2, ok := v.(*_EvidenceParams); ok {
-		switch *na.m {
-		case schema.Maybe_Value, schema.Maybe_Null:
-			panic("invalid state: cannot assign into assembler that's already finished")
-		case midvalue:
-			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-		}
-		if na.w == nil {
-			na.w = v2
-			*na.m = schema.Maybe_Value
-			return nil
-		}
-		*na.w = *v2
-		*na.m = schema.Maybe_Value
-		return nil
-	}
-	if v.Kind() != ipld.Kind_Map {
-		return ipld.ErrWrongKind{TypeName: "dagcosmos.EvidenceParams.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
-	}
-	itr := v.MapIterator()
-	for !itr.Done() {
-		k, v, err := itr.Next()
-		if err != nil {
-			return err
-		}
-		if err := na.AssembleKey().AssignNode(k); err != nil {
-			return err
-		}
-		if err := na.AssembleValue().AssignNode(v); err != nil {
-			return err
-		}
-	}
-	return na.Finish()
-}
-func (_EvidenceParams__ReprAssembler) Prototype() ipld.NodePrototype {
-	return _EvidenceParams__ReprPrototype{}
-}
-func (ma *_EvidenceParams__ReprAssembler) valueFinishTidy() bool {
-	switch ma.f {
-	case 0:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	case 1:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	case 2:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_EvidenceParams__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
-	}
-	switch k {
-	case "MaxAgeNumBlocks":
-		if ma.s&fieldBit__EvidenceParams_MaxAgeNumBlocks != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__EvidenceParams_MaxAgeNumBlocks_serial}
-		}
-		ma.s += fieldBit__EvidenceParams_MaxAgeNumBlocks
-		ma.state = maState_midValue
-		ma.f = 0
-		ma.ca_MaxAgeNumBlocks.w = &ma.w.MaxAgeNumBlocks
-		ma.ca_MaxAgeNumBlocks.m = &ma.cm
-		return &ma.ca_MaxAgeNumBlocks, nil
-	case "MaxAgeDuration":
-		if ma.s&fieldBit__EvidenceParams_MaxAgeDuration != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__EvidenceParams_MaxAgeDuration_serial}
-		}
-		ma.s += fieldBit__EvidenceParams_MaxAgeDuration
-		ma.state = maState_midValue
-		ma.f = 1
-		ma.ca_MaxAgeDuration.w = &ma.w.MaxAgeDuration
-		ma.ca_MaxAgeDuration.m = &ma.cm
-		return &ma.ca_MaxAgeDuration, nil
-	case "MaxBytes":
-		if ma.s&fieldBit__EvidenceParams_MaxBytes != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__EvidenceParams_MaxBytes_serial}
-		}
-		ma.s += fieldBit__EvidenceParams_MaxBytes
-		ma.state = maState_midValue
-		ma.f = 2
-		ma.ca_MaxBytes.w = &ma.w.MaxBytes
-		ma.ca_MaxBytes.m = &ma.cm
-		return &ma.ca_MaxBytes, nil
-	default:
-	}
-	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.EvidenceParams.Repr", Key: &_String{k}}
-}
-func (ma *_EvidenceParams__ReprAssembler) AssembleKey() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midKey
-	return (*_EvidenceParams__ReprKeyAssembler)(ma)
-}
-func (ma *_EvidenceParams__ReprAssembler) AssembleValue() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		panic("invalid state: AssembleValue cannot be called when no key is primed")
-	case maState_midKey:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		// carry on
-	case maState_midValue:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
-	case maState_finished:
-		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midValue
-	switch ma.f {
-	case 0:
-		ma.ca_MaxAgeNumBlocks.w = &ma.w.MaxAgeNumBlocks
-		ma.ca_MaxAgeNumBlocks.m = &ma.cm
-		return &ma.ca_MaxAgeNumBlocks
-	case 1:
-		ma.ca_MaxAgeDuration.w = &ma.w.MaxAgeDuration
-		ma.ca_MaxAgeDuration.m = &ma.cm
-		return &ma.ca_MaxAgeDuration
-	case 2:
-		ma.ca_MaxBytes.w = &ma.w.MaxBytes
-		ma.ca_MaxBytes.m = &ma.cm
-		return &ma.ca_MaxBytes
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_EvidenceParams__ReprAssembler) Finish() error {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		panic("invalid state: Finish cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: Finish cannot be called on an assembler that's already finished")
-	}
-	if ma.s&fieldBits__EvidenceParams_sufficient != fieldBits__EvidenceParams_sufficient {
-		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__EvidenceParams_MaxAgeNumBlocks == 0 {
-			err.Missing = append(err.Missing, "MaxAgeNumBlocks")
-		}
-		if ma.s&fieldBit__EvidenceParams_MaxAgeDuration == 0 {
-			err.Missing = append(err.Missing, "MaxAgeDuration")
-		}
-		if ma.s&fieldBit__EvidenceParams_MaxBytes == 0 {
-			err.Missing = append(err.Missing, "MaxBytes")
-		}
-		return err
-	}
-	ma.state = maState_finished
-	*ma.m = schema.Maybe_Value
-	return nil
-}
-func (ma *_EvidenceParams__ReprAssembler) KeyPrototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-func (ma *_EvidenceParams__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
-	panic("todo structbuilder mapassembler repr valueprototype")
-}
-
-type _EvidenceParams__ReprKeyAssembler _EvidenceParams__ReprAssembler
-
-func (_EvidenceParams__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.Repr.KeyAssembler"}.BeginMap(0)
-}
-func (_EvidenceParams__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.Repr.KeyAssembler"}.BeginList(0)
-}
-func (na *_EvidenceParams__ReprKeyAssembler) AssignNull() error {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.Repr.KeyAssembler"}.AssignNull()
-}
-func (_EvidenceParams__ReprKeyAssembler) AssignBool(bool) error {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.Repr.KeyAssembler"}.AssignBool(false)
-}
-func (_EvidenceParams__ReprKeyAssembler) AssignInt(int64) error {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.Repr.KeyAssembler"}.AssignInt(0)
-}
-func (_EvidenceParams__ReprKeyAssembler) AssignFloat(float64) error {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.Repr.KeyAssembler"}.AssignFloat(0)
-}
-func (ka *_EvidenceParams__ReprKeyAssembler) AssignString(k string) error {
-	if ka.state != maState_midKey {
-		panic("misuse: KeyAssembler held beyond its valid lifetime")
-	}
-	switch k {
-	case "MaxAgeNumBlocks":
-		if ka.s&fieldBit__EvidenceParams_MaxAgeNumBlocks != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__EvidenceParams_MaxAgeNumBlocks_serial}
-		}
-		ka.s += fieldBit__EvidenceParams_MaxAgeNumBlocks
-		ka.state = maState_expectValue
-		ka.f = 0
-		return nil
-	case "MaxAgeDuration":
-		if ka.s&fieldBit__EvidenceParams_MaxAgeDuration != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__EvidenceParams_MaxAgeDuration_serial}
-		}
-		ka.s += fieldBit__EvidenceParams_MaxAgeDuration
-		ka.state = maState_expectValue
-		ka.f = 1
-		return nil
-	case "MaxBytes":
-		if ka.s&fieldBit__EvidenceParams_MaxBytes != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__EvidenceParams_MaxBytes_serial}
-		}
-		ka.s += fieldBit__EvidenceParams_MaxBytes
-		ka.state = maState_expectValue
-		ka.f = 2
-		return nil
-	}
-	return ipld.ErrInvalidKey{TypeName: "dagcosmos.EvidenceParams.Repr", Key: &_String{k}}
-}
-func (_EvidenceParams__ReprKeyAssembler) AssignBytes([]byte) error {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.Repr.KeyAssembler"}.AssignBytes(nil)
-}
-func (_EvidenceParams__ReprKeyAssembler) AssignLink(ipld.Link) error {
-	return mixins.StringAssembler{"dagcosmos.EvidenceParams.Repr.KeyAssembler"}.AssignLink(nil)
-}
-func (ka *_EvidenceParams__ReprKeyAssembler) AssignNode(v ipld.Node) error {
-	if v2, err := v.AsString(); err != nil {
-		return err
-	} else {
-		return ka.AssignString(v2)
-	}
-}
-func (_EvidenceParams__ReprKeyAssembler) Prototype() ipld.NodePrototype {
-	return _String__Prototype{}
 }
 
 func (n Hash) Bytes() []byte {
@@ -23170,7 +20134,7 @@ func (_MerkleTreeInnerNode__ReprKeyAssembler) Prototype() ipld.NodePrototype {
 	return _String__Prototype{}
 }
 
-func (n _MerkleTreeLeafNode) FieldValue() Bytes {
+func (n _MerkleTreeLeafNode) FieldValue() Value {
 	return &n.Value
 }
 
@@ -23331,7 +20295,7 @@ type _MerkleTreeLeafNode__Assembler struct {
 	f     int
 
 	cm       schema.Maybe
-	ca_Value _Bytes__Assembler
+	ca_Value _Value__Assembler
 }
 
 func (na *_MerkleTreeLeafNode__Assembler) reset() {
@@ -23737,7 +20701,7 @@ type _MerkleTreeLeafNode__ReprAssembler struct {
 	f     int
 
 	cm       schema.Maybe
-	ca_Value _Bytes__ReprAssembler
+	ca_Value _Value__ReprAssembler
 }
 
 func (na *_MerkleTreeLeafNode__ReprAssembler) reset() {
@@ -24486,7 +21450,7 @@ func (n MerkleTreeNode) Representation() ipld.Node {
 type _MerkleTreeNode__Repr _MerkleTreeNode
 
 var (
-	memberName__MerkleTreeNode_MerkleTreeInnerNode_serial = _String{"inner"}
+	memberName__MerkleTreeNode_MerkleTreeInnerNode_serial = _String{"root"}
 	memberName__MerkleTreeNode_MerkleTreeLeafNode_serial  = _String{"leaf"}
 )
 var _ ipld.Node = &_MerkleTreeNode__Repr{}
@@ -24496,7 +21460,7 @@ func (_MerkleTreeNode__Repr) Kind() ipld.Kind {
 }
 func (n *_MerkleTreeNode__Repr) LookupByString(key string) (ipld.Node, error) {
 	switch key {
-	case "inner":
+	case "root":
 		if n.tag != 1 {
 			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
 		}
@@ -24754,7 +21718,7 @@ func (ma *_MerkleTreeNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAsse
 		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.MerkleTreeNode.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
 	}
 	switch k {
-	case "inner":
+	case "root":
 		ma.state = maState_midValue
 		ma.ca = 1
 		ma.w.tag = 1
@@ -24880,7 +21844,7 @@ func (ka *_MerkleTreeNode__ReprKeyAssembler) AssignString(k string) error {
 		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.MerkleTreeNode.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
 	}
 	switch k {
-	case "inner":
+	case "root":
 		ka.ca = 1
 		ka.w.tag = 1
 		ka.state = maState_expectValue
@@ -30343,64 +27307,35 @@ var _ ipld.Node = &_PubKey__Repr{}
 type _PubKey__ReprPrototype = _PubKey__Prototype
 type _PubKey__ReprAssembler = _PubKey__Assembler
 
-func (n *_PubKeyTypes) Lookup(idx int64) String {
-	if n.Length() <= idx {
-		return nil
-	}
-	v := &n.x[idx]
-	return v
+func (n _ResponseDeliverTx) FieldCode() Uint {
+	return &n.Code
 }
-func (n *_PubKeyTypes) LookupMaybe(idx int64) MaybeString {
-	if n.Length() <= idx {
-		return nil
-	}
-	v := &n.x[idx]
-	return &_String__Maybe{
-		m: schema.Maybe_Value,
-		v: v,
-	}
+func (n _ResponseDeliverTx) FieldData() Bytes {
+	return &n.Data
+}
+func (n _ResponseDeliverTx) FieldGasWanted() Int {
+	return &n.GasWanted
+}
+func (n _ResponseDeliverTx) FieldGasUsed() Int {
+	return &n.GasUsed
 }
 
-var _PubKeyTypes__valueAbsent = _String__Maybe{m: schema.Maybe_Absent}
-
-func (n PubKeyTypes) Iterator() *PubKeyTypes__Itr {
-	return &PubKeyTypes__Itr{n, 0}
-}
-
-type PubKeyTypes__Itr struct {
-	n   PubKeyTypes
-	idx int
-}
-
-func (itr *PubKeyTypes__Itr) Next() (idx int64, v String) {
-	if itr.idx >= len(itr.n.x) {
-		return -1, nil
-	}
-	idx = int64(itr.idx)
-	v = &itr.n.x[itr.idx]
-	itr.idx++
-	return
-}
-func (itr *PubKeyTypes__Itr) Done() bool {
-	return itr.idx >= len(itr.n.x)
-}
-
-type _PubKeyTypes__Maybe struct {
+type _ResponseDeliverTx__Maybe struct {
 	m schema.Maybe
-	v PubKeyTypes
+	v ResponseDeliverTx
 }
-type MaybePubKeyTypes = *_PubKeyTypes__Maybe
+type MaybeResponseDeliverTx = *_ResponseDeliverTx__Maybe
 
-func (m MaybePubKeyTypes) IsNull() bool {
+func (m MaybeResponseDeliverTx) IsNull() bool {
 	return m.m == schema.Maybe_Null
 }
-func (m MaybePubKeyTypes) IsAbsent() bool {
+func (m MaybeResponseDeliverTx) IsAbsent() bool {
 	return m.m == schema.Maybe_Absent
 }
-func (m MaybePubKeyTypes) Exists() bool {
+func (m MaybeResponseDeliverTx) Exists() bool {
 	return m.m == schema.Maybe_Value
 }
-func (m MaybePubKeyTypes) AsNode() ipld.Node {
+func (m MaybeResponseDeliverTx) AsNode() ipld.Node {
 	switch m.m {
 	case schema.Maybe_Absent:
 		return ipld.Absent
@@ -30412,141 +27347,178 @@ func (m MaybePubKeyTypes) AsNode() ipld.Node {
 		panic("unreachable")
 	}
 }
-func (m MaybePubKeyTypes) Must() PubKeyTypes {
+func (m MaybeResponseDeliverTx) Must() ResponseDeliverTx {
 	if !m.Exists() {
 		panic("unbox of a maybe rejected")
 	}
 	return m.v
 }
 
-var _ ipld.Node = (PubKeyTypes)(&_PubKeyTypes{})
-var _ schema.TypedNode = (PubKeyTypes)(&_PubKeyTypes{})
+var (
+	fieldName__ResponseDeliverTx_Code      = _String{"Code"}
+	fieldName__ResponseDeliverTx_Data      = _String{"Data"}
+	fieldName__ResponseDeliverTx_GasWanted = _String{"GasWanted"}
+	fieldName__ResponseDeliverTx_GasUsed   = _String{"GasUsed"}
+)
+var _ ipld.Node = (ResponseDeliverTx)(&_ResponseDeliverTx{})
+var _ schema.TypedNode = (ResponseDeliverTx)(&_ResponseDeliverTx{})
 
-func (PubKeyTypes) Kind() ipld.Kind {
-	return ipld.Kind_List
+func (ResponseDeliverTx) Kind() ipld.Kind {
+	return ipld.Kind_Map
 }
-func (PubKeyTypes) LookupByString(string) (ipld.Node, error) {
-	return mixins.List{"dagcosmos.PubKeyTypes"}.LookupByString("")
+func (n ResponseDeliverTx) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "Code":
+		return &n.Code, nil
+	case "Data":
+		return &n.Data, nil
+	case "GasWanted":
+		return &n.GasWanted, nil
+	case "GasUsed":
+		return &n.GasUsed, nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
 }
-func (n PubKeyTypes) LookupByNode(k ipld.Node) (ipld.Node, error) {
-	idx, err := k.AsInt()
+func (n ResponseDeliverTx) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
 	if err != nil {
 		return nil, err
 	}
-	return n.LookupByIndex(idx)
+	return n.LookupByString(ks)
 }
-func (n PubKeyTypes) LookupByIndex(idx int64) (ipld.Node, error) {
-	if n.Length() <= idx {
-		return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfInt(idx)}
-	}
-	v := &n.x[idx]
-	return v, nil
+func (ResponseDeliverTx) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.ResponseDeliverTx"}.LookupByIndex(0)
 }
-func (n PubKeyTypes) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
-	i, err := seg.Index()
-	if err != nil {
-		return nil, ipld.ErrInvalidSegmentForList{TypeName: "dagcosmos.PubKeyTypes", TroubleSegment: seg, Reason: err}
-	}
-	return n.LookupByIndex(i)
+func (n ResponseDeliverTx) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
 }
-func (PubKeyTypes) MapIterator() ipld.MapIterator {
-	return nil
-}
-func (n PubKeyTypes) ListIterator() ipld.ListIterator {
-	return &_PubKeyTypes__ListItr{n, 0}
+func (n ResponseDeliverTx) MapIterator() ipld.MapIterator {
+	return &_ResponseDeliverTx__MapItr{n, 0}
 }
 
-type _PubKeyTypes__ListItr struct {
-	n   PubKeyTypes
+type _ResponseDeliverTx__MapItr struct {
+	n   ResponseDeliverTx
 	idx int
 }
 
-func (itr *_PubKeyTypes__ListItr) Next() (idx int64, v ipld.Node, _ error) {
-	if itr.idx >= len(itr.n.x) {
-		return -1, nil, ipld.ErrIteratorOverread{}
+func (itr *_ResponseDeliverTx__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.idx >= 4 {
+		return nil, nil, ipld.ErrIteratorOverread{}
 	}
-	idx = int64(itr.idx)
-	x := &itr.n.x[itr.idx]
-	v = x
+	switch itr.idx {
+	case 0:
+		k = &fieldName__ResponseDeliverTx_Code
+		v = &itr.n.Code
+	case 1:
+		k = &fieldName__ResponseDeliverTx_Data
+		v = &itr.n.Data
+	case 2:
+		k = &fieldName__ResponseDeliverTx_GasWanted
+		v = &itr.n.GasWanted
+	case 3:
+		k = &fieldName__ResponseDeliverTx_GasUsed
+		v = &itr.n.GasUsed
+	default:
+		panic("unreachable")
+	}
 	itr.idx++
 	return
 }
-func (itr *_PubKeyTypes__ListItr) Done() bool {
-	return itr.idx >= len(itr.n.x)
+func (itr *_ResponseDeliverTx__MapItr) Done() bool {
+	return itr.idx >= 4
 }
 
-func (n PubKeyTypes) Length() int64 {
-	return int64(len(n.x))
+func (ResponseDeliverTx) ListIterator() ipld.ListIterator {
+	return nil
 }
-func (PubKeyTypes) IsAbsent() bool {
+func (ResponseDeliverTx) Length() int64 {
+	return 4
+}
+func (ResponseDeliverTx) IsAbsent() bool {
 	return false
 }
-func (PubKeyTypes) IsNull() bool {
+func (ResponseDeliverTx) IsNull() bool {
 	return false
 }
-func (PubKeyTypes) AsBool() (bool, error) {
-	return mixins.List{"dagcosmos.PubKeyTypes"}.AsBool()
+func (ResponseDeliverTx) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.ResponseDeliverTx"}.AsBool()
 }
-func (PubKeyTypes) AsInt() (int64, error) {
-	return mixins.List{"dagcosmos.PubKeyTypes"}.AsInt()
+func (ResponseDeliverTx) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.ResponseDeliverTx"}.AsInt()
 }
-func (PubKeyTypes) AsFloat() (float64, error) {
-	return mixins.List{"dagcosmos.PubKeyTypes"}.AsFloat()
+func (ResponseDeliverTx) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.ResponseDeliverTx"}.AsFloat()
 }
-func (PubKeyTypes) AsString() (string, error) {
-	return mixins.List{"dagcosmos.PubKeyTypes"}.AsString()
+func (ResponseDeliverTx) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.ResponseDeliverTx"}.AsString()
 }
-func (PubKeyTypes) AsBytes() ([]byte, error) {
-	return mixins.List{"dagcosmos.PubKeyTypes"}.AsBytes()
+func (ResponseDeliverTx) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.ResponseDeliverTx"}.AsBytes()
 }
-func (PubKeyTypes) AsLink() (ipld.Link, error) {
-	return mixins.List{"dagcosmos.PubKeyTypes"}.AsLink()
+func (ResponseDeliverTx) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.ResponseDeliverTx"}.AsLink()
 }
-func (PubKeyTypes) Prototype() ipld.NodePrototype {
-	return _PubKeyTypes__Prototype{}
+func (ResponseDeliverTx) Prototype() ipld.NodePrototype {
+	return _ResponseDeliverTx__Prototype{}
 }
 
-type _PubKeyTypes__Prototype struct{}
+type _ResponseDeliverTx__Prototype struct{}
 
-func (_PubKeyTypes__Prototype) NewBuilder() ipld.NodeBuilder {
-	var nb _PubKeyTypes__Builder
+func (_ResponseDeliverTx__Prototype) NewBuilder() ipld.NodeBuilder {
+	var nb _ResponseDeliverTx__Builder
 	nb.Reset()
 	return &nb
 }
 
-type _PubKeyTypes__Builder struct {
-	_PubKeyTypes__Assembler
+type _ResponseDeliverTx__Builder struct {
+	_ResponseDeliverTx__Assembler
 }
 
-func (nb *_PubKeyTypes__Builder) Build() ipld.Node {
+func (nb *_ResponseDeliverTx__Builder) Build() ipld.Node {
 	if *nb.m != schema.Maybe_Value {
 		panic("invalid state: cannot call Build on an assembler that's not finished")
 	}
 	return nb.w
 }
-func (nb *_PubKeyTypes__Builder) Reset() {
-	var w _PubKeyTypes
+func (nb *_ResponseDeliverTx__Builder) Reset() {
+	var w _ResponseDeliverTx
 	var m schema.Maybe
-	*nb = _PubKeyTypes__Builder{_PubKeyTypes__Assembler{w: &w, m: &m}}
+	*nb = _ResponseDeliverTx__Builder{_ResponseDeliverTx__Assembler{w: &w, m: &m}}
 }
 
-type _PubKeyTypes__Assembler struct {
-	w     *_PubKeyTypes
+type _ResponseDeliverTx__Assembler struct {
+	w     *_ResponseDeliverTx
 	m     *schema.Maybe
-	state laState
+	state maState
+	s     int
+	f     int
 
-	cm schema.Maybe
-	va _String__Assembler
+	cm           schema.Maybe
+	ca_Code      _Uint__Assembler
+	ca_Data      _Bytes__Assembler
+	ca_GasWanted _Int__Assembler
+	ca_GasUsed   _Int__Assembler
 }
 
-func (na *_PubKeyTypes__Assembler) reset() {
-	na.state = laState_initial
-	na.va.reset()
+func (na *_ResponseDeliverTx__Assembler) reset() {
+	na.state = maState_initial
+	na.s = 0
+	na.ca_Code.reset()
+	na.ca_Data.reset()
+	na.ca_GasWanted.reset()
+	na.ca_GasUsed.reset()
 }
-func (_PubKeyTypes__Assembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
-	return mixins.ListAssembler{"dagcosmos.PubKeyTypes"}.BeginMap(0)
-}
-func (na *_PubKeyTypes__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+
+var (
+	fieldBit__ResponseDeliverTx_Code        = 1 << 0
+	fieldBit__ResponseDeliverTx_Data        = 1 << 1
+	fieldBit__ResponseDeliverTx_GasWanted   = 1 << 2
+	fieldBit__ResponseDeliverTx_GasUsed     = 1 << 3
+	fieldBits__ResponseDeliverTx_sufficient = 0 + 1<<0 + 1<<1 + 1<<2 + 1<<3
+)
+
+func (na *_ResponseDeliverTx__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
 	switch *na.m {
 	case schema.Maybe_Value, schema.Maybe_Null:
 		panic("invalid state: cannot assign into assembler that's already finished")
@@ -30554,24 +27526,21 @@ func (na *_PubKeyTypes__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler
 		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
 	}
 	*na.m = midvalue
-	if sizeHint < 0 {
-		sizeHint = 0
-	}
 	if na.w == nil {
-		na.w = &_PubKeyTypes{}
-	}
-	if sizeHint > 0 {
-		na.w.x = make([]_String, 0, sizeHint)
+		na.w = &_ResponseDeliverTx{}
 	}
 	return na, nil
 }
-func (na *_PubKeyTypes__Assembler) AssignNull() error {
+func (_ResponseDeliverTx__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx"}.BeginList(0)
+}
+func (na *_ResponseDeliverTx__Assembler) AssignNull() error {
 	switch *na.m {
 	case allowNull:
 		*na.m = schema.Maybe_Null
 		return nil
 	case schema.Maybe_Absent:
-		return mixins.ListAssembler{"dagcosmos.PubKeyTypes"}.AssignNull()
+		return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx"}.AssignNull()
 	case schema.Maybe_Value, schema.Maybe_Null:
 		panic("invalid state: cannot assign into assembler that's already finished")
 	case midvalue:
@@ -30579,29 +27548,29 @@ func (na *_PubKeyTypes__Assembler) AssignNull() error {
 	}
 	panic("unreachable")
 }
-func (_PubKeyTypes__Assembler) AssignBool(bool) error {
-	return mixins.ListAssembler{"dagcosmos.PubKeyTypes"}.AssignBool(false)
+func (_ResponseDeliverTx__Assembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx"}.AssignBool(false)
 }
-func (_PubKeyTypes__Assembler) AssignInt(int64) error {
-	return mixins.ListAssembler{"dagcosmos.PubKeyTypes"}.AssignInt(0)
+func (_ResponseDeliverTx__Assembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx"}.AssignInt(0)
 }
-func (_PubKeyTypes__Assembler) AssignFloat(float64) error {
-	return mixins.ListAssembler{"dagcosmos.PubKeyTypes"}.AssignFloat(0)
+func (_ResponseDeliverTx__Assembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx"}.AssignFloat(0)
 }
-func (_PubKeyTypes__Assembler) AssignString(string) error {
-	return mixins.ListAssembler{"dagcosmos.PubKeyTypes"}.AssignString("")
+func (_ResponseDeliverTx__Assembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx"}.AssignString("")
 }
-func (_PubKeyTypes__Assembler) AssignBytes([]byte) error {
-	return mixins.ListAssembler{"dagcosmos.PubKeyTypes"}.AssignBytes(nil)
+func (_ResponseDeliverTx__Assembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx"}.AssignBytes(nil)
 }
-func (_PubKeyTypes__Assembler) AssignLink(ipld.Link) error {
-	return mixins.ListAssembler{"dagcosmos.PubKeyTypes"}.AssignLink(nil)
+func (_ResponseDeliverTx__Assembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx"}.AssignLink(nil)
 }
-func (na *_PubKeyTypes__Assembler) AssignNode(v ipld.Node) error {
+func (na *_ResponseDeliverTx__Assembler) AssignNode(v ipld.Node) error {
 	if v.IsNull() {
 		return na.AssignNull()
 	}
-	if v2, ok := v.(*_PubKeyTypes); ok {
+	if v2, ok := v.(*_ResponseDeliverTx); ok {
 		switch *na.m {
 		case schema.Maybe_Value, schema.Maybe_Null:
 			panic("invalid state: cannot assign into assembler that's already finished")
@@ -30617,13 +27586,16 @@ func (na *_PubKeyTypes__Assembler) AssignNode(v ipld.Node) error {
 		*na.m = schema.Maybe_Value
 		return nil
 	}
-	if v.Kind() != ipld.Kind_List {
-		return ipld.ErrWrongKind{TypeName: "dagcosmos.PubKeyTypes", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustList, ActualKind: v.Kind()}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.ResponseDeliverTx", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
 	}
-	itr := v.ListIterator()
+	itr := v.MapIterator()
 	for !itr.Done() {
-		_, v, err := itr.Next()
+		k, v, err := itr.Next()
 		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
 			return err
 		}
 		if err := na.AssembleValue().AssignNode(v); err != nil {
@@ -30632,187 +27604,447 @@ func (na *_PubKeyTypes__Assembler) AssignNode(v ipld.Node) error {
 	}
 	return na.Finish()
 }
-func (_PubKeyTypes__Assembler) Prototype() ipld.NodePrototype {
-	return _PubKeyTypes__Prototype{}
+func (_ResponseDeliverTx__Assembler) Prototype() ipld.NodePrototype {
+	return _ResponseDeliverTx__Prototype{}
 }
-func (la *_PubKeyTypes__Assembler) valueFinishTidy() bool {
-	switch la.cm {
-	case schema.Maybe_Value:
-		la.va.w = nil
-		la.cm = schema.Maybe_Absent
-		la.state = laState_initial
-		la.va.reset()
-		return true
+func (ma *_ResponseDeliverTx__Assembler) valueFinishTidy() bool {
+	switch ma.f {
+	case 0:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Code.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 1:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_Data.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 2:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_GasWanted.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 3:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.ca_GasUsed.w = nil
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
 	default:
-		return false
+		panic("unreachable")
 	}
 }
-func (la *_PubKeyTypes__Assembler) AssembleValue() ipld.NodeAssembler {
-	switch la.state {
-	case laState_initial:
+func (ma *_ResponseDeliverTx__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
 		// carry on
-	case laState_midValue:
-		if !la.valueFinishTidy() {
-			panic("invalid state: AssembleValue cannot be called when still in the middle of assembling the previous value")
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
 		} // if tidy success: carry on
-	case laState_finished:
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	switch k {
+	case "Code":
+		if ma.s&fieldBit__ResponseDeliverTx_Code != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_Code}
+		}
+		ma.s += fieldBit__ResponseDeliverTx_Code
+		ma.state = maState_midValue
+		ma.f = 0
+		ma.ca_Code.w = &ma.w.Code
+		ma.ca_Code.m = &ma.cm
+		return &ma.ca_Code, nil
+	case "Data":
+		if ma.s&fieldBit__ResponseDeliverTx_Data != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_Data}
+		}
+		ma.s += fieldBit__ResponseDeliverTx_Data
+		ma.state = maState_midValue
+		ma.f = 1
+		ma.ca_Data.w = &ma.w.Data
+		ma.ca_Data.m = &ma.cm
+		return &ma.ca_Data, nil
+	case "GasWanted":
+		if ma.s&fieldBit__ResponseDeliverTx_GasWanted != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_GasWanted}
+		}
+		ma.s += fieldBit__ResponseDeliverTx_GasWanted
+		ma.state = maState_midValue
+		ma.f = 2
+		ma.ca_GasWanted.w = &ma.w.GasWanted
+		ma.ca_GasWanted.m = &ma.cm
+		return &ma.ca_GasWanted, nil
+	case "GasUsed":
+		if ma.s&fieldBit__ResponseDeliverTx_GasUsed != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_GasUsed}
+		}
+		ma.s += fieldBit__ResponseDeliverTx_GasUsed
+		ma.state = maState_midValue
+		ma.f = 3
+		ma.ca_GasUsed.w = &ma.w.GasUsed
+		ma.ca_GasUsed.m = &ma.cm
+		return &ma.ca_GasUsed, nil
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.ResponseDeliverTx", Key: &_String{k}}
+}
+func (ma *_ResponseDeliverTx__Assembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_ResponseDeliverTx__KeyAssembler)(ma)
+}
+func (ma *_ResponseDeliverTx__Assembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
 		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
 	}
-	la.w.x = append(la.w.x, _String{})
-	la.state = laState_midValue
-	row := &la.w.x[len(la.w.x)-1]
-	la.va.w = row
-	la.va.m = &la.cm
-	return &la.va
+	ma.state = maState_midValue
+	switch ma.f {
+	case 0:
+		ma.ca_Code.w = &ma.w.Code
+		ma.ca_Code.m = &ma.cm
+		return &ma.ca_Code
+	case 1:
+		ma.ca_Data.w = &ma.w.Data
+		ma.ca_Data.m = &ma.cm
+		return &ma.ca_Data
+	case 2:
+		ma.ca_GasWanted.w = &ma.w.GasWanted
+		ma.ca_GasWanted.m = &ma.cm
+		return &ma.ca_GasWanted
+	case 3:
+		ma.ca_GasUsed.w = &ma.w.GasUsed
+		ma.ca_GasUsed.m = &ma.cm
+		return &ma.ca_GasUsed
+	default:
+		panic("unreachable")
+	}
 }
-func (la *_PubKeyTypes__Assembler) Finish() error {
-	switch la.state {
-	case laState_initial:
+func (ma *_ResponseDeliverTx__Assembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
 		// carry on
-	case laState_midValue:
-		if !la.valueFinishTidy() {
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
 			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
 		} // if tidy success: carry on
-	case laState_finished:
+	case maState_finished:
 		panic("invalid state: Finish cannot be called on an assembler that's already finished")
 	}
-	la.state = laState_finished
-	*la.m = schema.Maybe_Value
+	if ma.s&fieldBits__ResponseDeliverTx_sufficient != fieldBits__ResponseDeliverTx_sufficient {
+		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
+		if ma.s&fieldBit__ResponseDeliverTx_Code == 0 {
+			err.Missing = append(err.Missing, "Code")
+		}
+		if ma.s&fieldBit__ResponseDeliverTx_Data == 0 {
+			err.Missing = append(err.Missing, "Data")
+		}
+		if ma.s&fieldBit__ResponseDeliverTx_GasWanted == 0 {
+			err.Missing = append(err.Missing, "GasWanted")
+		}
+		if ma.s&fieldBit__ResponseDeliverTx_GasUsed == 0 {
+			err.Missing = append(err.Missing, "GasUsed")
+		}
+		return err
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
 	return nil
 }
-func (la *_PubKeyTypes__Assembler) ValuePrototype(_ int64) ipld.NodePrototype {
+func (ma *_ResponseDeliverTx__Assembler) KeyPrototype() ipld.NodePrototype {
 	return _String__Prototype{}
 }
-func (PubKeyTypes) Type() schema.Type {
-	return nil /*TODO:typelit*/
-}
-func (n PubKeyTypes) Representation() ipld.Node {
-	return (*_PubKeyTypes__Repr)(n)
+func (ma *_ResponseDeliverTx__Assembler) ValuePrototype(k string) ipld.NodePrototype {
+	panic("todo structbuilder mapassembler valueprototype")
 }
 
-type _PubKeyTypes__Repr _PubKeyTypes
+type _ResponseDeliverTx__KeyAssembler _ResponseDeliverTx__Assembler
 
-var _ ipld.Node = &_PubKeyTypes__Repr{}
-
-func (_PubKeyTypes__Repr) Kind() ipld.Kind {
-	return ipld.Kind_List
+func (_ResponseDeliverTx__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.KeyAssembler"}.BeginMap(0)
 }
-func (_PubKeyTypes__Repr) LookupByString(string) (ipld.Node, error) {
-	return mixins.List{"dagcosmos.PubKeyTypes.Repr"}.LookupByString("")
+func (_ResponseDeliverTx__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.KeyAssembler"}.BeginList(0)
 }
-func (nr *_PubKeyTypes__Repr) LookupByNode(k ipld.Node) (ipld.Node, error) {
-	v, err := (PubKeyTypes)(nr).LookupByNode(k)
-	if err != nil || v == ipld.Null {
-		return v, err
+func (na *_ResponseDeliverTx__KeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.KeyAssembler"}.AssignNull()
+}
+func (_ResponseDeliverTx__KeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.KeyAssembler"}.AssignBool(false)
+}
+func (_ResponseDeliverTx__KeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.KeyAssembler"}.AssignInt(0)
+}
+func (_ResponseDeliverTx__KeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_ResponseDeliverTx__KeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
 	}
-	return v.(String).Representation(), nil
-}
-func (nr *_PubKeyTypes__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
-	v, err := (PubKeyTypes)(nr).LookupByIndex(idx)
-	if err != nil || v == ipld.Null {
-		return v, err
+	switch k {
+	case "Code":
+		if ka.s&fieldBit__ResponseDeliverTx_Code != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_Code}
+		}
+		ka.s += fieldBit__ResponseDeliverTx_Code
+		ka.state = maState_expectValue
+		ka.f = 0
+	case "Data":
+		if ka.s&fieldBit__ResponseDeliverTx_Data != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_Data}
+		}
+		ka.s += fieldBit__ResponseDeliverTx_Data
+		ka.state = maState_expectValue
+		ka.f = 1
+	case "GasWanted":
+		if ka.s&fieldBit__ResponseDeliverTx_GasWanted != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_GasWanted}
+		}
+		ka.s += fieldBit__ResponseDeliverTx_GasWanted
+		ka.state = maState_expectValue
+		ka.f = 2
+	case "GasUsed":
+		if ka.s&fieldBit__ResponseDeliverTx_GasUsed != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_GasUsed}
+		}
+		ka.s += fieldBit__ResponseDeliverTx_GasUsed
+		ka.state = maState_expectValue
+		ka.f = 3
+	default:
+		return ipld.ErrInvalidKey{TypeName: "dagcosmos.ResponseDeliverTx", Key: &_String{k}}
 	}
-	return v.(String).Representation(), nil
-}
-func (n _PubKeyTypes__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
-	i, err := seg.Index()
-	if err != nil {
-		return nil, ipld.ErrInvalidSegmentForList{TypeName: "dagcosmos.PubKeyTypes.Repr", TroubleSegment: seg, Reason: err}
-	}
-	return n.LookupByIndex(i)
-}
-func (_PubKeyTypes__Repr) MapIterator() ipld.MapIterator {
 	return nil
 }
-func (nr *_PubKeyTypes__Repr) ListIterator() ipld.ListIterator {
-	return &_PubKeyTypes__ReprListItr{(PubKeyTypes)(nr), 0}
+func (_ResponseDeliverTx__KeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.KeyAssembler"}.AssignBytes(nil)
 }
-
-type _PubKeyTypes__ReprListItr _PubKeyTypes__ListItr
-
-func (itr *_PubKeyTypes__ReprListItr) Next() (idx int64, v ipld.Node, err error) {
-	idx, v, err = (*_PubKeyTypes__ListItr)(itr).Next()
-	if err != nil || v == ipld.Null {
-		return
+func (_ResponseDeliverTx__KeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_ResponseDeliverTx__KeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
 	}
-	return idx, v.(String).Representation(), nil
 }
-func (itr *_PubKeyTypes__ReprListItr) Done() bool {
-	return (*_PubKeyTypes__ListItr)(itr).Done()
+func (_ResponseDeliverTx__KeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ResponseDeliverTx) Type() schema.Type {
+	return nil /*TODO:typelit*/
+}
+func (n ResponseDeliverTx) Representation() ipld.Node {
+	return (*_ResponseDeliverTx__Repr)(n)
 }
 
-func (rn *_PubKeyTypes__Repr) Length() int64 {
-	return int64(len(rn.x))
+type _ResponseDeliverTx__Repr _ResponseDeliverTx
+
+var (
+	fieldName__ResponseDeliverTx_Code_serial      = _String{"Code"}
+	fieldName__ResponseDeliverTx_Data_serial      = _String{"Data"}
+	fieldName__ResponseDeliverTx_GasWanted_serial = _String{"GasWanted"}
+	fieldName__ResponseDeliverTx_GasUsed_serial   = _String{"GasUsed"}
+)
+var _ ipld.Node = &_ResponseDeliverTx__Repr{}
+
+func (_ResponseDeliverTx__Repr) Kind() ipld.Kind {
+	return ipld.Kind_Map
 }
-func (_PubKeyTypes__Repr) IsAbsent() bool {
+func (n *_ResponseDeliverTx__Repr) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "Code":
+		return n.Code.Representation(), nil
+	case "Data":
+		return n.Data.Representation(), nil
+	case "GasWanted":
+		return n.GasWanted.Representation(), nil
+	case "GasUsed":
+		return n.GasUsed.Representation(), nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n *_ResponseDeliverTx__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (_ResponseDeliverTx__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.ResponseDeliverTx.Repr"}.LookupByIndex(0)
+}
+func (n _ResponseDeliverTx__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n *_ResponseDeliverTx__Repr) MapIterator() ipld.MapIterator {
+	return &_ResponseDeliverTx__ReprMapItr{n, 0}
+}
+
+type _ResponseDeliverTx__ReprMapItr struct {
+	n   *_ResponseDeliverTx__Repr
+	idx int
+}
+
+func (itr *_ResponseDeliverTx__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.idx >= 4 {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.idx {
+	case 0:
+		k = &fieldName__ResponseDeliverTx_Code_serial
+		v = itr.n.Code.Representation()
+	case 1:
+		k = &fieldName__ResponseDeliverTx_Data_serial
+		v = itr.n.Data.Representation()
+	case 2:
+		k = &fieldName__ResponseDeliverTx_GasWanted_serial
+		v = itr.n.GasWanted.Representation()
+	case 3:
+		k = &fieldName__ResponseDeliverTx_GasUsed_serial
+		v = itr.n.GasUsed.Representation()
+	default:
+		panic("unreachable")
+	}
+	itr.idx++
+	return
+}
+func (itr *_ResponseDeliverTx__ReprMapItr) Done() bool {
+	return itr.idx >= 4
+}
+func (_ResponseDeliverTx__Repr) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (rn *_ResponseDeliverTx__Repr) Length() int64 {
+	l := 4
+	return int64(l)
+}
+func (_ResponseDeliverTx__Repr) IsAbsent() bool {
 	return false
 }
-func (_PubKeyTypes__Repr) IsNull() bool {
+func (_ResponseDeliverTx__Repr) IsNull() bool {
 	return false
 }
-func (_PubKeyTypes__Repr) AsBool() (bool, error) {
-	return mixins.List{"dagcosmos.PubKeyTypes.Repr"}.AsBool()
+func (_ResponseDeliverTx__Repr) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.ResponseDeliverTx.Repr"}.AsBool()
 }
-func (_PubKeyTypes__Repr) AsInt() (int64, error) {
-	return mixins.List{"dagcosmos.PubKeyTypes.Repr"}.AsInt()
+func (_ResponseDeliverTx__Repr) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.ResponseDeliverTx.Repr"}.AsInt()
 }
-func (_PubKeyTypes__Repr) AsFloat() (float64, error) {
-	return mixins.List{"dagcosmos.PubKeyTypes.Repr"}.AsFloat()
+func (_ResponseDeliverTx__Repr) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.ResponseDeliverTx.Repr"}.AsFloat()
 }
-func (_PubKeyTypes__Repr) AsString() (string, error) {
-	return mixins.List{"dagcosmos.PubKeyTypes.Repr"}.AsString()
+func (_ResponseDeliverTx__Repr) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.ResponseDeliverTx.Repr"}.AsString()
 }
-func (_PubKeyTypes__Repr) AsBytes() ([]byte, error) {
-	return mixins.List{"dagcosmos.PubKeyTypes.Repr"}.AsBytes()
+func (_ResponseDeliverTx__Repr) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.ResponseDeliverTx.Repr"}.AsBytes()
 }
-func (_PubKeyTypes__Repr) AsLink() (ipld.Link, error) {
-	return mixins.List{"dagcosmos.PubKeyTypes.Repr"}.AsLink()
+func (_ResponseDeliverTx__Repr) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.ResponseDeliverTx.Repr"}.AsLink()
 }
-func (_PubKeyTypes__Repr) Prototype() ipld.NodePrototype {
-	return _PubKeyTypes__ReprPrototype{}
+func (_ResponseDeliverTx__Repr) Prototype() ipld.NodePrototype {
+	return _ResponseDeliverTx__ReprPrototype{}
 }
 
-type _PubKeyTypes__ReprPrototype struct{}
+type _ResponseDeliverTx__ReprPrototype struct{}
 
-func (_PubKeyTypes__ReprPrototype) NewBuilder() ipld.NodeBuilder {
-	var nb _PubKeyTypes__ReprBuilder
+func (_ResponseDeliverTx__ReprPrototype) NewBuilder() ipld.NodeBuilder {
+	var nb _ResponseDeliverTx__ReprBuilder
 	nb.Reset()
 	return &nb
 }
 
-type _PubKeyTypes__ReprBuilder struct {
-	_PubKeyTypes__ReprAssembler
+type _ResponseDeliverTx__ReprBuilder struct {
+	_ResponseDeliverTx__ReprAssembler
 }
 
-func (nb *_PubKeyTypes__ReprBuilder) Build() ipld.Node {
+func (nb *_ResponseDeliverTx__ReprBuilder) Build() ipld.Node {
 	if *nb.m != schema.Maybe_Value {
 		panic("invalid state: cannot call Build on an assembler that's not finished")
 	}
 	return nb.w
 }
-func (nb *_PubKeyTypes__ReprBuilder) Reset() {
-	var w _PubKeyTypes
+func (nb *_ResponseDeliverTx__ReprBuilder) Reset() {
+	var w _ResponseDeliverTx
 	var m schema.Maybe
-	*nb = _PubKeyTypes__ReprBuilder{_PubKeyTypes__ReprAssembler{w: &w, m: &m}}
+	*nb = _ResponseDeliverTx__ReprBuilder{_ResponseDeliverTx__ReprAssembler{w: &w, m: &m}}
 }
 
-type _PubKeyTypes__ReprAssembler struct {
-	w     *_PubKeyTypes
+type _ResponseDeliverTx__ReprAssembler struct {
+	w     *_ResponseDeliverTx
 	m     *schema.Maybe
-	state laState
+	state maState
+	s     int
+	f     int
 
-	cm schema.Maybe
-	va _String__ReprAssembler
+	cm           schema.Maybe
+	ca_Code      _Uint__ReprAssembler
+	ca_Data      _Bytes__ReprAssembler
+	ca_GasWanted _Int__ReprAssembler
+	ca_GasUsed   _Int__ReprAssembler
 }
 
-func (na *_PubKeyTypes__ReprAssembler) reset() {
-	na.state = laState_initial
-	na.va.reset()
+func (na *_ResponseDeliverTx__ReprAssembler) reset() {
+	na.state = maState_initial
+	na.s = 0
+	na.ca_Code.reset()
+	na.ca_Data.reset()
+	na.ca_GasWanted.reset()
+	na.ca_GasUsed.reset()
 }
-func (_PubKeyTypes__ReprAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
-	return mixins.ListAssembler{"dagcosmos.PubKeyTypes.Repr"}.BeginMap(0)
-}
-func (na *_PubKeyTypes__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+func (na *_ResponseDeliverTx__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
 	switch *na.m {
 	case schema.Maybe_Value, schema.Maybe_Null:
 		panic("invalid state: cannot assign into assembler that's already finished")
@@ -30820,24 +28052,21 @@ func (na *_PubKeyTypes__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssem
 		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
 	}
 	*na.m = midvalue
-	if sizeHint < 0 {
-		sizeHint = 0
-	}
 	if na.w == nil {
-		na.w = &_PubKeyTypes{}
-	}
-	if sizeHint > 0 {
-		na.w.x = make([]_String, 0, sizeHint)
+		na.w = &_ResponseDeliverTx{}
 	}
 	return na, nil
 }
-func (na *_PubKeyTypes__ReprAssembler) AssignNull() error {
+func (_ResponseDeliverTx__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx.Repr"}.BeginList(0)
+}
+func (na *_ResponseDeliverTx__ReprAssembler) AssignNull() error {
 	switch *na.m {
 	case allowNull:
 		*na.m = schema.Maybe_Null
 		return nil
 	case schema.Maybe_Absent:
-		return mixins.ListAssembler{"dagcosmos.PubKeyTypes.Repr.Repr"}.AssignNull()
+		return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx.Repr.Repr"}.AssignNull()
 	case schema.Maybe_Value, schema.Maybe_Null:
 		panic("invalid state: cannot assign into assembler that's already finished")
 	case midvalue:
@@ -30845,29 +28074,29 @@ func (na *_PubKeyTypes__ReprAssembler) AssignNull() error {
 	}
 	panic("unreachable")
 }
-func (_PubKeyTypes__ReprAssembler) AssignBool(bool) error {
-	return mixins.ListAssembler{"dagcosmos.PubKeyTypes.Repr"}.AssignBool(false)
+func (_ResponseDeliverTx__ReprAssembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx.Repr"}.AssignBool(false)
 }
-func (_PubKeyTypes__ReprAssembler) AssignInt(int64) error {
-	return mixins.ListAssembler{"dagcosmos.PubKeyTypes.Repr"}.AssignInt(0)
+func (_ResponseDeliverTx__ReprAssembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx.Repr"}.AssignInt(0)
 }
-func (_PubKeyTypes__ReprAssembler) AssignFloat(float64) error {
-	return mixins.ListAssembler{"dagcosmos.PubKeyTypes.Repr"}.AssignFloat(0)
+func (_ResponseDeliverTx__ReprAssembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx.Repr"}.AssignFloat(0)
 }
-func (_PubKeyTypes__ReprAssembler) AssignString(string) error {
-	return mixins.ListAssembler{"dagcosmos.PubKeyTypes.Repr"}.AssignString("")
+func (_ResponseDeliverTx__ReprAssembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx.Repr"}.AssignString("")
 }
-func (_PubKeyTypes__ReprAssembler) AssignBytes([]byte) error {
-	return mixins.ListAssembler{"dagcosmos.PubKeyTypes.Repr"}.AssignBytes(nil)
+func (_ResponseDeliverTx__ReprAssembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx.Repr"}.AssignBytes(nil)
 }
-func (_PubKeyTypes__ReprAssembler) AssignLink(ipld.Link) error {
-	return mixins.ListAssembler{"dagcosmos.PubKeyTypes.Repr"}.AssignLink(nil)
+func (_ResponseDeliverTx__ReprAssembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.ResponseDeliverTx.Repr"}.AssignLink(nil)
 }
-func (na *_PubKeyTypes__ReprAssembler) AssignNode(v ipld.Node) error {
+func (na *_ResponseDeliverTx__ReprAssembler) AssignNode(v ipld.Node) error {
 	if v.IsNull() {
 		return na.AssignNull()
 	}
-	if v2, ok := v.(*_PubKeyTypes); ok {
+	if v2, ok := v.(*_ResponseDeliverTx); ok {
 		switch *na.m {
 		case schema.Maybe_Value, schema.Maybe_Null:
 			panic("invalid state: cannot assign into assembler that's already finished")
@@ -30883,13 +28112,16 @@ func (na *_PubKeyTypes__ReprAssembler) AssignNode(v ipld.Node) error {
 		*na.m = schema.Maybe_Value
 		return nil
 	}
-	if v.Kind() != ipld.Kind_List {
-		return ipld.ErrWrongKind{TypeName: "dagcosmos.PubKeyTypes.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustList, ActualKind: v.Kind()}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.ResponseDeliverTx.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
 	}
-	itr := v.ListIterator()
+	itr := v.MapIterator()
 	for !itr.Done() {
-		_, v, err := itr.Next()
+		k, v, err := itr.Next()
 		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
 			return err
 		}
 		if err := na.AssembleValue().AssignNode(v); err != nil {
@@ -30898,56 +28130,281 @@ func (na *_PubKeyTypes__ReprAssembler) AssignNode(v ipld.Node) error {
 	}
 	return na.Finish()
 }
-func (_PubKeyTypes__ReprAssembler) Prototype() ipld.NodePrototype {
-	return _PubKeyTypes__ReprPrototype{}
+func (_ResponseDeliverTx__ReprAssembler) Prototype() ipld.NodePrototype {
+	return _ResponseDeliverTx__ReprPrototype{}
 }
-func (la *_PubKeyTypes__ReprAssembler) valueFinishTidy() bool {
-	switch la.cm {
-	case schema.Maybe_Value:
-		la.va.w = nil
-		la.cm = schema.Maybe_Absent
-		la.state = laState_initial
-		la.va.reset()
-		return true
+func (ma *_ResponseDeliverTx__ReprAssembler) valueFinishTidy() bool {
+	switch ma.f {
+	case 0:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 1:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 2:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
+	case 3:
+		switch ma.cm {
+		case schema.Maybe_Value:
+			ma.cm = schema.Maybe_Absent
+			ma.state = maState_initial
+			return true
+		default:
+			return false
+		}
 	default:
-		return false
+		panic("unreachable")
 	}
 }
-func (la *_PubKeyTypes__ReprAssembler) AssembleValue() ipld.NodeAssembler {
-	switch la.state {
-	case laState_initial:
+func (ma *_ResponseDeliverTx__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
 		// carry on
-	case laState_midValue:
-		if !la.valueFinishTidy() {
-			panic("invalid state: AssembleValue cannot be called when still in the middle of assembling the previous value")
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
 		} // if tidy success: carry on
-	case laState_finished:
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	switch k {
+	case "Code":
+		if ma.s&fieldBit__ResponseDeliverTx_Code != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_Code_serial}
+		}
+		ma.s += fieldBit__ResponseDeliverTx_Code
+		ma.state = maState_midValue
+		ma.f = 0
+		ma.ca_Code.w = &ma.w.Code
+		ma.ca_Code.m = &ma.cm
+		return &ma.ca_Code, nil
+	case "Data":
+		if ma.s&fieldBit__ResponseDeliverTx_Data != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_Data_serial}
+		}
+		ma.s += fieldBit__ResponseDeliverTx_Data
+		ma.state = maState_midValue
+		ma.f = 1
+		ma.ca_Data.w = &ma.w.Data
+		ma.ca_Data.m = &ma.cm
+		return &ma.ca_Data, nil
+	case "GasWanted":
+		if ma.s&fieldBit__ResponseDeliverTx_GasWanted != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_GasWanted_serial}
+		}
+		ma.s += fieldBit__ResponseDeliverTx_GasWanted
+		ma.state = maState_midValue
+		ma.f = 2
+		ma.ca_GasWanted.w = &ma.w.GasWanted
+		ma.ca_GasWanted.m = &ma.cm
+		return &ma.ca_GasWanted, nil
+	case "GasUsed":
+		if ma.s&fieldBit__ResponseDeliverTx_GasUsed != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_GasUsed_serial}
+		}
+		ma.s += fieldBit__ResponseDeliverTx_GasUsed
+		ma.state = maState_midValue
+		ma.f = 3
+		ma.ca_GasUsed.w = &ma.w.GasUsed
+		ma.ca_GasUsed.m = &ma.cm
+		return &ma.ca_GasUsed, nil
+	default:
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.ResponseDeliverTx.Repr", Key: &_String{k}}
+}
+func (ma *_ResponseDeliverTx__ReprAssembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_ResponseDeliverTx__ReprKeyAssembler)(ma)
+}
+func (ma *_ResponseDeliverTx__ReprAssembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
 		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
 	}
-	la.w.x = append(la.w.x, _String{})
-	la.state = laState_midValue
-	row := &la.w.x[len(la.w.x)-1]
-	la.va.w = row
-	la.va.m = &la.cm
-	return &la.va
+	ma.state = maState_midValue
+	switch ma.f {
+	case 0:
+		ma.ca_Code.w = &ma.w.Code
+		ma.ca_Code.m = &ma.cm
+		return &ma.ca_Code
+	case 1:
+		ma.ca_Data.w = &ma.w.Data
+		ma.ca_Data.m = &ma.cm
+		return &ma.ca_Data
+	case 2:
+		ma.ca_GasWanted.w = &ma.w.GasWanted
+		ma.ca_GasWanted.m = &ma.cm
+		return &ma.ca_GasWanted
+	case 3:
+		ma.ca_GasUsed.w = &ma.w.GasUsed
+		ma.ca_GasUsed.m = &ma.cm
+		return &ma.ca_GasUsed
+	default:
+		panic("unreachable")
+	}
 }
-func (la *_PubKeyTypes__ReprAssembler) Finish() error {
-	switch la.state {
-	case laState_initial:
+func (ma *_ResponseDeliverTx__ReprAssembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
 		// carry on
-	case laState_midValue:
-		if !la.valueFinishTidy() {
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
 			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
 		} // if tidy success: carry on
-	case laState_finished:
+	case maState_finished:
 		panic("invalid state: Finish cannot be called on an assembler that's already finished")
 	}
-	la.state = laState_finished
-	*la.m = schema.Maybe_Value
+	if ma.s&fieldBits__ResponseDeliverTx_sufficient != fieldBits__ResponseDeliverTx_sufficient {
+		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
+		if ma.s&fieldBit__ResponseDeliverTx_Code == 0 {
+			err.Missing = append(err.Missing, "Code")
+		}
+		if ma.s&fieldBit__ResponseDeliverTx_Data == 0 {
+			err.Missing = append(err.Missing, "Data")
+		}
+		if ma.s&fieldBit__ResponseDeliverTx_GasWanted == 0 {
+			err.Missing = append(err.Missing, "GasWanted")
+		}
+		if ma.s&fieldBit__ResponseDeliverTx_GasUsed == 0 {
+			err.Missing = append(err.Missing, "GasUsed")
+		}
+		return err
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
 	return nil
 }
-func (la *_PubKeyTypes__ReprAssembler) ValuePrototype(_ int64) ipld.NodePrototype {
-	return _String__ReprPrototype{}
+func (ma *_ResponseDeliverTx__ReprAssembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_ResponseDeliverTx__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
+	panic("todo structbuilder mapassembler repr valueprototype")
+}
+
+type _ResponseDeliverTx__ReprKeyAssembler _ResponseDeliverTx__ReprAssembler
+
+func (_ResponseDeliverTx__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.Repr.KeyAssembler"}.BeginMap(0)
+}
+func (_ResponseDeliverTx__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.Repr.KeyAssembler"}.BeginList(0)
+}
+func (na *_ResponseDeliverTx__ReprKeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.Repr.KeyAssembler"}.AssignNull()
+}
+func (_ResponseDeliverTx__ReprKeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.Repr.KeyAssembler"}.AssignBool(false)
+}
+func (_ResponseDeliverTx__ReprKeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.Repr.KeyAssembler"}.AssignInt(0)
+}
+func (_ResponseDeliverTx__ReprKeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.Repr.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_ResponseDeliverTx__ReprKeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	switch k {
+	case "Code":
+		if ka.s&fieldBit__ResponseDeliverTx_Code != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_Code_serial}
+		}
+		ka.s += fieldBit__ResponseDeliverTx_Code
+		ka.state = maState_expectValue
+		ka.f = 0
+		return nil
+	case "Data":
+		if ka.s&fieldBit__ResponseDeliverTx_Data != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_Data_serial}
+		}
+		ka.s += fieldBit__ResponseDeliverTx_Data
+		ka.state = maState_expectValue
+		ka.f = 1
+		return nil
+	case "GasWanted":
+		if ka.s&fieldBit__ResponseDeliverTx_GasWanted != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_GasWanted_serial}
+		}
+		ka.s += fieldBit__ResponseDeliverTx_GasWanted
+		ka.state = maState_expectValue
+		ka.f = 2
+		return nil
+	case "GasUsed":
+		if ka.s&fieldBit__ResponseDeliverTx_GasUsed != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__ResponseDeliverTx_GasUsed_serial}
+		}
+		ka.s += fieldBit__ResponseDeliverTx_GasUsed
+		ka.state = maState_expectValue
+		ka.f = 3
+		return nil
+	}
+	return ipld.ErrInvalidKey{TypeName: "dagcosmos.ResponseDeliverTx.Repr", Key: &_String{k}}
+}
+func (_ResponseDeliverTx__ReprKeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.Repr.KeyAssembler"}.AssignBytes(nil)
+}
+func (_ResponseDeliverTx__ReprKeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.ResponseDeliverTx.Repr.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_ResponseDeliverTx__ReprKeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_ResponseDeliverTx__ReprKeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
 }
 
 func (n _SMTInnerNode) FieldLeft() Link {
@@ -40251,842 +37708,6 @@ func (_Validator__ReprKeyAssembler) Prototype() ipld.NodePrototype {
 	return _String__Prototype{}
 }
 
-func (n _ValidatorParams) FieldPubKeyTypes() PubKeyTypes {
-	return &n.PubKeyTypes
-}
-
-type _ValidatorParams__Maybe struct {
-	m schema.Maybe
-	v ValidatorParams
-}
-type MaybeValidatorParams = *_ValidatorParams__Maybe
-
-func (m MaybeValidatorParams) IsNull() bool {
-	return m.m == schema.Maybe_Null
-}
-func (m MaybeValidatorParams) IsAbsent() bool {
-	return m.m == schema.Maybe_Absent
-}
-func (m MaybeValidatorParams) Exists() bool {
-	return m.m == schema.Maybe_Value
-}
-func (m MaybeValidatorParams) AsNode() ipld.Node {
-	switch m.m {
-	case schema.Maybe_Absent:
-		return ipld.Absent
-	case schema.Maybe_Null:
-		return ipld.Null
-	case schema.Maybe_Value:
-		return m.v
-	default:
-		panic("unreachable")
-	}
-}
-func (m MaybeValidatorParams) Must() ValidatorParams {
-	if !m.Exists() {
-		panic("unbox of a maybe rejected")
-	}
-	return m.v
-}
-
-var (
-	fieldName__ValidatorParams_PubKeyTypes = _String{"PubKeyTypes"}
-)
-var _ ipld.Node = (ValidatorParams)(&_ValidatorParams{})
-var _ schema.TypedNode = (ValidatorParams)(&_ValidatorParams{})
-
-func (ValidatorParams) Kind() ipld.Kind {
-	return ipld.Kind_Map
-}
-func (n ValidatorParams) LookupByString(key string) (ipld.Node, error) {
-	switch key {
-	case "PubKeyTypes":
-		return &n.PubKeyTypes, nil
-	default:
-		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
-	}
-}
-func (n ValidatorParams) LookupByNode(key ipld.Node) (ipld.Node, error) {
-	ks, err := key.AsString()
-	if err != nil {
-		return nil, err
-	}
-	return n.LookupByString(ks)
-}
-func (ValidatorParams) LookupByIndex(idx int64) (ipld.Node, error) {
-	return mixins.Map{"dagcosmos.ValidatorParams"}.LookupByIndex(0)
-}
-func (n ValidatorParams) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
-	return n.LookupByString(seg.String())
-}
-func (n ValidatorParams) MapIterator() ipld.MapIterator {
-	return &_ValidatorParams__MapItr{n, 0}
-}
-
-type _ValidatorParams__MapItr struct {
-	n   ValidatorParams
-	idx int
-}
-
-func (itr *_ValidatorParams__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
-	if itr.idx >= 1 {
-		return nil, nil, ipld.ErrIteratorOverread{}
-	}
-	switch itr.idx {
-	case 0:
-		k = &fieldName__ValidatorParams_PubKeyTypes
-		v = &itr.n.PubKeyTypes
-	default:
-		panic("unreachable")
-	}
-	itr.idx++
-	return
-}
-func (itr *_ValidatorParams__MapItr) Done() bool {
-	return itr.idx >= 1
-}
-
-func (ValidatorParams) ListIterator() ipld.ListIterator {
-	return nil
-}
-func (ValidatorParams) Length() int64 {
-	return 1
-}
-func (ValidatorParams) IsAbsent() bool {
-	return false
-}
-func (ValidatorParams) IsNull() bool {
-	return false
-}
-func (ValidatorParams) AsBool() (bool, error) {
-	return mixins.Map{"dagcosmos.ValidatorParams"}.AsBool()
-}
-func (ValidatorParams) AsInt() (int64, error) {
-	return mixins.Map{"dagcosmos.ValidatorParams"}.AsInt()
-}
-func (ValidatorParams) AsFloat() (float64, error) {
-	return mixins.Map{"dagcosmos.ValidatorParams"}.AsFloat()
-}
-func (ValidatorParams) AsString() (string, error) {
-	return mixins.Map{"dagcosmos.ValidatorParams"}.AsString()
-}
-func (ValidatorParams) AsBytes() ([]byte, error) {
-	return mixins.Map{"dagcosmos.ValidatorParams"}.AsBytes()
-}
-func (ValidatorParams) AsLink() (ipld.Link, error) {
-	return mixins.Map{"dagcosmos.ValidatorParams"}.AsLink()
-}
-func (ValidatorParams) Prototype() ipld.NodePrototype {
-	return _ValidatorParams__Prototype{}
-}
-
-type _ValidatorParams__Prototype struct{}
-
-func (_ValidatorParams__Prototype) NewBuilder() ipld.NodeBuilder {
-	var nb _ValidatorParams__Builder
-	nb.Reset()
-	return &nb
-}
-
-type _ValidatorParams__Builder struct {
-	_ValidatorParams__Assembler
-}
-
-func (nb *_ValidatorParams__Builder) Build() ipld.Node {
-	if *nb.m != schema.Maybe_Value {
-		panic("invalid state: cannot call Build on an assembler that's not finished")
-	}
-	return nb.w
-}
-func (nb *_ValidatorParams__Builder) Reset() {
-	var w _ValidatorParams
-	var m schema.Maybe
-	*nb = _ValidatorParams__Builder{_ValidatorParams__Assembler{w: &w, m: &m}}
-}
-
-type _ValidatorParams__Assembler struct {
-	w     *_ValidatorParams
-	m     *schema.Maybe
-	state maState
-	s     int
-	f     int
-
-	cm             schema.Maybe
-	ca_PubKeyTypes _PubKeyTypes__Assembler
-}
-
-func (na *_ValidatorParams__Assembler) reset() {
-	na.state = maState_initial
-	na.s = 0
-	na.ca_PubKeyTypes.reset()
-}
-
-var (
-	fieldBit__ValidatorParams_PubKeyTypes = 1 << 0
-	fieldBits__ValidatorParams_sufficient = 0 + 1<<0
-)
-
-func (na *_ValidatorParams__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
-	switch *na.m {
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
-	}
-	*na.m = midvalue
-	if na.w == nil {
-		na.w = &_ValidatorParams{}
-	}
-	return na, nil
-}
-func (_ValidatorParams__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.MapAssembler{"dagcosmos.ValidatorParams"}.BeginList(0)
-}
-func (na *_ValidatorParams__Assembler) AssignNull() error {
-	switch *na.m {
-	case allowNull:
-		*na.m = schema.Maybe_Null
-		return nil
-	case schema.Maybe_Absent:
-		return mixins.MapAssembler{"dagcosmos.ValidatorParams"}.AssignNull()
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-	}
-	panic("unreachable")
-}
-func (_ValidatorParams__Assembler) AssignBool(bool) error {
-	return mixins.MapAssembler{"dagcosmos.ValidatorParams"}.AssignBool(false)
-}
-func (_ValidatorParams__Assembler) AssignInt(int64) error {
-	return mixins.MapAssembler{"dagcosmos.ValidatorParams"}.AssignInt(0)
-}
-func (_ValidatorParams__Assembler) AssignFloat(float64) error {
-	return mixins.MapAssembler{"dagcosmos.ValidatorParams"}.AssignFloat(0)
-}
-func (_ValidatorParams__Assembler) AssignString(string) error {
-	return mixins.MapAssembler{"dagcosmos.ValidatorParams"}.AssignString("")
-}
-func (_ValidatorParams__Assembler) AssignBytes([]byte) error {
-	return mixins.MapAssembler{"dagcosmos.ValidatorParams"}.AssignBytes(nil)
-}
-func (_ValidatorParams__Assembler) AssignLink(ipld.Link) error {
-	return mixins.MapAssembler{"dagcosmos.ValidatorParams"}.AssignLink(nil)
-}
-func (na *_ValidatorParams__Assembler) AssignNode(v ipld.Node) error {
-	if v.IsNull() {
-		return na.AssignNull()
-	}
-	if v2, ok := v.(*_ValidatorParams); ok {
-		switch *na.m {
-		case schema.Maybe_Value, schema.Maybe_Null:
-			panic("invalid state: cannot assign into assembler that's already finished")
-		case midvalue:
-			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-		}
-		if na.w == nil {
-			na.w = v2
-			*na.m = schema.Maybe_Value
-			return nil
-		}
-		*na.w = *v2
-		*na.m = schema.Maybe_Value
-		return nil
-	}
-	if v.Kind() != ipld.Kind_Map {
-		return ipld.ErrWrongKind{TypeName: "dagcosmos.ValidatorParams", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
-	}
-	itr := v.MapIterator()
-	for !itr.Done() {
-		k, v, err := itr.Next()
-		if err != nil {
-			return err
-		}
-		if err := na.AssembleKey().AssignNode(k); err != nil {
-			return err
-		}
-		if err := na.AssembleValue().AssignNode(v); err != nil {
-			return err
-		}
-	}
-	return na.Finish()
-}
-func (_ValidatorParams__Assembler) Prototype() ipld.NodePrototype {
-	return _ValidatorParams__Prototype{}
-}
-func (ma *_ValidatorParams__Assembler) valueFinishTidy() bool {
-	switch ma.f {
-	case 0:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.ca_PubKeyTypes.w = nil
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_ValidatorParams__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
-	}
-	switch k {
-	case "PubKeyTypes":
-		if ma.s&fieldBit__ValidatorParams_PubKeyTypes != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ValidatorParams_PubKeyTypes}
-		}
-		ma.s += fieldBit__ValidatorParams_PubKeyTypes
-		ma.state = maState_midValue
-		ma.f = 0
-		ma.ca_PubKeyTypes.w = &ma.w.PubKeyTypes
-		ma.ca_PubKeyTypes.m = &ma.cm
-		return &ma.ca_PubKeyTypes, nil
-	}
-	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.ValidatorParams", Key: &_String{k}}
-}
-func (ma *_ValidatorParams__Assembler) AssembleKey() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midKey
-	return (*_ValidatorParams__KeyAssembler)(ma)
-}
-func (ma *_ValidatorParams__Assembler) AssembleValue() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		panic("invalid state: AssembleValue cannot be called when no key is primed")
-	case maState_midKey:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		// carry on
-	case maState_midValue:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
-	case maState_finished:
-		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midValue
-	switch ma.f {
-	case 0:
-		ma.ca_PubKeyTypes.w = &ma.w.PubKeyTypes
-		ma.ca_PubKeyTypes.m = &ma.cm
-		return &ma.ca_PubKeyTypes
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_ValidatorParams__Assembler) Finish() error {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		panic("invalid state: Finish cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: Finish cannot be called on an assembler that's already finished")
-	}
-	if ma.s&fieldBits__ValidatorParams_sufficient != fieldBits__ValidatorParams_sufficient {
-		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__ValidatorParams_PubKeyTypes == 0 {
-			err.Missing = append(err.Missing, "PubKeyTypes")
-		}
-		return err
-	}
-	ma.state = maState_finished
-	*ma.m = schema.Maybe_Value
-	return nil
-}
-func (ma *_ValidatorParams__Assembler) KeyPrototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-func (ma *_ValidatorParams__Assembler) ValuePrototype(k string) ipld.NodePrototype {
-	panic("todo structbuilder mapassembler valueprototype")
-}
-
-type _ValidatorParams__KeyAssembler _ValidatorParams__Assembler
-
-func (_ValidatorParams__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.KeyAssembler"}.BeginMap(0)
-}
-func (_ValidatorParams__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.KeyAssembler"}.BeginList(0)
-}
-func (na *_ValidatorParams__KeyAssembler) AssignNull() error {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.KeyAssembler"}.AssignNull()
-}
-func (_ValidatorParams__KeyAssembler) AssignBool(bool) error {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.KeyAssembler"}.AssignBool(false)
-}
-func (_ValidatorParams__KeyAssembler) AssignInt(int64) error {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.KeyAssembler"}.AssignInt(0)
-}
-func (_ValidatorParams__KeyAssembler) AssignFloat(float64) error {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.KeyAssembler"}.AssignFloat(0)
-}
-func (ka *_ValidatorParams__KeyAssembler) AssignString(k string) error {
-	if ka.state != maState_midKey {
-		panic("misuse: KeyAssembler held beyond its valid lifetime")
-	}
-	switch k {
-	case "PubKeyTypes":
-		if ka.s&fieldBit__ValidatorParams_PubKeyTypes != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__ValidatorParams_PubKeyTypes}
-		}
-		ka.s += fieldBit__ValidatorParams_PubKeyTypes
-		ka.state = maState_expectValue
-		ka.f = 0
-	default:
-		return ipld.ErrInvalidKey{TypeName: "dagcosmos.ValidatorParams", Key: &_String{k}}
-	}
-	return nil
-}
-func (_ValidatorParams__KeyAssembler) AssignBytes([]byte) error {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.KeyAssembler"}.AssignBytes(nil)
-}
-func (_ValidatorParams__KeyAssembler) AssignLink(ipld.Link) error {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.KeyAssembler"}.AssignLink(nil)
-}
-func (ka *_ValidatorParams__KeyAssembler) AssignNode(v ipld.Node) error {
-	if v2, err := v.AsString(); err != nil {
-		return err
-	} else {
-		return ka.AssignString(v2)
-	}
-}
-func (_ValidatorParams__KeyAssembler) Prototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-func (ValidatorParams) Type() schema.Type {
-	return nil /*TODO:typelit*/
-}
-func (n ValidatorParams) Representation() ipld.Node {
-	return (*_ValidatorParams__Repr)(n)
-}
-
-type _ValidatorParams__Repr _ValidatorParams
-
-var (
-	fieldName__ValidatorParams_PubKeyTypes_serial = _String{"PubKeyTypes"}
-)
-var _ ipld.Node = &_ValidatorParams__Repr{}
-
-func (_ValidatorParams__Repr) Kind() ipld.Kind {
-	return ipld.Kind_Map
-}
-func (n *_ValidatorParams__Repr) LookupByString(key string) (ipld.Node, error) {
-	switch key {
-	case "PubKeyTypes":
-		return n.PubKeyTypes.Representation(), nil
-	default:
-		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
-	}
-}
-func (n *_ValidatorParams__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
-	ks, err := key.AsString()
-	if err != nil {
-		return nil, err
-	}
-	return n.LookupByString(ks)
-}
-func (_ValidatorParams__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
-	return mixins.Map{"dagcosmos.ValidatorParams.Repr"}.LookupByIndex(0)
-}
-func (n _ValidatorParams__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
-	return n.LookupByString(seg.String())
-}
-func (n *_ValidatorParams__Repr) MapIterator() ipld.MapIterator {
-	return &_ValidatorParams__ReprMapItr{n, 0}
-}
-
-type _ValidatorParams__ReprMapItr struct {
-	n   *_ValidatorParams__Repr
-	idx int
-}
-
-func (itr *_ValidatorParams__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
-	if itr.idx >= 1 {
-		return nil, nil, ipld.ErrIteratorOverread{}
-	}
-	switch itr.idx {
-	case 0:
-		k = &fieldName__ValidatorParams_PubKeyTypes_serial
-		v = itr.n.PubKeyTypes.Representation()
-	default:
-		panic("unreachable")
-	}
-	itr.idx++
-	return
-}
-func (itr *_ValidatorParams__ReprMapItr) Done() bool {
-	return itr.idx >= 1
-}
-func (_ValidatorParams__Repr) ListIterator() ipld.ListIterator {
-	return nil
-}
-func (rn *_ValidatorParams__Repr) Length() int64 {
-	l := 1
-	return int64(l)
-}
-func (_ValidatorParams__Repr) IsAbsent() bool {
-	return false
-}
-func (_ValidatorParams__Repr) IsNull() bool {
-	return false
-}
-func (_ValidatorParams__Repr) AsBool() (bool, error) {
-	return mixins.Map{"dagcosmos.ValidatorParams.Repr"}.AsBool()
-}
-func (_ValidatorParams__Repr) AsInt() (int64, error) {
-	return mixins.Map{"dagcosmos.ValidatorParams.Repr"}.AsInt()
-}
-func (_ValidatorParams__Repr) AsFloat() (float64, error) {
-	return mixins.Map{"dagcosmos.ValidatorParams.Repr"}.AsFloat()
-}
-func (_ValidatorParams__Repr) AsString() (string, error) {
-	return mixins.Map{"dagcosmos.ValidatorParams.Repr"}.AsString()
-}
-func (_ValidatorParams__Repr) AsBytes() ([]byte, error) {
-	return mixins.Map{"dagcosmos.ValidatorParams.Repr"}.AsBytes()
-}
-func (_ValidatorParams__Repr) AsLink() (ipld.Link, error) {
-	return mixins.Map{"dagcosmos.ValidatorParams.Repr"}.AsLink()
-}
-func (_ValidatorParams__Repr) Prototype() ipld.NodePrototype {
-	return _ValidatorParams__ReprPrototype{}
-}
-
-type _ValidatorParams__ReprPrototype struct{}
-
-func (_ValidatorParams__ReprPrototype) NewBuilder() ipld.NodeBuilder {
-	var nb _ValidatorParams__ReprBuilder
-	nb.Reset()
-	return &nb
-}
-
-type _ValidatorParams__ReprBuilder struct {
-	_ValidatorParams__ReprAssembler
-}
-
-func (nb *_ValidatorParams__ReprBuilder) Build() ipld.Node {
-	if *nb.m != schema.Maybe_Value {
-		panic("invalid state: cannot call Build on an assembler that's not finished")
-	}
-	return nb.w
-}
-func (nb *_ValidatorParams__ReprBuilder) Reset() {
-	var w _ValidatorParams
-	var m schema.Maybe
-	*nb = _ValidatorParams__ReprBuilder{_ValidatorParams__ReprAssembler{w: &w, m: &m}}
-}
-
-type _ValidatorParams__ReprAssembler struct {
-	w     *_ValidatorParams
-	m     *schema.Maybe
-	state maState
-	s     int
-	f     int
-
-	cm             schema.Maybe
-	ca_PubKeyTypes _PubKeyTypes__ReprAssembler
-}
-
-func (na *_ValidatorParams__ReprAssembler) reset() {
-	na.state = maState_initial
-	na.s = 0
-	na.ca_PubKeyTypes.reset()
-}
-func (na *_ValidatorParams__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
-	switch *na.m {
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
-	}
-	*na.m = midvalue
-	if na.w == nil {
-		na.w = &_ValidatorParams{}
-	}
-	return na, nil
-}
-func (_ValidatorParams__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.MapAssembler{"dagcosmos.ValidatorParams.Repr"}.BeginList(0)
-}
-func (na *_ValidatorParams__ReprAssembler) AssignNull() error {
-	switch *na.m {
-	case allowNull:
-		*na.m = schema.Maybe_Null
-		return nil
-	case schema.Maybe_Absent:
-		return mixins.MapAssembler{"dagcosmos.ValidatorParams.Repr.Repr"}.AssignNull()
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-	}
-	panic("unreachable")
-}
-func (_ValidatorParams__ReprAssembler) AssignBool(bool) error {
-	return mixins.MapAssembler{"dagcosmos.ValidatorParams.Repr"}.AssignBool(false)
-}
-func (_ValidatorParams__ReprAssembler) AssignInt(int64) error {
-	return mixins.MapAssembler{"dagcosmos.ValidatorParams.Repr"}.AssignInt(0)
-}
-func (_ValidatorParams__ReprAssembler) AssignFloat(float64) error {
-	return mixins.MapAssembler{"dagcosmos.ValidatorParams.Repr"}.AssignFloat(0)
-}
-func (_ValidatorParams__ReprAssembler) AssignString(string) error {
-	return mixins.MapAssembler{"dagcosmos.ValidatorParams.Repr"}.AssignString("")
-}
-func (_ValidatorParams__ReprAssembler) AssignBytes([]byte) error {
-	return mixins.MapAssembler{"dagcosmos.ValidatorParams.Repr"}.AssignBytes(nil)
-}
-func (_ValidatorParams__ReprAssembler) AssignLink(ipld.Link) error {
-	return mixins.MapAssembler{"dagcosmos.ValidatorParams.Repr"}.AssignLink(nil)
-}
-func (na *_ValidatorParams__ReprAssembler) AssignNode(v ipld.Node) error {
-	if v.IsNull() {
-		return na.AssignNull()
-	}
-	if v2, ok := v.(*_ValidatorParams); ok {
-		switch *na.m {
-		case schema.Maybe_Value, schema.Maybe_Null:
-			panic("invalid state: cannot assign into assembler that's already finished")
-		case midvalue:
-			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-		}
-		if na.w == nil {
-			na.w = v2
-			*na.m = schema.Maybe_Value
-			return nil
-		}
-		*na.w = *v2
-		*na.m = schema.Maybe_Value
-		return nil
-	}
-	if v.Kind() != ipld.Kind_Map {
-		return ipld.ErrWrongKind{TypeName: "dagcosmos.ValidatorParams.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
-	}
-	itr := v.MapIterator()
-	for !itr.Done() {
-		k, v, err := itr.Next()
-		if err != nil {
-			return err
-		}
-		if err := na.AssembleKey().AssignNode(k); err != nil {
-			return err
-		}
-		if err := na.AssembleValue().AssignNode(v); err != nil {
-			return err
-		}
-	}
-	return na.Finish()
-}
-func (_ValidatorParams__ReprAssembler) Prototype() ipld.NodePrototype {
-	return _ValidatorParams__ReprPrototype{}
-}
-func (ma *_ValidatorParams__ReprAssembler) valueFinishTidy() bool {
-	switch ma.f {
-	case 0:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_ValidatorParams__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
-	}
-	switch k {
-	case "PubKeyTypes":
-		if ma.s&fieldBit__ValidatorParams_PubKeyTypes != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__ValidatorParams_PubKeyTypes_serial}
-		}
-		ma.s += fieldBit__ValidatorParams_PubKeyTypes
-		ma.state = maState_midValue
-		ma.f = 0
-		ma.ca_PubKeyTypes.w = &ma.w.PubKeyTypes
-		ma.ca_PubKeyTypes.m = &ma.cm
-		return &ma.ca_PubKeyTypes, nil
-	default:
-	}
-	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.ValidatorParams.Repr", Key: &_String{k}}
-}
-func (ma *_ValidatorParams__ReprAssembler) AssembleKey() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midKey
-	return (*_ValidatorParams__ReprKeyAssembler)(ma)
-}
-func (ma *_ValidatorParams__ReprAssembler) AssembleValue() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		panic("invalid state: AssembleValue cannot be called when no key is primed")
-	case maState_midKey:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		// carry on
-	case maState_midValue:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
-	case maState_finished:
-		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midValue
-	switch ma.f {
-	case 0:
-		ma.ca_PubKeyTypes.w = &ma.w.PubKeyTypes
-		ma.ca_PubKeyTypes.m = &ma.cm
-		return &ma.ca_PubKeyTypes
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_ValidatorParams__ReprAssembler) Finish() error {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		panic("invalid state: Finish cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: Finish cannot be called on an assembler that's already finished")
-	}
-	if ma.s&fieldBits__ValidatorParams_sufficient != fieldBits__ValidatorParams_sufficient {
-		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__ValidatorParams_PubKeyTypes == 0 {
-			err.Missing = append(err.Missing, "PubKeyTypes")
-		}
-		return err
-	}
-	ma.state = maState_finished
-	*ma.m = schema.Maybe_Value
-	return nil
-}
-func (ma *_ValidatorParams__ReprAssembler) KeyPrototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-func (ma *_ValidatorParams__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
-	panic("todo structbuilder mapassembler repr valueprototype")
-}
-
-type _ValidatorParams__ReprKeyAssembler _ValidatorParams__ReprAssembler
-
-func (_ValidatorParams__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.Repr.KeyAssembler"}.BeginMap(0)
-}
-func (_ValidatorParams__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.Repr.KeyAssembler"}.BeginList(0)
-}
-func (na *_ValidatorParams__ReprKeyAssembler) AssignNull() error {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.Repr.KeyAssembler"}.AssignNull()
-}
-func (_ValidatorParams__ReprKeyAssembler) AssignBool(bool) error {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.Repr.KeyAssembler"}.AssignBool(false)
-}
-func (_ValidatorParams__ReprKeyAssembler) AssignInt(int64) error {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.Repr.KeyAssembler"}.AssignInt(0)
-}
-func (_ValidatorParams__ReprKeyAssembler) AssignFloat(float64) error {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.Repr.KeyAssembler"}.AssignFloat(0)
-}
-func (ka *_ValidatorParams__ReprKeyAssembler) AssignString(k string) error {
-	if ka.state != maState_midKey {
-		panic("misuse: KeyAssembler held beyond its valid lifetime")
-	}
-	switch k {
-	case "PubKeyTypes":
-		if ka.s&fieldBit__ValidatorParams_PubKeyTypes != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__ValidatorParams_PubKeyTypes_serial}
-		}
-		ka.s += fieldBit__ValidatorParams_PubKeyTypes
-		ka.state = maState_expectValue
-		ka.f = 0
-		return nil
-	}
-	return ipld.ErrInvalidKey{TypeName: "dagcosmos.ValidatorParams.Repr", Key: &_String{k}}
-}
-func (_ValidatorParams__ReprKeyAssembler) AssignBytes([]byte) error {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.Repr.KeyAssembler"}.AssignBytes(nil)
-}
-func (_ValidatorParams__ReprKeyAssembler) AssignLink(ipld.Link) error {
-	return mixins.StringAssembler{"dagcosmos.ValidatorParams.Repr.KeyAssembler"}.AssignLink(nil)
-}
-func (ka *_ValidatorParams__ReprKeyAssembler) AssignNode(v ipld.Node) error {
-	if v2, err := v.AsString(); err != nil {
-		return err
-	} else {
-		return ka.AssignString(v2)
-	}
-}
-func (_ValidatorParams__ReprKeyAssembler) Prototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-
 func (n _ValidatorSet) FieldValidators() Validators {
 	return &n.Validators
 }
@@ -42618,6 +39239,910 @@ func (la *_Validators__ReprAssembler) ValuePrototype(_ int64) ipld.NodePrototype
 	return _Validator__ReprPrototype{}
 }
 
+func (n _Value) AsInterface() _Value__iface {
+	switch n.tag {
+	case 1:
+		return &n.x1
+	case 2:
+		return &n.x2
+	default:
+		panic("invalid union state; how did you create this object?")
+	}
+}
+
+type _Value__Maybe struct {
+	m schema.Maybe
+	v Value
+}
+type MaybeValue = *_Value__Maybe
+
+func (m MaybeValue) IsNull() bool {
+	return m.m == schema.Maybe_Null
+}
+func (m MaybeValue) IsAbsent() bool {
+	return m.m == schema.Maybe_Absent
+}
+func (m MaybeValue) Exists() bool {
+	return m.m == schema.Maybe_Value
+}
+func (m MaybeValue) AsNode() ipld.Node {
+	switch m.m {
+	case schema.Maybe_Absent:
+		return ipld.Absent
+	case schema.Maybe_Null:
+		return ipld.Null
+	case schema.Maybe_Value:
+		return m.v
+	default:
+		panic("unreachable")
+	}
+}
+func (m MaybeValue) Must() Value {
+	if !m.Exists() {
+		panic("unbox of a maybe rejected")
+	}
+	return m.v
+}
+
+var (
+	memberName__Value_Link  = _String{"Link"}
+	memberName__Value_Bytes = _String{"Bytes"}
+)
+var _ ipld.Node = (Value)(&_Value{})
+var _ schema.TypedNode = (Value)(&_Value{})
+
+func (Value) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n Value) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "Link":
+		if n.tag != 1 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return &n.x1, nil
+	case "Bytes":
+		if n.tag != 2 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return &n.x2, nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n Value) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (Value) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.Value"}.LookupByIndex(0)
+}
+func (n Value) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n Value) MapIterator() ipld.MapIterator {
+	return &_Value__MapItr{n, false}
+}
+
+type _Value__MapItr struct {
+	n    Value
+	done bool
+}
+
+func (itr *_Value__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.done {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.n.tag {
+	case 1:
+		k, v = &memberName__Value_Link, &itr.n.x1
+	case 2:
+		k, v = &memberName__Value_Bytes, &itr.n.x2
+	default:
+		panic("unreachable")
+	}
+	itr.done = true
+	return
+}
+func (itr *_Value__MapItr) Done() bool {
+	return itr.done
+}
+
+func (Value) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (Value) Length() int64 {
+	return 1
+}
+func (Value) IsAbsent() bool {
+	return false
+}
+func (Value) IsNull() bool {
+	return false
+}
+func (Value) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.Value"}.AsBool()
+}
+func (Value) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.Value"}.AsInt()
+}
+func (Value) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.Value"}.AsFloat()
+}
+func (Value) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.Value"}.AsString()
+}
+func (Value) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.Value"}.AsBytes()
+}
+func (Value) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.Value"}.AsLink()
+}
+func (Value) Prototype() ipld.NodePrototype {
+	return _Value__Prototype{}
+}
+
+type _Value__Prototype struct{}
+
+func (_Value__Prototype) NewBuilder() ipld.NodeBuilder {
+	var nb _Value__Builder
+	nb.Reset()
+	return &nb
+}
+
+type _Value__Builder struct {
+	_Value__Assembler
+}
+
+func (nb *_Value__Builder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_Value__Builder) Reset() {
+	var w _Value
+	var m schema.Maybe
+	*nb = _Value__Builder{_Value__Assembler{w: &w, m: &m}}
+}
+
+type _Value__Assembler struct {
+	w     *_Value
+	m     *schema.Maybe
+	state maState
+
+	cm  schema.Maybe
+	ca1 _Link__Assembler
+
+	ca2 _Bytes__Assembler
+	ca  uint
+}
+
+func (na *_Value__Assembler) reset() {
+	na.state = maState_initial
+	switch na.ca {
+	case 0:
+		return
+	case 1:
+		na.ca1.reset()
+
+	case 2:
+		na.ca2.reset()
+	default:
+		panic("unreachable")
+	}
+	na.ca = 0
+	na.cm = schema.Maybe_Absent
+}
+func (na *_Value__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_Value{}
+	}
+	return na, nil
+}
+func (_Value__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.Value"}.BeginList(0)
+}
+func (na *_Value__Assembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.Value"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_Value__Assembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.Value"}.AssignBool(false)
+}
+func (_Value__Assembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.Value"}.AssignInt(0)
+}
+func (_Value__Assembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.Value"}.AssignFloat(0)
+}
+func (_Value__Assembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.Value"}.AssignString("")
+}
+func (_Value__Assembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.Value"}.AssignBytes(nil)
+}
+func (_Value__Assembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.Value"}.AssignLink(nil)
+}
+func (na *_Value__Assembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_Value); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.Value", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_Value__Assembler) Prototype() ipld.NodePrototype {
+	return _Value__Prototype{}
+}
+func (ma *_Value__Assembler) valueFinishTidy() bool {
+	switch ma.cm {
+	case schema.Maybe_Value:
+		ma.state = maState_initial
+		return true
+	default:
+		return false
+	}
+}
+func (ma *_Value__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly.
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	if ma.ca != 0 {
+		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.Value", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "Link":
+		ma.state = maState_midValue
+		ma.ca = 1
+		ma.w.tag = 1
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1, nil
+	case "Bytes":
+		ma.state = maState_midValue
+		ma.ca = 2
+		ma.w.tag = 2
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2, nil
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.Value", Key: &_String{k}}
+}
+func (ma *_Value__Assembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly... or rather, the keyassembler will be.
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_Value__KeyAssembler)(ma)
+}
+func (ma *_Value__Assembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.ca {
+	case 0:
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1
+	case 1:
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_Value__Assembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.ca == 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.Value", Detail: "a union must have exactly one entry (not none)!"}
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_Value__Assembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_Value__Assembler) ValuePrototype(k string) ipld.NodePrototype {
+	switch k {
+	case "Link":
+		return _Link__Prototype{}
+	case "Bytes":
+		return _Bytes__Prototype{}
+	default:
+		return nil
+	}
+}
+
+type _Value__KeyAssembler _Value__Assembler
+
+func (_Value__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.Value.KeyAssembler"}.BeginMap(0)
+}
+func (_Value__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.Value.KeyAssembler"}.BeginList(0)
+}
+func (na *_Value__KeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.Value.KeyAssembler"}.AssignNull()
+}
+func (_Value__KeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.Value.KeyAssembler"}.AssignBool(false)
+}
+func (_Value__KeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.Value.KeyAssembler"}.AssignInt(0)
+}
+func (_Value__KeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.Value.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_Value__KeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	if ka.ca != 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.Value", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "Link":
+		ka.ca = 1
+		ka.w.tag = 1
+		ka.state = maState_expectValue
+		return nil
+	case "Bytes":
+		ka.ca = 2
+		ka.w.tag = 2
+		ka.state = maState_expectValue
+		return nil
+	}
+	return ipld.ErrInvalidKey{TypeName: "dagcosmos.Value", Key: &_String{k}} // TODO: error quality: ErrInvalidUnionDiscriminant ?
+}
+func (_Value__KeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.Value.KeyAssembler"}.AssignBytes(nil)
+}
+func (_Value__KeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.Value.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_Value__KeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_Value__KeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (Value) Type() schema.Type {
+	return nil /*TODO:typelit*/
+}
+func (n Value) Representation() ipld.Node {
+	return (*_Value__Repr)(n)
+}
+
+type _Value__Repr _Value
+
+var (
+	memberName__Value_Link_serial  = _String{"validator"}
+	memberName__Value_Bytes_serial = _String{"header"}
+)
+var _ ipld.Node = &_Value__Repr{}
+
+func (_Value__Repr) Kind() ipld.Kind {
+	return ipld.Kind_Map
+}
+func (n *_Value__Repr) LookupByString(key string) (ipld.Node, error) {
+	switch key {
+	case "part":
+		if n.tag != 1 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return n.x1.Representation(), nil
+	case "header":
+		if n.tag != 2 {
+			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
+		}
+		return n.x2.Representation(), nil
+	default:
+		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
+	}
+}
+func (n *_Value__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
+	ks, err := key.AsString()
+	if err != nil {
+		return nil, err
+	}
+	return n.LookupByString(ks)
+}
+func (_Value__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
+	return mixins.Map{"dagcosmos.Value.Repr"}.LookupByIndex(0)
+}
+func (n _Value__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
+	return n.LookupByString(seg.String())
+}
+func (n *_Value__Repr) MapIterator() ipld.MapIterator {
+	return &_Value__ReprMapItr{n, false}
+}
+
+type _Value__ReprMapItr struct {
+	n    *_Value__Repr
+	done bool
+}
+
+func (itr *_Value__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
+	if itr.done {
+		return nil, nil, ipld.ErrIteratorOverread{}
+	}
+	switch itr.n.tag {
+	case 1:
+		k, v = &memberName__Value_Link_serial, itr.n.x1.Representation()
+	case 2:
+		k, v = &memberName__Value_Bytes_serial, itr.n.x2.Representation()
+	default:
+		panic("unreachable")
+	}
+	itr.done = true
+	return
+}
+func (itr *_Value__ReprMapItr) Done() bool {
+	return itr.done
+}
+
+func (_Value__Repr) ListIterator() ipld.ListIterator {
+	return nil
+}
+func (_Value__Repr) Length() int64 {
+	return 1
+}
+func (_Value__Repr) IsAbsent() bool {
+	return false
+}
+func (_Value__Repr) IsNull() bool {
+	return false
+}
+func (_Value__Repr) AsBool() (bool, error) {
+	return mixins.Map{"dagcosmos.Value.Repr"}.AsBool()
+}
+func (_Value__Repr) AsInt() (int64, error) {
+	return mixins.Map{"dagcosmos.Value.Repr"}.AsInt()
+}
+func (_Value__Repr) AsFloat() (float64, error) {
+	return mixins.Map{"dagcosmos.Value.Repr"}.AsFloat()
+}
+func (_Value__Repr) AsString() (string, error) {
+	return mixins.Map{"dagcosmos.Value.Repr"}.AsString()
+}
+func (_Value__Repr) AsBytes() ([]byte, error) {
+	return mixins.Map{"dagcosmos.Value.Repr"}.AsBytes()
+}
+func (_Value__Repr) AsLink() (ipld.Link, error) {
+	return mixins.Map{"dagcosmos.Value.Repr"}.AsLink()
+}
+func (_Value__Repr) Prototype() ipld.NodePrototype {
+	return _Value__ReprPrototype{}
+}
+
+type _Value__ReprPrototype struct{}
+
+func (_Value__ReprPrototype) NewBuilder() ipld.NodeBuilder {
+	var nb _Value__ReprBuilder
+	nb.Reset()
+	return &nb
+}
+
+type _Value__ReprBuilder struct {
+	_Value__ReprAssembler
+}
+
+func (nb *_Value__ReprBuilder) Build() ipld.Node {
+	if *nb.m != schema.Maybe_Value {
+		panic("invalid state: cannot call Build on an assembler that's not finished")
+	}
+	return nb.w
+}
+func (nb *_Value__ReprBuilder) Reset() {
+	var w _Value
+	var m schema.Maybe
+	*nb = _Value__ReprBuilder{_Value__ReprAssembler{w: &w, m: &m}}
+}
+
+type _Value__ReprAssembler struct {
+	w     *_Value
+	m     *schema.Maybe
+	state maState
+
+	cm  schema.Maybe
+	ca1 _Link__ReprAssembler
+
+	ca2 _Bytes__ReprAssembler
+	ca  uint
+}
+
+func (na *_Value__ReprAssembler) reset() {
+	na.state = maState_initial
+	switch na.ca {
+	case 0:
+		return
+	case 1:
+		na.ca1.reset()
+
+	case 2:
+		na.ca2.reset()
+	default:
+		panic("unreachable")
+	}
+	na.ca = 0
+	na.cm = schema.Maybe_Absent
+}
+func (na *_Value__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
+	switch *na.m {
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
+	}
+	*na.m = midvalue
+	if na.w == nil {
+		na.w = &_Value{}
+	}
+	return na, nil
+}
+func (_Value__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.MapAssembler{"dagcosmos.Value.Repr"}.BeginList(0)
+}
+func (na *_Value__ReprAssembler) AssignNull() error {
+	switch *na.m {
+	case allowNull:
+		*na.m = schema.Maybe_Null
+		return nil
+	case schema.Maybe_Absent:
+		return mixins.MapAssembler{"dagcosmos.Value.Repr.Repr"}.AssignNull()
+	case schema.Maybe_Value, schema.Maybe_Null:
+		panic("invalid state: cannot assign into assembler that's already finished")
+	case midvalue:
+		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+	}
+	panic("unreachable")
+}
+func (_Value__ReprAssembler) AssignBool(bool) error {
+	return mixins.MapAssembler{"dagcosmos.Value.Repr"}.AssignBool(false)
+}
+func (_Value__ReprAssembler) AssignInt(int64) error {
+	return mixins.MapAssembler{"dagcosmos.Value.Repr"}.AssignInt(0)
+}
+func (_Value__ReprAssembler) AssignFloat(float64) error {
+	return mixins.MapAssembler{"dagcosmos.Value.Repr"}.AssignFloat(0)
+}
+func (_Value__ReprAssembler) AssignString(string) error {
+	return mixins.MapAssembler{"dagcosmos.Value.Repr"}.AssignString("")
+}
+func (_Value__ReprAssembler) AssignBytes([]byte) error {
+	return mixins.MapAssembler{"dagcosmos.Value.Repr"}.AssignBytes(nil)
+}
+func (_Value__ReprAssembler) AssignLink(ipld.Link) error {
+	return mixins.MapAssembler{"dagcosmos.Value.Repr"}.AssignLink(nil)
+}
+func (na *_Value__ReprAssembler) AssignNode(v ipld.Node) error {
+	if v.IsNull() {
+		return na.AssignNull()
+	}
+	if v2, ok := v.(*_Value); ok {
+		switch *na.m {
+		case schema.Maybe_Value, schema.Maybe_Null:
+			panic("invalid state: cannot assign into assembler that's already finished")
+		case midvalue:
+			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
+		}
+		if na.w == nil {
+			na.w = v2
+			*na.m = schema.Maybe_Value
+			return nil
+		}
+		*na.w = *v2
+		*na.m = schema.Maybe_Value
+		return nil
+	}
+	if v.Kind() != ipld.Kind_Map {
+		return ipld.ErrWrongKind{TypeName: "dagcosmos.Value.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
+	}
+	itr := v.MapIterator()
+	for !itr.Done() {
+		k, v, err := itr.Next()
+		if err != nil {
+			return err
+		}
+		if err := na.AssembleKey().AssignNode(k); err != nil {
+			return err
+		}
+		if err := na.AssembleValue().AssignNode(v); err != nil {
+			return err
+		}
+	}
+	return na.Finish()
+}
+func (_Value__ReprAssembler) Prototype() ipld.NodePrototype {
+	return _Value__ReprPrototype{}
+}
+func (ma *_Value__ReprAssembler) valueFinishTidy() bool {
+	switch ma.cm {
+	case schema.Maybe_Value:
+		ma.state = maState_initial
+		return true
+	default:
+		return false
+	}
+}
+func (ma *_Value__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly.
+	case maState_finished:
+		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
+	}
+	if ma.ca != 0 {
+		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.Value.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "commit":
+		ma.state = maState_midValue
+		ma.ca = 1
+		ma.w.tag = 1
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1, nil
+	case "header":
+		ma.state = maState_midValue
+		ma.ca = 2
+		ma.w.tag = 2
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2, nil
+	}
+	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.Value.Repr", Key: &_String{k}}
+}
+func (ma *_Value__ReprAssembler) AssembleKey() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
+	case maState_expectValue:
+		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on for the moment, but we'll still be erroring shortly... or rather, the keyassembler will be.
+	case maState_finished:
+		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midKey
+	return (*_Value__ReprKeyAssembler)(ma)
+}
+func (ma *_Value__ReprAssembler) AssembleValue() ipld.NodeAssembler {
+	switch ma.state {
+	case maState_initial:
+		panic("invalid state: AssembleValue cannot be called when no key is primed")
+	case maState_midKey:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		// carry on
+	case maState_midValue:
+		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
+	case maState_finished:
+		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
+	}
+	ma.state = maState_midValue
+	switch ma.ca {
+	case 0:
+		ma.ca1.w = &ma.w.x1
+		ma.ca1.m = &ma.cm
+		return &ma.ca1
+	case 1:
+		ma.ca2.w = &ma.w.x2
+		ma.ca2.m = &ma.cm
+		return &ma.ca2
+	default:
+		panic("unreachable")
+	}
+}
+func (ma *_Value__ReprAssembler) Finish() error {
+	switch ma.state {
+	case maState_initial:
+		// carry on
+	case maState_midKey:
+		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
+	case maState_expectValue:
+		panic("invalid state: Finish cannot be called when expecting start of value assembly")
+	case maState_midValue:
+		if !ma.valueFinishTidy() {
+			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
+		} // if tidy success: carry on
+	case maState_finished:
+		panic("invalid state: Finish cannot be called on an assembler that's already finished")
+	}
+	if ma.ca == 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.Value.Repr", Detail: "a union must have exactly one entry (not none)!"}
+	}
+	ma.state = maState_finished
+	*ma.m = schema.Maybe_Value
+	return nil
+}
+func (ma *_Value__ReprAssembler) KeyPrototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+func (ma *_Value__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
+	switch k {
+	case "Link":
+		return _Link__ReprPrototype{}
+	case "Bytes":
+		return _Bytes__ReprPrototype{}
+	default:
+		return nil
+	}
+}
+
+type _Value__ReprKeyAssembler _Value__ReprAssembler
+
+func (_Value__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.Value.Repr.KeyAssembler"}.BeginMap(0)
+}
+func (_Value__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
+	return mixins.StringAssembler{"dagcosmos.Value.Repr.KeyAssembler"}.BeginList(0)
+}
+func (na *_Value__ReprKeyAssembler) AssignNull() error {
+	return mixins.StringAssembler{"dagcosmos.Value.Repr.KeyAssembler"}.AssignNull()
+}
+func (_Value__ReprKeyAssembler) AssignBool(bool) error {
+	return mixins.StringAssembler{"dagcosmos.Value.Repr.KeyAssembler"}.AssignBool(false)
+}
+func (_Value__ReprKeyAssembler) AssignInt(int64) error {
+	return mixins.StringAssembler{"dagcosmos.Value.Repr.KeyAssembler"}.AssignInt(0)
+}
+func (_Value__ReprKeyAssembler) AssignFloat(float64) error {
+	return mixins.StringAssembler{"dagcosmos.Value.Repr.KeyAssembler"}.AssignFloat(0)
+}
+func (ka *_Value__ReprKeyAssembler) AssignString(k string) error {
+	if ka.state != maState_midKey {
+		panic("misuse: KeyAssembler held beyond its valid lifetime")
+	}
+	if ka.ca != 0 {
+		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.Value.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
+	}
+	switch k {
+	case "result":
+		ka.ca = 1
+		ka.w.tag = 1
+		ka.state = maState_expectValue
+		return nil
+	case "header":
+		ka.ca = 2
+		ka.w.tag = 2
+		ka.state = maState_expectValue
+		return nil
+	}
+	return ipld.ErrInvalidKey{TypeName: "dagcosmos.Value.Repr", Key: &_String{k}} // TODO: error quality: ErrInvalidUnionDiscriminant ?
+}
+func (_Value__ReprKeyAssembler) AssignBytes([]byte) error {
+	return mixins.StringAssembler{"dagcosmos.Value.Repr.KeyAssembler"}.AssignBytes(nil)
+}
+func (_Value__ReprKeyAssembler) AssignLink(ipld.Link) error {
+	return mixins.StringAssembler{"dagcosmos.Value.Repr.KeyAssembler"}.AssignLink(nil)
+}
+func (ka *_Value__ReprKeyAssembler) AssignNode(v ipld.Node) error {
+	if v2, err := v.AsString(); err != nil {
+		return err
+	} else {
+		return ka.AssignString(v2)
+	}
+}
+func (_Value__ReprKeyAssembler) Prototype() ipld.NodePrototype {
+	return _String__Prototype{}
+}
+
 func (n _Version) FieldBlock() Uint {
 	return &n.Block
 }
@@ -43539,842 +41064,6 @@ func (ka *_Version__ReprKeyAssembler) AssignNode(v ipld.Node) error {
 	}
 }
 func (_Version__ReprKeyAssembler) Prototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-
-func (n _VersionParams) FieldAppVersion() Uint {
-	return &n.AppVersion
-}
-
-type _VersionParams__Maybe struct {
-	m schema.Maybe
-	v VersionParams
-}
-type MaybeVersionParams = *_VersionParams__Maybe
-
-func (m MaybeVersionParams) IsNull() bool {
-	return m.m == schema.Maybe_Null
-}
-func (m MaybeVersionParams) IsAbsent() bool {
-	return m.m == schema.Maybe_Absent
-}
-func (m MaybeVersionParams) Exists() bool {
-	return m.m == schema.Maybe_Value
-}
-func (m MaybeVersionParams) AsNode() ipld.Node {
-	switch m.m {
-	case schema.Maybe_Absent:
-		return ipld.Absent
-	case schema.Maybe_Null:
-		return ipld.Null
-	case schema.Maybe_Value:
-		return m.v
-	default:
-		panic("unreachable")
-	}
-}
-func (m MaybeVersionParams) Must() VersionParams {
-	if !m.Exists() {
-		panic("unbox of a maybe rejected")
-	}
-	return m.v
-}
-
-var (
-	fieldName__VersionParams_AppVersion = _String{"AppVersion"}
-)
-var _ ipld.Node = (VersionParams)(&_VersionParams{})
-var _ schema.TypedNode = (VersionParams)(&_VersionParams{})
-
-func (VersionParams) Kind() ipld.Kind {
-	return ipld.Kind_Map
-}
-func (n VersionParams) LookupByString(key string) (ipld.Node, error) {
-	switch key {
-	case "AppVersion":
-		return &n.AppVersion, nil
-	default:
-		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
-	}
-}
-func (n VersionParams) LookupByNode(key ipld.Node) (ipld.Node, error) {
-	ks, err := key.AsString()
-	if err != nil {
-		return nil, err
-	}
-	return n.LookupByString(ks)
-}
-func (VersionParams) LookupByIndex(idx int64) (ipld.Node, error) {
-	return mixins.Map{"dagcosmos.VersionParams"}.LookupByIndex(0)
-}
-func (n VersionParams) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
-	return n.LookupByString(seg.String())
-}
-func (n VersionParams) MapIterator() ipld.MapIterator {
-	return &_VersionParams__MapItr{n, 0}
-}
-
-type _VersionParams__MapItr struct {
-	n   VersionParams
-	idx int
-}
-
-func (itr *_VersionParams__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
-	if itr.idx >= 1 {
-		return nil, nil, ipld.ErrIteratorOverread{}
-	}
-	switch itr.idx {
-	case 0:
-		k = &fieldName__VersionParams_AppVersion
-		v = &itr.n.AppVersion
-	default:
-		panic("unreachable")
-	}
-	itr.idx++
-	return
-}
-func (itr *_VersionParams__MapItr) Done() bool {
-	return itr.idx >= 1
-}
-
-func (VersionParams) ListIterator() ipld.ListIterator {
-	return nil
-}
-func (VersionParams) Length() int64 {
-	return 1
-}
-func (VersionParams) IsAbsent() bool {
-	return false
-}
-func (VersionParams) IsNull() bool {
-	return false
-}
-func (VersionParams) AsBool() (bool, error) {
-	return mixins.Map{"dagcosmos.VersionParams"}.AsBool()
-}
-func (VersionParams) AsInt() (int64, error) {
-	return mixins.Map{"dagcosmos.VersionParams"}.AsInt()
-}
-func (VersionParams) AsFloat() (float64, error) {
-	return mixins.Map{"dagcosmos.VersionParams"}.AsFloat()
-}
-func (VersionParams) AsString() (string, error) {
-	return mixins.Map{"dagcosmos.VersionParams"}.AsString()
-}
-func (VersionParams) AsBytes() ([]byte, error) {
-	return mixins.Map{"dagcosmos.VersionParams"}.AsBytes()
-}
-func (VersionParams) AsLink() (ipld.Link, error) {
-	return mixins.Map{"dagcosmos.VersionParams"}.AsLink()
-}
-func (VersionParams) Prototype() ipld.NodePrototype {
-	return _VersionParams__Prototype{}
-}
-
-type _VersionParams__Prototype struct{}
-
-func (_VersionParams__Prototype) NewBuilder() ipld.NodeBuilder {
-	var nb _VersionParams__Builder
-	nb.Reset()
-	return &nb
-}
-
-type _VersionParams__Builder struct {
-	_VersionParams__Assembler
-}
-
-func (nb *_VersionParams__Builder) Build() ipld.Node {
-	if *nb.m != schema.Maybe_Value {
-		panic("invalid state: cannot call Build on an assembler that's not finished")
-	}
-	return nb.w
-}
-func (nb *_VersionParams__Builder) Reset() {
-	var w _VersionParams
-	var m schema.Maybe
-	*nb = _VersionParams__Builder{_VersionParams__Assembler{w: &w, m: &m}}
-}
-
-type _VersionParams__Assembler struct {
-	w     *_VersionParams
-	m     *schema.Maybe
-	state maState
-	s     int
-	f     int
-
-	cm            schema.Maybe
-	ca_AppVersion _Uint__Assembler
-}
-
-func (na *_VersionParams__Assembler) reset() {
-	na.state = maState_initial
-	na.s = 0
-	na.ca_AppVersion.reset()
-}
-
-var (
-	fieldBit__VersionParams_AppVersion  = 1 << 0
-	fieldBits__VersionParams_sufficient = 0 + 1<<0
-)
-
-func (na *_VersionParams__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
-	switch *na.m {
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
-	}
-	*na.m = midvalue
-	if na.w == nil {
-		na.w = &_VersionParams{}
-	}
-	return na, nil
-}
-func (_VersionParams__Assembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.MapAssembler{"dagcosmos.VersionParams"}.BeginList(0)
-}
-func (na *_VersionParams__Assembler) AssignNull() error {
-	switch *na.m {
-	case allowNull:
-		*na.m = schema.Maybe_Null
-		return nil
-	case schema.Maybe_Absent:
-		return mixins.MapAssembler{"dagcosmos.VersionParams"}.AssignNull()
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-	}
-	panic("unreachable")
-}
-func (_VersionParams__Assembler) AssignBool(bool) error {
-	return mixins.MapAssembler{"dagcosmos.VersionParams"}.AssignBool(false)
-}
-func (_VersionParams__Assembler) AssignInt(int64) error {
-	return mixins.MapAssembler{"dagcosmos.VersionParams"}.AssignInt(0)
-}
-func (_VersionParams__Assembler) AssignFloat(float64) error {
-	return mixins.MapAssembler{"dagcosmos.VersionParams"}.AssignFloat(0)
-}
-func (_VersionParams__Assembler) AssignString(string) error {
-	return mixins.MapAssembler{"dagcosmos.VersionParams"}.AssignString("")
-}
-func (_VersionParams__Assembler) AssignBytes([]byte) error {
-	return mixins.MapAssembler{"dagcosmos.VersionParams"}.AssignBytes(nil)
-}
-func (_VersionParams__Assembler) AssignLink(ipld.Link) error {
-	return mixins.MapAssembler{"dagcosmos.VersionParams"}.AssignLink(nil)
-}
-func (na *_VersionParams__Assembler) AssignNode(v ipld.Node) error {
-	if v.IsNull() {
-		return na.AssignNull()
-	}
-	if v2, ok := v.(*_VersionParams); ok {
-		switch *na.m {
-		case schema.Maybe_Value, schema.Maybe_Null:
-			panic("invalid state: cannot assign into assembler that's already finished")
-		case midvalue:
-			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-		}
-		if na.w == nil {
-			na.w = v2
-			*na.m = schema.Maybe_Value
-			return nil
-		}
-		*na.w = *v2
-		*na.m = schema.Maybe_Value
-		return nil
-	}
-	if v.Kind() != ipld.Kind_Map {
-		return ipld.ErrWrongKind{TypeName: "dagcosmos.VersionParams", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
-	}
-	itr := v.MapIterator()
-	for !itr.Done() {
-		k, v, err := itr.Next()
-		if err != nil {
-			return err
-		}
-		if err := na.AssembleKey().AssignNode(k); err != nil {
-			return err
-		}
-		if err := na.AssembleValue().AssignNode(v); err != nil {
-			return err
-		}
-	}
-	return na.Finish()
-}
-func (_VersionParams__Assembler) Prototype() ipld.NodePrototype {
-	return _VersionParams__Prototype{}
-}
-func (ma *_VersionParams__Assembler) valueFinishTidy() bool {
-	switch ma.f {
-	case 0:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.ca_AppVersion.w = nil
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_VersionParams__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
-	}
-	switch k {
-	case "AppVersion":
-		if ma.s&fieldBit__VersionParams_AppVersion != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__VersionParams_AppVersion}
-		}
-		ma.s += fieldBit__VersionParams_AppVersion
-		ma.state = maState_midValue
-		ma.f = 0
-		ma.ca_AppVersion.w = &ma.w.AppVersion
-		ma.ca_AppVersion.m = &ma.cm
-		return &ma.ca_AppVersion, nil
-	}
-	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.VersionParams", Key: &_String{k}}
-}
-func (ma *_VersionParams__Assembler) AssembleKey() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midKey
-	return (*_VersionParams__KeyAssembler)(ma)
-}
-func (ma *_VersionParams__Assembler) AssembleValue() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		panic("invalid state: AssembleValue cannot be called when no key is primed")
-	case maState_midKey:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		// carry on
-	case maState_midValue:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
-	case maState_finished:
-		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midValue
-	switch ma.f {
-	case 0:
-		ma.ca_AppVersion.w = &ma.w.AppVersion
-		ma.ca_AppVersion.m = &ma.cm
-		return &ma.ca_AppVersion
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_VersionParams__Assembler) Finish() error {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		panic("invalid state: Finish cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: Finish cannot be called on an assembler that's already finished")
-	}
-	if ma.s&fieldBits__VersionParams_sufficient != fieldBits__VersionParams_sufficient {
-		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__VersionParams_AppVersion == 0 {
-			err.Missing = append(err.Missing, "AppVersion")
-		}
-		return err
-	}
-	ma.state = maState_finished
-	*ma.m = schema.Maybe_Value
-	return nil
-}
-func (ma *_VersionParams__Assembler) KeyPrototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-func (ma *_VersionParams__Assembler) ValuePrototype(k string) ipld.NodePrototype {
-	panic("todo structbuilder mapassembler valueprototype")
-}
-
-type _VersionParams__KeyAssembler _VersionParams__Assembler
-
-func (_VersionParams__KeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.KeyAssembler"}.BeginMap(0)
-}
-func (_VersionParams__KeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.KeyAssembler"}.BeginList(0)
-}
-func (na *_VersionParams__KeyAssembler) AssignNull() error {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.KeyAssembler"}.AssignNull()
-}
-func (_VersionParams__KeyAssembler) AssignBool(bool) error {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.KeyAssembler"}.AssignBool(false)
-}
-func (_VersionParams__KeyAssembler) AssignInt(int64) error {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.KeyAssembler"}.AssignInt(0)
-}
-func (_VersionParams__KeyAssembler) AssignFloat(float64) error {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.KeyAssembler"}.AssignFloat(0)
-}
-func (ka *_VersionParams__KeyAssembler) AssignString(k string) error {
-	if ka.state != maState_midKey {
-		panic("misuse: KeyAssembler held beyond its valid lifetime")
-	}
-	switch k {
-	case "AppVersion":
-		if ka.s&fieldBit__VersionParams_AppVersion != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__VersionParams_AppVersion}
-		}
-		ka.s += fieldBit__VersionParams_AppVersion
-		ka.state = maState_expectValue
-		ka.f = 0
-	default:
-		return ipld.ErrInvalidKey{TypeName: "dagcosmos.VersionParams", Key: &_String{k}}
-	}
-	return nil
-}
-func (_VersionParams__KeyAssembler) AssignBytes([]byte) error {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.KeyAssembler"}.AssignBytes(nil)
-}
-func (_VersionParams__KeyAssembler) AssignLink(ipld.Link) error {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.KeyAssembler"}.AssignLink(nil)
-}
-func (ka *_VersionParams__KeyAssembler) AssignNode(v ipld.Node) error {
-	if v2, err := v.AsString(); err != nil {
-		return err
-	} else {
-		return ka.AssignString(v2)
-	}
-}
-func (_VersionParams__KeyAssembler) Prototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-func (VersionParams) Type() schema.Type {
-	return nil /*TODO:typelit*/
-}
-func (n VersionParams) Representation() ipld.Node {
-	return (*_VersionParams__Repr)(n)
-}
-
-type _VersionParams__Repr _VersionParams
-
-var (
-	fieldName__VersionParams_AppVersion_serial = _String{"AppVersion"}
-)
-var _ ipld.Node = &_VersionParams__Repr{}
-
-func (_VersionParams__Repr) Kind() ipld.Kind {
-	return ipld.Kind_Map
-}
-func (n *_VersionParams__Repr) LookupByString(key string) (ipld.Node, error) {
-	switch key {
-	case "AppVersion":
-		return n.AppVersion.Representation(), nil
-	default:
-		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
-	}
-}
-func (n *_VersionParams__Repr) LookupByNode(key ipld.Node) (ipld.Node, error) {
-	ks, err := key.AsString()
-	if err != nil {
-		return nil, err
-	}
-	return n.LookupByString(ks)
-}
-func (_VersionParams__Repr) LookupByIndex(idx int64) (ipld.Node, error) {
-	return mixins.Map{"dagcosmos.VersionParams.Repr"}.LookupByIndex(0)
-}
-func (n _VersionParams__Repr) LookupBySegment(seg ipld.PathSegment) (ipld.Node, error) {
-	return n.LookupByString(seg.String())
-}
-func (n *_VersionParams__Repr) MapIterator() ipld.MapIterator {
-	return &_VersionParams__ReprMapItr{n, 0}
-}
-
-type _VersionParams__ReprMapItr struct {
-	n   *_VersionParams__Repr
-	idx int
-}
-
-func (itr *_VersionParams__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
-	if itr.idx >= 1 {
-		return nil, nil, ipld.ErrIteratorOverread{}
-	}
-	switch itr.idx {
-	case 0:
-		k = &fieldName__VersionParams_AppVersion_serial
-		v = itr.n.AppVersion.Representation()
-	default:
-		panic("unreachable")
-	}
-	itr.idx++
-	return
-}
-func (itr *_VersionParams__ReprMapItr) Done() bool {
-	return itr.idx >= 1
-}
-func (_VersionParams__Repr) ListIterator() ipld.ListIterator {
-	return nil
-}
-func (rn *_VersionParams__Repr) Length() int64 {
-	l := 1
-	return int64(l)
-}
-func (_VersionParams__Repr) IsAbsent() bool {
-	return false
-}
-func (_VersionParams__Repr) IsNull() bool {
-	return false
-}
-func (_VersionParams__Repr) AsBool() (bool, error) {
-	return mixins.Map{"dagcosmos.VersionParams.Repr"}.AsBool()
-}
-func (_VersionParams__Repr) AsInt() (int64, error) {
-	return mixins.Map{"dagcosmos.VersionParams.Repr"}.AsInt()
-}
-func (_VersionParams__Repr) AsFloat() (float64, error) {
-	return mixins.Map{"dagcosmos.VersionParams.Repr"}.AsFloat()
-}
-func (_VersionParams__Repr) AsString() (string, error) {
-	return mixins.Map{"dagcosmos.VersionParams.Repr"}.AsString()
-}
-func (_VersionParams__Repr) AsBytes() ([]byte, error) {
-	return mixins.Map{"dagcosmos.VersionParams.Repr"}.AsBytes()
-}
-func (_VersionParams__Repr) AsLink() (ipld.Link, error) {
-	return mixins.Map{"dagcosmos.VersionParams.Repr"}.AsLink()
-}
-func (_VersionParams__Repr) Prototype() ipld.NodePrototype {
-	return _VersionParams__ReprPrototype{}
-}
-
-type _VersionParams__ReprPrototype struct{}
-
-func (_VersionParams__ReprPrototype) NewBuilder() ipld.NodeBuilder {
-	var nb _VersionParams__ReprBuilder
-	nb.Reset()
-	return &nb
-}
-
-type _VersionParams__ReprBuilder struct {
-	_VersionParams__ReprAssembler
-}
-
-func (nb *_VersionParams__ReprBuilder) Build() ipld.Node {
-	if *nb.m != schema.Maybe_Value {
-		panic("invalid state: cannot call Build on an assembler that's not finished")
-	}
-	return nb.w
-}
-func (nb *_VersionParams__ReprBuilder) Reset() {
-	var w _VersionParams
-	var m schema.Maybe
-	*nb = _VersionParams__ReprBuilder{_VersionParams__ReprAssembler{w: &w, m: &m}}
-}
-
-type _VersionParams__ReprAssembler struct {
-	w     *_VersionParams
-	m     *schema.Maybe
-	state maState
-	s     int
-	f     int
-
-	cm            schema.Maybe
-	ca_AppVersion _Uint__ReprAssembler
-}
-
-func (na *_VersionParams__ReprAssembler) reset() {
-	na.state = maState_initial
-	na.s = 0
-	na.ca_AppVersion.reset()
-}
-func (na *_VersionParams__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
-	switch *na.m {
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: it makes no sense to 'begin' twice on the same assembler!")
-	}
-	*na.m = midvalue
-	if na.w == nil {
-		na.w = &_VersionParams{}
-	}
-	return na, nil
-}
-func (_VersionParams__ReprAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.MapAssembler{"dagcosmos.VersionParams.Repr"}.BeginList(0)
-}
-func (na *_VersionParams__ReprAssembler) AssignNull() error {
-	switch *na.m {
-	case allowNull:
-		*na.m = schema.Maybe_Null
-		return nil
-	case schema.Maybe_Absent:
-		return mixins.MapAssembler{"dagcosmos.VersionParams.Repr.Repr"}.AssignNull()
-	case schema.Maybe_Value, schema.Maybe_Null:
-		panic("invalid state: cannot assign into assembler that's already finished")
-	case midvalue:
-		panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-	}
-	panic("unreachable")
-}
-func (_VersionParams__ReprAssembler) AssignBool(bool) error {
-	return mixins.MapAssembler{"dagcosmos.VersionParams.Repr"}.AssignBool(false)
-}
-func (_VersionParams__ReprAssembler) AssignInt(int64) error {
-	return mixins.MapAssembler{"dagcosmos.VersionParams.Repr"}.AssignInt(0)
-}
-func (_VersionParams__ReprAssembler) AssignFloat(float64) error {
-	return mixins.MapAssembler{"dagcosmos.VersionParams.Repr"}.AssignFloat(0)
-}
-func (_VersionParams__ReprAssembler) AssignString(string) error {
-	return mixins.MapAssembler{"dagcosmos.VersionParams.Repr"}.AssignString("")
-}
-func (_VersionParams__ReprAssembler) AssignBytes([]byte) error {
-	return mixins.MapAssembler{"dagcosmos.VersionParams.Repr"}.AssignBytes(nil)
-}
-func (_VersionParams__ReprAssembler) AssignLink(ipld.Link) error {
-	return mixins.MapAssembler{"dagcosmos.VersionParams.Repr"}.AssignLink(nil)
-}
-func (na *_VersionParams__ReprAssembler) AssignNode(v ipld.Node) error {
-	if v.IsNull() {
-		return na.AssignNull()
-	}
-	if v2, ok := v.(*_VersionParams); ok {
-		switch *na.m {
-		case schema.Maybe_Value, schema.Maybe_Null:
-			panic("invalid state: cannot assign into assembler that's already finished")
-		case midvalue:
-			panic("invalid state: cannot assign null into an assembler that's already begun working on recursive structures!")
-		}
-		if na.w == nil {
-			na.w = v2
-			*na.m = schema.Maybe_Value
-			return nil
-		}
-		*na.w = *v2
-		*na.m = schema.Maybe_Value
-		return nil
-	}
-	if v.Kind() != ipld.Kind_Map {
-		return ipld.ErrWrongKind{TypeName: "dagcosmos.VersionParams.Repr", MethodName: "AssignNode", AppropriateKind: ipld.KindSet_JustMap, ActualKind: v.Kind()}
-	}
-	itr := v.MapIterator()
-	for !itr.Done() {
-		k, v, err := itr.Next()
-		if err != nil {
-			return err
-		}
-		if err := na.AssembleKey().AssignNode(k); err != nil {
-			return err
-		}
-		if err := na.AssembleValue().AssignNode(v); err != nil {
-			return err
-		}
-	}
-	return na.Finish()
-}
-func (_VersionParams__ReprAssembler) Prototype() ipld.NodePrototype {
-	return _VersionParams__ReprPrototype{}
-}
-func (ma *_VersionParams__ReprAssembler) valueFinishTidy() bool {
-	switch ma.f {
-	case 0:
-		switch ma.cm {
-		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
-			ma.state = maState_initial
-			return true
-		default:
-			return false
-		}
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_VersionParams__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, error) {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleEntry cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleEntry cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleEntry cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
-	}
-	switch k {
-	case "AppVersion":
-		if ma.s&fieldBit__VersionParams_AppVersion != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__VersionParams_AppVersion_serial}
-		}
-		ma.s += fieldBit__VersionParams_AppVersion
-		ma.state = maState_midValue
-		ma.f = 0
-		ma.ca_AppVersion.w = &ma.w.AppVersion
-		ma.ca_AppVersion.m = &ma.cm
-		return &ma.ca_AppVersion, nil
-	default:
-	}
-	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.VersionParams.Repr", Key: &_String{k}}
-}
-func (ma *_VersionParams__ReprAssembler) AssembleKey() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: AssembleKey cannot be called when in the middle of assembling another key")
-	case maState_expectValue:
-		panic("invalid state: AssembleKey cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: AssembleKey cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: AssembleKey cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midKey
-	return (*_VersionParams__ReprKeyAssembler)(ma)
-}
-func (ma *_VersionParams__ReprAssembler) AssembleValue() ipld.NodeAssembler {
-	switch ma.state {
-	case maState_initial:
-		panic("invalid state: AssembleValue cannot be called when no key is primed")
-	case maState_midKey:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		// carry on
-	case maState_midValue:
-		panic("invalid state: AssembleValue cannot be called when in the middle of assembling another value")
-	case maState_finished:
-		panic("invalid state: AssembleValue cannot be called on an assembler that's already finished")
-	}
-	ma.state = maState_midValue
-	switch ma.f {
-	case 0:
-		ma.ca_AppVersion.w = &ma.w.AppVersion
-		ma.ca_AppVersion.m = &ma.cm
-		return &ma.ca_AppVersion
-	default:
-		panic("unreachable")
-	}
-}
-func (ma *_VersionParams__ReprAssembler) Finish() error {
-	switch ma.state {
-	case maState_initial:
-		// carry on
-	case maState_midKey:
-		panic("invalid state: Finish cannot be called when in the middle of assembling a key")
-	case maState_expectValue:
-		panic("invalid state: Finish cannot be called when expecting start of value assembly")
-	case maState_midValue:
-		if !ma.valueFinishTidy() {
-			panic("invalid state: Finish cannot be called when in the middle of assembling a value")
-		} // if tidy success: carry on
-	case maState_finished:
-		panic("invalid state: Finish cannot be called on an assembler that's already finished")
-	}
-	if ma.s&fieldBits__VersionParams_sufficient != fieldBits__VersionParams_sufficient {
-		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__VersionParams_AppVersion == 0 {
-			err.Missing = append(err.Missing, "AppVersion")
-		}
-		return err
-	}
-	ma.state = maState_finished
-	*ma.m = schema.Maybe_Value
-	return nil
-}
-func (ma *_VersionParams__ReprAssembler) KeyPrototype() ipld.NodePrototype {
-	return _String__Prototype{}
-}
-func (ma *_VersionParams__ReprAssembler) ValuePrototype(k string) ipld.NodePrototype {
-	panic("todo structbuilder mapassembler repr valueprototype")
-}
-
-type _VersionParams__ReprKeyAssembler _VersionParams__ReprAssembler
-
-func (_VersionParams__ReprKeyAssembler) BeginMap(sizeHint int64) (ipld.MapAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.Repr.KeyAssembler"}.BeginMap(0)
-}
-func (_VersionParams__ReprKeyAssembler) BeginList(sizeHint int64) (ipld.ListAssembler, error) {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.Repr.KeyAssembler"}.BeginList(0)
-}
-func (na *_VersionParams__ReprKeyAssembler) AssignNull() error {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.Repr.KeyAssembler"}.AssignNull()
-}
-func (_VersionParams__ReprKeyAssembler) AssignBool(bool) error {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.Repr.KeyAssembler"}.AssignBool(false)
-}
-func (_VersionParams__ReprKeyAssembler) AssignInt(int64) error {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.Repr.KeyAssembler"}.AssignInt(0)
-}
-func (_VersionParams__ReprKeyAssembler) AssignFloat(float64) error {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.Repr.KeyAssembler"}.AssignFloat(0)
-}
-func (ka *_VersionParams__ReprKeyAssembler) AssignString(k string) error {
-	if ka.state != maState_midKey {
-		panic("misuse: KeyAssembler held beyond its valid lifetime")
-	}
-	switch k {
-	case "AppVersion":
-		if ka.s&fieldBit__VersionParams_AppVersion != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__VersionParams_AppVersion_serial}
-		}
-		ka.s += fieldBit__VersionParams_AppVersion
-		ka.state = maState_expectValue
-		ka.f = 0
-		return nil
-	}
-	return ipld.ErrInvalidKey{TypeName: "dagcosmos.VersionParams.Repr", Key: &_String{k}}
-}
-func (_VersionParams__ReprKeyAssembler) AssignBytes([]byte) error {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.Repr.KeyAssembler"}.AssignBytes(nil)
-}
-func (_VersionParams__ReprKeyAssembler) AssignLink(ipld.Link) error {
-	return mixins.StringAssembler{"dagcosmos.VersionParams.Repr.KeyAssembler"}.AssignLink(nil)
-}
-func (ka *_VersionParams__ReprKeyAssembler) AssignNode(v ipld.Node) error {
-	if v2, err := v.AsString(); err != nil {
-		return err
-	} else {
-		return ka.AssignString(v2)
-	}
-}
-func (_VersionParams__ReprKeyAssembler) Prototype() ipld.NodePrototype {
 	return _String__Prototype{}
 }
 
