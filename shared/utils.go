@@ -318,12 +318,8 @@ func UnpackCommit(cma ipld.MapAssembler, c types.Commit) error {
 	if err != nil {
 		return err
 	}
-	for i, commitSig := range c.Signatures {
-		commitSigNB := sigsLA.ValuePrototype(int64(i)).NewBuilder()
-		if err := commit.DecodeCommitSig(commitSigNB, commitSig); err != nil {
-			return err
-		}
-		if err := sigsLA.AssembleValue().AssignNode(commitSigNB.Build()); err != nil {
+	for _, commitSig := range c.Signatures {
+		if err := commit.DecodeCommitSig(sigsLA.AssembleValue(), commitSig); err != nil {
 			return err
 		}
 	}
@@ -462,6 +458,67 @@ func PackVote(voteNode ipld.Node) (*types.Vote, error) {
 	}
 	vote.Signature = sig
 	return vote, nil
+}
+
+// UnpackVote unpacks Vote into MapAssembler
+func UnpackVote(vma ipld.MapAssembler, vote types.Vote) error {
+	if err := vma.AssembleKey().AssignString("Type"); err != nil {
+		return err
+	}
+	if err := vma.AssembleValue().AssignInt(int64(vote.Type)); err != nil {
+		return err
+	}
+	if err := vma.AssembleKey().AssignString("Height"); err != nil {
+		return err
+	}
+	if err := vma.AssembleValue().AssignInt(vote.Height); err != nil {
+		return err
+	}
+	if err := vma.AssembleKey().AssignString("Round"); err != nil {
+		return err
+	}
+	if err := vma.AssembleValue().AssignInt(int64(vote.Round)); err != nil {
+		return err
+	}
+	if err := vma.AssembleKey().AssignString("BlockID"); err != nil {
+		return err
+	}
+	biMA, err := vma.AssembleValue().BeginMap(2)
+	if err != nil {
+		return err
+	}
+	if err := UnpackBlockID(biMA, vote.BlockID); err != nil {
+		return err
+	}
+	if err := vma.AssembleKey().AssignString("Timestamp"); err != nil {
+		return err
+	}
+	tiMA, err := vma.AssembleValue().BeginMap(2)
+	if err != nil {
+		return err
+	}
+	if err := UnpackTime(tiMA, vote.Timestamp); err != nil {
+		return err
+	}
+	if err := vma.AssembleKey().AssignString("ValidatorAddress"); err != nil {
+		return err
+	}
+	if err := vma.AssembleValue().AssignBytes(vote.ValidatorAddress); err != nil {
+		return err
+	}
+	if err := vma.AssembleKey().AssignString("ValidatorIndex"); err != nil {
+		return err
+	}
+	if err := vma.AssembleValue().AssignInt(int64(vote.ValidatorIndex)); err != nil {
+		return err
+	}
+	if err := vma.AssembleKey().AssignString("Signature"); err != nil {
+		return err
+	}
+	if err := vma.AssembleValue().AssignBytes(vote.Signature); err != nil {
+		return err
+	}
+	return vma.Finish()
 }
 
 // CdcEncode returns nil if the input is nil, otherwise returns

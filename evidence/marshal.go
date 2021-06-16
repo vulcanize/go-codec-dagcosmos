@@ -4,20 +4,17 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/vulcanize/go-codec-dagcosmos/light_block"
-
-	"github.com/vulcanize/go-codec-dagcosmos/shared"
-
 	"github.com/ipld/go-ipld-prime"
 	"github.com/tendermint/tendermint/types"
 
 	dagcosmos "github.com/vulcanize/go-codec-dagcosmos"
+	"github.com/vulcanize/go-codec-dagcosmos/light_block"
+	"github.com/vulcanize/go-codec-dagcosmos/shared"
 )
 
 type EvidenceKind string
 
 const (
-	UNKNOWN_NODE       EvidenceKind = "unknown"
 	LIGHT_EVIDENCE     EvidenceKind = "light"
 	DUPLICATE_EVIDENCE EvidenceKind = "duplicate"
 )

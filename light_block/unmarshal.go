@@ -74,11 +74,7 @@ func unpackSignedHeader(ma ipld.MapAssembler, lb types.LightBlock) error {
 	if err := shMA.AssembleKey().AssignString("Header"); err != nil {
 		return err
 	}
-	headerNode := shMA.AssembleValue().Prototype().NewBuilder()
-	if err := header.DecodeHeader(headerNode, *lb.Header); err != nil {
-		return err
-	}
-	if err := shMA.AssembleValue().AssignNode(headerNode.Build()); err != nil {
+	if err := header.DecodeHeader(shMA.AssembleValue(), *lb.Header); err != nil {
 		return err
 	}
 	if err := shMA.AssembleKey().AssignString("Commit"); err != nil {
