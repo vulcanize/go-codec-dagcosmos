@@ -1,4 +1,4 @@
-package header
+package commit
 
 import (
 	"io"
@@ -27,11 +27,11 @@ func init() {
 }
 
 // AddSupportToChooser takes an existing node prototype chooser and subs in
-// Header for the tendermint header multicodec code.
+// CommitSig for the tendermint commit multicodec code.
 func AddSupportToChooser(existing traversal.LinkTargetNodePrototypeChooser) traversal.LinkTargetNodePrototypeChooser {
 	return func(lnk ipld.Link, lnkCtx ipld.LinkContext) (ipld.NodePrototype, error) {
 		if lnk, ok := lnk.(cidlink.Link); ok && lnk.Cid.Prefix().Codec == MultiCodecType {
-			return dagcosmos.Type.Header, nil
+			return dagcosmos.Type.CommitSig, nil
 		}
 		return existing(lnk, lnkCtx)
 	}

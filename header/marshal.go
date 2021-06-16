@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"io"
 
-	gogotypes "github.com/gogo/protobuf/types"
+	"github.com/vulcanize/go-codec-dagcosmos/shared"
+
 	"github.com/ipld/go-ipld-prime"
 	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
 	"github.com/multiformats/go-multihash"
@@ -108,7 +109,7 @@ func CollectLeafNodes(node ipld.Node) ([]ipld.Node, error) {
 
 }
 */
-// EncodeHeader packs the node into the provided go-ethereum Header
+// EncodeHeader packs the node into the provided Tendermint Header
 func EncodeHeader(header *types.Header, inNode ipld.Node) error {
 	// Wrap in a typed node for some basic schema form checking
 	builder := dagcosmos.Type.Header.NewBuilder()
@@ -200,27 +201,7 @@ func packTime(h *types.Header, node ipld.Node) error {
 	if err != nil {
 		return err
 	}
-	secondsNode, err := timeNode.LookupByString("Seconds")
-	if err != nil {
-		return err
-	}
-	seconds, err := secondsNode.AsInt()
-	if err != nil {
-		return err
-	}
-	nanoSecondsNode, err := timeNode.LookupByString("Nanoseconds")
-	if err != nil {
-		return err
-	}
-	nanoSeconds, err := nanoSecondsNode.AsInt()
-	if err != nil {
-		return err
-	}
-	timestamp := &gogotypes.Timestamp{
-		Seconds: seconds,
-		Nanos:   int32(nanoSeconds),
-	}
-	time, err := gogotypes.TimestampFromProto(timestamp)
+	time, err := shared.PackTime(timeNode)
 	if err != nil {
 		return err
 	}
@@ -233,62 +214,11 @@ func packLastBlockID(h *types.Header, node ipld.Node) error {
 	if err != nil {
 		return err
 	}
-	headerHashNode, err := lbidNode.LookupByString("Hash")
+	blockID, err := shared.PackBlockID(lbidNode)
 	if err != nil {
 		return err
 	}
-	headerLink, err := headerHashNode.AsLink()
-	if err != nil {
-		return err
-	}
-	headerCIDLink, ok := headerLink.(cidlink.Link)
-	if !ok {
-		return fmt.Errorf("header must have a Hash link")
-	}
-	headerMh := headerCIDLink.Hash()
-	decodedHeaderMh, err := multihash.Decode(headerMh)
-	if err != nil {
-		return fmt.Errorf("unable to decode header Hash multihash: %v", err)
-	}
-
-	partSetHeaderNode, err := lbidNode.LookupByString("PartSetHeader")
-	if err != nil {
-		return err
-	}
-	totalNode, err := partSetHeaderNode.LookupByString("Total")
-	if err != nil {
-		return err
-	}
-	totalBytes, err := totalNode.AsBytes()
-	if err != nil {
-		return err
-	}
-
-	partHashNode, err := partSetHeaderNode.LookupByString("Hash")
-	if err != nil {
-		return err
-	}
-	partTreeLink, err := partHashNode.AsLink()
-	if err != nil {
-		return err
-	}
-	partTreeCIDLink, ok := partTreeLink.(cidlink.Link)
-	if !ok {
-		return fmt.Errorf("header PartSetHeader must have a Hash link")
-	}
-	partTreeMh := partTreeCIDLink.Hash()
-	decodedPartTreeMh, err := multihash.Decode(partTreeMh)
-	if err != nil {
-		return fmt.Errorf("unable to decode header PartSetHeader Hash multihash: %v", err)
-	}
-
-	h.LastBlockID = types.BlockID{
-		Hash: decodedHeaderMh.Digest,
-		PartSetHeader: types.PartSetHeader{
-			Total: binary.BigEndian.Uint32(totalBytes),
-			Hash:  decodedPartTreeMh.Digest,
-		},
-	}
+	h.LastBlockID = blockID
 	return nil
 }
 
