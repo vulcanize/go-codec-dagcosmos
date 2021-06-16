@@ -21460,7 +21460,7 @@ func (_MerkleTreeNode__Repr) Kind() ipld.Kind {
 }
 func (n *_MerkleTreeNode__Repr) LookupByString(key string) (ipld.Node, error) {
 	switch key {
-	case "root":
+	case "inner":
 		if n.tag != 1 {
 			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
 		}
@@ -34257,10 +34257,10 @@ var _ ipld.Node = &_String__Repr{}
 type _String__ReprPrototype = _String__Prototype
 type _String__ReprAssembler = _String__Assembler
 
-func (n _Time) FieldSeconds() Uint {
+func (n _Time) FieldSeconds() Int {
 	return &n.Seconds
 }
-func (n _Time) FieldNanoseconds() Uint {
+func (n _Time) FieldNanoseconds() Int {
 	return &n.Nanoseconds
 }
 
@@ -34427,8 +34427,8 @@ type _Time__Assembler struct {
 	f     int
 
 	cm             schema.Maybe
-	ca_Seconds     _Uint__Assembler
-	ca_Nanoseconds _Uint__Assembler
+	ca_Seconds     _Int__Assembler
+	ca_Nanoseconds _Int__Assembler
 }
 
 func (na *_Time__Assembler) reset() {
@@ -34876,8 +34876,8 @@ type _Time__ReprAssembler struct {
 	f     int
 
 	cm             schema.Maybe
-	ca_Seconds     _Uint__ReprAssembler
-	ca_Nanoseconds _Uint__ReprAssembler
+	ca_Seconds     _Int__ReprAssembler
+	ca_Nanoseconds _Int__ReprAssembler
 }
 
 func (na *_Time__ReprAssembler) reset() {
