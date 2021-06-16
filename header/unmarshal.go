@@ -39,11 +39,11 @@ func DecodeBytes(na ipld.NodeAssembler, src []byte) error {
 	if err := hp.Unmarshal(src); err != nil {
 		return err
 	}
-	return DecodeParams(na, hp)
+	return DecodeHeader(na, hp)
 }
 
-// DecodeParams is like Decode, but it uses an input tendermint Header type
-func DecodeParams(na ipld.NodeAssembler, hp types.Header) error {
+// DecodeHeader is like Decode, but it uses an input tendermint Header type
+func DecodeHeader(na ipld.NodeAssembler, hp types.Header) error {
 	ma, err := na.BeginMap(15)
 	if err != nil {
 		return err
