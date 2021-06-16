@@ -54,7 +54,7 @@ func DecodeBytes(na ipld.NodeAssembler, src []byte) error {
 
 // DecodeLightEvidence is like Decode, but it uses an input tendermint LightClientAttackEvidence type
 func DecodeLightEvidence(na ipld.NodeAssembler, e types.LightClientAttackEvidence) error {
-	ma, err := na.BeginMap(15)
+	ma, err := na.BeginMap(5)
 	if err != nil {
 		return err
 	}
@@ -68,7 +68,7 @@ func DecodeLightEvidence(na ipld.NodeAssembler, e types.LightClientAttackEvidenc
 
 // DecodeDuplicateEvidence is like Decode, but it uses an input tendermint DuplicateVoteEvidence type
 func DecodeDuplicateEvidence(na ipld.NodeAssembler, e types.DuplicateVoteEvidence) error {
-	ma, err := na.BeginMap(15)
+	ma, err := na.BeginMap(5)
 	if err != nil {
 		return err
 	}

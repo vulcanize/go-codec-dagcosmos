@@ -32,13 +32,12 @@ func Decode(na ipld.NodeAssembler, in io.Reader) error {
 // Decode will grab or read all the bytes from an io.Reader anyway, so this can
 // save having to copy the bytes or create a bytes.Buffer.
 func DecodeBytes(na ipld.NodeAssembler, src []byte) error {
-	var pcs tmproto.CommitSig
-
+	pcs := new(tmproto.CommitSig)
 	if err := pcs.Unmarshal(src); err != nil {
 		return err
 	}
 	cs := new(types.CommitSig)
-	if err := cs.FromProto(pcs); err != nil {
+	if err := cs.FromProto(*pcs); err != nil {
 		return err
 	}
 	return DecodeCommitSig(na, *cs)
@@ -46,7 +45,7 @@ func DecodeBytes(na ipld.NodeAssembler, src []byte) error {
 
 // DecodeCommitSig is like Decode, but it uses an input tendermint CommitSig type
 func DecodeCommitSig(na ipld.NodeAssembler, cs types.CommitSig) error {
-	ma, err := na.BeginMap(15)
+	ma, err := na.BeginMap(4)
 	if err != nil {
 		return err
 	}

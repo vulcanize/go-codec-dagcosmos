@@ -29,16 +29,16 @@ func Decode(na ipld.NodeAssembler, in io.Reader) error {
 // Decode will grab or read all the bytes from an io.Reader anyway, so this can
 // save having to copy the bytes or create a bytes.Buffer.
 func DecodeBytes(na ipld.NodeAssembler, src []byte) error {
-	var hp types.HashedParams
+	hp := new(types.HashedParams)
 	if err := hp.Unmarshal(src); err != nil {
 		return err
 	}
-	return DecodeParams(na, hp)
+	return DecodeParams(na, *hp)
 }
 
 // DecodeParams is like Decode, but it uses an input tendermint HashedParams type
 func DecodeParams(na ipld.NodeAssembler, hp types.HashedParams) error {
-	ma, err := na.BeginMap(15)
+	ma, err := na.BeginMap(2)
 	if err != nil {
 		return err
 	}

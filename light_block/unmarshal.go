@@ -46,7 +46,7 @@ func DecodeBytes(na ipld.NodeAssembler, src []byte) error {
 
 // DecodeLightBlock is like Decode, but it uses an input tendermint LightBlock type
 func DecodeLightBlock(na ipld.NodeAssembler, lb types.LightBlock) error {
-	ma, err := na.BeginMap(15)
+	ma, err := na.BeginMap(2)
 	if err != nil {
 		return err
 	}

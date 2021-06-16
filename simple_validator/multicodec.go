@@ -27,11 +27,11 @@ func init() {
 }
 
 // AddSupportToChooser takes an existing node prototype chooser and subs in
-// ResponseDeliverTx for the tendermint result multicodec code.
+// SimpleValidator for the tendermint params multicodec code.
 func AddSupportToChooser(existing traversal.LinkTargetNodePrototypeChooser) traversal.LinkTargetNodePrototypeChooser {
 	return func(lnk ipld.Link, lnkCtx ipld.LinkContext) (ipld.NodePrototype, error) {
 		if lnk, ok := lnk.(cidlink.Link); ok && lnk.Cid.Prefix().Codec == MultiCodecType {
-			return dagcosmos.Type.ResponseDeliverTx, nil
+			return dagcosmos.Type.SimpleValidator, nil
 		}
 		return existing(lnk, lnkCtx)
 	}

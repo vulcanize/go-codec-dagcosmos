@@ -49,7 +49,7 @@ func DecodeBytes(na ipld.NodeAssembler, src []byte) error {
 
 // DecodeHeader is like Decode, but it uses an input tendermint Header type
 func DecodeHeader(na ipld.NodeAssembler, hp types.Header) error {
-	ma, err := na.BeginMap(15)
+	ma, err := na.BeginMap(14)
 	if err != nil {
 		return err
 	}
