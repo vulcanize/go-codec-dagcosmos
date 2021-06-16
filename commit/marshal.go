@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/vulcanize/go-codec-dagcosmos/shared"
-
 	"github.com/ipld/go-ipld-prime"
 	"github.com/tendermint/tendermint/types"
 
 	dagcosmos "github.com/vulcanize/go-codec-dagcosmos"
+	"github.com/vulcanize/go-codec-dagcosmos/shared"
 )
 
 // Encode provides an IPLD codec encode interface for Tendermint CommitSig IPLDs.

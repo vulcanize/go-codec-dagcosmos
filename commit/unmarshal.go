@@ -4,10 +4,11 @@ import (
 	"io"
 	"io/ioutil"
 
-	gogotypes "github.com/gogo/protobuf/types"
 	"github.com/ipld/go-ipld-prime"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	"github.com/tendermint/tendermint/types"
+
+	"github.com/vulcanize/go-codec-dagcosmos/shared"
 )
 
 // Decode provides an IPLD codec decode interface for Cosmos CommitSig IPLDs.
@@ -86,23 +87,7 @@ func unpackTimestamp(ma ipld.MapAssembler, cs types.CommitSig) error {
 	if err != nil {
 		return err
 	}
-	timestamp, err := gogotypes.TimestampProto(cs.Timestamp)
-	if err != nil {
-		return err
-	}
-	if err := tma.AssembleKey().AssignString("Seconds"); err != nil {
-		return err
-	}
-	if err := tma.AssembleValue().AssignInt(timestamp.Seconds); err != nil {
-		return err
-	}
-	if err := tma.AssembleKey().AssignString("Nanoseconds"); err != nil {
-		return err
-	}
-	if err := tma.AssembleValue().AssignInt(int64(timestamp.Nanos)); err != nil {
-		return err
-	}
-	return tma.Finish()
+	return shared.UnpackTime(tma, cs.Timestamp)
 }
 
 func unpackSignature(ma ipld.MapAssembler, cs types.CommitSig) error {
