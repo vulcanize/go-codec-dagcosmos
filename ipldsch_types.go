@@ -478,8 +478,8 @@ type _String struct{ x string }
 // Time matches the IPLD Schema type "Time".  It has Struct type-kind, and may be interrogated like map kind.
 type Time = *_Time
 type _Time struct {
-	Seconds     _Uint
-	Nanoseconds _Uint
+	Seconds     _Int
+	Nanoseconds _Int
 }
 
 // Tx matches the IPLD Schema type "Tx".  It has list kind.

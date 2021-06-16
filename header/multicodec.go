@@ -1,4 +1,4 @@
-package params
+package header
 
 import (
 	"io"
@@ -31,7 +31,7 @@ func init() {
 func AddSupportToChooser(existing traversal.LinkTargetNodePrototypeChooser) traversal.LinkTargetNodePrototypeChooser {
 	return func(lnk ipld.Link, lnkCtx ipld.LinkContext) (ipld.NodePrototype, error) {
 		if lnk, ok := lnk.(cidlink.Link); ok && lnk.Cid.Prefix().Codec == MultiCodecType {
-			return dagcosmos.Type.HashedParams, nil
+			return dagcosmos.Type.Header, nil
 		}
 		return existing(lnk, lnkCtx)
 	}

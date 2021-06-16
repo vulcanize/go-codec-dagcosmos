@@ -59,8 +59,8 @@ func accumulateBasicTypes(ts *schema.TypeSystem) {
 
 		# Time represents a unix timestamp with nanosecond granularity
 		type Time struct {
-			Seconds Uint
-			Nanoseconds Uint
+			Seconds Int
+			Nanoseconds Int
 		}
 
 		# Version captures the consensus rules for processing a block in the blockchain,
@@ -83,8 +83,8 @@ func accumulateBasicTypes(ts *schema.TypeSystem) {
 	ts.Accumulate(schema.SpawnBytes("Duration"))
 	ts.Accumulate(schema.SpawnStruct("Time",
 		[]schema.StructField{
-			schema.SpawnStructField("Seconds", "Uint", false, false),
-			schema.SpawnStructField("Nanoseconds", "Uint", false, false),
+			schema.SpawnStructField("Seconds", "Int", false, false),
+			schema.SpawnStructField("Nanoseconds", "Int", false, false),
 		},
 		schema.SpawnStructRepresentationMap(nil),
 	))
