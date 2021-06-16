@@ -5,13 +5,14 @@ import (
 	"io"
 	"io/ioutil"
 
-	gogotypes "github.com/gogo/protobuf/types"
 	"github.com/ipfs/go-cid"
+	"github.com/ipld/go-ipld-prime"
 	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
 	"github.com/multiformats/go-multihash"
+	tmtypes "github.com/tendermint/tendermint/proto/tendermint/types"
+	"github.com/tendermint/tendermint/types"
 
-	"github.com/ipld/go-ipld-prime"
-	"github.com/tendermint/tendermint/proto/tendermint/types"
+	"github.com/vulcanize/go-codec-dagcosmos/shared"
 )
 
 // Decode provides an IPLD codec decode interface for Cosmos Header IPLDs.
@@ -35,11 +36,15 @@ func Decode(na ipld.NodeAssembler, in io.Reader) error {
 // Decode will grab or read all the bytes from an io.Reader anyway, so this can
 // save having to copy the bytes or create a bytes.Buffer.
 func DecodeBytes(na ipld.NodeAssembler, src []byte) error {
-	var hp types.Header
-	if err := hp.Unmarshal(src); err != nil {
+	tmh := new(tmtypes.Header)
+	if err := tmh.Unmarshal(src); err != nil {
 		return err
 	}
-	return DecodeHeader(na, hp)
+	h, err := types.HeaderFromProto(tmh)
+	if err != nil {
+		return err
+	}
+	return DecodeHeader(na, h)
 }
 
 // DecodeHeader is like Decode, but it uses an input tendermint Header type
@@ -122,23 +127,7 @@ func unpackTime(ma ipld.MapAssembler, h types.Header) error {
 	if err != nil {
 		return err
 	}
-	timestamp, err := gogotypes.TimestampProto(h.Time)
-	if err != nil {
-		return err
-	}
-	if err := tma.AssembleKey().AssignString("Seconds"); err != nil {
-		return err
-	}
-	if err := tma.AssembleValue().AssignInt(timestamp.Seconds); err != nil {
-		return err
-	}
-	if err := tma.AssembleKey().AssignString("Nanoseconds"); err != nil {
-		return err
-	}
-	if err := tma.AssembleValue().AssignInt(int64(timestamp.Nanos)); err != nil {
-		return err
-	}
-	return tma.Finish()
+	return shared.UnpackTime(tma, h.Time)
 }
 
 func unpackLastBlockID(ma ipld.MapAssembler, h types.Header) error {
@@ -149,51 +138,7 @@ func unpackLastBlockID(ma ipld.MapAssembler, h types.Header) error {
 	if err != nil {
 		return err
 	}
-	if err := lbaMa.AssembleKey().AssignString("Hash"); err != nil {
-		return err
-	}
-	headerMh, err := multihash.Encode(h.LastBlockId.Hash, MultiHashType)
-	if err != nil {
-		return err
-	}
-	// TODO: switch to use HeaderTree codec type?
-	headerCID := cid.NewCidV1(MultiCodecType, headerMh)
-	headerLinkCID := cidlink.Link{Cid: headerCID}
-	if err := lbaMa.AssembleValue().AssignLink(headerLinkCID); err != nil {
-		return err
-	}
-	if err := lbaMa.AssembleKey().AssignString("PartSetHeader"); err != nil {
-		return err
-	}
-	pshMa, err := lbaMa.AssembleValue().BeginMap(2)
-	if err != nil {
-		return err
-	}
-	if err := pshMa.AssembleKey().AssignString("Total"); err != nil {
-		return err
-	}
-	totalBytes := make([]byte, 4)
-	binary.BigEndian.PutUint32(totalBytes, h.LastBlockId.PartSetHeader.Total)
-	if err := pshMa.AssembleValue().AssignBytes(totalBytes); err != nil {
-		return err
-	}
-	if err := pshMa.AssembleKey().AssignString("Hash"); err != nil {
-		return err
-	}
-	partMh, err := multihash.Encode(h.LastBlockId.PartSetHeader.Hash, MultiHashType)
-	if err != nil {
-		return err
-	}
-	// TODO: switch to use PartTree codec type
-	partCID := cid.NewCidV1(MultiCodecType, partMh)
-	partLinkCID := cidlink.Link{Cid: partCID}
-	if err := pshMa.AssembleValue().AssignLink(partLinkCID); err != nil {
-		return err
-	}
-	if err := pshMa.Finish(); err != nil {
-		return err
-	}
-	return lbaMa.Finish()
+	return shared.UnpackBlockID(lbaMa, h.LastBlockID)
 }
 
 func unpackLastCommitHash(ma ipld.MapAssembler, h types.Header) error {

@@ -6,20 +6,19 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/vulcanize/go-codec-dagcosmos/commit"
+	"github.com/ipfs/go-cid"
 
-	"github.com/tendermint/tendermint/crypto/encoding"
-
+	gogotypes "github.com/gogo/protobuf/types"
+	"github.com/ipld/go-ipld-prime"
 	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
 	"github.com/multiformats/go-multihash"
+	"github.com/tendermint/tendermint/crypto/encoding"
+	"github.com/tendermint/tendermint/libs/bytes"
 	pc "github.com/tendermint/tendermint/proto/tendermint/crypto"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	"github.com/tendermint/tendermint/types"
 
-	gogotypes "github.com/gogo/protobuf/types"
-	"github.com/tendermint/tendermint/libs/bytes"
-
-	"github.com/ipld/go-ipld-prime"
+	"github.com/vulcanize/go-codec-dagcosmos/commit"
 )
 
 func GetTxType(node ipld.Node) (uint8, error) {
@@ -104,6 +103,55 @@ func PackBlockID(node ipld.Node) (types.BlockID, error) {
 	}, nil
 }
 
+// UnpackBlockID unpacks BlockID into MapAssembler
+func UnpackBlockID(bima ipld.MapAssembler, bid types.BlockID) error {
+	if err := bima.AssembleKey().AssignString("Hash"); err != nil {
+		return err
+	}
+	headerMh, err := multihash.Encode(bid.Hash, multihash.SHA2_256)
+	if err != nil {
+		return err
+	}
+	// TODO: switch to use HeaderTree codec type?
+	headerCID := cid.NewCidV1(cid.DagCBOR, headerMh)
+	headerLinkCID := cidlink.Link{Cid: headerCID}
+	if err := bima.AssembleValue().AssignLink(headerLinkCID); err != nil {
+		return err
+	}
+	if err := bima.AssembleKey().AssignString("PartSetHeader"); err != nil {
+		return err
+	}
+	pshMa, err := bima.AssembleValue().BeginMap(2)
+	if err != nil {
+		return err
+	}
+	if err := pshMa.AssembleKey().AssignString("Total"); err != nil {
+		return err
+	}
+	totalBytes := make([]byte, 4)
+	binary.BigEndian.PutUint32(totalBytes, bid.PartSetHeader.Total)
+	if err := pshMa.AssembleValue().AssignBytes(totalBytes); err != nil {
+		return err
+	}
+	if err := pshMa.AssembleKey().AssignString("Hash"); err != nil {
+		return err
+	}
+	partMh, err := multihash.Encode(bid.PartSetHeader.Hash, multihash.SHA2_256)
+	if err != nil {
+		return err
+	}
+	// TODO: switch to use PartTree codec type
+	partCID := cid.NewCidV1(cid.DagCBOR, partMh)
+	partLinkCID := cidlink.Link{Cid: partCID}
+	if err := pshMa.AssembleValue().AssignLink(partLinkCID); err != nil {
+		return err
+	}
+	if err := pshMa.Finish(); err != nil {
+		return err
+	}
+	return bima.Finish()
+}
+
 // PackValidator packs a Validator from the provided ipld.Node
 func PackValidator(validatorNode ipld.Node) (*types.Validator, error) {
 	addrNode, err := validatorNode.LookupByString("Address")
@@ -154,6 +202,43 @@ func PackValidator(validatorNode ipld.Node) (*types.Validator, error) {
 	}, nil
 }
 
+// UnpackValidator unpacks Validator into MapAssembler
+func UnpackValidator(vama ipld.MapAssembler, validator types.Validator) error {
+	if err := vama.AssembleKey().AssignString("Address"); err != nil {
+		return err
+	}
+	if err := vama.AssembleValue().AssignBytes(validator.Address); err != nil {
+		return err
+	}
+	if err := vama.AssembleKey().AssignString("PubKey"); err != nil {
+		return err
+	}
+	tmpk, err := encoding.PubKeyToProto(validator.PubKey)
+	if err != nil {
+		return err
+	}
+	tmpkBytes, err := tmpk.Marshal()
+	if err != nil {
+		return err
+	}
+	if err := vama.AssembleValue().AssignBytes(tmpkBytes); err != nil {
+		return err
+	}
+	if err := vama.AssembleKey().AssignString("VotingPower"); err != nil {
+		return err
+	}
+	if err := vama.AssembleValue().AssignInt(validator.VotingPower); err != nil {
+		return err
+	}
+	if err := vama.AssembleKey().AssignString("ProposerPriority"); err != nil {
+		return err
+	}
+	if err := vama.AssembleValue().AssignInt(validator.ProposerPriority); err != nil {
+		return err
+	}
+	return vama.Finish()
+}
+
 // PackCommit packs a Commit from the provided ipld.Node
 func PackCommit(commitNode ipld.Node) (*types.Commit, error) {
 	heightNode, err := commitNode.LookupByString("Height")
@@ -202,6 +287,52 @@ func PackCommit(commitNode ipld.Node) (*types.Commit, error) {
 	}, nil
 }
 
+// UnpackCommit unpacks Commit into NodeAssembler
+func UnpackCommit(cma ipld.MapAssembler, c types.Commit) error {
+	if err := cma.AssembleKey().AssignString("Height"); err != nil {
+		return err
+	}
+	if err := cma.AssembleValue().AssignInt(c.Height); err != nil {
+		return err
+	}
+	if err := cma.AssembleKey().AssignString("Round"); err != nil {
+		return err
+	}
+	if err := cma.AssembleValue().AssignInt(int64(c.Round)); err != nil {
+		return err
+	}
+	if err := cma.AssembleKey().AssignString("BlockID"); err != nil {
+		return err
+	}
+	bidMA, err := cma.AssembleValue().BeginMap(2)
+	if err != nil {
+		return err
+	}
+	if err := UnpackBlockID(bidMA, c.BlockID); err != nil {
+		return err
+	}
+	if err := cma.AssembleKey().AssignString("Signatures"); err != nil {
+		return err
+	}
+	sigsLA, err := cma.AssembleValue().BeginList(int64(len(c.Signatures)))
+	if err != nil {
+		return err
+	}
+	for i, commitSig := range c.Signatures {
+		commitSigNB := sigsLA.ValuePrototype(int64(i)).NewBuilder()
+		if err := commit.DecodeCommitSig(commitSigNB, commitSig); err != nil {
+			return err
+		}
+		if err := sigsLA.AssembleValue().AssignNode(commitSigNB.Build()); err != nil {
+			return err
+		}
+	}
+	if err := sigsLA.Finish(); err != nil {
+		return err
+	}
+	return cma.Finish()
+}
+
 // PackTime returns the timestamp from the provided ipld.Node
 func PackTime(timeNode ipld.Node) (time.Time, error) {
 	secondsNode, err := timeNode.LookupByString("Seconds")
@@ -225,6 +356,27 @@ func PackTime(timeNode ipld.Node) (time.Time, error) {
 		Nanos:   int32(nanoSeconds),
 	}
 	return gogotypes.TimestampFromProto(timestamp)
+}
+
+// UnpackTime unpacks the provided time into the MapAssembler
+func UnpackTime(tma ipld.MapAssembler, t time.Time) error {
+	timestamp, err := gogotypes.TimestampProto(t)
+	if err != nil {
+		return err
+	}
+	if err := tma.AssembleKey().AssignString("Seconds"); err != nil {
+		return err
+	}
+	if err := tma.AssembleValue().AssignInt(timestamp.Seconds); err != nil {
+		return err
+	}
+	if err := tma.AssembleKey().AssignString("Nanoseconds"); err != nil {
+		return err
+	}
+	if err := tma.AssembleValue().AssignInt(int64(timestamp.Nanos)); err != nil {
+		return err
+	}
+	return tma.Finish()
 }
 
 // PackVote returns the Vote from the provided ipld.Node
