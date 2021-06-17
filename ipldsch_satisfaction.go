@@ -21460,7 +21460,7 @@ func (_MerkleTreeNode__Repr) Kind() ipld.Kind {
 }
 func (n *_MerkleTreeNode__Repr) LookupByString(key string) (ipld.Node, error) {
 	switch key {
-	case "inner":
+	case "root":
 		if n.tag != 1 {
 			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
 		}

@@ -6,15 +6,14 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/vulcanize/go-codec-dagcosmos/shared"
+
 	"github.com/vulcanize/go-codec-dagcosmos/commit"
 	"github.com/vulcanize/go-codec-dagcosmos/evidence"
 	"github.com/vulcanize/go-codec-dagcosmos/result"
 	validator "github.com/vulcanize/go-codec-dagcosmos/simple_validator"
 
 	"github.com/ipld/go-ipld-prime"
-	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
-	"github.com/multiformats/go-multihash"
-
 	dagcosmos "github.com/vulcanize/go-codec-dagcosmos"
 )
 
@@ -103,7 +102,7 @@ func packInnerNode(node ipld.Node) ([]byte, error) {
 	if leftNode.IsNull() {
 		leftData = placeholder
 	} else {
-		leftData, err = leftNode.AsBytes()
+		leftData, err = shared.PackLink(leftNode)
 		if err != nil {
 			return nil, err
 		}
@@ -115,7 +114,7 @@ func packInnerNode(node ipld.Node) ([]byte, error) {
 	if rightNode.IsNull() {
 		rightData = placeholder
 	} else {
-		rightData, err = rightNode.AsBytes()
+		rightData, err = shared.PackLink(rightNode)
 		if err != nil {
 			return nil, err
 		}
@@ -152,20 +151,7 @@ func packValue(node ipld.Node) ([]byte, error) {
 	}
 	switch valKind {
 	case TX_VALUE:
-		txLink, err := valNode.AsLink()
-		if err != nil {
-			return nil, err
-		}
-		txCIDLink, ok := txLink.(cidlink.Link)
-		if !ok {
-			return nil, fmt.Errorf("tx link needs to be a CID")
-		}
-		txMh := txCIDLink.Hash()
-		decodedTxMh, err := multihash.Decode(txMh)
-		if err != nil {
-			return nil, fmt.Errorf("unable to decode Child multihash: %v", err)
-		}
-		return decodedTxMh.Digest, nil
+		return shared.PackLink(valNode)
 	case HEADER_VALUE, PART_VALUE:
 		// TODO: figure out how to handle header fields and fragmented blocks better than return raw binary for the values
 		// with header fields we know what type to unpack that value on only based on the position of the leaf in the tree
