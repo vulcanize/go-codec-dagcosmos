@@ -6,6 +6,11 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/vulcanize/go-codec-dagcosmos/commit"
+	"github.com/vulcanize/go-codec-dagcosmos/evidence"
+	"github.com/vulcanize/go-codec-dagcosmos/result"
+	validator "github.com/vulcanize/go-codec-dagcosmos/simple_validator"
+
 	"github.com/ipld/go-ipld-prime"
 	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
 	"github.com/multiformats/go-multihash"
@@ -161,35 +166,34 @@ func packValue(node ipld.Node) ([]byte, error) {
 			return nil, fmt.Errorf("unable to decode Child multihash: %v", err)
 		}
 		return decodedTxMh.Digest, nil
-	case HEADER_VALUE:
+	case HEADER_VALUE, PART_VALUE:
+		// TODO: figure out how to handle header fields and fragmented blocks better than return raw binary for the values
+		// with header fields we know what type to unpack that value on only based on the position of the leaf in the tree
+		// with block parts it is impossible to decode the values without collecting them all, concatenating the bytes in the order they
+		// appear in the leaf nodes, and unmarshalling the bytes into the Tendermint Block protobuf type since the slice size used to split the
+		// protobuf encoding up across the parts is arbitrary and individual fields can be fragmented across separate leaf nodes.
 		return valNode.AsBytes()
 	case VALIDATOR_VALUE:
 		buf := new(bytes.Buffer)
-		if err := dagcosmos_validator.Encode(valNode, buf); err != nil {
+		if err := validator.Encode(valNode, buf); err != nil {
 			return nil, err
 		}
 		return buf.Bytes(), nil
 	case RESULT_VALUE:
 		buf := new(bytes.Buffer)
-		if err := dagcosmos_result.Encode(valNode, buf); err != nil {
+		if err := result.Encode(valNode, buf); err != nil {
 			return nil, err
 		}
 		return buf.Bytes(), nil
 	case COMMIT_VALUE:
 		buf := new(bytes.Buffer)
-		if err := dagcosmos_commit.Encode(valNode, buf); err != nil {
-			return nil, err
-		}
-		return buf.Bytes(), nil
-	case PART_VALUE:
-		buf := new(bytes.Buffer)
-		if err := dagcosmos_part.Encode(valNode, buf); err != nil {
+		if err := commit.Encode(valNode, buf); err != nil {
 			return nil, err
 		}
 		return buf.Bytes(), nil
 	case EVIDENCE_VALUE:
 		buf := new(bytes.Buffer)
-		if err := dagcosmos_evidence.Encode(valNode, buf); err != nil {
+		if err := evidence.Encode(valNode, buf); err != nil {
 			return nil, err
 		}
 		return buf.Bytes(), nil

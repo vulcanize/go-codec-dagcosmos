@@ -6,6 +6,11 @@ import (
 	"io"
 	"io/ioutil"
 
+	"github.com/vulcanize/go-codec-dagcosmos/commit"
+	"github.com/vulcanize/go-codec-dagcosmos/evidence"
+	"github.com/vulcanize/go-codec-dagcosmos/result"
+	validator "github.com/vulcanize/go-codec-dagcosmos/simple_validator"
+
 	"github.com/ipfs/go-cid"
 	"github.com/ipld/go-ipld-prime"
 	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
@@ -14,7 +19,7 @@ import (
 
 // DecodeTrieNode provides an IPLD codec decode interface for cosmos merkle tree nodes
 // It's not possible to meet the Decode(na ipld.NodeAssembler, in io.Reader) interface
-// for a function that supports all trie types (multicodec types), unlike with encoding.
+// for a function that supports all tree types (multicodec types), unlike with encoding.
 // this is used by Decode functions for each tree type, which are the ones registered to their
 // corresponding multicodec
 func DecodeTrieNode(na ipld.NodeAssembler, in io.Reader, codec uint64) error {
@@ -133,29 +138,29 @@ func unpackValue(ma ipld.MapAssembler, val []byte, codec uint64) error {
 		if err := ma.AssembleKey().AssignString(VALIDATOR_VALUE.String()); err != nil {
 			return err
 		}
-		return dagcosmos_validator.DecodeBytes(ma.AssembleValue(), val)
-	case cid.TendermintPartTree:
-		if err := ma.AssembleKey().AssignString(PART_VALUE.String()); err != nil {
-			return err
-		}
-		return dagcosmos_part.DecodeBytes(ma.AssembleValue(), val)
+		return validator.DecodeBytes(ma.AssembleValue(), val)
 	case cid.TendermintResultTree:
 		if err := ma.AssembleKey().AssignString(RESULT_VALUE.String()); err != nil {
 			return err
 		}
-		return dagcosmos_result.DecodeBytes(ma.AssembleValue(), val)
+		return result.DecodeBytes(ma.AssembleValue(), val)
 	case cid.TendermintEvidenceTree:
 		if err := ma.AssembleKey().AssignString(EVIDENCE_VALUE.String()); err != nil {
 			return err
 		}
-		return dagcosmos_evidence.DecodeBytes(ma.AssembleValue(), val)
+		return evidence.DecodeBytes(ma.AssembleValue(), val)
 	case cid.TendermintCommitTree:
 		if err := ma.AssembleKey().AssignString(COMMIT_VALUE.String()); err != nil {
 			return err
 		}
-		return dagcosmos_commit.DecodeBytes(ma.AssembleValue(), val)
+		return commit.DecodeBytes(ma.AssembleValue(), val)
 	case cid.TendermintHeaderTree:
 		if err := ma.AssembleKey().AssignString(HEADER_VALUE.String()); err != nil {
+			return err
+		}
+		return ma.AssembleValue().AssignBytes(val)
+	case cid.TendermintPartTree:
+		if err := ma.AssembleKey().AssignString(PART_VALUE.String()); err != nil {
 			return err
 		}
 		return ma.AssembleValue().AssignBytes(val)
