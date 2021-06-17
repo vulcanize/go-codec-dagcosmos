@@ -153,6 +153,7 @@ func UnpackBlockID(bima ipld.MapAssembler, bid types.BlockID) error {
 }
 
 // PackValidator packs a Validator from the provided ipld.Node
+// This includes all fields of the Validator, not just the consensus fields
 func PackValidator(validatorNode ipld.Node) (*types.Validator, error) {
 	addrNode, err := validatorNode.LookupByString("Address")
 	if err != nil {
@@ -203,6 +204,7 @@ func PackValidator(validatorNode ipld.Node) (*types.Validator, error) {
 }
 
 // UnpackValidator unpacks Validator into MapAssembler
+// This includes all fields on the Validator, not just the consensus fields
 func UnpackValidator(vama ipld.MapAssembler, validator types.Validator) error {
 	if err := vama.AssembleKey().AssignString("Address"); err != nil {
 		return err

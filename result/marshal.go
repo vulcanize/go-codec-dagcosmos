@@ -10,7 +10,7 @@ import (
 	dagcosmos "github.com/vulcanize/go-codec-dagcosmos"
 )
 
-// Encode provides an IPLD codec encode interface for Result IPLDs.
+// Encode provides an IPLD codec encode interface for Tendermint Result IPLDs.
 // This function is registered via the go-ipld-prime link loader for multicodec
 // code XXXX when this package is invoked via init.
 func Encode(node ipld.Node, w io.Writer) error {
