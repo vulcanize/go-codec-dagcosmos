@@ -398,7 +398,7 @@ type _Proposal struct {
 	POLRound  _Int
 	BlockID   _BlockID
 	Timestamp _Time
-	Signature _Signature
+	ChainID   _String
 }
 
 // PubKey matches the IPLD Schema type "PubKey".  It has bytes kind.

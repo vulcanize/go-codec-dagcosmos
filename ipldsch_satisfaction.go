@@ -21718,7 +21718,7 @@ func (ma *_MerkleTreeNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAsse
 		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.MerkleTreeNode.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
 	}
 	switch k {
-	case "root":
+	case "inner":
 		ma.state = maState_midValue
 		ma.ca = 1
 		ma.w.tag = 1
@@ -25748,8 +25748,8 @@ func (n _Proposal) FieldBlockID() BlockID {
 func (n _Proposal) FieldTimestamp() Time {
 	return &n.Timestamp
 }
-func (n _Proposal) FieldSignature() Signature {
-	return &n.Signature
+func (n _Proposal) FieldChainID() String {
+	return &n.ChainID
 }
 
 type _Proposal__Maybe struct {
@@ -25793,7 +25793,7 @@ var (
 	fieldName__Proposal_POLRound  = _String{"POLRound"}
 	fieldName__Proposal_BlockID   = _String{"BlockID"}
 	fieldName__Proposal_Timestamp = _String{"Timestamp"}
-	fieldName__Proposal_Signature = _String{"Signature"}
+	fieldName__Proposal_ChainID   = _String{"ChainID"}
 )
 var _ ipld.Node = (Proposal)(&_Proposal{})
 var _ schema.TypedNode = (Proposal)(&_Proposal{})
@@ -25815,8 +25815,8 @@ func (n Proposal) LookupByString(key string) (ipld.Node, error) {
 		return &n.BlockID, nil
 	case "Timestamp":
 		return &n.Timestamp, nil
-	case "Signature":
-		return &n.Signature, nil
+	case "ChainID":
+		return &n.ChainID, nil
 	default:
 		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
 	}
@@ -25867,8 +25867,8 @@ func (itr *_Proposal__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
 		k = &fieldName__Proposal_Timestamp
 		v = &itr.n.Timestamp
 	case 6:
-		k = &fieldName__Proposal_Signature
-		v = &itr.n.Signature
+		k = &fieldName__Proposal_ChainID
+		v = &itr.n.ChainID
 	default:
 		panic("unreachable")
 	}
@@ -25951,7 +25951,7 @@ type _Proposal__Assembler struct {
 	ca_POLRound  _Int__Assembler
 	ca_BlockID   _BlockID__Assembler
 	ca_Timestamp _Time__Assembler
-	ca_Signature _Signature__Assembler
+	ca_ChainID   _String__Assembler
 }
 
 func (na *_Proposal__Assembler) reset() {
@@ -25963,7 +25963,7 @@ func (na *_Proposal__Assembler) reset() {
 	na.ca_POLRound.reset()
 	na.ca_BlockID.reset()
 	na.ca_Timestamp.reset()
-	na.ca_Signature.reset()
+	na.ca_ChainID.reset()
 }
 
 var (
@@ -25973,7 +25973,7 @@ var (
 	fieldBit__Proposal_POLRound    = 1 << 3
 	fieldBit__Proposal_BlockID     = 1 << 4
 	fieldBit__Proposal_Timestamp   = 1 << 5
-	fieldBit__Proposal_Signature   = 1 << 6
+	fieldBit__Proposal_ChainID     = 1 << 6
 	fieldBits__Proposal_sufficient = 0 + 1<<0 + 1<<1 + 1<<2 + 1<<3 + 1<<4 + 1<<5 + 1<<6
 )
 
@@ -26131,7 +26131,7 @@ func (ma *_Proposal__Assembler) valueFinishTidy() bool {
 	case 6:
 		switch ma.cm {
 		case schema.Maybe_Value:
-			ma.ca_Signature.w = nil
+			ma.ca_ChainID.w = nil
 			ma.cm = schema.Maybe_Absent
 			ma.state = maState_initial
 			return true
@@ -26218,16 +26218,16 @@ func (ma *_Proposal__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, err
 		ma.ca_Timestamp.w = &ma.w.Timestamp
 		ma.ca_Timestamp.m = &ma.cm
 		return &ma.ca_Timestamp, nil
-	case "Signature":
-		if ma.s&fieldBit__Proposal_Signature != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_Signature}
+	case "ChainID":
+		if ma.s&fieldBit__Proposal_ChainID != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_ChainID}
 		}
-		ma.s += fieldBit__Proposal_Signature
+		ma.s += fieldBit__Proposal_ChainID
 		ma.state = maState_midValue
 		ma.f = 6
-		ma.ca_Signature.w = &ma.w.Signature
-		ma.ca_Signature.m = &ma.cm
-		return &ma.ca_Signature, nil
+		ma.ca_ChainID.w = &ma.w.ChainID
+		ma.ca_ChainID.m = &ma.cm
+		return &ma.ca_ChainID, nil
 	}
 	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.Proposal", Key: &_String{k}}
 }
@@ -26289,9 +26289,9 @@ func (ma *_Proposal__Assembler) AssembleValue() ipld.NodeAssembler {
 		ma.ca_Timestamp.m = &ma.cm
 		return &ma.ca_Timestamp
 	case 6:
-		ma.ca_Signature.w = &ma.w.Signature
-		ma.ca_Signature.m = &ma.cm
-		return &ma.ca_Signature
+		ma.ca_ChainID.w = &ma.w.ChainID
+		ma.ca_ChainID.m = &ma.cm
+		return &ma.ca_ChainID
 	default:
 		panic("unreachable")
 	}
@@ -26331,8 +26331,8 @@ func (ma *_Proposal__Assembler) Finish() error {
 		if ma.s&fieldBit__Proposal_Timestamp == 0 {
 			err.Missing = append(err.Missing, "Timestamp")
 		}
-		if ma.s&fieldBit__Proposal_Signature == 0 {
-			err.Missing = append(err.Missing, "Signature")
+		if ma.s&fieldBit__Proposal_ChainID == 0 {
+			err.Missing = append(err.Missing, "ChainID")
 		}
 		return err
 	}
@@ -26414,11 +26414,11 @@ func (ka *_Proposal__KeyAssembler) AssignString(k string) error {
 		ka.s += fieldBit__Proposal_Timestamp
 		ka.state = maState_expectValue
 		ka.f = 5
-	case "Signature":
-		if ka.s&fieldBit__Proposal_Signature != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_Signature}
+	case "ChainID":
+		if ka.s&fieldBit__Proposal_ChainID != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_ChainID}
 		}
-		ka.s += fieldBit__Proposal_Signature
+		ka.s += fieldBit__Proposal_ChainID
 		ka.state = maState_expectValue
 		ka.f = 6
 	default:
@@ -26458,7 +26458,7 @@ var (
 	fieldName__Proposal_POLRound_serial  = _String{"POLRound"}
 	fieldName__Proposal_BlockID_serial   = _String{"BlockID"}
 	fieldName__Proposal_Timestamp_serial = _String{"Timestamp"}
-	fieldName__Proposal_Signature_serial = _String{"Signature"}
+	fieldName__Proposal_ChainID_serial   = _String{"ChainID"}
 )
 var _ ipld.Node = &_Proposal__Repr{}
 
@@ -26479,8 +26479,8 @@ func (n *_Proposal__Repr) LookupByString(key string) (ipld.Node, error) {
 		return n.BlockID.Representation(), nil
 	case "Timestamp":
 		return n.Timestamp.Representation(), nil
-	case "Signature":
-		return n.Signature.Representation(), nil
+	case "ChainID":
+		return n.ChainID.Representation(), nil
 	default:
 		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
 	}
@@ -26531,8 +26531,8 @@ func (itr *_Proposal__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
 		k = &fieldName__Proposal_Timestamp_serial
 		v = itr.n.Timestamp.Representation()
 	case 6:
-		k = &fieldName__Proposal_Signature_serial
-		v = itr.n.Signature.Representation()
+		k = &fieldName__Proposal_ChainID_serial
+		v = itr.n.ChainID.Representation()
 	default:
 		panic("unreachable")
 	}
@@ -26615,7 +26615,7 @@ type _Proposal__ReprAssembler struct {
 	ca_POLRound  _Int__ReprAssembler
 	ca_BlockID   _BlockID__ReprAssembler
 	ca_Timestamp _Time__ReprAssembler
-	ca_Signature _Signature__ReprAssembler
+	ca_ChainID   _String__ReprAssembler
 }
 
 func (na *_Proposal__ReprAssembler) reset() {
@@ -26627,7 +26627,7 @@ func (na *_Proposal__ReprAssembler) reset() {
 	na.ca_POLRound.reset()
 	na.ca_BlockID.reset()
 	na.ca_Timestamp.reset()
-	na.ca_Signature.reset()
+	na.ca_ChainID.reset()
 }
 func (na *_Proposal__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
 	switch *na.m {
@@ -26863,16 +26863,16 @@ func (ma *_Proposal__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler,
 		ma.ca_Timestamp.w = &ma.w.Timestamp
 		ma.ca_Timestamp.m = &ma.cm
 		return &ma.ca_Timestamp, nil
-	case "Signature":
-		if ma.s&fieldBit__Proposal_Signature != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_Signature_serial}
+	case "ChainID":
+		if ma.s&fieldBit__Proposal_ChainID != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_ChainID_serial}
 		}
-		ma.s += fieldBit__Proposal_Signature
+		ma.s += fieldBit__Proposal_ChainID
 		ma.state = maState_midValue
 		ma.f = 6
-		ma.ca_Signature.w = &ma.w.Signature
-		ma.ca_Signature.m = &ma.cm
-		return &ma.ca_Signature, nil
+		ma.ca_ChainID.w = &ma.w.ChainID
+		ma.ca_ChainID.m = &ma.cm
+		return &ma.ca_ChainID, nil
 	default:
 	}
 	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.Proposal.Repr", Key: &_String{k}}
@@ -26935,9 +26935,9 @@ func (ma *_Proposal__ReprAssembler) AssembleValue() ipld.NodeAssembler {
 		ma.ca_Timestamp.m = &ma.cm
 		return &ma.ca_Timestamp
 	case 6:
-		ma.ca_Signature.w = &ma.w.Signature
-		ma.ca_Signature.m = &ma.cm
-		return &ma.ca_Signature
+		ma.ca_ChainID.w = &ma.w.ChainID
+		ma.ca_ChainID.m = &ma.cm
+		return &ma.ca_ChainID
 	default:
 		panic("unreachable")
 	}
@@ -26977,8 +26977,8 @@ func (ma *_Proposal__ReprAssembler) Finish() error {
 		if ma.s&fieldBit__Proposal_Timestamp == 0 {
 			err.Missing = append(err.Missing, "Timestamp")
 		}
-		if ma.s&fieldBit__Proposal_Signature == 0 {
-			err.Missing = append(err.Missing, "Signature")
+		if ma.s&fieldBit__Proposal_ChainID == 0 {
+			err.Missing = append(err.Missing, "ChainID")
 		}
 		return err
 	}
@@ -27066,11 +27066,11 @@ func (ka *_Proposal__ReprKeyAssembler) AssignString(k string) error {
 		ka.state = maState_expectValue
 		ka.f = 5
 		return nil
-	case "Signature":
-		if ka.s&fieldBit__Proposal_Signature != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_Signature_serial}
+	case "ChainID":
+		if ka.s&fieldBit__Proposal_ChainID != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_ChainID_serial}
 		}
-		ka.s += fieldBit__Proposal_Signature
+		ka.s += fieldBit__Proposal_ChainID
 		ka.state = maState_expectValue
 		ka.f = 6
 		return nil

@@ -371,6 +371,17 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 			| PrecommitType ("2")
 			| ProposalType ("32")
 		} representation int
+
+		# Proposal defines a block proposal for the consensus.
+		type Proposal struct {
+			Type      SignedMsgType
+			Height    Int
+			Round     Int # there can not be greater than 2_147_483_647 rounds
+			POLRound  Int # -1 if null.
+			BlockID   BlockID
+			Timestamp Time
+			ChainID   String
+		}
 	*/
 	// make this an enum after schema gen support is added
 	ts.Accumulate(schema.SpawnInt("SignedMsgType"))
@@ -395,7 +406,7 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 			schema.SpawnStructField("POLRound", "Int", false, false),
 			schema.SpawnStructField("BlockID", "BlockID", false, false),
 			schema.SpawnStructField("Timestamp", "Time", false, false),
-			schema.SpawnStructField("Signature", "Signature", false, false),
+			schema.SpawnStructField("ChainID", "String", false, false),
 		},
 		schema.SpawnStructRepresentationMap(nil),
 	))
