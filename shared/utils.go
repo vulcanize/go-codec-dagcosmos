@@ -21,26 +21,22 @@ import (
 	"github.com/vulcanize/go-codec-dagcosmos/commit"
 )
 
-func GetTxType(node ipld.Node) (uint8, error) {
-	tyNode, err := node.LookupByString("Type")
+// PackLink returns the hash digest from a link
+func PackLink(node ipld.Node) ([]byte, error) {
+	dl, err := node.AsLink()
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
-	tyBytes, err := tyNode.AsBytes()
+	dcl, ok := dl.(cidlink.Link)
+	if !ok {
+		return nil, fmt.Errorf("unable to decode Merkle tree node multihash %v", err)
+	}
+	dmh := dcl.Hash()
+	ddmh, err := multihash.Decode(dmh)
 	if err != nil {
-		return 0, err
+		return nil, fmt.Errorf("unable to decode Merkle tree node multihash: %v", err)
 	}
-	if len(tyBytes) != 1 {
-		return 0, fmt.Errorf("tx type should be a single byte")
-	}
-	return tyBytes[0], nil
-}
-
-type WriteableByteSlice []byte
-
-func (w *WriteableByteSlice) Write(b []byte) (int, error) {
-	*w = append(*w, b...)
-	return len(b), nil
+	return ddmh.Digest, nil
 }
 
 // PackBlockID returns the blockID from the provided ipld.Node
@@ -49,18 +45,9 @@ func PackBlockID(node ipld.Node) (types.BlockID, error) {
 	if err != nil {
 		return types.BlockID{}, err
 	}
-	headerLink, err := headerHashNode.AsLink()
+	headerDigest, err := PackLink(headerHashNode)
 	if err != nil {
 		return types.BlockID{}, err
-	}
-	headerCIDLink, ok := headerLink.(cidlink.Link)
-	if !ok {
-		return types.BlockID{}, fmt.Errorf("header must have a Hash link")
-	}
-	headerMh := headerCIDLink.Hash()
-	decodedHeaderMh, err := multihash.Decode(headerMh)
-	if err != nil {
-		return types.BlockID{}, fmt.Errorf("unable to decode header Hash multihash: %v", err)
 	}
 
 	partSetHeaderNode, err := node.LookupByString("PartSetHeader")
@@ -80,25 +67,16 @@ func PackBlockID(node ipld.Node) (types.BlockID, error) {
 	if err != nil {
 		return types.BlockID{}, err
 	}
-	partTreeLink, err := partHashNode.AsLink()
+	partTreeDigest, err := PackLink(partHashNode)
 	if err != nil {
 		return types.BlockID{}, err
 	}
-	partTreeCIDLink, ok := partTreeLink.(cidlink.Link)
-	if !ok {
-		return types.BlockID{}, fmt.Errorf("header PartSetHeader must have a Hash link")
-	}
-	partTreeMh := partTreeCIDLink.Hash()
-	decodedPartTreeMh, err := multihash.Decode(partTreeMh)
-	if err != nil {
-		return types.BlockID{}, fmt.Errorf("unable to decode header PartSetHeader Hash multihash: %v", err)
-	}
 
 	return types.BlockID{
-		Hash: decodedHeaderMh.Digest,
+		Hash: headerDigest,
 		PartSetHeader: types.PartSetHeader{
 			Total: binary.BigEndian.Uint32(totalBytes),
-			Hash:  decodedPartTreeMh.Digest,
+			Hash:  partTreeDigest,
 		},
 	}, nil
 }

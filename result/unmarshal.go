@@ -1,4 +1,4 @@
-package params
+package result
 
 import (
 	"encoding/binary"

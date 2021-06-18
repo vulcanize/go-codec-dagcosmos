@@ -6,10 +6,14 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/ipld/go-ipld-prime"
-	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
-	"github.com/multiformats/go-multihash"
+	"github.com/vulcanize/go-codec-dagcosmos/shared"
 
+	"github.com/vulcanize/go-codec-dagcosmos/commit"
+	"github.com/vulcanize/go-codec-dagcosmos/evidence"
+	"github.com/vulcanize/go-codec-dagcosmos/result"
+	validator "github.com/vulcanize/go-codec-dagcosmos/simple_validator"
+
+	"github.com/ipld/go-ipld-prime"
 	dagcosmos "github.com/vulcanize/go-codec-dagcosmos"
 )
 
@@ -98,7 +102,7 @@ func packInnerNode(node ipld.Node) ([]byte, error) {
 	if leftNode.IsNull() {
 		leftData = placeholder
 	} else {
-		leftData, err = leftNode.AsBytes()
+		leftData, err = shared.PackLink(leftNode)
 		if err != nil {
 			return nil, err
 		}
@@ -110,7 +114,7 @@ func packInnerNode(node ipld.Node) ([]byte, error) {
 	if rightNode.IsNull() {
 		rightData = placeholder
 	} else {
-		rightData, err = rightNode.AsBytes()
+		rightData, err = shared.PackLink(rightNode)
 		if err != nil {
 			return nil, err
 		}
@@ -147,49 +151,35 @@ func packValue(node ipld.Node) ([]byte, error) {
 	}
 	switch valKind {
 	case TX_VALUE:
-		txLink, err := valNode.AsLink()
-		if err != nil {
-			return nil, err
-		}
-		txCIDLink, ok := txLink.(cidlink.Link)
-		if !ok {
-			return nil, fmt.Errorf("tx link needs to be a CID")
-		}
-		txMh := txCIDLink.Hash()
-		decodedTxMh, err := multihash.Decode(txMh)
-		if err != nil {
-			return nil, fmt.Errorf("unable to decode Child multihash: %v", err)
-		}
-		return decodedTxMh.Digest, nil
-	case HEADER_VALUE:
+		return shared.PackLink(valNode)
+	case HEADER_VALUE, PART_VALUE:
+		// TODO: figure out how to handle header fields and fragmented blocks better than return raw binary for the values
+		// with header fields we know what type to unpack that value on only based on the position of the leaf in the tree
+		// with block parts it is impossible to decode the values without collecting them all, concatenating the bytes in the order they
+		// appear in the leaf nodes, and unmarshalling the bytes into the Tendermint Block protobuf type since the slice size used to split the
+		// protobuf encoding up across the parts is arbitrary and individual fields can be fragmented across separate leaf nodes.
 		return valNode.AsBytes()
 	case VALIDATOR_VALUE:
 		buf := new(bytes.Buffer)
-		if err := dagcosmos_validator.Encode(valNode, buf); err != nil {
+		if err := validator.Encode(valNode, buf); err != nil {
 			return nil, err
 		}
 		return buf.Bytes(), nil
 	case RESULT_VALUE:
 		buf := new(bytes.Buffer)
-		if err := dagcosmos_result.Encode(valNode, buf); err != nil {
+		if err := result.Encode(valNode, buf); err != nil {
 			return nil, err
 		}
 		return buf.Bytes(), nil
 	case COMMIT_VALUE:
 		buf := new(bytes.Buffer)
-		if err := dagcosmos_commit.Encode(valNode, buf); err != nil {
-			return nil, err
-		}
-		return buf.Bytes(), nil
-	case PART_VALUE:
-		buf := new(bytes.Buffer)
-		if err := dagcosmos_part.Encode(valNode, buf); err != nil {
+		if err := commit.Encode(valNode, buf); err != nil {
 			return nil, err
 		}
 		return buf.Bytes(), nil
 	case EVIDENCE_VALUE:
 		buf := new(bytes.Buffer)
-		if err := dagcosmos_evidence.Encode(valNode, buf); err != nil {
+		if err := evidence.Encode(valNode, buf); err != nil {
 			return nil, err
 		}
 		return buf.Bytes(), nil

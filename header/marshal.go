@@ -8,8 +8,6 @@ import (
 	"github.com/vulcanize/go-codec-dagcosmos/shared"
 
 	"github.com/ipld/go-ipld-prime"
-	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
-	"github.com/multiformats/go-multihash"
 	tmversion "github.com/tendermint/tendermint/proto/tendermint/version"
 	"github.com/tendermint/tendermint/types"
 
@@ -227,20 +225,11 @@ func packLastCommitHash(h *types.Header, node ipld.Node) error {
 	if err != nil {
 		return err
 	}
-	lastCommitLink, err := lastCommitHashNode.AsLink()
-	if err != nil {
-		return err
-	}
-	lastCommitCIDLink, ok := lastCommitLink.(cidlink.Link)
-	if !ok {
-		return fmt.Errorf("header must have a LastCommitHash link")
-	}
-	lcMh := lastCommitCIDLink.Hash()
-	decodedLcMh, err := multihash.Decode(lcMh)
+	lastCommitDigest, err := shared.PackLink(lastCommitHashNode)
 	if err != nil {
 		return fmt.Errorf("unable to decode header LastCommitHash multihash: %v", err)
 	}
-	h.LastCommitHash = decodedLcMh.Digest
+	h.LastCommitHash = lastCommitDigest
 	return nil
 }
 
@@ -249,20 +238,11 @@ func packDataHash(h *types.Header, node ipld.Node) error {
 	if err != nil {
 		return err
 	}
-	dataHashLink, err := dataHashHashNode.AsLink()
-	if err != nil {
-		return err
-	}
-	dataHashCIDLink, ok := dataHashLink.(cidlink.Link)
-	if !ok {
-		return fmt.Errorf("header must have a DataHash link")
-	}
-	dhMh := dataHashCIDLink.Hash()
-	decodedDhMh, err := multihash.Decode(dhMh)
+	dataHashDigest, err := shared.PackLink(dataHashHashNode)
 	if err != nil {
 		return fmt.Errorf("unable to decode header DataHash multihash: %v", err)
 	}
-	h.DataHash = decodedDhMh.Digest
+	h.DataHash = dataHashDigest
 	return nil
 }
 
@@ -271,20 +251,11 @@ func packValidatorsHash(h *types.Header, node ipld.Node) error {
 	if err != nil {
 		return err
 	}
-	validatorHashLink, err := validatorHashHashNode.AsLink()
-	if err != nil {
-		return err
-	}
-	validatorHashCIDLink, ok := validatorHashLink.(cidlink.Link)
-	if !ok {
-		return fmt.Errorf("header must have a ValidatorsHash link")
-	}
-	vhMh := validatorHashCIDLink.Hash()
-	decodedVhMh, err := multihash.Decode(vhMh)
+	valHashDigest, err := shared.PackLink(validatorHashHashNode)
 	if err != nil {
 		return fmt.Errorf("unable to decode header ValidatorsHash multihash: %v", err)
 	}
-	h.ValidatorsHash = decodedVhMh.Digest
+	h.ValidatorsHash = valHashDigest
 	return nil
 }
 
@@ -293,20 +264,11 @@ func packNextValidatorsHash(h *types.Header, node ipld.Node) error {
 	if err != nil {
 		return err
 	}
-	validatorHashLink, err := validatorHashHashNode.AsLink()
-	if err != nil {
-		return err
-	}
-	validatorHashCIDLink, ok := validatorHashLink.(cidlink.Link)
-	if !ok {
-		return fmt.Errorf("header must have a NextValidatorsHash link")
-	}
-	vhMh := validatorHashCIDLink.Hash()
-	decodedVhMh, err := multihash.Decode(vhMh)
+	valHashDigest, err := shared.PackLink(validatorHashHashNode)
 	if err != nil {
 		return fmt.Errorf("unable to decode header NextValidatorsHash multihash: %v", err)
 	}
-	h.NextValidatorsHash = decodedVhMh.Digest
+	h.NextValidatorsHash = valHashDigest
 	return nil
 }
 
@@ -315,20 +277,11 @@ func packConsensusHash(h *types.Header, node ipld.Node) error {
 	if err != nil {
 		return err
 	}
-	consensusHashLink, err := consensusHashHashNode.AsLink()
-	if err != nil {
-		return err
-	}
-	consensusHashCIDLink, ok := consensusHashLink.(cidlink.Link)
-	if !ok {
-		return fmt.Errorf("header must have a ConsensusHash link")
-	}
-	chMh := consensusHashCIDLink.Hash()
-	decodedChMh, err := multihash.Decode(chMh)
+	conHashDigest, err := shared.PackLink(consensusHashHashNode)
 	if err != nil {
 		return fmt.Errorf("unable to decode header ConsensusHash multihash: %v", err)
 	}
-	h.ConsensusHash = decodedChMh.Digest
+	h.ConsensusHash = conHashDigest
 	return nil
 }
 
@@ -337,20 +290,11 @@ func packAppHash(h *types.Header, node ipld.Node) error {
 	if err != nil {
 		return err
 	}
-	appHashLink, err := appHashHashNode.AsLink()
-	if err != nil {
-		return err
-	}
-	appHashCIDLink, ok := appHashLink.(cidlink.Link)
-	if !ok {
-		return fmt.Errorf("header must have a AppHash link")
-	}
-	ahMh := appHashCIDLink.Hash()
-	decodedAhMh, err := multihash.Decode(ahMh)
+	appHashDigest, err := shared.PackLink(appHashHashNode)
 	if err != nil {
 		return fmt.Errorf("unable to decode header AppHash multihash: %v", err)
 	}
-	h.AppHash = decodedAhMh.Digest
+	h.AppHash = appHashDigest
 	return nil
 }
 
@@ -359,20 +303,11 @@ func packLastResultsHash(h *types.Header, node ipld.Node) error {
 	if err != nil {
 		return err
 	}
-	lastResultLink, err := lastResultHashNode.AsLink()
-	if err != nil {
-		return err
-	}
-	lastResultCIDLink, ok := lastResultLink.(cidlink.Link)
-	if !ok {
-		return fmt.Errorf("header must have a LastResultsHash link")
-	}
-	lhMh := lastResultCIDLink.Hash()
-	decodedLhMh, err := multihash.Decode(lhMh)
+	lastResDigest, err := shared.PackLink(lastResultHashNode)
 	if err != nil {
 		return fmt.Errorf("unable to decode header LastResultsHash multihash: %v", err)
 	}
-	h.LastResultsHash = decodedLhMh.Digest
+	h.LastResultsHash = lastResDigest
 	return nil
 }
 
@@ -381,20 +316,11 @@ func packEvidenceHash(h *types.Header, node ipld.Node) error {
 	if err != nil {
 		return err
 	}
-	evidenceLink, err := evidenceHashNode.AsLink()
-	if err != nil {
-		return err
-	}
-	evidenceCIDLink, ok := evidenceLink.(cidlink.Link)
-	if !ok {
-		return fmt.Errorf("header must have a EvidenceHash link")
-	}
-	eMh := evidenceCIDLink.Hash()
-	decodedEMh, err := multihash.Decode(eMh)
+	evidenceHashDigest, err := shared.PackLink(evidenceHashNode)
 	if err != nil {
 		return fmt.Errorf("unable to decode header EvidenceHash multihash: %v", err)
 	}
-	h.EvidenceHash = decodedEMh.Digest
+	h.EvidenceHash = evidenceHashDigest
 	return nil
 }
 

@@ -1,4 +1,4 @@
-package validator
+package validator_tree
 
 import (
 	"io"
@@ -27,11 +27,11 @@ func init() {
 }
 
 // AddSupportToChooser takes an existing node prototype chooser and subs in
-// SimpleValidator for the tendermint params multicodec code.
+// ValidatorTree for the tendermint validator tree multicodec code.
 func AddSupportToChooser(existing traversal.LinkTargetNodePrototypeChooser) traversal.LinkTargetNodePrototypeChooser {
 	return func(lnk ipld.Link, lnkCtx ipld.LinkContext) (ipld.NodePrototype, error) {
 		if lnk, ok := lnk.(cidlink.Link); ok && lnk.Cid.Prefix().Codec == MultiCodecType {
-			return dagcosmos.Type.SimpleValidator, nil
+			return dagcosmos.Type.MerkleTreeNode, nil
 		}
 		return existing(lnk, lnkCtx)
 	}
