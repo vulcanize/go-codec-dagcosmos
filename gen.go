@@ -656,8 +656,8 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 	))
 	ts.Accumulate(schema.SpawnStruct("MerkleTreeInnerNode",
 		[]schema.StructField{
-			schema.SpawnStructField("Left", "Link", false, false),
-			schema.SpawnStructField("Right", "Link", false, false),
+			schema.SpawnStructField("Left", "Link", false, true),
+			schema.SpawnStructField("Right", "Link", false, true),
 		},
 		schema.SpawnStructRepresentationMap(nil),
 	))
@@ -715,8 +715,8 @@ func accumulateCosmosDataStructures(ts *schema.TypeSystem) {
 
 		# IAVLInnerNode represents an inner node in an IAVL Tree.
 		type IAVLInnerNode struct {
-			Left      IAVLNodeCID
-			Right     IAVLNodeCID
+			Left      nullable IAVLNodeCID
+			Right     nullable IAVLNodeCID
 			Version   Int
 			Size      Int
 			Height    Int
@@ -747,8 +747,8 @@ func accumulateCosmosDataStructures(ts *schema.TypeSystem) {
 	))
 	ts.Accumulate(schema.SpawnStruct("IAVLInnerNode",
 		[]schema.StructField{
-			schema.SpawnStructField("Left", "Link", false, false),
-			schema.SpawnStructField("Right", "Link", false, false),
+			schema.SpawnStructField("Left", "Link", false, true),
+			schema.SpawnStructField("Right", "Link", false, true),
 			schema.SpawnStructField("Version", "Int", false, false),
 			schema.SpawnStructField("Size", "Int", false, false),
 			schema.SpawnStructField("Height", "Int", false, false),
@@ -782,8 +782,8 @@ func accumulateCosmosDataStructures(ts *schema.TypeSystem) {
 
 		# SMTInnerNode contains two byte arrays which contain the hashes which link its two child nodes.
 		type SMTInnerNode struct {
-			Left SMTNodeCID
-			Right SMTNodeCID
+			Left nullable SMTNodeCID
+			Right nullable SMTNodeCID
 		}
 
 		# SMTLeafNode contains two byte arrays which contain path and value
@@ -808,8 +808,8 @@ func accumulateCosmosDataStructures(ts *schema.TypeSystem) {
 	))
 	ts.Accumulate(schema.SpawnStruct("SMTInnerNode",
 		[]schema.StructField{
-			schema.SpawnStructField("Left", "Link", false, false),
-			schema.SpawnStructField("Right", "Link", false, false),
+			schema.SpawnStructField("Left", "Link", false, true),
+			schema.SpawnStructField("Right", "Link", false, true),
 		},
 		schema.SpawnStructRepresentationMap(nil),
 	))

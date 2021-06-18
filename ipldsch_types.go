@@ -270,8 +270,8 @@ type _HexBytes struct{ x []byte }
 // IAVLInnerNode matches the IPLD Schema type "IAVLInnerNode".  It has Struct type-kind, and may be interrogated like map kind.
 type IAVLInnerNode = *_IAVLInnerNode
 type _IAVLInnerNode struct {
-	Left    _Link
-	Right   _Link
+	Left    _Link__Maybe
+	Right   _Link__Maybe
 	Version _Int
 	Size    _Int
 	Height  _Int
@@ -330,8 +330,8 @@ type _Link struct{ x ipld.Link }
 // MerkleTreeInnerNode matches the IPLD Schema type "MerkleTreeInnerNode".  It has Struct type-kind, and may be interrogated like map kind.
 type MerkleTreeInnerNode = *_MerkleTreeInnerNode
 type _MerkleTreeInnerNode struct {
-	Left  _Link
-	Right _Link
+	Left  _Link__Maybe
+	Right _Link__Maybe
 }
 
 // MerkleTreeLeafNode matches the IPLD Schema type "MerkleTreeLeafNode".  It has Struct type-kind, and may be interrogated like map kind.
@@ -417,8 +417,8 @@ type _ResponseDeliverTx struct {
 // SMTInnerNode matches the IPLD Schema type "SMTInnerNode".  It has Struct type-kind, and may be interrogated like map kind.
 type SMTInnerNode = *_SMTInnerNode
 type _SMTInnerNode struct {
-	Left  _Link
-	Right _Link
+	Left  _Link__Maybe
+	Right _Link__Maybe
 }
 
 // SMTLeafNode matches the IPLD Schema type "SMTLeafNode".  It has Struct type-kind, and may be interrogated like map kind.

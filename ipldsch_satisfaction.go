@@ -13392,10 +13392,10 @@ var _ ipld.Node = &_HexBytes__Repr{}
 type _HexBytes__ReprPrototype = _HexBytes__Prototype
 type _HexBytes__ReprAssembler = _HexBytes__Assembler
 
-func (n _IAVLInnerNode) FieldLeft() Link {
+func (n _IAVLInnerNode) FieldLeft() MaybeLink {
 	return &n.Left
 }
-func (n _IAVLInnerNode) FieldRight() Link {
+func (n _IAVLInnerNode) FieldRight() MaybeLink {
 	return &n.Right
 }
 func (n _IAVLInnerNode) FieldVersion() Int {
@@ -13458,9 +13458,15 @@ func (IAVLInnerNode) Kind() ipld.Kind {
 func (n IAVLInnerNode) LookupByString(key string) (ipld.Node, error) {
 	switch key {
 	case "Left":
-		return &n.Left, nil
+		if n.Left.m == schema.Maybe_Null {
+			return ipld.Null, nil
+		}
+		return n.Left.v, nil
 	case "Right":
-		return &n.Right, nil
+		if n.Right.m == schema.Maybe_Null {
+			return ipld.Null, nil
+		}
+		return n.Right.v, nil
 	case "Version":
 		return &n.Version, nil
 	case "Size":
@@ -13500,10 +13506,18 @@ func (itr *_IAVLInnerNode__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
 	switch itr.idx {
 	case 0:
 		k = &fieldName__IAVLInnerNode_Left
-		v = &itr.n.Left
+		if itr.n.Left.m == schema.Maybe_Null {
+			v = ipld.Null
+			break
+		}
+		v = itr.n.Left.v
 	case 1:
 		k = &fieldName__IAVLInnerNode_Right
-		v = &itr.n.Right
+		if itr.n.Right.m == schema.Maybe_Null {
+			v = ipld.Null
+			break
+		}
+		v = itr.n.Right.v
 	case 2:
 		k = &fieldName__IAVLInnerNode_Version
 		v = &itr.n.Version
@@ -13707,20 +13721,24 @@ func (_IAVLInnerNode__Assembler) Prototype() ipld.NodePrototype {
 func (ma *_IAVLInnerNode__Assembler) valueFinishTidy() bool {
 	switch ma.f {
 	case 0:
-		switch ma.cm {
+		switch ma.w.Left.m {
+		case schema.Maybe_Null:
+			ma.state = maState_initial
+			return true
 		case schema.Maybe_Value:
-			ma.ca_Left.w = nil
-			ma.cm = schema.Maybe_Absent
+			ma.w.Left.v = ma.ca_Left.w
 			ma.state = maState_initial
 			return true
 		default:
 			return false
 		}
 	case 1:
-		switch ma.cm {
+		switch ma.w.Right.m {
+		case schema.Maybe_Null:
+			ma.state = maState_initial
+			return true
 		case schema.Maybe_Value:
-			ma.ca_Right.w = nil
-			ma.cm = schema.Maybe_Absent
+			ma.w.Right.v = ma.ca_Right.w
 			ma.state = maState_initial
 			return true
 		default:
@@ -13783,8 +13801,9 @@ func (ma *_IAVLInnerNode__Assembler) AssembleEntry(k string) (ipld.NodeAssembler
 		ma.s += fieldBit__IAVLInnerNode_Left
 		ma.state = maState_midValue
 		ma.f = 0
-		ma.ca_Left.w = &ma.w.Left
-		ma.ca_Left.m = &ma.cm
+		ma.ca_Left.w = ma.w.Left.v
+		ma.ca_Left.m = &ma.w.Left.m
+		ma.w.Left.m = allowNull
 		return &ma.ca_Left, nil
 	case "Right":
 		if ma.s&fieldBit__IAVLInnerNode_Right != 0 {
@@ -13793,8 +13812,9 @@ func (ma *_IAVLInnerNode__Assembler) AssembleEntry(k string) (ipld.NodeAssembler
 		ma.s += fieldBit__IAVLInnerNode_Right
 		ma.state = maState_midValue
 		ma.f = 1
-		ma.ca_Right.w = &ma.w.Right
-		ma.ca_Right.m = &ma.cm
+		ma.ca_Right.w = ma.w.Right.v
+		ma.ca_Right.m = &ma.w.Right.m
+		ma.w.Right.m = allowNull
 		return &ma.ca_Right, nil
 	case "Version":
 		if ma.s&fieldBit__IAVLInnerNode_Version != 0 {
@@ -13863,12 +13883,14 @@ func (ma *_IAVLInnerNode__Assembler) AssembleValue() ipld.NodeAssembler {
 	ma.state = maState_midValue
 	switch ma.f {
 	case 0:
-		ma.ca_Left.w = &ma.w.Left
-		ma.ca_Left.m = &ma.cm
+		ma.ca_Left.w = ma.w.Left.v
+		ma.ca_Left.m = &ma.w.Left.m
+		ma.w.Left.m = allowNull
 		return &ma.ca_Left
 	case 1:
-		ma.ca_Right.w = &ma.w.Right
-		ma.ca_Right.m = &ma.cm
+		ma.ca_Right.w = ma.w.Right.v
+		ma.ca_Right.m = &ma.w.Right.m
+		ma.w.Right.m = allowNull
 		return &ma.ca_Right
 	case 2:
 		ma.ca_Version.w = &ma.w.Version
@@ -13903,12 +13925,6 @@ func (ma *_IAVLInnerNode__Assembler) Finish() error {
 	}
 	if ma.s&fieldBits__IAVLInnerNode_sufficient != fieldBits__IAVLInnerNode_sufficient {
 		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__IAVLInnerNode_Left == 0 {
-			err.Missing = append(err.Missing, "Left")
-		}
-		if ma.s&fieldBit__IAVLInnerNode_Right == 0 {
-			err.Missing = append(err.Missing, "Right")
-		}
 		if ma.s&fieldBit__IAVLInnerNode_Version == 0 {
 			err.Missing = append(err.Missing, "Version")
 		}
@@ -14036,9 +14052,15 @@ func (_IAVLInnerNode__Repr) Kind() ipld.Kind {
 func (n *_IAVLInnerNode__Repr) LookupByString(key string) (ipld.Node, error) {
 	switch key {
 	case "Left":
-		return n.Left.Representation(), nil
+		if n.Left.m == schema.Maybe_Null {
+			return ipld.Null, nil
+		}
+		return n.Left.v.Representation(), nil
 	case "Right":
-		return n.Right.Representation(), nil
+		if n.Right.m == schema.Maybe_Null {
+			return ipld.Null, nil
+		}
+		return n.Right.v.Representation(), nil
 	case "Version":
 		return n.Version.Representation(), nil
 	case "Size":
@@ -14078,10 +14100,18 @@ func (itr *_IAVLInnerNode__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error
 	switch itr.idx {
 	case 0:
 		k = &fieldName__IAVLInnerNode_Left_serial
-		v = itr.n.Left.Representation()
+		if itr.n.Left.m == schema.Maybe_Null {
+			v = ipld.Null
+			break
+		}
+		v = itr.n.Left.v.Representation()
 	case 1:
 		k = &fieldName__IAVLInnerNode_Right_serial
-		v = itr.n.Right.Representation()
+		if itr.n.Right.m == schema.Maybe_Null {
+			v = ipld.Null
+			break
+		}
+		v = itr.n.Right.v.Representation()
 	case 2:
 		k = &fieldName__IAVLInnerNode_Version_serial
 		v = itr.n.Version.Representation()
@@ -14275,18 +14305,24 @@ func (_IAVLInnerNode__ReprAssembler) Prototype() ipld.NodePrototype {
 func (ma *_IAVLInnerNode__ReprAssembler) valueFinishTidy() bool {
 	switch ma.f {
 	case 0:
-		switch ma.cm {
+		switch ma.w.Left.m {
+		case schema.Maybe_Null:
+			ma.state = maState_initial
+			return true
 		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
+			ma.w.Left.v = ma.ca_Left.w
 			ma.state = maState_initial
 			return true
 		default:
 			return false
 		}
 	case 1:
-		switch ma.cm {
+		switch ma.w.Right.m {
+		case schema.Maybe_Null:
+			ma.state = maState_initial
+			return true
 		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
+			ma.w.Right.v = ma.ca_Right.w
 			ma.state = maState_initial
 			return true
 		default:
@@ -14346,8 +14382,9 @@ func (ma *_IAVLInnerNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssem
 		ma.s += fieldBit__IAVLInnerNode_Left
 		ma.state = maState_midValue
 		ma.f = 0
-		ma.ca_Left.w = &ma.w.Left
-		ma.ca_Left.m = &ma.cm
+		ma.ca_Left.w = ma.w.Left.v
+		ma.ca_Left.m = &ma.w.Left.m
+		ma.w.Left.m = allowNull
 		return &ma.ca_Left, nil
 	case "Right":
 		if ma.s&fieldBit__IAVLInnerNode_Right != 0 {
@@ -14356,8 +14393,9 @@ func (ma *_IAVLInnerNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssem
 		ma.s += fieldBit__IAVLInnerNode_Right
 		ma.state = maState_midValue
 		ma.f = 1
-		ma.ca_Right.w = &ma.w.Right
-		ma.ca_Right.m = &ma.cm
+		ma.ca_Right.w = ma.w.Right.v
+		ma.ca_Right.m = &ma.w.Right.m
+		ma.w.Right.m = allowNull
 		return &ma.ca_Right, nil
 	case "Version":
 		if ma.s&fieldBit__IAVLInnerNode_Version != 0 {
@@ -14427,12 +14465,14 @@ func (ma *_IAVLInnerNode__ReprAssembler) AssembleValue() ipld.NodeAssembler {
 	ma.state = maState_midValue
 	switch ma.f {
 	case 0:
-		ma.ca_Left.w = &ma.w.Left
-		ma.ca_Left.m = &ma.cm
+		ma.ca_Left.w = ma.w.Left.v
+		ma.ca_Left.m = &ma.w.Left.m
+		ma.w.Left.m = allowNull
 		return &ma.ca_Left
 	case 1:
-		ma.ca_Right.w = &ma.w.Right
-		ma.ca_Right.m = &ma.cm
+		ma.ca_Right.w = ma.w.Right.v
+		ma.ca_Right.m = &ma.w.Right.m
+		ma.w.Right.m = allowNull
 		return &ma.ca_Right
 	case 2:
 		ma.ca_Version.w = &ma.w.Version
@@ -14467,12 +14507,6 @@ func (ma *_IAVLInnerNode__ReprAssembler) Finish() error {
 	}
 	if ma.s&fieldBits__IAVLInnerNode_sufficient != fieldBits__IAVLInnerNode_sufficient {
 		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__IAVLInnerNode_Left == 0 {
-			err.Missing = append(err.Missing, "Left")
-		}
-		if ma.s&fieldBit__IAVLInnerNode_Right == 0 {
-			err.Missing = append(err.Missing, "Right")
-		}
 		if ma.s&fieldBit__IAVLInnerNode_Version == 0 {
 			err.Missing = append(err.Missing, "Version")
 		}
@@ -19210,10 +19244,10 @@ var _ ipld.Node = &_Link__Repr{}
 type _Link__ReprPrototype = _Link__Prototype
 type _Link__ReprAssembler = _Link__Assembler
 
-func (n _MerkleTreeInnerNode) FieldLeft() Link {
+func (n _MerkleTreeInnerNode) FieldLeft() MaybeLink {
 	return &n.Left
 }
-func (n _MerkleTreeInnerNode) FieldRight() Link {
+func (n _MerkleTreeInnerNode) FieldRight() MaybeLink {
 	return &n.Right
 }
 
@@ -19264,9 +19298,15 @@ func (MerkleTreeInnerNode) Kind() ipld.Kind {
 func (n MerkleTreeInnerNode) LookupByString(key string) (ipld.Node, error) {
 	switch key {
 	case "Left":
-		return &n.Left, nil
+		if n.Left.m == schema.Maybe_Null {
+			return ipld.Null, nil
+		}
+		return n.Left.v, nil
 	case "Right":
-		return &n.Right, nil
+		if n.Right.m == schema.Maybe_Null {
+			return ipld.Null, nil
+		}
+		return n.Right.v, nil
 	default:
 		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
 	}
@@ -19300,10 +19340,18 @@ func (itr *_MerkleTreeInnerNode__MapItr) Next() (k ipld.Node, v ipld.Node, _ err
 	switch itr.idx {
 	case 0:
 		k = &fieldName__MerkleTreeInnerNode_Left
-		v = &itr.n.Left
+		if itr.n.Left.m == schema.Maybe_Null {
+			v = ipld.Null
+			break
+		}
+		v = itr.n.Left.v
 	case 1:
 		k = &fieldName__MerkleTreeInnerNode_Right
-		v = &itr.n.Right
+		if itr.n.Right.m == schema.Maybe_Null {
+			v = ipld.Null
+			break
+		}
+		v = itr.n.Right.v
 	default:
 		panic("unreachable")
 	}
@@ -19489,20 +19537,24 @@ func (_MerkleTreeInnerNode__Assembler) Prototype() ipld.NodePrototype {
 func (ma *_MerkleTreeInnerNode__Assembler) valueFinishTidy() bool {
 	switch ma.f {
 	case 0:
-		switch ma.cm {
+		switch ma.w.Left.m {
+		case schema.Maybe_Null:
+			ma.state = maState_initial
+			return true
 		case schema.Maybe_Value:
-			ma.ca_Left.w = nil
-			ma.cm = schema.Maybe_Absent
+			ma.w.Left.v = ma.ca_Left.w
 			ma.state = maState_initial
 			return true
 		default:
 			return false
 		}
 	case 1:
-		switch ma.cm {
+		switch ma.w.Right.m {
+		case schema.Maybe_Null:
+			ma.state = maState_initial
+			return true
 		case schema.Maybe_Value:
-			ma.ca_Right.w = nil
-			ma.cm = schema.Maybe_Absent
+			ma.w.Right.v = ma.ca_Right.w
 			ma.state = maState_initial
 			return true
 		default:
@@ -19535,8 +19587,9 @@ func (ma *_MerkleTreeInnerNode__Assembler) AssembleEntry(k string) (ipld.NodeAss
 		ma.s += fieldBit__MerkleTreeInnerNode_Left
 		ma.state = maState_midValue
 		ma.f = 0
-		ma.ca_Left.w = &ma.w.Left
-		ma.ca_Left.m = &ma.cm
+		ma.ca_Left.w = ma.w.Left.v
+		ma.ca_Left.m = &ma.w.Left.m
+		ma.w.Left.m = allowNull
 		return &ma.ca_Left, nil
 	case "Right":
 		if ma.s&fieldBit__MerkleTreeInnerNode_Right != 0 {
@@ -19545,8 +19598,9 @@ func (ma *_MerkleTreeInnerNode__Assembler) AssembleEntry(k string) (ipld.NodeAss
 		ma.s += fieldBit__MerkleTreeInnerNode_Right
 		ma.state = maState_midValue
 		ma.f = 1
-		ma.ca_Right.w = &ma.w.Right
-		ma.ca_Right.m = &ma.cm
+		ma.ca_Right.w = ma.w.Right.v
+		ma.ca_Right.m = &ma.w.Right.m
+		ma.w.Right.m = allowNull
 		return &ma.ca_Right, nil
 	}
 	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.MerkleTreeInnerNode", Key: &_String{k}}
@@ -19585,12 +19639,14 @@ func (ma *_MerkleTreeInnerNode__Assembler) AssembleValue() ipld.NodeAssembler {
 	ma.state = maState_midValue
 	switch ma.f {
 	case 0:
-		ma.ca_Left.w = &ma.w.Left
-		ma.ca_Left.m = &ma.cm
+		ma.ca_Left.w = ma.w.Left.v
+		ma.ca_Left.m = &ma.w.Left.m
+		ma.w.Left.m = allowNull
 		return &ma.ca_Left
 	case 1:
-		ma.ca_Right.w = &ma.w.Right
-		ma.ca_Right.m = &ma.cm
+		ma.ca_Right.w = ma.w.Right.v
+		ma.ca_Right.m = &ma.w.Right.m
+		ma.w.Right.m = allowNull
 		return &ma.ca_Right
 	default:
 		panic("unreachable")
@@ -19613,12 +19669,6 @@ func (ma *_MerkleTreeInnerNode__Assembler) Finish() error {
 	}
 	if ma.s&fieldBits__MerkleTreeInnerNode_sufficient != fieldBits__MerkleTreeInnerNode_sufficient {
 		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__MerkleTreeInnerNode_Left == 0 {
-			err.Missing = append(err.Missing, "Left")
-		}
-		if ma.s&fieldBit__MerkleTreeInnerNode_Right == 0 {
-			err.Missing = append(err.Missing, "Right")
-		}
 		return err
 	}
 	ma.state = maState_finished
@@ -19713,9 +19763,15 @@ func (_MerkleTreeInnerNode__Repr) Kind() ipld.Kind {
 func (n *_MerkleTreeInnerNode__Repr) LookupByString(key string) (ipld.Node, error) {
 	switch key {
 	case "Left":
-		return n.Left.Representation(), nil
+		if n.Left.m == schema.Maybe_Null {
+			return ipld.Null, nil
+		}
+		return n.Left.v.Representation(), nil
 	case "Right":
-		return n.Right.Representation(), nil
+		if n.Right.m == schema.Maybe_Null {
+			return ipld.Null, nil
+		}
+		return n.Right.v.Representation(), nil
 	default:
 		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
 	}
@@ -19749,10 +19805,18 @@ func (itr *_MerkleTreeInnerNode__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _
 	switch itr.idx {
 	case 0:
 		k = &fieldName__MerkleTreeInnerNode_Left_serial
-		v = itr.n.Left.Representation()
+		if itr.n.Left.m == schema.Maybe_Null {
+			v = ipld.Null
+			break
+		}
+		v = itr.n.Left.v.Representation()
 	case 1:
 		k = &fieldName__MerkleTreeInnerNode_Right_serial
-		v = itr.n.Right.Representation()
+		if itr.n.Right.m == schema.Maybe_Null {
+			v = ipld.Null
+			break
+		}
+		v = itr.n.Right.v.Representation()
 	default:
 		panic("unreachable")
 	}
@@ -19931,18 +19995,24 @@ func (_MerkleTreeInnerNode__ReprAssembler) Prototype() ipld.NodePrototype {
 func (ma *_MerkleTreeInnerNode__ReprAssembler) valueFinishTidy() bool {
 	switch ma.f {
 	case 0:
-		switch ma.cm {
+		switch ma.w.Left.m {
+		case schema.Maybe_Null:
+			ma.state = maState_initial
+			return true
 		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
+			ma.w.Left.v = ma.ca_Left.w
 			ma.state = maState_initial
 			return true
 		default:
 			return false
 		}
 	case 1:
-		switch ma.cm {
+		switch ma.w.Right.m {
+		case schema.Maybe_Null:
+			ma.state = maState_initial
+			return true
 		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
+			ma.w.Right.v = ma.ca_Right.w
 			ma.state = maState_initial
 			return true
 		default:
@@ -19975,8 +20045,9 @@ func (ma *_MerkleTreeInnerNode__ReprAssembler) AssembleEntry(k string) (ipld.Nod
 		ma.s += fieldBit__MerkleTreeInnerNode_Left
 		ma.state = maState_midValue
 		ma.f = 0
-		ma.ca_Left.w = &ma.w.Left
-		ma.ca_Left.m = &ma.cm
+		ma.ca_Left.w = ma.w.Left.v
+		ma.ca_Left.m = &ma.w.Left.m
+		ma.w.Left.m = allowNull
 		return &ma.ca_Left, nil
 	case "Right":
 		if ma.s&fieldBit__MerkleTreeInnerNode_Right != 0 {
@@ -19985,8 +20056,9 @@ func (ma *_MerkleTreeInnerNode__ReprAssembler) AssembleEntry(k string) (ipld.Nod
 		ma.s += fieldBit__MerkleTreeInnerNode_Right
 		ma.state = maState_midValue
 		ma.f = 1
-		ma.ca_Right.w = &ma.w.Right
-		ma.ca_Right.m = &ma.cm
+		ma.ca_Right.w = ma.w.Right.v
+		ma.ca_Right.m = &ma.w.Right.m
+		ma.w.Right.m = allowNull
 		return &ma.ca_Right, nil
 	default:
 	}
@@ -20026,12 +20098,14 @@ func (ma *_MerkleTreeInnerNode__ReprAssembler) AssembleValue() ipld.NodeAssemble
 	ma.state = maState_midValue
 	switch ma.f {
 	case 0:
-		ma.ca_Left.w = &ma.w.Left
-		ma.ca_Left.m = &ma.cm
+		ma.ca_Left.w = ma.w.Left.v
+		ma.ca_Left.m = &ma.w.Left.m
+		ma.w.Left.m = allowNull
 		return &ma.ca_Left
 	case 1:
-		ma.ca_Right.w = &ma.w.Right
-		ma.ca_Right.m = &ma.cm
+		ma.ca_Right.w = ma.w.Right.v
+		ma.ca_Right.m = &ma.w.Right.m
+		ma.w.Right.m = allowNull
 		return &ma.ca_Right
 	default:
 		panic("unreachable")
@@ -20054,12 +20128,6 @@ func (ma *_MerkleTreeInnerNode__ReprAssembler) Finish() error {
 	}
 	if ma.s&fieldBits__MerkleTreeInnerNode_sufficient != fieldBits__MerkleTreeInnerNode_sufficient {
 		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__MerkleTreeInnerNode_Left == 0 {
-			err.Missing = append(err.Missing, "Left")
-		}
-		if ma.s&fieldBit__MerkleTreeInnerNode_Right == 0 {
-			err.Missing = append(err.Missing, "Right")
-		}
 		return err
 	}
 	ma.state = maState_finished
@@ -21450,7 +21518,7 @@ func (n MerkleTreeNode) Representation() ipld.Node {
 type _MerkleTreeNode__Repr _MerkleTreeNode
 
 var (
-	memberName__MerkleTreeNode_MerkleTreeInnerNode_serial = _String{"root"}
+	memberName__MerkleTreeNode_MerkleTreeInnerNode_serial = _String{"inner"}
 	memberName__MerkleTreeNode_MerkleTreeLeafNode_serial  = _String{"leaf"}
 )
 var _ ipld.Node = &_MerkleTreeNode__Repr{}
@@ -21718,7 +21786,7 @@ func (ma *_MerkleTreeNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAsse
 		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.MerkleTreeNode.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
 	}
 	switch k {
-	case "inner":
+	case "root":
 		ma.state = maState_midValue
 		ma.ca = 1
 		ma.w.tag = 1
@@ -28407,10 +28475,10 @@ func (_ResponseDeliverTx__ReprKeyAssembler) Prototype() ipld.NodePrototype {
 	return _String__Prototype{}
 }
 
-func (n _SMTInnerNode) FieldLeft() Link {
+func (n _SMTInnerNode) FieldLeft() MaybeLink {
 	return &n.Left
 }
-func (n _SMTInnerNode) FieldRight() Link {
+func (n _SMTInnerNode) FieldRight() MaybeLink {
 	return &n.Right
 }
 
@@ -28461,9 +28529,15 @@ func (SMTInnerNode) Kind() ipld.Kind {
 func (n SMTInnerNode) LookupByString(key string) (ipld.Node, error) {
 	switch key {
 	case "Left":
-		return &n.Left, nil
+		if n.Left.m == schema.Maybe_Null {
+			return ipld.Null, nil
+		}
+		return n.Left.v, nil
 	case "Right":
-		return &n.Right, nil
+		if n.Right.m == schema.Maybe_Null {
+			return ipld.Null, nil
+		}
+		return n.Right.v, nil
 	default:
 		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
 	}
@@ -28497,10 +28571,18 @@ func (itr *_SMTInnerNode__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
 	switch itr.idx {
 	case 0:
 		k = &fieldName__SMTInnerNode_Left
-		v = &itr.n.Left
+		if itr.n.Left.m == schema.Maybe_Null {
+			v = ipld.Null
+			break
+		}
+		v = itr.n.Left.v
 	case 1:
 		k = &fieldName__SMTInnerNode_Right
-		v = &itr.n.Right
+		if itr.n.Right.m == schema.Maybe_Null {
+			v = ipld.Null
+			break
+		}
+		v = itr.n.Right.v
 	default:
 		panic("unreachable")
 	}
@@ -28686,20 +28768,24 @@ func (_SMTInnerNode__Assembler) Prototype() ipld.NodePrototype {
 func (ma *_SMTInnerNode__Assembler) valueFinishTidy() bool {
 	switch ma.f {
 	case 0:
-		switch ma.cm {
+		switch ma.w.Left.m {
+		case schema.Maybe_Null:
+			ma.state = maState_initial
+			return true
 		case schema.Maybe_Value:
-			ma.ca_Left.w = nil
-			ma.cm = schema.Maybe_Absent
+			ma.w.Left.v = ma.ca_Left.w
 			ma.state = maState_initial
 			return true
 		default:
 			return false
 		}
 	case 1:
-		switch ma.cm {
+		switch ma.w.Right.m {
+		case schema.Maybe_Null:
+			ma.state = maState_initial
+			return true
 		case schema.Maybe_Value:
-			ma.ca_Right.w = nil
-			ma.cm = schema.Maybe_Absent
+			ma.w.Right.v = ma.ca_Right.w
 			ma.state = maState_initial
 			return true
 		default:
@@ -28732,8 +28818,9 @@ func (ma *_SMTInnerNode__Assembler) AssembleEntry(k string) (ipld.NodeAssembler,
 		ma.s += fieldBit__SMTInnerNode_Left
 		ma.state = maState_midValue
 		ma.f = 0
-		ma.ca_Left.w = &ma.w.Left
-		ma.ca_Left.m = &ma.cm
+		ma.ca_Left.w = ma.w.Left.v
+		ma.ca_Left.m = &ma.w.Left.m
+		ma.w.Left.m = allowNull
 		return &ma.ca_Left, nil
 	case "Right":
 		if ma.s&fieldBit__SMTInnerNode_Right != 0 {
@@ -28742,8 +28829,9 @@ func (ma *_SMTInnerNode__Assembler) AssembleEntry(k string) (ipld.NodeAssembler,
 		ma.s += fieldBit__SMTInnerNode_Right
 		ma.state = maState_midValue
 		ma.f = 1
-		ma.ca_Right.w = &ma.w.Right
-		ma.ca_Right.m = &ma.cm
+		ma.ca_Right.w = ma.w.Right.v
+		ma.ca_Right.m = &ma.w.Right.m
+		ma.w.Right.m = allowNull
 		return &ma.ca_Right, nil
 	}
 	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.SMTInnerNode", Key: &_String{k}}
@@ -28782,12 +28870,14 @@ func (ma *_SMTInnerNode__Assembler) AssembleValue() ipld.NodeAssembler {
 	ma.state = maState_midValue
 	switch ma.f {
 	case 0:
-		ma.ca_Left.w = &ma.w.Left
-		ma.ca_Left.m = &ma.cm
+		ma.ca_Left.w = ma.w.Left.v
+		ma.ca_Left.m = &ma.w.Left.m
+		ma.w.Left.m = allowNull
 		return &ma.ca_Left
 	case 1:
-		ma.ca_Right.w = &ma.w.Right
-		ma.ca_Right.m = &ma.cm
+		ma.ca_Right.w = ma.w.Right.v
+		ma.ca_Right.m = &ma.w.Right.m
+		ma.w.Right.m = allowNull
 		return &ma.ca_Right
 	default:
 		panic("unreachable")
@@ -28810,12 +28900,6 @@ func (ma *_SMTInnerNode__Assembler) Finish() error {
 	}
 	if ma.s&fieldBits__SMTInnerNode_sufficient != fieldBits__SMTInnerNode_sufficient {
 		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__SMTInnerNode_Left == 0 {
-			err.Missing = append(err.Missing, "Left")
-		}
-		if ma.s&fieldBit__SMTInnerNode_Right == 0 {
-			err.Missing = append(err.Missing, "Right")
-		}
 		return err
 	}
 	ma.state = maState_finished
@@ -28910,9 +28994,15 @@ func (_SMTInnerNode__Repr) Kind() ipld.Kind {
 func (n *_SMTInnerNode__Repr) LookupByString(key string) (ipld.Node, error) {
 	switch key {
 	case "Left":
-		return n.Left.Representation(), nil
+		if n.Left.m == schema.Maybe_Null {
+			return ipld.Null, nil
+		}
+		return n.Left.v.Representation(), nil
 	case "Right":
-		return n.Right.Representation(), nil
+		if n.Right.m == schema.Maybe_Null {
+			return ipld.Null, nil
+		}
+		return n.Right.v.Representation(), nil
 	default:
 		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
 	}
@@ -28946,10 +29036,18 @@ func (itr *_SMTInnerNode__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error)
 	switch itr.idx {
 	case 0:
 		k = &fieldName__SMTInnerNode_Left_serial
-		v = itr.n.Left.Representation()
+		if itr.n.Left.m == schema.Maybe_Null {
+			v = ipld.Null
+			break
+		}
+		v = itr.n.Left.v.Representation()
 	case 1:
 		k = &fieldName__SMTInnerNode_Right_serial
-		v = itr.n.Right.Representation()
+		if itr.n.Right.m == schema.Maybe_Null {
+			v = ipld.Null
+			break
+		}
+		v = itr.n.Right.v.Representation()
 	default:
 		panic("unreachable")
 	}
@@ -29128,18 +29226,24 @@ func (_SMTInnerNode__ReprAssembler) Prototype() ipld.NodePrototype {
 func (ma *_SMTInnerNode__ReprAssembler) valueFinishTidy() bool {
 	switch ma.f {
 	case 0:
-		switch ma.cm {
+		switch ma.w.Left.m {
+		case schema.Maybe_Null:
+			ma.state = maState_initial
+			return true
 		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
+			ma.w.Left.v = ma.ca_Left.w
 			ma.state = maState_initial
 			return true
 		default:
 			return false
 		}
 	case 1:
-		switch ma.cm {
+		switch ma.w.Right.m {
+		case schema.Maybe_Null:
+			ma.state = maState_initial
+			return true
 		case schema.Maybe_Value:
-			ma.cm = schema.Maybe_Absent
+			ma.w.Right.v = ma.ca_Right.w
 			ma.state = maState_initial
 			return true
 		default:
@@ -29172,8 +29276,9 @@ func (ma *_SMTInnerNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssemb
 		ma.s += fieldBit__SMTInnerNode_Left
 		ma.state = maState_midValue
 		ma.f = 0
-		ma.ca_Left.w = &ma.w.Left
-		ma.ca_Left.m = &ma.cm
+		ma.ca_Left.w = ma.w.Left.v
+		ma.ca_Left.m = &ma.w.Left.m
+		ma.w.Left.m = allowNull
 		return &ma.ca_Left, nil
 	case "Right":
 		if ma.s&fieldBit__SMTInnerNode_Right != 0 {
@@ -29182,8 +29287,9 @@ func (ma *_SMTInnerNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssemb
 		ma.s += fieldBit__SMTInnerNode_Right
 		ma.state = maState_midValue
 		ma.f = 1
-		ma.ca_Right.w = &ma.w.Right
-		ma.ca_Right.m = &ma.cm
+		ma.ca_Right.w = ma.w.Right.v
+		ma.ca_Right.m = &ma.w.Right.m
+		ma.w.Right.m = allowNull
 		return &ma.ca_Right, nil
 	default:
 	}
@@ -29223,12 +29329,14 @@ func (ma *_SMTInnerNode__ReprAssembler) AssembleValue() ipld.NodeAssembler {
 	ma.state = maState_midValue
 	switch ma.f {
 	case 0:
-		ma.ca_Left.w = &ma.w.Left
-		ma.ca_Left.m = &ma.cm
+		ma.ca_Left.w = ma.w.Left.v
+		ma.ca_Left.m = &ma.w.Left.m
+		ma.w.Left.m = allowNull
 		return &ma.ca_Left
 	case 1:
-		ma.ca_Right.w = &ma.w.Right
-		ma.ca_Right.m = &ma.cm
+		ma.ca_Right.w = ma.w.Right.v
+		ma.ca_Right.m = &ma.w.Right.m
+		ma.w.Right.m = allowNull
 		return &ma.ca_Right
 	default:
 		panic("unreachable")
@@ -29251,12 +29359,6 @@ func (ma *_SMTInnerNode__ReprAssembler) Finish() error {
 	}
 	if ma.s&fieldBits__SMTInnerNode_sufficient != fieldBits__SMTInnerNode_sufficient {
 		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__SMTInnerNode_Left == 0 {
-			err.Missing = append(err.Missing, "Left")
-		}
-		if ma.s&fieldBit__SMTInnerNode_Right == 0 {
-			err.Missing = append(err.Missing, "Right")
-		}
 		return err
 	}
 	ma.state = maState_finished
