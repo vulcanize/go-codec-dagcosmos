@@ -6,18 +6,18 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/vulcanize/go-codec-dagcosmos/commit"
-	"github.com/vulcanize/go-codec-dagcosmos/evidence"
-	"github.com/vulcanize/go-codec-dagcosmos/result"
-	validator "github.com/vulcanize/go-codec-dagcosmos/simple_validator"
-
 	"github.com/ipfs/go-cid"
 	"github.com/ipld/go-ipld-prime"
 	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
 	"github.com/multiformats/go-multihash"
+
+	"github.com/vulcanize/go-codec-dagcosmos/commit"
+	"github.com/vulcanize/go-codec-dagcosmos/evidence"
+	"github.com/vulcanize/go-codec-dagcosmos/result"
+	"github.com/vulcanize/go-codec-dagcosmos/simple_validator"
 )
 
-// DecodeTrieNode provides an IPLD codec decode interface for cosmos merkle tree nodes
+// DecodeTrieNode provides an IPLD codec decode interface for Tendermint Merkle tree nodes
 // It's not possible to meet the Decode(na ipld.NodeAssembler, in io.Reader) interface
 // for a function that supports all tree types (multicodec types), unlike with encoding.
 // this is used by Decode functions for each tree type, which are the ones registered to their
@@ -34,17 +34,6 @@ func DecodeTrieNode(na ipld.NodeAssembler, in io.Reader, codec uint64) error {
 		}
 	}
 	return DecodeTrieNodeBytes(na, src, codec)
-}
-
-func decodeNode(src []byte) ([]byte, NodeKind, error) {
-	switch {
-	case bytes.HasPrefix(src, innerPrefix):
-		return src[1:], INNER_NODE, nil
-	case bytes.HasPrefix(src, leafPrefix):
-		return src[1:], LEAF_NODE, nil
-	default:
-		return nil, "", fmt.Errorf("merkle tree node has unrecognized prefix %x", src[0])
-	}
 }
 
 // DecodeTrieNodeBytes is like DecodeTrieNode, but it uses an input buffer directly.
@@ -76,7 +65,7 @@ func DecodeTrieNodeBytes(na ipld.NodeAssembler, src []byte, codec uint64) error 
 		if err := ma.AssembleKey().AssignString(LEAF_NODE.String()); err != nil {
 			return err
 		}
-		leafNodeMA, err := ma.AssembleValue().BeginMap(2)
+		leafNodeMA, err := ma.AssembleValue().BeginMap(1)
 		if err != nil {
 			return err
 		}
@@ -94,17 +83,26 @@ func DecodeTrieNodeBytes(na ipld.NodeAssembler, src []byte, codec uint64) error 
 }
 
 func unpackInnerNode(ma ipld.MapAssembler, nodeBytes []byte, codec uint64) error {
-	left, right := nodeBytes[:pathSize], nodeBytes[pathSize:]
+	left, right := nodeBytes[:hashSize], nodeBytes[hashSize:]
 	if err := ma.AssembleKey().AssignString("Left"); err != nil {
 		return err
 	}
-	leftCID := sha256ToCid(codec, left)
-	leftCIDLink := cidlink.Link{Cid: leftCID}
-	if err := ma.AssembleValue().AssignLink(leftCIDLink); err != nil {
-		return err
+	if bytes.Equal(left, emptyHash) {
+		if err := ma.AssembleValue().AssignNull(); err != nil {
+			return err
+		}
+	} else {
+		leftCID := sha256ToCid(codec, left)
+		leftCIDLink := cidlink.Link{Cid: leftCID}
+		if err := ma.AssembleValue().AssignLink(leftCIDLink); err != nil {
+			return err
+		}
 	}
 	if err := ma.AssembleKey().AssignString("Right"); err != nil {
 		return err
+	}
+	if bytes.Equal(right, emptyHash) {
+		return ma.AssembleValue().AssignNull()
 	}
 	rightCID := sha256ToCid(codec, right)
 	rightCIDLink := cidlink.Link{Cid: rightCID}
@@ -178,4 +176,16 @@ func sha256ToCid(codec uint64, h []byte) cid.Cid {
 	}
 
 	return cid.NewCidV1(codec, multihash.Multihash(buf))
+}
+
+// returns node without prefix and the kind of the node
+func decodeNode(src []byte) ([]byte, NodeKind, error) {
+	switch {
+	case bytes.HasPrefix(src, innerPrefix):
+		return src[1:], INNER_NODE, nil
+	case bytes.HasPrefix(src, leafPrefix):
+		return src[1:], LEAF_NODE, nil
+	default:
+		return nil, "", fmt.Errorf("merkle tree node has unrecognized prefix %x", src[0])
+	}
 }

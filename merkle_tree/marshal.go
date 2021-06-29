@@ -2,37 +2,33 @@ package mt
 
 import (
 	"bytes"
-	"crypto/sha256"
 	"fmt"
 	"io"
 
-	"github.com/vulcanize/go-codec-dagcosmos/shared"
+	"github.com/ipld/go-ipld-prime"
+	"github.com/tendermint/tendermint/crypto/tmhash"
 
+	dagcosmos "github.com/vulcanize/go-codec-dagcosmos"
 	"github.com/vulcanize/go-codec-dagcosmos/commit"
 	"github.com/vulcanize/go-codec-dagcosmos/evidence"
 	"github.com/vulcanize/go-codec-dagcosmos/result"
-	validator "github.com/vulcanize/go-codec-dagcosmos/simple_validator"
-
-	"github.com/ipld/go-ipld-prime"
-	dagcosmos "github.com/vulcanize/go-codec-dagcosmos"
+	"github.com/vulcanize/go-codec-dagcosmos/shared"
+	"github.com/vulcanize/go-codec-dagcosmos/simple_validator"
 )
 
 type NodeKind string
 type ValueKind string
 
 var (
-	hasher       = sha256.New()
-	pathSize     = hasher.Size()
-	placeholder  = bytes.Repeat([]byte{0}, pathSize)
-	defaultValue = []byte{}
-	leafPrefix   = []byte{0}
-	innerPrefix  = []byte{1}
+	hashSize    = tmhash.Size
+	emptyHash   = tmhash.Sum([]byte{})
+	leafPrefix  = []byte{0}
+	innerPrefix = []byte{1}
 )
 
 const (
 	INNER_NODE NodeKind = "inner"
 	LEAF_NODE  NodeKind = "leaf"
-	ROOT_NODE  NodeKind = "root"
 
 	UNKNOWN_VALUE   ValueKind = "unknown"
 	VALIDATOR_VALUE ValueKind = "validator"
@@ -52,7 +48,7 @@ func (v ValueKind) String() string {
 	return string(v)
 }
 
-// Encode provides an IPLD codec encode interface for cosmos merkle tree node IPLDs.
+// Encode provides an IPLD codec encode interface for Tendermint Merkle tree node IPLDs.
 // This function is registered via the go-ipld-prime link loader for multicodec
 // code XXXX when this package is invoked via init.
 func Encode(node ipld.Node, w io.Writer) error {
@@ -83,7 +79,7 @@ func AppendEncode(enc []byte, inNode ipld.Node) ([]byte, error) {
 		return nil, err
 	}
 	switch kind {
-	case INNER_NODE, ROOT_NODE:
+	case INNER_NODE:
 		enc, err = packInnerNode(node)
 	case LEAF_NODE:
 		enc, err = packLeafNode(node)
@@ -100,7 +96,7 @@ func packInnerNode(node ipld.Node) ([]byte, error) {
 		return nil, err
 	}
 	if leftNode.IsNull() {
-		leftData = placeholder
+		leftData = emptyHash
 	} else {
 		leftData, err = shared.PackLink(leftNode)
 		if err != nil {
@@ -112,7 +108,7 @@ func packInnerNode(node ipld.Node) ([]byte, error) {
 		return nil, err
 	}
 	if rightNode.IsNull() {
-		rightData = placeholder
+		rightData = emptyHash
 	} else {
 		rightData, err = shared.PackLink(rightNode)
 		if err != nil {
@@ -132,7 +128,7 @@ func packLeafNode(node ipld.Node) ([]byte, error) {
 		return nil, err
 	}
 	nodeVal := make([]byte, 0, len(leafPrefix)+len(val))
-	nodeVal = append(nodeVal, innerPrefix...)
+	nodeVal = append(nodeVal, leafPrefix...)
 	nodeVal = append(nodeVal, val...)
 	return nodeVal, nil
 }
@@ -217,9 +213,10 @@ func ValueAndKind(node ipld.Node) (ipld.Node, ValueKind, error) {
 	if err == nil {
 		return n, HEADER_VALUE, nil
 	}
-	return nil, "", fmt.Errorf("merkle tree value IPLD node is missing the expected keyed Union keys")
+	return nil, UNKNOWN_VALUE, fmt.Errorf("merkle tree value IPLD node is missing the expected keyed Union keys")
 }
 
+// NodeAndKind returns the node and its kind
 func NodeAndKind(node ipld.Node) (ipld.Node, NodeKind, error) {
 	n, err := node.LookupByString(LEAF_NODE.String())
 	if err == nil {
@@ -228,10 +225,6 @@ func NodeAndKind(node ipld.Node) (ipld.Node, NodeKind, error) {
 	n, err = node.LookupByString(INNER_NODE.String())
 	if err == nil {
 		return n, INNER_NODE, nil
-	}
-	n, err = node.LookupByString(ROOT_NODE.String())
-	if err == nil {
-		return n, ROOT_NODE, nil
 	}
 	return nil, "", fmt.Errorf("merkle tree IPLD node is missing the expected keyed Union keys")
 }
