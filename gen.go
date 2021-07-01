@@ -605,7 +605,6 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 	))
 	/*
 		type MerkleTreeNode union {
-			| MerkleTreeRootNode "root"
 			| MerkleTreeInnerNode "inner"
 			| MerkleTreeLeafNode "leaf"
 		} representation keyed
@@ -643,7 +642,6 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 			"MerkleTreeLeafNode",
 		},
 		schema.SpawnUnionRepresentationKeyed(map[string]schema.TypeName{
-			"root":  "MerkleTreeInnerNode",
 			"inner": "MerkleTreeInnerNode",
 			"leaf":  "MerkleTreeLeafNode",
 		}),
@@ -769,16 +767,11 @@ func accumulateCosmosDataStructures(ts *schema.TypeSystem) {
 		type SMTNode union {
 			| SMTInnerNode "inner"
 			| SMTLeafNode "leaf"
-			| SMTEmptyNode "empty"
 		} representation keyed
 
 		# SMTRootNode is the top-most node in an SMT; the root node of the tree.
 		# It can be a leaf node if there is only one value in the tree
 		type SMTRootNode SMTNode
-
-		# SMTEmptyNode represents an empty node in the sparse tree
-		type
-
 
 		# SMTInnerNode contains two byte arrays which contain the hashes which link its two child nodes.
 		type SMTInnerNode struct {
