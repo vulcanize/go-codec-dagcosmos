@@ -45,68 +45,6 @@ func AppendEncode(enc []byte, inNode ipld.Node) ([]byte, error) {
 	return enc, err
 }
 
-/*
-return to this later
-
-// EncodeHeader packs the node into the provided go-ethereum Header
-func EncodeHeader(header *types.Header, inNode ipld.Node) error {
-	// Wrap in a typed node for some basic schema form checking
-	builder := dagcosmos.Type.MerkleTreeInnerNode.NewBuilder()
-	if err := builder.AssignNode(inNode); err != nil {
-		return err
-	}
-	node := builder.Build()
-	// node needs to be the root node of the header tree
-	_, err := node.LookupByString("root")
-	if err != nil {
-		return fmt.Errorf("the ipld node provided tendermint header Encode functions must be the root node of a header field merkle tree")
-	}
-	for _, pFunc := range requiredPackFuncs {
-		if err := pFunc(header, node); err != nil {
-			return fmt.Errorf("invalid DAG-Cosmos Header form (%v)", err)
-		}
-	}
-	return nil
-}
-
-func NodeAndKind(node ipld.Node) (ipld.Node, mt.NodeKind, error) {
-	n, err := node.LookupByString(mt.INNER_NODE.String())
-	if err == nil {
-		return n, mt.INNER_NODE, nil
-	}
-	n, err = node.LookupByString(mt.ROOT_NODE.String())
-	if err == nil {
-		return n, mt.ROOT_NODE, nil
-	}
-	n, err = node.LookupByString(mt.LEAF_NODE.String())
-	if err == nil {
-		return n, mt.LEAF_NODE, nil
-	}
-	return nil, "", fmt.Errorf("unrecognized merke tree node kind")
-}
-
-func CollectLeafNodes(node ipld.Node) ([]ipld.Node, error) {
-	n, kind, err := NodeAndKind(node)
-	if err != nil {
-		return nil, err
-	}
-	switch kind {
-	case mt.INNER_NODE, mt.ROOT_NODE:
-		leftNode, err := n.LookupByString("Left")
-		if err != nil {
-			return nil, err
-		}
-		l, err := leftNode.AsLink()
-		if err != nil {
-			return nil, err
-		}
-	case mt.LEAF_NODE:
-	default:
-		return nil, fmt.Errorf("unrecognized merke tree node kind")
-	}
-
-}
-*/
 // EncodeHeader packs the node into the provided Tendermint Header
 func EncodeHeader(header *types.Header, inNode ipld.Node) error {
 	// Wrap in a typed node for some basic schema form checking
