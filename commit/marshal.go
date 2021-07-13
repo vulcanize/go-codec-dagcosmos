@@ -44,7 +44,7 @@ func AppendEncode(enc []byte, inNode ipld.Node) ([]byte, error) {
 // EncodeCommitSig is like Encode, but it uses a destination CommitSig struct
 func EncodeCommitSig(cs *types.CommitSig, inNode ipld.Node) error {
 	// Wrap in a typed node for some basic schema form checking
-	builder := dagcosmos.Type.Header.NewBuilder()
+	builder := dagcosmos.Type.CommitSig.NewBuilder()
 	if err := builder.AssignNode(inNode); err != nil {
 		return err
 	}

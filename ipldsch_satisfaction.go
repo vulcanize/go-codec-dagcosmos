@@ -21528,7 +21528,7 @@ func (_MerkleTreeNode__Repr) Kind() ipld.Kind {
 }
 func (n *_MerkleTreeNode__Repr) LookupByString(key string) (ipld.Node, error) {
 	switch key {
-	case "root":
+	case "inner":
 		if n.tag != 1 {
 			return nil, ipld.ErrNotExists{Segment: ipld.PathSegmentOfString(key)}
 		}
@@ -21786,7 +21786,7 @@ func (ma *_MerkleTreeNode__ReprAssembler) AssembleEntry(k string) (ipld.NodeAsse
 		return nil, schema.ErrNotUnionStructure{TypeName: "dagcosmos.MerkleTreeNode.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
 	}
 	switch k {
-	case "root":
+	case "inner":
 		ma.state = maState_midValue
 		ma.ca = 1
 		ma.w.tag = 1
@@ -21912,7 +21912,7 @@ func (ka *_MerkleTreeNode__ReprKeyAssembler) AssignString(k string) error {
 		return schema.ErrNotUnionStructure{TypeName: "dagcosmos.MerkleTreeNode.Repr", Detail: "cannot add another entry -- a union can only contain one thing!"}
 	}
 	switch k {
-	case "root":
+	case "inner":
 		ka.ca = 1
 		ka.w.tag = 1
 		ka.state = maState_expectValue
@@ -25798,8 +25798,8 @@ func (_Proof__ReprKeyAssembler) Prototype() ipld.NodePrototype {
 	return _String__Prototype{}
 }
 
-func (n _Proposal) FieldType() SignedMsgType {
-	return &n.Type
+func (n _Proposal) FieldSMType() SignedMsgType {
+	return &n.SMType
 }
 func (n _Proposal) FieldHeight() Int {
 	return &n.Height
@@ -25855,7 +25855,7 @@ func (m MaybeProposal) Must() Proposal {
 }
 
 var (
-	fieldName__Proposal_Type      = _String{"Type"}
+	fieldName__Proposal_SMType    = _String{"SMType"}
 	fieldName__Proposal_Height    = _String{"Height"}
 	fieldName__Proposal_Round     = _String{"Round"}
 	fieldName__Proposal_POLRound  = _String{"POLRound"}
@@ -25871,8 +25871,8 @@ func (Proposal) Kind() ipld.Kind {
 }
 func (n Proposal) LookupByString(key string) (ipld.Node, error) {
 	switch key {
-	case "Type":
-		return &n.Type, nil
+	case "SMType":
+		return &n.SMType, nil
 	case "Height":
 		return &n.Height, nil
 	case "Round":
@@ -25917,8 +25917,8 @@ func (itr *_Proposal__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
 	}
 	switch itr.idx {
 	case 0:
-		k = &fieldName__Proposal_Type
-		v = &itr.n.Type
+		k = &fieldName__Proposal_SMType
+		v = &itr.n.SMType
 	case 1:
 		k = &fieldName__Proposal_Height
 		v = &itr.n.Height
@@ -26013,7 +26013,7 @@ type _Proposal__Assembler struct {
 	f     int
 
 	cm           schema.Maybe
-	ca_Type      _SignedMsgType__Assembler
+	ca_SMType    _SignedMsgType__Assembler
 	ca_Height    _Int__Assembler
 	ca_Round     _Int__Assembler
 	ca_POLRound  _Int__Assembler
@@ -26025,7 +26025,7 @@ type _Proposal__Assembler struct {
 func (na *_Proposal__Assembler) reset() {
 	na.state = maState_initial
 	na.s = 0
-	na.ca_Type.reset()
+	na.ca_SMType.reset()
 	na.ca_Height.reset()
 	na.ca_Round.reset()
 	na.ca_POLRound.reset()
@@ -26035,7 +26035,7 @@ func (na *_Proposal__Assembler) reset() {
 }
 
 var (
-	fieldBit__Proposal_Type        = 1 << 0
+	fieldBit__Proposal_SMType      = 1 << 0
 	fieldBit__Proposal_Height      = 1 << 1
 	fieldBit__Proposal_Round       = 1 << 2
 	fieldBit__Proposal_POLRound    = 1 << 3
@@ -26139,7 +26139,7 @@ func (ma *_Proposal__Assembler) valueFinishTidy() bool {
 	case 0:
 		switch ma.cm {
 		case schema.Maybe_Value:
-			ma.ca_Type.w = nil
+			ma.ca_SMType.w = nil
 			ma.cm = schema.Maybe_Absent
 			ma.state = maState_initial
 			return true
@@ -26226,16 +26226,16 @@ func (ma *_Proposal__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, err
 		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
 	}
 	switch k {
-	case "Type":
-		if ma.s&fieldBit__Proposal_Type != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_Type}
+	case "SMType":
+		if ma.s&fieldBit__Proposal_SMType != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_SMType}
 		}
-		ma.s += fieldBit__Proposal_Type
+		ma.s += fieldBit__Proposal_SMType
 		ma.state = maState_midValue
 		ma.f = 0
-		ma.ca_Type.w = &ma.w.Type
-		ma.ca_Type.m = &ma.cm
-		return &ma.ca_Type, nil
+		ma.ca_SMType.w = &ma.w.SMType
+		ma.ca_SMType.m = &ma.cm
+		return &ma.ca_SMType, nil
 	case "Height":
 		if ma.s&fieldBit__Proposal_Height != 0 {
 			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_Height}
@@ -26333,9 +26333,9 @@ func (ma *_Proposal__Assembler) AssembleValue() ipld.NodeAssembler {
 	ma.state = maState_midValue
 	switch ma.f {
 	case 0:
-		ma.ca_Type.w = &ma.w.Type
-		ma.ca_Type.m = &ma.cm
-		return &ma.ca_Type
+		ma.ca_SMType.w = &ma.w.SMType
+		ma.ca_SMType.m = &ma.cm
+		return &ma.ca_SMType
 	case 1:
 		ma.ca_Height.w = &ma.w.Height
 		ma.ca_Height.m = &ma.cm
@@ -26381,8 +26381,8 @@ func (ma *_Proposal__Assembler) Finish() error {
 	}
 	if ma.s&fieldBits__Proposal_sufficient != fieldBits__Proposal_sufficient {
 		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__Proposal_Type == 0 {
-			err.Missing = append(err.Missing, "Type")
+		if ma.s&fieldBit__Proposal_SMType == 0 {
+			err.Missing = append(err.Missing, "SMType")
 		}
 		if ma.s&fieldBit__Proposal_Height == 0 {
 			err.Missing = append(err.Missing, "Height")
@@ -26440,11 +26440,11 @@ func (ka *_Proposal__KeyAssembler) AssignString(k string) error {
 		panic("misuse: KeyAssembler held beyond its valid lifetime")
 	}
 	switch k {
-	case "Type":
-		if ka.s&fieldBit__Proposal_Type != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_Type}
+	case "SMType":
+		if ka.s&fieldBit__Proposal_SMType != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_SMType}
 		}
-		ka.s += fieldBit__Proposal_Type
+		ka.s += fieldBit__Proposal_SMType
 		ka.state = maState_expectValue
 		ka.f = 0
 	case "Height":
@@ -26520,7 +26520,7 @@ func (n Proposal) Representation() ipld.Node {
 type _Proposal__Repr _Proposal
 
 var (
-	fieldName__Proposal_Type_serial      = _String{"Type"}
+	fieldName__Proposal_SMType_serial    = _String{"SMType"}
 	fieldName__Proposal_Height_serial    = _String{"Height"}
 	fieldName__Proposal_Round_serial     = _String{"Round"}
 	fieldName__Proposal_POLRound_serial  = _String{"POLRound"}
@@ -26535,8 +26535,8 @@ func (_Proposal__Repr) Kind() ipld.Kind {
 }
 func (n *_Proposal__Repr) LookupByString(key string) (ipld.Node, error) {
 	switch key {
-	case "Type":
-		return n.Type.Representation(), nil
+	case "SMType":
+		return n.SMType.Representation(), nil
 	case "Height":
 		return n.Height.Representation(), nil
 	case "Round":
@@ -26581,8 +26581,8 @@ func (itr *_Proposal__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
 	}
 	switch itr.idx {
 	case 0:
-		k = &fieldName__Proposal_Type_serial
-		v = itr.n.Type.Representation()
+		k = &fieldName__Proposal_SMType_serial
+		v = itr.n.SMType.Representation()
 	case 1:
 		k = &fieldName__Proposal_Height_serial
 		v = itr.n.Height.Representation()
@@ -26677,7 +26677,7 @@ type _Proposal__ReprAssembler struct {
 	f     int
 
 	cm           schema.Maybe
-	ca_Type      _SignedMsgType__ReprAssembler
+	ca_SMType    _SignedMsgType__ReprAssembler
 	ca_Height    _Int__ReprAssembler
 	ca_Round     _Int__ReprAssembler
 	ca_POLRound  _Int__ReprAssembler
@@ -26689,7 +26689,7 @@ type _Proposal__ReprAssembler struct {
 func (na *_Proposal__ReprAssembler) reset() {
 	na.state = maState_initial
 	na.s = 0
-	na.ca_Type.reset()
+	na.ca_SMType.reset()
 	na.ca_Height.reset()
 	na.ca_Round.reset()
 	na.ca_POLRound.reset()
@@ -26871,16 +26871,16 @@ func (ma *_Proposal__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler,
 		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
 	}
 	switch k {
-	case "Type":
-		if ma.s&fieldBit__Proposal_Type != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_Type_serial}
+	case "SMType":
+		if ma.s&fieldBit__Proposal_SMType != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_SMType_serial}
 		}
-		ma.s += fieldBit__Proposal_Type
+		ma.s += fieldBit__Proposal_SMType
 		ma.state = maState_midValue
 		ma.f = 0
-		ma.ca_Type.w = &ma.w.Type
-		ma.ca_Type.m = &ma.cm
-		return &ma.ca_Type, nil
+		ma.ca_SMType.w = &ma.w.SMType
+		ma.ca_SMType.m = &ma.cm
+		return &ma.ca_SMType, nil
 	case "Height":
 		if ma.s&fieldBit__Proposal_Height != 0 {
 			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_Height_serial}
@@ -26979,9 +26979,9 @@ func (ma *_Proposal__ReprAssembler) AssembleValue() ipld.NodeAssembler {
 	ma.state = maState_midValue
 	switch ma.f {
 	case 0:
-		ma.ca_Type.w = &ma.w.Type
-		ma.ca_Type.m = &ma.cm
-		return &ma.ca_Type
+		ma.ca_SMType.w = &ma.w.SMType
+		ma.ca_SMType.m = &ma.cm
+		return &ma.ca_SMType
 	case 1:
 		ma.ca_Height.w = &ma.w.Height
 		ma.ca_Height.m = &ma.cm
@@ -27027,8 +27027,8 @@ func (ma *_Proposal__ReprAssembler) Finish() error {
 	}
 	if ma.s&fieldBits__Proposal_sufficient != fieldBits__Proposal_sufficient {
 		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__Proposal_Type == 0 {
-			err.Missing = append(err.Missing, "Type")
+		if ma.s&fieldBit__Proposal_SMType == 0 {
+			err.Missing = append(err.Missing, "SMType")
 		}
 		if ma.s&fieldBit__Proposal_Height == 0 {
 			err.Missing = append(err.Missing, "Height")
@@ -27086,11 +27086,11 @@ func (ka *_Proposal__ReprKeyAssembler) AssignString(k string) error {
 		panic("misuse: KeyAssembler held beyond its valid lifetime")
 	}
 	switch k {
-	case "Type":
-		if ka.s&fieldBit__Proposal_Type != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_Type_serial}
+	case "SMType":
+		if ka.s&fieldBit__Proposal_SMType != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__Proposal_SMType_serial}
 		}
-		ka.s += fieldBit__Proposal_Type
+		ka.s += fieldBit__Proposal_SMType
 		ka.state = maState_expectValue
 		ka.f = 0
 		return nil
@@ -41489,8 +41489,8 @@ func (_Version__ReprKeyAssembler) Prototype() ipld.NodePrototype {
 	return _String__Prototype{}
 }
 
-func (n _Vote) FieldType() SignedMsgType {
-	return &n.Type
+func (n _Vote) FieldSMType() SignedMsgType {
+	return &n.SMType
 }
 func (n _Vote) FieldHeight() Int {
 	return &n.Height
@@ -41549,7 +41549,7 @@ func (m MaybeVote) Must() Vote {
 }
 
 var (
-	fieldName__Vote_Type             = _String{"Type"}
+	fieldName__Vote_SMType           = _String{"SMType"}
 	fieldName__Vote_Height           = _String{"Height"}
 	fieldName__Vote_Round            = _String{"Round"}
 	fieldName__Vote_BlockID          = _String{"BlockID"}
@@ -41566,8 +41566,8 @@ func (Vote) Kind() ipld.Kind {
 }
 func (n Vote) LookupByString(key string) (ipld.Node, error) {
 	switch key {
-	case "Type":
-		return &n.Type, nil
+	case "SMType":
+		return &n.SMType, nil
 	case "Height":
 		return &n.Height, nil
 	case "Round":
@@ -41614,8 +41614,8 @@ func (itr *_Vote__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
 	}
 	switch itr.idx {
 	case 0:
-		k = &fieldName__Vote_Type
-		v = &itr.n.Type
+		k = &fieldName__Vote_SMType
+		v = &itr.n.SMType
 	case 1:
 		k = &fieldName__Vote_Height
 		v = &itr.n.Height
@@ -41713,7 +41713,7 @@ type _Vote__Assembler struct {
 	f     int
 
 	cm                  schema.Maybe
-	ca_Type             _SignedMsgType__Assembler
+	ca_SMType           _SignedMsgType__Assembler
 	ca_Height           _Int__Assembler
 	ca_Round            _Int__Assembler
 	ca_BlockID          _BlockID__Assembler
@@ -41726,7 +41726,7 @@ type _Vote__Assembler struct {
 func (na *_Vote__Assembler) reset() {
 	na.state = maState_initial
 	na.s = 0
-	na.ca_Type.reset()
+	na.ca_SMType.reset()
 	na.ca_Height.reset()
 	na.ca_Round.reset()
 	na.ca_BlockID.reset()
@@ -41737,7 +41737,7 @@ func (na *_Vote__Assembler) reset() {
 }
 
 var (
-	fieldBit__Vote_Type             = 1 << 0
+	fieldBit__Vote_SMType           = 1 << 0
 	fieldBit__Vote_Height           = 1 << 1
 	fieldBit__Vote_Round            = 1 << 2
 	fieldBit__Vote_BlockID          = 1 << 3
@@ -41842,7 +41842,7 @@ func (ma *_Vote__Assembler) valueFinishTidy() bool {
 	case 0:
 		switch ma.cm {
 		case schema.Maybe_Value:
-			ma.ca_Type.w = nil
+			ma.ca_SMType.w = nil
 			ma.cm = schema.Maybe_Absent
 			ma.state = maState_initial
 			return true
@@ -41939,16 +41939,16 @@ func (ma *_Vote__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, error) 
 		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
 	}
 	switch k {
-	case "Type":
-		if ma.s&fieldBit__Vote_Type != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Vote_Type}
+	case "SMType":
+		if ma.s&fieldBit__Vote_SMType != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Vote_SMType}
 		}
-		ma.s += fieldBit__Vote_Type
+		ma.s += fieldBit__Vote_SMType
 		ma.state = maState_midValue
 		ma.f = 0
-		ma.ca_Type.w = &ma.w.Type
-		ma.ca_Type.m = &ma.cm
-		return &ma.ca_Type, nil
+		ma.ca_SMType.w = &ma.w.SMType
+		ma.ca_SMType.m = &ma.cm
+		return &ma.ca_SMType, nil
 	case "Height":
 		if ma.s&fieldBit__Vote_Height != 0 {
 			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Vote_Height}
@@ -42056,9 +42056,9 @@ func (ma *_Vote__Assembler) AssembleValue() ipld.NodeAssembler {
 	ma.state = maState_midValue
 	switch ma.f {
 	case 0:
-		ma.ca_Type.w = &ma.w.Type
-		ma.ca_Type.m = &ma.cm
-		return &ma.ca_Type
+		ma.ca_SMType.w = &ma.w.SMType
+		ma.ca_SMType.m = &ma.cm
+		return &ma.ca_SMType
 	case 1:
 		ma.ca_Height.w = &ma.w.Height
 		ma.ca_Height.m = &ma.cm
@@ -42108,8 +42108,8 @@ func (ma *_Vote__Assembler) Finish() error {
 	}
 	if ma.s&fieldBits__Vote_sufficient != fieldBits__Vote_sufficient {
 		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__Vote_Type == 0 {
-			err.Missing = append(err.Missing, "Type")
+		if ma.s&fieldBit__Vote_SMType == 0 {
+			err.Missing = append(err.Missing, "SMType")
 		}
 		if ma.s&fieldBit__Vote_Height == 0 {
 			err.Missing = append(err.Missing, "Height")
@@ -42170,11 +42170,11 @@ func (ka *_Vote__KeyAssembler) AssignString(k string) error {
 		panic("misuse: KeyAssembler held beyond its valid lifetime")
 	}
 	switch k {
-	case "Type":
-		if ka.s&fieldBit__Vote_Type != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__Vote_Type}
+	case "SMType":
+		if ka.s&fieldBit__Vote_SMType != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__Vote_SMType}
 		}
-		ka.s += fieldBit__Vote_Type
+		ka.s += fieldBit__Vote_SMType
 		ka.state = maState_expectValue
 		ka.f = 0
 	case "Height":
@@ -42257,7 +42257,7 @@ func (n Vote) Representation() ipld.Node {
 type _Vote__Repr _Vote
 
 var (
-	fieldName__Vote_Type_serial             = _String{"Type"}
+	fieldName__Vote_SMType_serial           = _String{"SMType"}
 	fieldName__Vote_Height_serial           = _String{"Height"}
 	fieldName__Vote_Round_serial            = _String{"Round"}
 	fieldName__Vote_BlockID_serial          = _String{"BlockID"}
@@ -42273,8 +42273,8 @@ func (_Vote__Repr) Kind() ipld.Kind {
 }
 func (n *_Vote__Repr) LookupByString(key string) (ipld.Node, error) {
 	switch key {
-	case "Type":
-		return n.Type.Representation(), nil
+	case "SMType":
+		return n.SMType.Representation(), nil
 	case "Height":
 		return n.Height.Representation(), nil
 	case "Round":
@@ -42321,8 +42321,8 @@ func (itr *_Vote__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
 	}
 	switch itr.idx {
 	case 0:
-		k = &fieldName__Vote_Type_serial
-		v = itr.n.Type.Representation()
+		k = &fieldName__Vote_SMType_serial
+		v = itr.n.SMType.Representation()
 	case 1:
 		k = &fieldName__Vote_Height_serial
 		v = itr.n.Height.Representation()
@@ -42420,7 +42420,7 @@ type _Vote__ReprAssembler struct {
 	f     int
 
 	cm                  schema.Maybe
-	ca_Type             _SignedMsgType__ReprAssembler
+	ca_SMType           _SignedMsgType__ReprAssembler
 	ca_Height           _Int__ReprAssembler
 	ca_Round            _Int__ReprAssembler
 	ca_BlockID          _BlockID__ReprAssembler
@@ -42433,7 +42433,7 @@ type _Vote__ReprAssembler struct {
 func (na *_Vote__ReprAssembler) reset() {
 	na.state = maState_initial
 	na.s = 0
-	na.ca_Type.reset()
+	na.ca_SMType.reset()
 	na.ca_Height.reset()
 	na.ca_Round.reset()
 	na.ca_BlockID.reset()
@@ -42625,16 +42625,16 @@ func (ma *_Vote__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler, err
 		panic("invalid state: AssembleEntry cannot be called on an assembler that's already finished")
 	}
 	switch k {
-	case "Type":
-		if ma.s&fieldBit__Vote_Type != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Vote_Type_serial}
+	case "SMType":
+		if ma.s&fieldBit__Vote_SMType != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Vote_SMType_serial}
 		}
-		ma.s += fieldBit__Vote_Type
+		ma.s += fieldBit__Vote_SMType
 		ma.state = maState_midValue
 		ma.f = 0
-		ma.ca_Type.w = &ma.w.Type
-		ma.ca_Type.m = &ma.cm
-		return &ma.ca_Type, nil
+		ma.ca_SMType.w = &ma.w.SMType
+		ma.ca_SMType.m = &ma.cm
+		return &ma.ca_SMType, nil
 	case "Height":
 		if ma.s&fieldBit__Vote_Height != 0 {
 			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Vote_Height_serial}
@@ -42743,9 +42743,9 @@ func (ma *_Vote__ReprAssembler) AssembleValue() ipld.NodeAssembler {
 	ma.state = maState_midValue
 	switch ma.f {
 	case 0:
-		ma.ca_Type.w = &ma.w.Type
-		ma.ca_Type.m = &ma.cm
-		return &ma.ca_Type
+		ma.ca_SMType.w = &ma.w.SMType
+		ma.ca_SMType.m = &ma.cm
+		return &ma.ca_SMType
 	case 1:
 		ma.ca_Height.w = &ma.w.Height
 		ma.ca_Height.m = &ma.cm
@@ -42795,8 +42795,8 @@ func (ma *_Vote__ReprAssembler) Finish() error {
 	}
 	if ma.s&fieldBits__Vote_sufficient != fieldBits__Vote_sufficient {
 		err := ipld.ErrMissingRequiredField{Missing: make([]string, 0)}
-		if ma.s&fieldBit__Vote_Type == 0 {
-			err.Missing = append(err.Missing, "Type")
+		if ma.s&fieldBit__Vote_SMType == 0 {
+			err.Missing = append(err.Missing, "SMType")
 		}
 		if ma.s&fieldBit__Vote_Height == 0 {
 			err.Missing = append(err.Missing, "Height")
@@ -42857,11 +42857,11 @@ func (ka *_Vote__ReprKeyAssembler) AssignString(k string) error {
 		panic("misuse: KeyAssembler held beyond its valid lifetime")
 	}
 	switch k {
-	case "Type":
-		if ka.s&fieldBit__Vote_Type != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__Vote_Type_serial}
+	case "SMType":
+		if ka.s&fieldBit__Vote_SMType != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__Vote_SMType_serial}
 		}
-		ka.s += fieldBit__Vote_Type
+		ka.s += fieldBit__Vote_SMType
 		ka.state = maState_expectValue
 		ka.f = 0
 		return nil

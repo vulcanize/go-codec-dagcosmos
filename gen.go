@@ -354,7 +354,7 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 		# Vote represents a prevote, precommit, or commit vote from validators for
 		# consensus.
 		type Vote struct {
-			Type             SignedMsgType
+			SMType           SignedMsgType
 			Height           Int
 			Round            Int
 			BlockID          BlockID
@@ -374,7 +374,7 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 
 		# Proposal defines a block proposal for the consensus.
 		type Proposal struct {
-			Type      SignedMsgType
+			SMType    SignedMsgType
 			Height    Int
 			Round     Int # there can not be greater than 2_147_483_647 rounds
 			POLRound  Int # -1 if null.
@@ -387,7 +387,7 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 	ts.Accumulate(schema.SpawnInt("SignedMsgType"))
 	ts.Accumulate(schema.SpawnStruct("Vote",
 		[]schema.StructField{
-			schema.SpawnStructField("Type", "SignedMsgType", false, false),
+			schema.SpawnStructField("SMType", "SignedMsgType", false, false),
 			schema.SpawnStructField("Height", "Int", false, false),
 			schema.SpawnStructField("Round", "Int", false, false),
 			schema.SpawnStructField("BlockID", "BlockID", false, false),
@@ -400,7 +400,7 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 	))
 	ts.Accumulate(schema.SpawnStruct("Proposal",
 		[]schema.StructField{
-			schema.SpawnStructField("Type", "SignedMsgType", false, false),
+			schema.SpawnStructField("SMType", "SignedMsgType", false, false),
 			schema.SpawnStructField("Height", "Int", false, false),
 			schema.SpawnStructField("Round", "Int", false, false),
 			schema.SpawnStructField("POLRound", "Int", false, false),
