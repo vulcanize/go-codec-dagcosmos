@@ -66,7 +66,7 @@ var requiredUnpackFuncs = []func(ipld.MapAssembler, tmproto.CanonicalProposal) e
 }
 
 func unpackType(ma ipld.MapAssembler, cp tmproto.CanonicalProposal) error {
-	if err := ma.AssembleKey().AssignString("Type"); err != nil {
+	if err := ma.AssembleKey().AssignString("SMType"); err != nil {
 		return err
 	}
 	return ma.AssembleValue().AssignInt(int64(cp.Type))

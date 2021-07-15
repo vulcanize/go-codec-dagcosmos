@@ -392,7 +392,7 @@ type _Proof struct {
 // Proposal matches the IPLD Schema type "Proposal".  It has Struct type-kind, and may be interrogated like map kind.
 type Proposal = *_Proposal
 type _Proposal struct {
-	Type      _SignedMsgType
+	SMType    _SignedMsgType
 	Height    _Int
 	Round     _Int
 	POLRound  _Int
@@ -555,7 +555,7 @@ type _Version struct {
 // Vote matches the IPLD Schema type "Vote".  It has Struct type-kind, and may be interrogated like map kind.
 type Vote = *_Vote
 type _Vote struct {
-	Type             _SignedMsgType
+	SMType           _SignedMsgType
 	Height           _Int
 	Round            _Int
 	BlockID          _BlockID

@@ -68,7 +68,7 @@ var requiredPackFuncs = []func(*tmproto.CanonicalProposal, ipld.Node) error{
 }
 
 func packType(cp *tmproto.CanonicalProposal, node ipld.Node) error {
-	typeNode, err := node.LookupByString("Type")
+	typeNode, err := node.LookupByString("SMType")
 	if err != nil {
 		return err
 	}

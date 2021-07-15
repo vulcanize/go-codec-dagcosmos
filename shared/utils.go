@@ -6,9 +6,8 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/ipfs/go-cid"
-
 	gogotypes "github.com/gogo/protobuf/types"
+	"github.com/ipfs/go-cid"
 	"github.com/ipld/go-ipld-prime"
 	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
 	"github.com/multiformats/go-multihash"
@@ -17,8 +16,6 @@ import (
 	pc "github.com/tendermint/tendermint/proto/tendermint/crypto"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	"github.com/tendermint/tendermint/types"
-
-	"github.com/vulcanize/go-codec-dagcosmos/commit"
 )
 
 // PackLink returns the hash digest from a link
@@ -219,96 +216,6 @@ func UnpackValidator(vama ipld.MapAssembler, validator types.Validator) error {
 	return vama.Finish()
 }
 
-// PackCommit packs a Commit from the provided ipld.Node
-func PackCommit(commitNode ipld.Node) (*types.Commit, error) {
-	heightNode, err := commitNode.LookupByString("Height")
-	if err != nil {
-		return nil, err
-	}
-	height, err := heightNode.AsInt()
-	if err != nil {
-		return nil, err
-	}
-	roundNode, err := commitNode.LookupByString("Round")
-	if err != nil {
-		return nil, err
-	}
-	round, err := roundNode.AsInt()
-	if err != nil {
-		return nil, err
-	}
-	blockIDNode, err := commitNode.LookupByString("BlockID")
-	blockID, err := PackBlockID(blockIDNode)
-	if err != nil {
-		return nil, err
-	}
-	signaturesNode, err := commitNode.LookupByString("Signatures")
-	if err != nil {
-		return nil, err
-	}
-	signatures := make([]types.CommitSig, signaturesNode.Length())
-	signatureLI := signaturesNode.ListIterator()
-	for !signatureLI.Done() {
-		i, commitSigNode, err := signatureLI.Next()
-		if err != nil {
-			return nil, err
-		}
-		commitSig := new(types.CommitSig)
-		if err := commit.EncodeCommitSig(commitSig, commitSigNode); err != nil {
-			return nil, err
-		}
-		signatures[i] = *commitSig
-	}
-	return &types.Commit{
-		Height:     height,
-		Round:      int32(round),
-		BlockID:    blockID,
-		Signatures: signatures,
-	}, nil
-}
-
-// UnpackCommit unpacks Commit into NodeAssembler
-func UnpackCommit(cma ipld.MapAssembler, c types.Commit) error {
-	if err := cma.AssembleKey().AssignString("Height"); err != nil {
-		return err
-	}
-	if err := cma.AssembleValue().AssignInt(c.Height); err != nil {
-		return err
-	}
-	if err := cma.AssembleKey().AssignString("Round"); err != nil {
-		return err
-	}
-	if err := cma.AssembleValue().AssignInt(int64(c.Round)); err != nil {
-		return err
-	}
-	if err := cma.AssembleKey().AssignString("BlockID"); err != nil {
-		return err
-	}
-	bidMA, err := cma.AssembleValue().BeginMap(2)
-	if err != nil {
-		return err
-	}
-	if err := UnpackBlockID(bidMA, c.BlockID); err != nil {
-		return err
-	}
-	if err := cma.AssembleKey().AssignString("Signatures"); err != nil {
-		return err
-	}
-	sigsLA, err := cma.AssembleValue().BeginList(int64(len(c.Signatures)))
-	if err != nil {
-		return err
-	}
-	for _, commitSig := range c.Signatures {
-		if err := commit.DecodeCommitSig(sigsLA.AssembleValue(), commitSig); err != nil {
-			return err
-		}
-	}
-	if err := sigsLA.Finish(); err != nil {
-		return err
-	}
-	return cma.Finish()
-}
-
 // PackTime returns the timestamp from the provided ipld.Node
 func PackTime(timeNode ipld.Node) (time.Time, error) {
 	secondsNode, err := timeNode.LookupByString("Seconds")
@@ -358,7 +265,7 @@ func UnpackTime(tma ipld.MapAssembler, t time.Time) error {
 // PackVote returns the Vote from the provided ipld.Node
 func PackVote(voteNode ipld.Node) (*types.Vote, error) {
 	vote := new(types.Vote)
-	voteTypeNode, err := voteNode.LookupByString("Type")
+	voteTypeNode, err := voteNode.LookupByString("SMType")
 	if err != nil {
 		return nil, nil
 	}
@@ -442,7 +349,7 @@ func PackVote(voteNode ipld.Node) (*types.Vote, error) {
 
 // UnpackVote unpacks Vote into MapAssembler
 func UnpackVote(vma ipld.MapAssembler, vote types.Vote) error {
-	if err := vma.AssembleKey().AssignString("Type"); err != nil {
+	if err := vma.AssembleKey().AssignString("SMType"); err != nil {
 		return err
 	}
 	if err := vma.AssembleValue().AssignInt(int64(vote.Type)); err != nil {
