@@ -1,7 +1,6 @@
 package header
 
 import (
-	"encoding/binary"
 	"io"
 	"io/ioutil"
 
@@ -75,7 +74,7 @@ var requiredUnpackFuncs = []func(ipld.MapAssembler, types.Header) error{
 	unpackAppHash,
 	unpackLastResultsHash,
 	unpackEvidenceHash,
-	unpackProsperAddress,
+	unpackProposerAddress,
 }
 
 func unpackVersion(ma ipld.MapAssembler, h types.Header) error {
@@ -86,23 +85,7 @@ func unpackVersion(ma ipld.MapAssembler, h types.Header) error {
 	if err != nil {
 		return err
 	}
-	if err := vma.AssembleKey().AssignString("Block"); err != nil {
-		return err
-	}
-	blockVerBytes := make([]byte, 8)
-	binary.BigEndian.PutUint64(blockVerBytes, h.Version.Block)
-	if err := vma.AssembleValue().AssignBytes(blockVerBytes); err != nil {
-		return err
-	}
-	if err := vma.AssembleKey().AssignString("App"); err != nil {
-		return err
-	}
-	appVerBytes := make([]byte, 8)
-	binary.BigEndian.PutUint64(appVerBytes, h.Version.App)
-	if err := vma.AssembleValue().AssignBytes(appVerBytes); err != nil {
-		return err
-	}
-	return vma.Finish()
+	return shared.UnpackVersion(vma, h.Version)
 }
 
 func unpackChainID(ma ipld.MapAssembler, h types.Header) error {
@@ -159,7 +142,7 @@ func unpackDataHash(ma ipld.MapAssembler, h types.Header) error {
 	if err := ma.AssembleKey().AssignString("DataHash"); err != nil {
 		return err
 	}
-	dataMh, err := multihash.Encode(h.LastCommitHash, MultiHashType)
+	dataMh, err := multihash.Encode(h.DataHash, MultiHashType)
 	if err != nil {
 		return err
 	}
@@ -173,7 +156,7 @@ func unpackValidatorsHash(ma ipld.MapAssembler, h types.Header) error {
 	if err := ma.AssembleKey().AssignString("ValidatorsHash"); err != nil {
 		return err
 	}
-	valMh, err := multihash.Encode(h.LastCommitHash, MultiHashType)
+	valMh, err := multihash.Encode(h.ValidatorsHash, MultiHashType)
 	if err != nil {
 		return err
 	}
@@ -187,7 +170,7 @@ func unpackNextValidatorsHash(ma ipld.MapAssembler, h types.Header) error {
 	if err := ma.AssembleKey().AssignString("NextValidatorsHash"); err != nil {
 		return err
 	}
-	valMh, err := multihash.Encode(h.LastCommitHash, MultiHashType)
+	valMh, err := multihash.Encode(h.NextValidatorsHash, MultiHashType)
 	if err != nil {
 		return err
 	}
@@ -201,7 +184,7 @@ func unpackConsensusHash(ma ipld.MapAssembler, h types.Header) error {
 	if err := ma.AssembleKey().AssignString("ConsensusHash"); err != nil {
 		return err
 	}
-	conMh, err := multihash.Encode(h.LastCommitHash, MultiHashType)
+	conMh, err := multihash.Encode(h.ConsensusHash, MultiHashType)
 	if err != nil {
 		return err
 	}
@@ -215,7 +198,7 @@ func unpackAppHash(ma ipld.MapAssembler, h types.Header) error {
 	if err := ma.AssembleKey().AssignString("AppHash"); err != nil {
 		return err
 	}
-	appMh, err := multihash.Encode(h.LastCommitHash, MultiHashType)
+	appMh, err := multihash.Encode(h.AppHash, MultiHashType)
 	if err != nil {
 		return err
 	}
@@ -229,7 +212,7 @@ func unpackLastResultsHash(ma ipld.MapAssembler, h types.Header) error {
 	if err := ma.AssembleKey().AssignString("LastResultsHash"); err != nil {
 		return err
 	}
-	lrMh, err := multihash.Encode(h.LastCommitHash, MultiHashType)
+	lrMh, err := multihash.Encode(h.LastResultsHash, MultiHashType)
 	if err != nil {
 		return err
 	}
@@ -243,7 +226,7 @@ func unpackEvidenceHash(ma ipld.MapAssembler, h types.Header) error {
 	if err := ma.AssembleKey().AssignString("EvidenceHash"); err != nil {
 		return err
 	}
-	eMh, err := multihash.Encode(h.LastCommitHash, MultiHashType)
+	eMh, err := multihash.Encode(h.EvidenceHash, MultiHashType)
 	if err != nil {
 		return err
 	}
@@ -253,8 +236,8 @@ func unpackEvidenceHash(ma ipld.MapAssembler, h types.Header) error {
 	return ma.AssembleValue().AssignLink(eLinkCID)
 }
 
-func unpackProsperAddress(ma ipld.MapAssembler, h types.Header) error {
-	if err := ma.AssembleKey().AssignString("ProsperAddress"); err != nil {
+func unpackProposerAddress(ma ipld.MapAssembler, h types.Header) error {
+	if err := ma.AssembleKey().AssignString("ProposerAddress"); err != nil {
 		return err
 	}
 	return ma.AssembleValue().AssignBytes(h.ProposerAddress)

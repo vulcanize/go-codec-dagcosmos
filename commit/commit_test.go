@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/ipld/go-ipld-prime"
-	tmBytes "github.com/tendermint/tendermint/libs/bytes"
 	"github.com/tendermint/tendermint/types"
 
 	dagcosmos "github.com/vulcanize/go-codec-dagcosmos"
@@ -15,7 +14,7 @@ import (
 )
 
 var (
-	valAddr       = tmBytes.HexBytes([]byte{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20})
+	valAddr       = shared.RandomAddr()
 	sig           = []byte("mockSignatureBytes")
 	timestamp     = time.Now()
 	blockIDFlag   = types.BlockIDFlag(2)
@@ -123,6 +122,6 @@ func testCommitSigEncode(t *testing.T) {
 	}
 	encodedCommitSigBytes := commitSigWriter.Bytes()
 	if !bytes.Equal(encodedCommitSigBytes, commitSigEncoding) {
-
+		t.Errorf("commit sig encoding (%x) does not match the expected encoding (%x)", encodedCommitSigBytes, commitSigEncoding)
 	}
 }
