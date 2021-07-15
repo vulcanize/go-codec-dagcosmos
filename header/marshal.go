@@ -1,14 +1,12 @@
 package header
 
 import (
-	"encoding/binary"
 	"fmt"
 	"io"
 
 	"github.com/vulcanize/go-codec-dagcosmos/shared"
 
 	"github.com/ipld/go-ipld-prime"
-	tmversion "github.com/tendermint/tendermint/proto/tendermint/version"
 	"github.com/tendermint/tendermint/types"
 
 	dagcosmos "github.com/vulcanize/go-codec-dagcosmos"
@@ -75,7 +73,7 @@ var requiredPackFuncs = []func(*types.Header, ipld.Node) error{
 	packAppHash,
 	packLastResultsHash,
 	packEvidenceHash,
-	packProsperAddress,
+	packProposerAddress,
 }
 
 func packVersion(h *types.Header, node ipld.Node) error {
@@ -83,26 +81,11 @@ func packVersion(h *types.Header, node ipld.Node) error {
 	if err != nil {
 		return err
 	}
-	blockVersionNode, err := versionNode.LookupByString("Block")
+	version, err := shared.PackVersion(versionNode)
 	if err != nil {
 		return err
 	}
-	blockVersionBytes, err := blockVersionNode.AsBytes()
-	if err != nil {
-		return err
-	}
-	appVersionNode, err := versionNode.LookupByString("App")
-	if err != nil {
-		return err
-	}
-	appVersionBytes, err := appVersionNode.AsBytes()
-	if err != nil {
-		return err
-	}
-	h.Version = tmversion.Consensus{
-		Block: binary.BigEndian.Uint64(blockVersionBytes),
-		App:   binary.BigEndian.Uint64(appVersionBytes),
-	}
+	h.Version = version
 	return nil
 }
 
@@ -262,8 +245,8 @@ func packEvidenceHash(h *types.Header, node ipld.Node) error {
 	return nil
 }
 
-func packProsperAddress(h *types.Header, node ipld.Node) error {
-	propserAddrNode, err := node.LookupByString("ProsperAddress")
+func packProposerAddress(h *types.Header, node ipld.Node) error {
+	propserAddrNode, err := node.LookupByString("ProposerAddress")
 	if err != nil {
 		return err
 	}

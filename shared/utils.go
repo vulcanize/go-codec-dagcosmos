@@ -6,13 +6,14 @@ import (
 	"reflect"
 	"time"
 
+	tmversion "github.com/tendermint/tendermint/proto/tendermint/version"
+
 	gogotypes "github.com/gogo/protobuf/types"
 	"github.com/ipfs/go-cid"
 	"github.com/ipld/go-ipld-prime"
 	cidlink "github.com/ipld/go-ipld-prime/linking/cid"
 	"github.com/multiformats/go-multihash"
 	"github.com/tendermint/tendermint/crypto/encoding"
-	"github.com/tendermint/tendermint/libs/bytes"
 	pc "github.com/tendermint/tendermint/proto/tendermint/crypto"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	"github.com/tendermint/tendermint/types"
@@ -408,44 +409,49 @@ func UnpackVote(vma ipld.MapAssembler, vote types.Vote) error {
 	return vma.Finish()
 }
 
-// CdcEncode returns nil if the input is nil, otherwise returns
-// proto.Marshal(<type>Value{Value: item})
-func CdcEncode(item interface{}) []byte {
-	if item != nil && !IsTypedNil(item) && !IsEmpty(item) {
-		switch item := item.(type) {
-		case string:
-			i := gogotypes.StringValue{
-				Value: item,
-			}
-			bz, err := i.Marshal()
-			if err != nil {
-				return nil
-			}
-			return bz
-		case int64:
-			i := gogotypes.Int64Value{
-				Value: item,
-			}
-			bz, err := i.Marshal()
-			if err != nil {
-				return nil
-			}
-			return bz
-		case bytes.HexBytes:
-			i := gogotypes.BytesValue{
-				Value: item,
-			}
-			bz, err := i.Marshal()
-			if err != nil {
-				return nil
-			}
-			return bz
-		default:
-			return nil
-		}
+// PackVersion returns the Consensus Version from the provided ipld.Node
+func PackVersion(versionNode ipld.Node) (tmversion.Consensus, error) {
+	blockVersionNode, err := versionNode.LookupByString("Block")
+	if err != nil {
+		return tmversion.Consensus{}, err
 	}
+	blockVersionBytes, err := blockVersionNode.AsBytes()
+	if err != nil {
+		return tmversion.Consensus{}, err
+	}
+	appVersionNode, err := versionNode.LookupByString("App")
+	if err != nil {
+		return tmversion.Consensus{}, err
+	}
+	appVersionBytes, err := appVersionNode.AsBytes()
+	if err != nil {
+		return tmversion.Consensus{}, err
+	}
+	return tmversion.Consensus{
+		Block: binary.BigEndian.Uint64(blockVersionBytes),
+		App:   binary.BigEndian.Uint64(appVersionBytes),
+	}, nil
+}
 
-	return nil
+// UnpackVersion unpacks Consensus Version into MapAssembler
+func UnpackVersion(vma ipld.MapAssembler, version tmversion.Consensus) error {
+	if err := vma.AssembleKey().AssignString("Block"); err != nil {
+		return err
+	}
+	blockVerBytes := make([]byte, 8)
+	binary.BigEndian.PutUint64(blockVerBytes, version.Block)
+	if err := vma.AssembleValue().AssignBytes(blockVerBytes); err != nil {
+		return err
+	}
+	if err := vma.AssembleKey().AssignString("App"); err != nil {
+		return err
+	}
+	appVerBytes := make([]byte, 8)
+	binary.BigEndian.PutUint64(appVerBytes, version.App)
+	if err := vma.AssembleValue().AssignBytes(appVerBytes); err != nil {
+		return err
+	}
+	return vma.Finish()
 }
 
 // IsTypedNil return true if a value is nil
