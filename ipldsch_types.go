@@ -501,10 +501,10 @@ type _Uint struct{ x []byte }
 // Validator matches the IPLD Schema type "Validator".  It has Struct type-kind, and may be interrogated like map kind.
 type Validator = *_Validator
 type _Validator struct {
-	Address         _Address
-	PubKey          _PubKey
-	VotingPower     _Int
-	ProsperPriority _Int
+	Address          _Address
+	PubKey           _PubKey
+	VotingPower      _Int
+	ProposerPriority _Int
 }
 
 // ValidatorSet matches the IPLD Schema type "ValidatorSet".  It has Struct type-kind, and may be interrogated like map kind.

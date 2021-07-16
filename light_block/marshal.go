@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io"
 
+	commit2 "github.com/vulcanize/go-codec-dagcosmos/commit"
+
 	"github.com/ipld/go-ipld-prime"
 	"github.com/tendermint/tendermint/types"
 
@@ -78,12 +80,13 @@ func packSignedHeader(lb *types.LightBlock, node ipld.Node) error {
 	if err := header.EncodeHeader(h, hNode); err != nil {
 		return err
 	}
+	lb.SignedHeader = new(types.SignedHeader)
 	lb.SignedHeader.Header = h
 	commitNode, err := shNode.LookupByString("Commit")
 	if err != nil {
 		return err
 	}
-	commit, err := shared.PackCommit(commitNode)
+	commit, err := commit2.PackCommit(commitNode)
 	if err != nil {
 		return err
 	}
@@ -113,6 +116,7 @@ func packValidatorSet(lb *types.LightBlock, node ipld.Node) error {
 		}
 		validators[i] = validator
 	}
+	lb.ValidatorSet = new(types.ValidatorSet)
 	lb.ValidatorSet.Validators = validators
 	proposerNode, err := vSetNode.LookupByString("Proposer")
 	if err != nil {

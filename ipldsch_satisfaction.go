@@ -8080,11 +8080,11 @@ func (ma *_Evidence__Assembler) AssembleValue() ipld.NodeAssembler {
 	}
 	ma.state = maState_midValue
 	switch ma.ca {
-	case 0:
+	case 1:
 		ma.ca1.w = &ma.w.x1
 		ma.ca1.m = &ma.cm
 		return &ma.ca1
-	case 1:
+	case 2:
 		ma.ca2.w = &ma.w.x2
 		ma.ca2.m = &ma.cm
 		return &ma.ca2
@@ -36719,8 +36719,8 @@ func (n _Validator) FieldPubKey() PubKey {
 func (n _Validator) FieldVotingPower() Int {
 	return &n.VotingPower
 }
-func (n _Validator) FieldProsperPriority() Int {
-	return &n.ProsperPriority
+func (n _Validator) FieldProposerPriority() Int {
+	return &n.ProposerPriority
 }
 
 type _Validator__Maybe struct {
@@ -36758,10 +36758,10 @@ func (m MaybeValidator) Must() Validator {
 }
 
 var (
-	fieldName__Validator_Address         = _String{"Address"}
-	fieldName__Validator_PubKey          = _String{"PubKey"}
-	fieldName__Validator_VotingPower     = _String{"VotingPower"}
-	fieldName__Validator_ProsperPriority = _String{"ProsperPriority"}
+	fieldName__Validator_Address          = _String{"Address"}
+	fieldName__Validator_PubKey           = _String{"PubKey"}
+	fieldName__Validator_VotingPower      = _String{"VotingPower"}
+	fieldName__Validator_ProposerPriority = _String{"ProposerPriority"}
 )
 var _ ipld.Node = (Validator)(&_Validator{})
 var _ schema.TypedNode = (Validator)(&_Validator{})
@@ -36777,8 +36777,8 @@ func (n Validator) LookupByString(key string) (ipld.Node, error) {
 		return &n.PubKey, nil
 	case "VotingPower":
 		return &n.VotingPower, nil
-	case "ProsperPriority":
-		return &n.ProsperPriority, nil
+	case "ProposerPriority":
+		return &n.ProposerPriority, nil
 	default:
 		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
 	}
@@ -36820,8 +36820,8 @@ func (itr *_Validator__MapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
 		k = &fieldName__Validator_VotingPower
 		v = &itr.n.VotingPower
 	case 3:
-		k = &fieldName__Validator_ProsperPriority
-		v = &itr.n.ProsperPriority
+		k = &fieldName__Validator_ProposerPriority
+		v = &itr.n.ProposerPriority
 	default:
 		panic("unreachable")
 	}
@@ -36897,11 +36897,11 @@ type _Validator__Assembler struct {
 	s     int
 	f     int
 
-	cm                 schema.Maybe
-	ca_Address         _Address__Assembler
-	ca_PubKey          _PubKey__Assembler
-	ca_VotingPower     _Int__Assembler
-	ca_ProsperPriority _Int__Assembler
+	cm                  schema.Maybe
+	ca_Address          _Address__Assembler
+	ca_PubKey           _PubKey__Assembler
+	ca_VotingPower      _Int__Assembler
+	ca_ProposerPriority _Int__Assembler
 }
 
 func (na *_Validator__Assembler) reset() {
@@ -36910,15 +36910,15 @@ func (na *_Validator__Assembler) reset() {
 	na.ca_Address.reset()
 	na.ca_PubKey.reset()
 	na.ca_VotingPower.reset()
-	na.ca_ProsperPriority.reset()
+	na.ca_ProposerPriority.reset()
 }
 
 var (
-	fieldBit__Validator_Address         = 1 << 0
-	fieldBit__Validator_PubKey          = 1 << 1
-	fieldBit__Validator_VotingPower     = 1 << 2
-	fieldBit__Validator_ProsperPriority = 1 << 3
-	fieldBits__Validator_sufficient     = 0 + 1<<0 + 1<<1 + 1<<2 + 1<<3
+	fieldBit__Validator_Address          = 1 << 0
+	fieldBit__Validator_PubKey           = 1 << 1
+	fieldBit__Validator_VotingPower      = 1 << 2
+	fieldBit__Validator_ProposerPriority = 1 << 3
+	fieldBits__Validator_sufficient      = 0 + 1<<0 + 1<<1 + 1<<2 + 1<<3
 )
 
 func (na *_Validator__Assembler) BeginMap(int64) (ipld.MapAssembler, error) {
@@ -37045,7 +37045,7 @@ func (ma *_Validator__Assembler) valueFinishTidy() bool {
 	case 3:
 		switch ma.cm {
 		case schema.Maybe_Value:
-			ma.ca_ProsperPriority.w = nil
+			ma.ca_ProposerPriority.w = nil
 			ma.cm = schema.Maybe_Absent
 			ma.state = maState_initial
 			return true
@@ -37102,16 +37102,16 @@ func (ma *_Validator__Assembler) AssembleEntry(k string) (ipld.NodeAssembler, er
 		ma.ca_VotingPower.w = &ma.w.VotingPower
 		ma.ca_VotingPower.m = &ma.cm
 		return &ma.ca_VotingPower, nil
-	case "ProsperPriority":
-		if ma.s&fieldBit__Validator_ProsperPriority != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Validator_ProsperPriority}
+	case "ProposerPriority":
+		if ma.s&fieldBit__Validator_ProposerPriority != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Validator_ProposerPriority}
 		}
-		ma.s += fieldBit__Validator_ProsperPriority
+		ma.s += fieldBit__Validator_ProposerPriority
 		ma.state = maState_midValue
 		ma.f = 3
-		ma.ca_ProsperPriority.w = &ma.w.ProsperPriority
-		ma.ca_ProsperPriority.m = &ma.cm
-		return &ma.ca_ProsperPriority, nil
+		ma.ca_ProposerPriority.w = &ma.w.ProposerPriority
+		ma.ca_ProposerPriority.m = &ma.cm
+		return &ma.ca_ProposerPriority, nil
 	}
 	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.Validator", Key: &_String{k}}
 }
@@ -37161,9 +37161,9 @@ func (ma *_Validator__Assembler) AssembleValue() ipld.NodeAssembler {
 		ma.ca_VotingPower.m = &ma.cm
 		return &ma.ca_VotingPower
 	case 3:
-		ma.ca_ProsperPriority.w = &ma.w.ProsperPriority
-		ma.ca_ProsperPriority.m = &ma.cm
-		return &ma.ca_ProsperPriority
+		ma.ca_ProposerPriority.w = &ma.w.ProposerPriority
+		ma.ca_ProposerPriority.m = &ma.cm
+		return &ma.ca_ProposerPriority
 	default:
 		panic("unreachable")
 	}
@@ -37194,8 +37194,8 @@ func (ma *_Validator__Assembler) Finish() error {
 		if ma.s&fieldBit__Validator_VotingPower == 0 {
 			err.Missing = append(err.Missing, "VotingPower")
 		}
-		if ma.s&fieldBit__Validator_ProsperPriority == 0 {
-			err.Missing = append(err.Missing, "ProsperPriority")
+		if ma.s&fieldBit__Validator_ProposerPriority == 0 {
+			err.Missing = append(err.Missing, "ProposerPriority")
 		}
 		return err
 	}
@@ -37256,11 +37256,11 @@ func (ka *_Validator__KeyAssembler) AssignString(k string) error {
 		ka.s += fieldBit__Validator_VotingPower
 		ka.state = maState_expectValue
 		ka.f = 2
-	case "ProsperPriority":
-		if ka.s&fieldBit__Validator_ProsperPriority != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__Validator_ProsperPriority}
+	case "ProposerPriority":
+		if ka.s&fieldBit__Validator_ProposerPriority != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__Validator_ProposerPriority}
 		}
-		ka.s += fieldBit__Validator_ProsperPriority
+		ka.s += fieldBit__Validator_ProposerPriority
 		ka.state = maState_expectValue
 		ka.f = 3
 	default:
@@ -37294,10 +37294,10 @@ func (n Validator) Representation() ipld.Node {
 type _Validator__Repr _Validator
 
 var (
-	fieldName__Validator_Address_serial         = _String{"Address"}
-	fieldName__Validator_PubKey_serial          = _String{"PubKey"}
-	fieldName__Validator_VotingPower_serial     = _String{"VotingPower"}
-	fieldName__Validator_ProsperPriority_serial = _String{"ProsperPriority"}
+	fieldName__Validator_Address_serial          = _String{"Address"}
+	fieldName__Validator_PubKey_serial           = _String{"PubKey"}
+	fieldName__Validator_VotingPower_serial      = _String{"VotingPower"}
+	fieldName__Validator_ProposerPriority_serial = _String{"ProposerPriority"}
 )
 var _ ipld.Node = &_Validator__Repr{}
 
@@ -37312,8 +37312,8 @@ func (n *_Validator__Repr) LookupByString(key string) (ipld.Node, error) {
 		return n.PubKey.Representation(), nil
 	case "VotingPower":
 		return n.VotingPower.Representation(), nil
-	case "ProsperPriority":
-		return n.ProsperPriority.Representation(), nil
+	case "ProposerPriority":
+		return n.ProposerPriority.Representation(), nil
 	default:
 		return nil, schema.ErrNoSuchField{Type: nil /*TODO*/, Field: ipld.PathSegmentOfString(key)}
 	}
@@ -37355,8 +37355,8 @@ func (itr *_Validator__ReprMapItr) Next() (k ipld.Node, v ipld.Node, _ error) {
 		k = &fieldName__Validator_VotingPower_serial
 		v = itr.n.VotingPower.Representation()
 	case 3:
-		k = &fieldName__Validator_ProsperPriority_serial
-		v = itr.n.ProsperPriority.Representation()
+		k = &fieldName__Validator_ProposerPriority_serial
+		v = itr.n.ProposerPriority.Representation()
 	default:
 		panic("unreachable")
 	}
@@ -37432,11 +37432,11 @@ type _Validator__ReprAssembler struct {
 	s     int
 	f     int
 
-	cm                 schema.Maybe
-	ca_Address         _Address__ReprAssembler
-	ca_PubKey          _PubKey__ReprAssembler
-	ca_VotingPower     _Int__ReprAssembler
-	ca_ProsperPriority _Int__ReprAssembler
+	cm                  schema.Maybe
+	ca_Address          _Address__ReprAssembler
+	ca_PubKey           _PubKey__ReprAssembler
+	ca_VotingPower      _Int__ReprAssembler
+	ca_ProposerPriority _Int__ReprAssembler
 }
 
 func (na *_Validator__ReprAssembler) reset() {
@@ -37445,7 +37445,7 @@ func (na *_Validator__ReprAssembler) reset() {
 	na.ca_Address.reset()
 	na.ca_PubKey.reset()
 	na.ca_VotingPower.reset()
-	na.ca_ProsperPriority.reset()
+	na.ca_ProposerPriority.reset()
 }
 func (na *_Validator__ReprAssembler) BeginMap(int64) (ipld.MapAssembler, error) {
 	switch *na.m {
@@ -37624,16 +37624,16 @@ func (ma *_Validator__ReprAssembler) AssembleEntry(k string) (ipld.NodeAssembler
 		ma.ca_VotingPower.w = &ma.w.VotingPower
 		ma.ca_VotingPower.m = &ma.cm
 		return &ma.ca_VotingPower, nil
-	case "ProsperPriority":
-		if ma.s&fieldBit__Validator_ProsperPriority != 0 {
-			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Validator_ProsperPriority_serial}
+	case "ProposerPriority":
+		if ma.s&fieldBit__Validator_ProposerPriority != 0 {
+			return nil, ipld.ErrRepeatedMapKey{Key: &fieldName__Validator_ProposerPriority_serial}
 		}
-		ma.s += fieldBit__Validator_ProsperPriority
+		ma.s += fieldBit__Validator_ProposerPriority
 		ma.state = maState_midValue
 		ma.f = 3
-		ma.ca_ProsperPriority.w = &ma.w.ProsperPriority
-		ma.ca_ProsperPriority.m = &ma.cm
-		return &ma.ca_ProsperPriority, nil
+		ma.ca_ProposerPriority.w = &ma.w.ProposerPriority
+		ma.ca_ProposerPriority.m = &ma.cm
+		return &ma.ca_ProposerPriority, nil
 	default:
 	}
 	return nil, ipld.ErrInvalidKey{TypeName: "dagcosmos.Validator.Repr", Key: &_String{k}}
@@ -37684,9 +37684,9 @@ func (ma *_Validator__ReprAssembler) AssembleValue() ipld.NodeAssembler {
 		ma.ca_VotingPower.m = &ma.cm
 		return &ma.ca_VotingPower
 	case 3:
-		ma.ca_ProsperPriority.w = &ma.w.ProsperPriority
-		ma.ca_ProsperPriority.m = &ma.cm
-		return &ma.ca_ProsperPriority
+		ma.ca_ProposerPriority.w = &ma.w.ProposerPriority
+		ma.ca_ProposerPriority.m = &ma.cm
+		return &ma.ca_ProposerPriority
 	default:
 		panic("unreachable")
 	}
@@ -37717,8 +37717,8 @@ func (ma *_Validator__ReprAssembler) Finish() error {
 		if ma.s&fieldBit__Validator_VotingPower == 0 {
 			err.Missing = append(err.Missing, "VotingPower")
 		}
-		if ma.s&fieldBit__Validator_ProsperPriority == 0 {
-			err.Missing = append(err.Missing, "ProsperPriority")
+		if ma.s&fieldBit__Validator_ProposerPriority == 0 {
+			err.Missing = append(err.Missing, "ProposerPriority")
 		}
 		return err
 	}
@@ -37782,11 +37782,11 @@ func (ka *_Validator__ReprKeyAssembler) AssignString(k string) error {
 		ka.state = maState_expectValue
 		ka.f = 2
 		return nil
-	case "ProsperPriority":
-		if ka.s&fieldBit__Validator_ProsperPriority != 0 {
-			return ipld.ErrRepeatedMapKey{Key: &fieldName__Validator_ProsperPriority_serial}
+	case "ProposerPriority":
+		if ka.s&fieldBit__Validator_ProposerPriority != 0 {
+			return ipld.ErrRepeatedMapKey{Key: &fieldName__Validator_ProposerPriority_serial}
 		}
-		ka.s += fieldBit__Validator_ProsperPriority
+		ka.s += fieldBit__Validator_ProposerPriority
 		ka.state = maState_expectValue
 		ka.f = 3
 		return nil
