@@ -250,7 +250,7 @@ func testDuplicateVoteEvidenceNodeContents(t *testing.T) {
 		t.Fatalf("duplicate vote evidence unable to encode VoteA: %v", err)
 	}
 	if !bytes.Equal(gotVoteAEncoding, voteAEncoding) {
-		t.Errorf("duplicate vote evidence VoteA (%x) does not match expected VoteA (%x)", gotVoteAEncoding, voteAEncoding)
+		t.Errorf("duplicate vote evidence VoteA (%+v) does not match expected VoteA (%+v)", gotVoteA, voteA)
 	}
 
 	voteBNode, err := dupEvidenceNode.LookupByString("VoteB")
@@ -267,7 +267,7 @@ func testDuplicateVoteEvidenceNodeContents(t *testing.T) {
 		t.Fatalf("duplicate vote evidence unable to encode VoteB: %v", err)
 	}
 	if !bytes.Equal(gotVoteBEncoding, voteBEncoding) {
-		t.Errorf("duplicate vote evidence VoteB (%x) does not match expected VoteB (%x)", gotVoteBEncoding, voteBEncoding)
+		t.Errorf("duplicate vote evidence VoteB (%+v) does not match expected VoteB (%+v)", gotVoteB, voteB)
 	}
 
 	totalVotingPowerNode, err := dupEvidenceNode.LookupByString("TotalVotingPower")
