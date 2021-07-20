@@ -444,7 +444,7 @@ func accumulateChainTypes(ts *schema.TypeSystem) {
 			schema.SpawnStructField("Address", "Address", false, false),
 			schema.SpawnStructField("PubKey", "PubKey", false, false),
 			schema.SpawnStructField("VotingPower", "Int", false, false),
-			schema.SpawnStructField("ProsperPriority", "Int", false, false),
+			schema.SpawnStructField("ProposerPriority", "Int", false, false),
 		},
 		schema.SpawnStructRepresentationMap(nil),
 	))

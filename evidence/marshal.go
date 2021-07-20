@@ -15,8 +15,8 @@ import (
 type EvidenceKind string
 
 const (
-	LIGHT_EVIDENCE     EvidenceKind = "light"
-	DUPLICATE_EVIDENCE EvidenceKind = "duplicate"
+	LIGHT_EVIDENCE     EvidenceKind = "LightClientAttackEvidence"
+	DUPLICATE_EVIDENCE EvidenceKind = "DuplicateVoteEvidence"
 )
 
 func (n EvidenceKind) String() string {

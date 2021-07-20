@@ -4,6 +4,8 @@ import (
 	"io"
 	"io/ioutil"
 
+	"github.com/vulcanize/go-codec-dagcosmos/commit"
+
 	"github.com/ipld/go-ipld-prime"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	"github.com/tendermint/tendermint/types"
@@ -84,7 +86,7 @@ func unpackSignedHeader(ma ipld.MapAssembler, lb types.LightBlock) error {
 	if err != nil {
 		return err
 	}
-	if err := shared.UnpackCommit(commitMA, *lb.Commit); err != nil {
+	if err := commit.UnpackCommit(commitMA, *lb.Commit); err != nil {
 		return err
 	}
 	return shMA.Finish()
@@ -115,6 +117,16 @@ func unpackValidatorSet(ma ipld.MapAssembler, lb types.LightBlock) error {
 		}
 	}
 	if err := valsLA.Finish(); err != nil {
+		return err
+	}
+	if err := valSetMA.AssembleKey().AssignString("Proposer"); err != nil {
+		return err
+	}
+	proposerMA, err := valSetMA.AssembleValue().BeginMap(4)
+	if err != nil {
+		return err
+	}
+	if err := shared.UnpackValidator(proposerMA, *lb.ValidatorSet.Proposer); err != nil {
 		return err
 	}
 	return valSetMA.Finish()

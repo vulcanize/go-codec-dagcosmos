@@ -54,28 +54,48 @@ func DecodeBytes(na ipld.NodeAssembler, src []byte) error {
 
 // DecodeLightEvidence is like Decode, but it uses an input tendermint LightClientAttackEvidence type
 func DecodeLightEvidence(na ipld.NodeAssembler, e types.LightClientAttackEvidence) error {
-	ma, err := na.BeginMap(5)
+	ma, err := na.BeginMap(1)
+	if err != nil {
+		return err
+	}
+	if err := ma.AssembleKey().AssignString(LIGHT_EVIDENCE.String()); err != nil {
+		return err
+	}
+	lcaeMA, err := ma.AssembleValue().BeginMap(5)
 	if err != nil {
 		return err
 	}
 	for _, upFunc := range leRequiredUnpackFuncs {
-		if err := upFunc(ma, e); err != nil {
+		if err := upFunc(lcaeMA, e); err != nil {
 			return err
 		}
+	}
+	if err := lcaeMA.Finish(); err != nil {
+		return err
 	}
 	return ma.Finish()
 }
 
 // DecodeDuplicateEvidence is like Decode, but it uses an input tendermint DuplicateVoteEvidence type
 func DecodeDuplicateEvidence(na ipld.NodeAssembler, e types.DuplicateVoteEvidence) error {
-	ma, err := na.BeginMap(5)
+	ma, err := na.BeginMap(1)
+	if err != nil {
+		return err
+	}
+	if err := ma.AssembleKey().AssignString(DUPLICATE_EVIDENCE.String()); err != nil {
+		return err
+	}
+	dleMA, err := ma.AssembleValue().BeginMap(5)
 	if err != nil {
 		return err
 	}
 	for _, upFunc := range deRequiredUnpackFuncs {
-		if err := upFunc(ma, e); err != nil {
+		if err := upFunc(dleMA, e); err != nil {
 			return err
 		}
+	}
+	if err := dleMA.Finish(); err != nil {
+		return err
 	}
 	return ma.Finish()
 }
