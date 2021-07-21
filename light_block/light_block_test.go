@@ -274,7 +274,7 @@ func testLightBlockNodeContents(t *testing.T) {
 func testLightBlockEncode(t *testing.T) {
 	lbWriter := new(bytes.Buffer)
 	if err := light_block.Encode(lightBlockNode, lbWriter); err != nil {
-		t.Fatalf("unable to encode light client attack evidence into writer: %v", err)
+		t.Fatalf("unable to encode light block into writer: %v", err)
 	}
 	encodedLightBlock := lbWriter.Bytes()
 	if !bytes.Equal(encodedLightBlock, lightBlockEncoding) {

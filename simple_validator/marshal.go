@@ -41,7 +41,7 @@ func AppendEncode(enc []byte, inNode ipld.Node) ([]byte, error) {
 
 // EncodeSimpleValidator is like Encode, but it writes to a tendermint SimpleValidator object
 func EncodeSimpleValidator(sv *types.SimpleValidator, inNode ipld.Node) error {
-	builder := dagcosmos.Type.Validator.NewBuilder()
+	builder := dagcosmos.Type.SimpleValidator.NewBuilder()
 	if err := builder.AssignNode(inNode); err != nil {
 		return err
 	}
