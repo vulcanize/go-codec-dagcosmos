@@ -4,9 +4,8 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/tendermint/tendermint/libs/protoio"
-
 	"github.com/ipld/go-ipld-prime"
+	"github.com/tendermint/tendermint/libs/protoio"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	"github.com/tendermint/tendermint/types"
 
@@ -43,7 +42,7 @@ func DecodeBytes(na ipld.NodeAssembler, src []byte) error {
 
 // DecodeCanonicalProposal is like Decode, but it uses an input tendermint CanonicalProposal type
 func DecodeCanonicalProposal(na ipld.NodeAssembler, cs tmproto.CanonicalProposal) error {
-	ma, err := na.BeginMap(4)
+	ma, err := na.BeginMap(7)
 	if err != nil {
 		return err
 	}

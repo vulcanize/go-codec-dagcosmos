@@ -44,7 +44,7 @@ func AppendEncode(enc []byte, inNode ipld.Node) ([]byte, error) {
 // EncodeCanonicalProposal is like Encode, but it uses a destination CanonicalProposal protobuf type
 func EncodeCanonicalProposal(cs *tmproto.CanonicalProposal, inNode ipld.Node) error {
 	// Wrap in a typed node for some basic schema form checking
-	builder := dagcosmos.Type.Header.NewBuilder()
+	builder := dagcosmos.Type.Proposal.NewBuilder()
 	if err := builder.AssignNode(inNode); err != nil {
 		return err
 	}

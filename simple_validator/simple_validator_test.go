@@ -4,11 +4,10 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/tendermint/tendermint/proto/tendermint/crypto"
-
 	"github.com/ipld/go-ipld-prime"
 	"github.com/tendermint/tendermint/crypto/ed25519"
 	ce "github.com/tendermint/tendermint/crypto/encoding"
+	"github.com/tendermint/tendermint/proto/tendermint/crypto"
 	"github.com/tendermint/tendermint/proto/tendermint/types"
 
 	dagcosmos "github.com/vulcanize/go-codec-dagcosmos"
